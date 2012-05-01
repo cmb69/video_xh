@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="content-language" content="en">
+<title>Video_XH - Manual</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Video_XH - a CMSimple_XH Plugin</h1>
+<img src="../video.png" width="128" height="128" alt="Plugin Icon" style="display: block; float: left; margin: 0 16px -16px 0">
+<p>Video_XH facilitates presenting videos on a CMSimple site.
+It uses the HTML5 video element wherever possible,
+and provides a fallback to flash video.
+The supported video formats depend on the browser resp. the flash player.</p>
+
+<ul id="nav">
+<li><a href="#notice">Important Notice</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#usage">Usage</a>
+<!--<ul>
+<li><a href="#usage-explicit">Explicit Mode</a></li>
+<li><a href="#usage-inline">Inline Mode</a></li>
+</ul>
+--></li>
+<!--<li><a href="#limitations">Limitations</a></li>-->
+<li><a href="#license">License</a></li>
+<li><a href="#credits">Credits</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Please do read this documentation!
+It's generally a good idea to read the documentation,
+<em>before</em> you encounter any problems!</strong></p>
+
+<h2><a name="notice">Important Notice</a></h2>
+<p><strong>Video_XH couldn't be tested so far in various environments.
+It is a so called BETA version. Use with caution!</strong></p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="requirements">Requirements</a></h2>
+<p>Video_XH is a plugin for CMSimple_XH.
+It requires a UTF-8 encoded version.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="installation">Installation</a></h2>
+<p>The installation is done as with many other CMSimple_XH plugins.
+See the <a href="http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:plugins:installation">
+CMSimple_XH wiki</a> for further details.</p>
+<ol>
+<li><strong>Backup the data on your server.</strong></li>
+<li>Unzip the distribution on your computer.</li>
+<li>Upload the whole directory video/ to your server into the CMSimple_XH plugins directory.</li>
+<li>Set write permissions for the subdirectories config/, css/ and languages/.</li>
+<li><strong>Switch to "Video" in the back-end to check if all requirements are fulfilled.</strong></li>
+</ol>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="settings">Settings</a></h2>
+<p>The plugin's configuration is done as with many other
+CMSimple_XH plugins in the website's back-end.
+Select "Video" from "Plugins".</p>
+<p>You can change the default settings of Video_XH in "Plugin Config".
+Hints for the options will be displayed
+when hovering over the help icon with your mouse.</p>
+<p>Localization is done in "Plugin Language".
+You can translate the character strings to your own language,
+or customize them according to your needs.</p>
+<p>The look of Video_XH can be customized in "Plugin Stylesheet".</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="usage">Usage</a></h2>
+<p>As Video_XH provides no such possibility,
+you have to upload your video files to the configured video folder via FTP,
+a file browser or <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>.
+Supported video formats are MP4 (AVC Baseline@L3.0/AAC), WebM and Ogg.
+To support all major browsers you should upload a *.mp4
+and <em>and</em> a *.webm/.ogg version of the video.
+Additionally you might want to upload a "poster" to the same folder,
+i.e. an image, that will be displayed before the video is started, in JPEG format (*.jpg).</p>
+
+<p>To display a video on a CMSimple page insert the following plugin call in the content:</p>
+<pre>{{{PLUGIN:video(%NAME%, %WIDTH%, %HEIGHT%);}}}</pre>
+<p>The meaning of the parameters:</p>
+<dl>
+<dt><code>%NAME%</code></dt>
+<dd>The name of the video file <em>without any extension</em>.
+Actually this is a path relative to the configured video folder.</dd>
+<dt><code>%WIDTH%</code></dt>
+<dd>The width of the video (in pixels).
+You can skip this parameter, if you want to use the configured default width.</dd>
+<dt><code>%HEIGHT%</code></dt>
+<dd>The height of the video (in pixels).
+You can skip this parameter, if you want to use the configured default height.</dd>
+</dl>
+<p>Examples:</p>
+<dl>
+<dt><pre>{{{PLUGIN:video('LotR');}}}</pre></dt>
+<dd>This will display the "LotR" video in the configured video folder
+with the configured width and height.</dd>
+<dt><pre>{{{PLUGIN:video('music/thriller', 320, 240);}}}</pre></dt>
+<dd>Will display the "thriller" video in the subfolder music/,
+with a size of 320px x 240px. Note that scaling the video might not be the best option.</dd>
+</dl>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="limitations">Limitations</a></h2>
+<p>The HTML5 doesn't validate neither in HTML 4.01 nor XHTML 1.0/1.1.
+So, if necessary, you have to change the doctype declaration in your template to:</p>
+<pre>&lt;!DOCTYPE html&gt;</pre>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="license">License</a></h2>
+<p>Video_XH is licensed under
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2012 Christoph M. Becker</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="credits">Credits</a></h2>
+<p>Video_XH is powered by <a href="http://videojs.com">Video.js</a>.
+Many thanks to Zencoder, Inc. for releasing it under LGPL.</p>
+<p>The plugin icon is designed by <a href="http://www.mentalrey.it/">Alessandro Rei</a>.
+Many thanks for releasing it under GPL.</p>
+<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
+Many thanks for making these icons freely available.</p>
+<!--<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>-->
+<!--for tips, suggestions and testing.</p>-->
+<p>And last but not least many thanks to <a href="http://www.harteg.dk">Peter Harteg</a>, the "father" of CMSimple,
+and all developers of <a href="http://www.cmsimple-xh.com">
+CMSimple_XH</a> without whom this amazing CMS wouldn't exist.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+</div>
+
+</body>
+
+</html>
