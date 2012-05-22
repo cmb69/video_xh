@@ -65,7 +65,7 @@ function video($name, $width = NULL, $height = NULL) {
     $poster = file_exists($fn) ? ' poster="'.$fn.'"' : '';
     $o = '<noscript>'.$ptx['message_no_js'].'</noscript>'."\n"
 	    .'<video id="video_'.$run.'" class="video-js vjs-default-skin" controls="controls"'
-	    .' preload="none" width="'.$width.'" height="'.$height.'"'.$poster.'>'."\n";
+	    .' preload="'.$pcf['preload'].'" width="'.$width.'" height="'.$height.'"'.$poster.'>'."\n";
     foreach (array('mp4', 'webm', 'ogg') as $type) {
 	$fn = $dn.$name.'.'.$type;
 	if (file_exists($fn)) {
