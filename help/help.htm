@@ -82,7 +82,7 @@ you have to upload your video files to the configured video folder via FTP,
 a file browser or <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>.
 Supported video formats are MP4 (AVC Baseline@L3.0/AAC), WebM and Ogg.
 To support all major browsers you should upload a *.mp4
-and <em>and</em> a *.webm/.ogg version of the video.
+and <em>and</em> a *.webm/*.ogg version of the video.
 Additionally you might want to upload a "poster" to the same folder,
 i.e. an image, that will be displayed before the video is started, in JPEG format (*.jpg).</p>
 
@@ -112,9 +112,18 @@ with a size of 320px x 240px. Note that scaling the video might not be the best 
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
-<p>The HTML5 doesn't validate neither in HTML 4.01 nor XHTML 1.0/1.1.
+<p>The HTML5 video element doesn't validate neither in HTML 4.01 nor XHTML 1.0/1.1.
 So, if necessary, you have to change the doctype declaration in your template to:</p>
 <pre>&lt;!DOCTYPE html&gt;</pre>
+<p>Basically it's no problem to display the same video several times on the same page.
+But that might not work, if the plugin call is exactly the same, e.g.</p>
+<pre>{{{PLUGIN:video('LotR');}}}
+{{{PLUGIN:video('LotR');}}}</pre>
+<p>This is caused by the script evaluation of the plugin call,
+which will evaluate identical calls only once (assuming that the function has no side effects).
+So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by inserting one or more spaces:</p>
+<pre>{{{PLUGIN:video('LotR');}}}
+{{{PLUGIN:video( 'LotR');}}}</pre>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="license">License</a></h2>
@@ -132,8 +141,8 @@ Many thanks to Zencoder, Inc. for releasing it under LGPL.</p>
 Many thanks for releasing it under GPL.</p>
 <p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
 Many thanks for making these icons freely available.</p>
-<!--<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>-->
-<!--for tips, suggestions and testing.</p>-->
+<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>
+for tips, suggestions and testing. Particularly I want to thank bca for being the first beta tester.</p>
 <p>And last but not least many thanks to <a href="http://www.harteg.dk">Peter Harteg</a>, the "father" of CMSimple,
 and all developers of <a href="http://www.cmsimple-xh.com">
 CMSimple_XH</a> without whom this amazing CMS wouldn't exist.</p>

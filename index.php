@@ -19,6 +19,7 @@ define('VIDEO_VERSION', '1beta2');
 /**
  * Includes the necessary JS and CSS to the <head>.
  *
+ * @global string $hjs
  * @return void
  */
 function video_hjs() {
@@ -32,8 +33,10 @@ function video_hjs() {
     } else {
 	$hjs .= '<link rel="stylesheet" href="'.$lib.'video-js.min.css" type="text/css">'."\n"
 		.'<script type="text/javascript" src="'.$lib.'video.min.js"></script>'."\n"
-		.'<script type="text/javascript">_V_.options.flash.swf = "'.$lib.'video-js.swf";</script>';
+		.'<script type="text/javascript">VideoJS.options.flash.swf = \''.$lib.'video-js.swf\'</script>'."\n";
     }
+    $order = $pcf['prefer_flash'] ? '\'flash\', \'html5\'' : '\'html5\', \'flash\'';
+    $hjs .= '<script type="text/javascript">VideoJS.options.techOrder = ['.$order.']</script>'."\n";
 }
 
 
@@ -61,9 +64,8 @@ function video($name, $width = NULL, $height = NULL) {
     $fn = $dn.$name.'.jpg';
     $poster = file_exists($fn) ? ' poster="'.$fn.'"' : '';
     $o = '<noscript>'.$ptx['message_no_js'].'</noscript>'."\n"
-	    .'<video id="video_'.$run.'" class="video-js vjs-default-skin" controls'
-	    .' preload="none" width="'.$width.'" height="'.$height.'"'.$poster
-	    .' data-setup="{}">'."\n";
+	    .'<video id="video_'.$run.'" class="video-js vjs-default-skin" controls="controls"'
+	    .' preload="none" width="'.$width.'" height="'.$height.'"'.$poster.'>'."\n";
     foreach (array('mp4', 'webm', 'ogg') as $type) {
 	$fn = $dn.$name.'.'.$type;
 	if (file_exists($fn)) {
@@ -71,6 +73,7 @@ function video($name, $width = NULL, $height = NULL) {
 	}
     }
     $o .= '</video>'."\n";
+    $o .= '<script type="text/javascript">VideoJS(\'video_'.$run.'\')</script>'."\n";
     return $o;
 }
 
