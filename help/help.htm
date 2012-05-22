@@ -23,21 +23,15 @@ The supported video formats depend on the browser resp. the flash player.</p>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
-<li><a href="#usage">Usage</a>
-<!--<ul>
-<li><a href="#usage-explicit">Explicit Mode</a></li>
-<li><a href="#usage-inline">Inline Mode</a></li>
-</ul>
---></li>
-<!--<li><a href="#limitations">Limitations</a></li>-->
+<li><a href="#usage">Usage</a></li>
+<li><a href="#limitations">Limitations</a></li>
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
 </ul>
 
 <div id="body">
 
-<p><strong>Please do read this documentation!
-It's generally a good idea to read the documentation,
+<p><strong>Please do read this manual,
 <em>before</em> you encounter any problems!</strong></p>
 
 <h2><a name="notice">Important Notice</a></h2>
@@ -115,6 +109,8 @@ with a size of 320px x 240px. Note that scaling the video might not be the best 
 <p>The HTML5 video element doesn't validate neither in HTML 4.01 nor XHTML 1.0/1.1.
 So, if necessary, you have to change the doctype declaration in your template to:</p>
 <pre>&lt;!DOCTYPE html&gt;</pre>
+<p>VideoJS' CSS doesn't validate. Basically it's CSS 3,
+but for browser compatibility several browser specific properties are used additionally.</p>
 <p>Basically it's no problem to display the same video several times on the same page.
 But that might not work, if the plugin call is exactly the same, e.g.</p>
 <pre>{{{PLUGIN:video('LotR');}}}

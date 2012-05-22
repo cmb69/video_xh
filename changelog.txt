@@ -1,7 +1,4 @@
-TODO
-    add skin support (+ a simple valid skin?)
-
-Version 1beta2 - released TODO
+Version 1beta2 - released 2012-05-22
 cmb	added danish translation (contributed by maeg)
 cmb	added czech translation (contributed by oldnema)
 cmb	added config option "prefer_flash" (inspired by bca)
