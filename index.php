@@ -13,7 +13,42 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('VIDEO_VERSION', '1beta2');
+define('VIDEO_VERSION', '1beta3');
+
+
+/**
+ * Fully qualified absolute URL to CMSimple's index.php.
+ */
+define('VIDEO_URL', 'http://'.(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+	.$_SERVER['SERVER_NAME'].preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
+
+
+/**
+ * Returns the fully qualified absolute URL of $url
+ * in canonical form (i.e. with ./ and ../ resolved).
+ *
+ * @param string $url  A relative URL.
+ * @return string
+ */
+function video_canonical_url($url) {
+    $parts = explode('/', VIDEO_URL . $url);
+    $i = count($parts) - 1;
+    while ($i >= 0) {
+	switch ($parts[$i]) {
+	case '.':
+	    array_splice($parts, $i, 1);
+	    break;
+	case '..':
+	    array_splice($parts, $i - 1, 2);
+	    $i--;
+	    break;
+	//
+	//default:
+	}
+	$i--;
+    }
+    return implode('/', $parts);
+}
 
 
 /**
@@ -69,7 +104,7 @@ function video($name, $width = NULL, $height = NULL) {
     foreach (array('mp4', 'webm', 'ogg') as $type) {
 	$fn = $dn.$name.'.'.$type;
 	if (file_exists($fn)) {
-	    $o .= tag('source src="'.$fn.'" type="video/'.$type.'"')."\n";
+	    $o .= tag('source src="' . video_canonical_url($fn) . '" type="video/'.$type.'"')."\n";
 	}
     }
     $o .= '</video>'."\n";
