@@ -42,8 +42,6 @@ function video_canonical_url($url) {
 	    array_splice($parts, $i - 1, 2);
 	    $i--;
 	    break;
-	//
-	//default:
 	}
 	$i--;
     }
@@ -101,8 +99,8 @@ function video($name, $width = NULL, $height = NULL) {
     $o = '<noscript>'.$ptx['message_no_js'].'</noscript>'."\n"
 	    .'<video id="video_'.$run.'" class="video-js vjs-default-skin" controls="controls"'
 	    .' preload="'.$pcf['preload'].'" width="'.$width.'" height="'.$height.'"'.$poster.'>'."\n";
-    foreach (array('mp4', 'webm', 'ogg') as $type) {
-	$fn = $dn.$name.'.'.$type;
+    foreach (array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg') as $ext => $type) {
+	$fn = $dn.$name.'.'.$ext;
 	if (file_exists($fn)) {
 	    $o .= tag('source src="' . video_canonical_url($fn) . '" type="video/'.$type.'"')."\n";
 	}
