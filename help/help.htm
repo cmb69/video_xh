@@ -23,7 +23,10 @@ The supported video formats depend on the browser resp. the flash player.</p>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#trouble-shooting">Trouble Shooting</a></li>
+</ul></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
@@ -71,12 +74,19 @@ or customize them according to your needs.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="usage">Usage</a></h2>
+<p>It is important that the server serves the videos with the appropriate mime type.
+If this is not the case, you probably can configure your Apache with the following lines in .htaccess:</p>
+<pre>AddType video/webm .webm
+AddType video/mp4 .mp4
+AddType video/ogg .ogv
+</pre>
+<p>If that doesn't work, ask your provider or server admin to do the necessary configuration.</p>
 <p>As Video_XH provides no such possibility,
 you have to upload your video files to the configured video folder via FTP,
 a file browser or <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>.
-Supported video formats are MP4 (AVC Baseline@L3.0/AAC), WebM and Ogg.
+Supported video formats are MP4 (AVC Baseline@L3.0/AAC), WebM (VP8/Vorbis) and OGG (Theora/Vorbis).
 To support all major browsers you should upload a *.mp4
-and <em>and</em> a *.webm/*.ogg version of the video.
+and <em>and</em> a *.webm/*.ogv version of the video.
 Additionally you might want to upload a "poster" to the same folder,
 i.e. an image, that will be displayed before the video is started, in JPEG format (*.jpg).</p>
 
@@ -97,12 +107,25 @@ You can skip this parameter, if you want to use the configured default height.</
 <p>Examples:</p>
 <dl>
 <dt><pre>{{{PLUGIN:video('LotR');}}}</pre></dt>
-<dd>This will display the "LotR" video in the configured video folder
-with the configured width and height.</dd>
+<dd>This will display the LotR.webm, LotR.mp4 or LotR.ogv video in the configured video folder
+with the configured width and height. If LotR.jpg exists, it will be used as poster.</dd>
 <dt><pre>{{{PLUGIN:video('music/thriller', 320, 240);}}}</pre></dt>
 <dd>Will display the "thriller" video in the subfolder music/,
-with a size of 320px x 240px. Note that scaling the video might not be the best option.</dd>
+with a size of 320px x 240px. Note that scaling the video for playback might not be the best option.</dd>
 </dl>
+
+<h3><a name="trouble-shooting">Trouble Shooting</a></h3>
+<p>In case the video doesn't play:</p>
+<ul>
+<li>Check if at least one fitting video file does exist.</li>
+<li>Check if this video can be played in the browser, when you call it's URL directly.
+This will only work, if the <a href="http://caniuse.com/#feat=video">browser natively supports the video format</a>.</li>
+</ul>
+<p>If the video can't be played directly, it's probably due to an encoding or muxing error.
+It seems many MP4 muxers put the "moov" atom at the end of the video,
+what requires the player to download the complete file, before the playback starts.
+It's best to try to remux the video with <a href="http://yamb.unite-video.com/">Yamb</a> (MP4)
+or <a href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM).</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>

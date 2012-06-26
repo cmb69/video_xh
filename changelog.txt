@@ -1,3 +1,9 @@
+Version 1beta3 - released 2012-06-27
+cmb	changed required file extension for OGG video from .ogg to .ogv
+cmb	changed preference order (WebM -> MP4 -> OGG)
+cmb	switched to fully qualified absolute URLs for better Flash compatibility
+cmb	updated manual accordingly and added a section about trouble shooting
+
 Version 1beta2 - released 2012-05-22
 cmb	added danish translation (contributed by maeg)
 cmb	added czech translation (contributed by oldnema)
