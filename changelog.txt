@@ -1,3 +1,6 @@
+Version 1beta4 - released
+cmb	fixed missing port number in VIDEO_URL (reported by bca)
+
 Version 1beta3 - released 2012-06-27
 cmb	changed required file extension for OGG video from .ogg to .ogv
 cmb	changed preference order (WebM -> MP4 -> OGG)

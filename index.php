@@ -13,14 +13,16 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('VIDEO_VERSION', '1beta3');
+define('VIDEO_VERSION', '1beta4');
 
 
 /**
  * Fully qualified absolute URL to CMSimple's index.php.
  */
-define('VIDEO_URL', 'http://'.(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-	.$_SERVER['SERVER_NAME'].preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
+define('VIDEO_URL', 'http://'
+    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+    . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT']
+    . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
 
 
 /**
