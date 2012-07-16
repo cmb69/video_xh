@@ -2,12 +2,27 @@
 
 $plugin_tx['video']['message_no_js']="<strong>Enable Javascript for better/any viewing experience!</strong>";
 
+$plugin_tx['video']['menu_main']="Call Builder";
+
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_phpversion']="PHP version &ge; %s";
 $plugin_tx['video']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['video']['syscheck_encoding']="Encoding 'UTF-8' configured";
 $plugin_tx['video']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['video']['syscheck_writable']="Folder '%s' writable";
+
+$plugin_tx['video']['label_name']="Video";
+$plugin_tx['video']['label_preload']="Preload";
+$plugin_tx['video']['label_autoplay']="Autoplay";
+$plugin_tx['video']['label_loop']="Loop";
+$plugin_tx['video']['label_controls']="Controls";
+$plugin_tx['video']['label_call']="Plugin Call";
+$plugin_tx['video']['label_width']="Width";
+$plugin_tx['video']['label_height']="Height";
+
+$plugin_tx['video']['preload_auto']="Auto";
+$plugin_tx['video']['preload_metadata']="Metadata";
+$plugin_tx['video']['preload_none']="None";
 
 $plugin_tx['video']['cf_use_cdn']="Whether to use the latest version of VIDEO.JS via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";
 $plugin_tx['video']['cf_folder_video']="A folder relative to the CMSimple root folder, where the video files are stored. If left empty, the files are expected in \"Folders Media\" since CMSimple_XH 1.5 or in \"Folders Downloads\" for older versions.";

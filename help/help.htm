@@ -98,9 +98,12 @@ i.e. an image, that will be displayed before the video is started, in JPEG forma
 <dd>The name of the video file <em>without any extension</em>.
 Actually this is a path relative to the configured video folder.</dd>
 <dt><code>%OPTIONS%</code></dt>
-<dd>Options for each video that will override the defaults in the plugin's configuration.
-This parameter expects a string in the same format as a query string
-(everything after the question mark in an HTTP GET request).</dd>
+<dd>Options for each video as a string in the same format as a query string
+(everything after the question mark in an HTTP GET request). Options that are
+left out default to the respective values in the plugin's configuration. You can
+use the "Call Builder" offered in the plugin administration to assemble the
+plugin call for you. After you're finished entering the desired values, just
+copy the content of the "Plugin Call" input field and paste it in a page.</dd>
 </dl>
 <h4>Examples</h4>
 <dl>

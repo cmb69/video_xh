@@ -2,6 +2,7 @@ Version 1beta4 - released
 cmb	fixed missing port number in VIDEO_URL (reported by bca)
 cmb	added more video options (defaults in config; optional arguments to
 	    video()): autoplay, loop, controls
+cmb	added a "call builder"
 cmb	updated manual accordingly
 
 Version 1beta3 - released 2012-06-27

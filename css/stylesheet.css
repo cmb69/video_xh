@@ -1,3 +1,10 @@
-/* back-end */
+/* plugin info */
 img.video_plugin_icon {display: block; float: left; margin: 0 16px -16px 0}
 p.video_license {clear: both; text-align: justify}
+
+/* call builder */
+#video_call_builder {padding: 1em 0}
+#video_call_builder label {float: left; width: 10em}
+#video_call_builder select, #video_call_builder input {float: left}
+#video_call_builder br {clear: both}
+#video_call_builder hr {margin: 1em 0}
