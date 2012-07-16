@@ -91,27 +91,28 @@ Additionally you might want to upload a "poster" to the same folder,
 i.e. an image, that will be displayed before the video is started, in JPEG format (*.jpg).</p>
 
 <p>To display a video on a CMSimple page insert the following plugin call in the content:</p>
-<pre>{{{PLUGIN:video(%NAME%, %WIDTH%, %HEIGHT%);}}}</pre>
+<pre>{{{PLUGIN:video(%NAME%, %OPTIONS%);}}}</pre>
 <p>The meaning of the parameters:</p>
 <dl>
 <dt><code>%NAME%</code></dt>
 <dd>The name of the video file <em>without any extension</em>.
 Actually this is a path relative to the configured video folder.</dd>
-<dt><code>%WIDTH%</code></dt>
-<dd>The width of the video (in pixels).
-You can skip this parameter, if you want to use the configured default width.</dd>
-<dt><code>%HEIGHT%</code></dt>
-<dd>The height of the video (in pixels).
-You can skip this parameter, if you want to use the configured default height.</dd>
+<dt><code>%OPTIONS%</code></dt>
+<dd>Options for each video that will override the defaults in the plugin's configuration.
+This parameter expects a string in the same format as a query string
+(everything after the question mark in an HTTP GET request).</dd>
 </dl>
-<p>Examples:</p>
+<h4>Examples</h4>
 <dl>
 <dt><pre>{{{PLUGIN:video('LotR');}}}</pre></dt>
 <dd>This will display the LotR.webm, LotR.mp4 or LotR.ogv video in the configured video folder
 with the configured width and height. If LotR.jpg exists, it will be used as poster.</dd>
-<dt><pre>{{{PLUGIN:video('music/thriller', 320, 240);}}}</pre></dt>
+<dt><pre>{{{PLUGIN:video('music/thriller', 'width=320&amp;height=240');}}}</pre></dt>
 <dd>Will display the "thriller" video in the subfolder music/,
 with a size of 320px x 240px. Note that scaling the video for playback might not be the best option.</dd>
+<dt><pre>{{{PLUGIN:video('banner', 'autoplay&amp;loop&amp;controls=0');}}}</pre></dt>
+<dd>Will autoplay the "banner" video starting over when finished without showing any controls.
+This is particularly useful for banner or background videos.</dd>
 </dl>
 
 <h3><a name="trouble-shooting">Trouble Shooting</a></h3>
