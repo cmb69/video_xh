@@ -50,7 +50,7 @@ function video_version() {
 function video_system_check() { // RELEASE-TODO
     global $pth, $tx, $plugin_tx;
 
-    define('VIDEO_PHP_VERSION', '4.0.7');
+    define('VIDEO_PHP_VERSION', '4.3.0');
     $ptx = $plugin_tx['video'];
     $imgdir = $pth['folder']['plugins'].'video/images/';
     $ok = tag('img src="'.$imgdir.'ok.png" alt="ok"');
@@ -60,7 +60,7 @@ function video_system_check() { // RELEASE-TODO
 	    .(version_compare(PHP_VERSION, VIDEO_PHP_VERSION) >= 0 ? $ok : $fail)
 	    .'&nbsp;&nbsp;'.sprintf($ptx['syscheck_phpversion'], VIDEO_PHP_VERSION)
 	    .tag('br')."\n";
-    foreach (array() as $ext) {
+    foreach (array('pcre') as $ext) {
 	$o .= (extension_loaded($ext) ? $ok : $fail)
 		.'&nbsp;&nbsp;'.sprintf($ptx['syscheck_extension'], $ext).tag('br')."\n";
     }
