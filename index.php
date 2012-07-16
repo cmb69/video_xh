@@ -1,5 +1,7 @@
 <?php
 
+// $Id$
+
 /**
  * Front-end of Video_XH.
  *
