@@ -52,6 +52,23 @@ function video_canonical_url($url) {
 
 
 /**
+ * Returns the relative path to the video folder.
+ *
+ * @return string
+ */
+function Video_folder()
+{
+    global $pth, $plugin_cf;
+    
+    $pcf = $plugin_cf['video'];
+    return !empty($pcf['folder_video'])
+	? rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') .'/'
+	: isset($pth['folder']['media'])
+	    ? $pth['folder']['media']
+	    : $pth['folder']['downloads'];
+}
+
+/**
  * Includes the necessary JS and CSS to the <head>.
  *
  * @global string $hjs
@@ -76,39 +93,80 @@ function video_hjs() {
 
 
 /**
+ * Returns all options.
+ *
+ * Defaults are taken from $plugin_cf['video']['default_*'].
+ * Those will be overridden with the options in $query.
+ *
+ * @param string $query  The options given like a query string.
+ * @param array $validOpts  The valid options.
+ * @return array
+ */
+function Video_getOpt($query, $validOpts)
+{
+    global $plugin_cf;
+    
+    $query = html_entity_decode($query, ENT_QUOTES, 'UTF-8');
+    parse_str($query, $opts);
+    
+    $res = array();
+    foreach ($validOpts as $key) {
+	$res[$key] = isset($opts[$key])
+	    ? ($opts[$key] === '' ? true : $opts[$key])
+	    : $plugin_cf['video']["default_$key"];
+    }
+    
+    return $res;
+}
+
+
+/**
  * Returns the <video> element to embed the video.
  *
  * @access public
  * @param string $name  Name of the video file without extension.
- * @param int $width  The width of the video.
- * @param int $height  The height of the video.
+ * @param string $options  The options in form of a query string.
  * @return string  The (X)HTML.
  */
-function video($name, $width = NULL, $height = NULL) {
+function video($name, $options = '')
+{
     global $pth, $plugin_cf, $plugin_tx;
     static $run = 0;
 
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
-    if (!$run) {video_hjs();}
+    if (!$run) {
+	video_hjs();
+    }
     $run++;
-    $dn = !empty($pcf['folder_video']) ? rtrim($pth['folder']['base'].$pcf['folder_video'], '/').'/'
-	    : isset($pth['folder']['media']) ? $pth['folder']['media'] : $pth['folder']['downloads'];
-    if (!isset($width)) {$width = $pcf['default_width'];}
-    if (!isset($height)) {$height = $pcf['default_height'];}
-    $fn = $dn.$name.'.jpg';
-    $poster = file_exists($fn) ? ' poster="'.$fn.'"' : '';
-    $o = '<noscript>'.$ptx['message_no_js'].'</noscript>'."\n"
-	    .'<video id="video_'.$run.'" class="video-js vjs-default-skin" controls="controls"'
-	    .' preload="'.$pcf['preload'].'" width="'.$width.'" height="'.$height.'"'.$poster.'>'."\n";
-    foreach (array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg') as $ext => $type) {
-	$fn = $dn.$name.'.'.$ext;
+    $dn = Video_folder();
+	
+    $keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height');
+    $opts = Video_getOpt($options, $keys);
+    
+    $fn = $dn . $name . '.jpg';
+    $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
+	. '<video id="video_' . $run . '" class="video-js vjs-default-skin"'
+	. (!empty($opts['controls']) ? ' controls="controls"' : '')
+	. (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
+	. (!empty($opts['loop']) ? ' loop="loop"' : '')
+	. (' preload="' . $opts['preload'] . '"')
+	. (' width="' . $opts['width'] . '"')
+	. (' height="' . $opts['height'] . '"')
+	. (file_exists($fn) ? ' poster="' . $fn . '"' : '')
+	. '>';
+    $types = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+    foreach ($types as $ext => $type) {
+	$fn = $dn . $name . '.' . $ext;
 	if (file_exists($fn)) {
-	    $o .= tag('source src="' . video_canonical_url($fn) . '" type="video/'.$type.'"')."\n";
+	    $o .= tag('source'
+		. (' src="' . video_canonical_url($fn) . '"')
+		. (' type="video/' . $type . '"')
+	    );
 	}
     }
-    $o .= '</video>'."\n";
-    $o .= '<script type="text/javascript">VideoJS(\'video_'.$run.'\')</script>'."\n";
+    $o .= '</video>';
+    $o .= '<script type="text/javascript">VideoJS(\'video_' . $run . '\')</script>';
     return $o;
 }
 
