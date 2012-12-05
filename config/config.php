@@ -2,6 +2,8 @@
 
 $plugin_cf['video']['use_cdn']="0";
 
+$plugin_cf['video']['skin']="";
+
 $plugin_cf['video']['folder_video']="";
 
 $plugin_cf['video']['auto_resize']="0";

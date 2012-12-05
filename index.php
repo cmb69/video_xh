@@ -81,6 +81,9 @@ function video_hjs() {
 
     $pcf = $plugin_cf['video'];
     $lib = $pth['folder']['plugins'].'video/lib/';
+    if (!empty($pcf['skin'])) {
+	$hjs .= '<link rel="stylesheet" href="'.$lib.$pcf['skin'].'.css" type="text/css">'."\n";
+    }
     if ($pcf['use_cdn']) {
 	$hjs .= '<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css" type="text/css">'."\n"
 		.'<script type="text/javascript" src="http://vjs.zencdn.net/c/video.js"></script>'."\n";
@@ -147,8 +150,9 @@ function video($name, $options = '')
     $opts = Video_getOpt($options, $keys);
     
     $fn = $dn . $name . '.jpg';
+    $class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default') . '-skin';
     $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
-	. '<video id="video_' . $run . '" class="video-js vjs-default-skin"'
+	. '<video id="video_' . $run . '" class="video-js ' . $class . '"'
 	. (!empty($opts['controls']) ? ' controls="controls"' : '')
 	. (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
 	. (!empty($opts['loop']) ? ' loop="loop"' : '')
