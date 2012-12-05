@@ -1,3 +1,9 @@
+Version 1beta5 - released 2012-12-05
+cmb	added option to auto-resize the videos (suggested by Tata)
+cmb	added support for skins and the "tube" skin (contributed by bca)
+cmb	added Slovak translation (contributed by Tata)
+cmb	added German translation and user manual
+
 Version 1beta4 - released 2012-07-16
 cmb	fixed missing port number in VIDEO_URL (reported by bca)
 cmb	added more video options (defaults in config; optional arguments to

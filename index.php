@@ -15,7 +15,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('VIDEO_VERSION', '1beta4');
+define('VIDEO_VERSION', '1beta5');
 
 
 /**
