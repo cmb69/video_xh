@@ -168,7 +168,30 @@ function video($name, $options = '')
 	}
     }
     $o .= '</video>';
-    $o .= '<script type="text/javascript">VideoJS(\'video_' . $run . '\')</script>';
+    if ($pcf['auto_resize']) {
+	$o .= <<<SCRIPT
+<script type="text/javascript">
+/* <![CDATA[ */
+VideoJS("video_$run").ready(function() {
+    var p = this;
+    var ar = p.width() / p.height();
+    function resizeVideoJS() {
+	var w = document.getElementById(p.id).parentElement.offsetWidth;
+	p.width(w).height(Math.round(w / ar));
+    }
+    resizeVideoJS();
+    if (window.addEventListener) {
+	window.addEventListener('resize', resizeVideoJS, false); 
+    } else if (window.attachEvent)  {
+	window.attachEvent('onresize', resizeVideoJS);
+    }
+});
+/* ]]> */
+</script>
+SCRIPT;
+    } else {
+	$o .= '<script type="text/javascript">VideoJS("video_' . $run . '")</script>';
+    }
     return $o;
 }
 

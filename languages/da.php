@@ -7,7 +7,7 @@
  * License.
  */
 
-$plugin_tx['video']['message_no_js']="<strong>Aktivere Javascript for bedere/nogen visning!</strong>";
+$plugin_tx['video']['message_no_js']="<div><strong>Aktivere Javascript for bedere/nogen visning!</strong></div>";
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_phpversion']="PHP version &ge; %s";
 $plugin_tx['video']['syscheck_extension']="Extension '%s' loaded";
