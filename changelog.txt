@@ -1,3 +1,6 @@
+Version 1beta6 - released 2012-12-06
+cmb	added the "tube2" skin (contributed by bca)
+
 Version 1beta5 - released 2012-12-05
 cmb	added option to auto-resize the videos (suggested by Tata)
 cmb	added support for skins and the "tube" skin (contributed by bca)
