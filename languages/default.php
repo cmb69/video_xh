@@ -25,7 +25,7 @@ $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="None";
 
 $plugin_tx['video']['cf_use_cdn']="Whether to use the latest version of VIDEO.JS via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";
-$plugin_tx['video']['cf_skin']="The name of a skin (e.g. \"tube\"). Leave empty to use the default skin.";
+$plugin_tx['video']['cf_skin']="The name of a skin (e.g. \"tube\" or \"tube2\"). Leave empty to use the default skin.";
 $plugin_tx['video']['cf_folder_video']="A folder relative to the CMSimple root folder, where the video files are stored. If left empty, the files are expected in \"Folders Media\" since CMSimple_XH 1.5 or in \"Folders Downloads\" for older versions.";
 $plugin_tx['video']['cf_auto_resize']="Whether the video should be automatically resized to the size of its surrounding element: \"1\" (yes) or \"0\" (no).";
 $plugin_tx['video']['cf_prefer_flash']="Whether to prefer flash video over html5 video: \"1\" (yes) or \"0\" (no).";
