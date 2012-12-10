@@ -113,6 +113,14 @@ verwenden, um den Aufruf zusammen zu stellen.
 Nachdem Sie mit der Eingabe der gewünschten Werte fertig sind,
 kopieren Sie einfach den Inhalt des "Plugin-Aufruf" Eingabefelds und fügen ihn auf einer Seite ein.</dd>
 </dl>
+<p>Um ein Video auf allen Seiten anzuzeigen, fügen Sie das folgende ins Template ein:</p>
+<pre>&lt;?php echo video(%NAME%, %OPTIONS%);?&gt;</pre>
+<p>In diesem Fall, oder wenn Sie Videos in einer Newsbox oder in einem anderen Plugin,
+das im Template aufgerufen wird, anzeigen wollen,
+müssen Sie zusätzlich das folgende in den head Abschnitt des Templates
+oberhalb von &lt;?php echo head();?&gt; einfügen:</p>
+<pre>&lt;?php video_hjs();?&gt;</pre>
+<p>Alternativ können Sie einfach die Konfigurationsoption "auto hjs" auf "1" setzen.</p>
 <h4>Beispiele</h4>
 <dl>
 <dt><pre>{{{PLUGIN:video('LotR');}}}</pre></dt>
