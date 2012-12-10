@@ -71,6 +71,27 @@ function Video_folder()
 	    : $pth['folder']['downloads'];
 }
 
+
+/**
+ * Returns a map of filenames to types.
+ *
+ * @param  string $name  Name of the video file without extension.
+ * @return array
+ */
+function Video_files($name)
+{
+    $types = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+    $dn = Video_folder();
+    $files = array();
+    foreach ($types as $ext => $type) {
+	$fn = $dn . $name . '.' . $ext;
+	if (file_exists($fn)) {
+	    $files[$fn] = $ext;
+	}
+    }
+    return $files;
+}
+
 /**
  * Includes the necessary JS and CSS to the <head>.
  *
@@ -151,36 +172,37 @@ function video($name, $options = '')
 	video_hjs();
     }
     $run++;
-    $dn = Video_folder();
+    $files = Video_files($name);
+    if (!empty($files)) {
+	$dn = Video_folder();
 
-    $keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height');
-    $opts = Video_getOpt($options, $keys);
+	$keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height');
+	$opts = Video_getOpt($options, $keys);
 
-    $fn = $dn . $name . '.jpg';
-    $class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default') . '-skin';
-    $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
-	. '<video id="video_' . $run . '" class="video-js ' . $class . '"'
-	. (!empty($opts['controls']) ? ' controls="controls"' : '')
-	. (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
-	. (!empty($opts['loop']) ? ' loop="loop"' : '')
-	. (' preload="' . $opts['preload'] . '"')
-	. (' width="' . $opts['width'] . '"')
-	. (' height="' . $opts['height'] . '"')
-	. (file_exists($fn) ? ' poster="' . $fn . '"' : '')
-	. '>';
-    $types = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
-    foreach ($types as $ext => $type) {
-	$fn = $dn . $name . '.' . $ext;
-	if (file_exists($fn)) {
+	$fn = $dn . $name . '.jpg';
+	$class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default') . '-skin';
+	$o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
+	    . '<video id="video_' . $run . '" class="video-js ' . $class . '"'
+	    . (!empty($opts['controls']) ? ' controls="controls"' : '')
+	    . (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
+	    . (!empty($opts['loop']) ? ' loop="loop"' : '')
+	    . (' preload="' . $opts['preload'] . '"')
+	    . (' width="' . $opts['width'] . '"')
+	    . (' height="' . $opts['height'] . '"')
+	    . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
+	    . '>';
+	foreach ($files as $fn => $type) {
 	    $o .= tag('source'
-		. (' src="' . video_canonical_url($fn) . '"')
-		. (' type="video/' . $type . '"')
-	    );
+		      . ' src="' . video_canonical_url($fn) . '"'
+		      . ' type="video/' . $type . '"');
 	}
+	$o .= '</video>';
+	$o .= '<script type="text/javascript">VideoJS("video_' . $run
+	    . '").ready(function(){video.autosize(this,' . $pcf['auto_resize'] . ')})</script>';
+    } else {
+	$o = '<div class="cmsimplecore_warning">'
+	    . sprintf($ptx['error_missing'], $name) . '</div>';
     }
-    $o .= '</video>';
-    $o .= '<script type="text/javascript">VideoJS("video_' . $run
-	. '").ready(function(){video.autosize(this,' . $pcf['auto_resize'] . ')})</script>';
     return $o;
 }
 

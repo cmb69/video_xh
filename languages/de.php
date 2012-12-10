@@ -24,6 +24,8 @@ $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadaten";
 $plugin_tx['video']['preload_none']="Nichts";
 
+$plugin_tx['video']['error_missing']="Video \"%s\" fehlt!";
+
 $plugin_tx['video']['cf_use_cdn']="Ob die neuste Version von VIDEO.JS per CDN verwendet werden soll: \"1\" (ja) oder \"0\" (nein, lokale Version verwenden).";
 $plugin_tx['video']['cf_skin']="Der Name eines Skins (z.B. \"tube\" oder \"tube2\"). Leer lassen, um den Standard-Skin zu verwenden.";
 $plugin_tx['video']['cf_folder_video']="Ein Ordner relativ zum CMSimple-Installationsordner, wo die Videodateien gespeichert sind. Ist dieser Eintrag leer, dann werden die Dateien seit CMSimple_XH 1.5 in \"Folders Media\" oder bei älteren Versionen in \"Folders Downloads\" erwartet.";
