@@ -1,5 +1,7 @@
 /**
  * Front-End JS of Video_XH.
+ *
+ * @version: $Id$
  */
 
 

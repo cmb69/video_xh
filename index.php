@@ -22,10 +22,10 @@ define('VIDEO_VERSION', '1beta6');
  * Fully qualified absolute URL to CMSimple's index.php.
  */
 define('VIDEO_URL', 'http'
-    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT']
-    . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
-
+   . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+   . '://' . $_SERVER['SERVER_NAME']
+   . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+   . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
 
 /**
  * Returns the fully qualified absolute URL of $url
