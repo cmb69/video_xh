@@ -27,6 +27,7 @@ $plugin_tx['video']['preload_none']="Nichts";
 $plugin_tx['video']['cf_use_cdn']="Ob die neuste Version von VIDEO.JS per CDN verwendet werden soll: \"1\" (ja) oder \"0\" (nein, lokale Version verwenden).";
 $plugin_tx['video']['cf_skin']="Der Name eines Skins (z.B. \"tube\" oder \"tube2\"). Leer lassen, um den Standard-Skin zu verwenden.";
 $plugin_tx['video']['cf_folder_video']="Ein Ordner relativ zum CMSimple-Installationsordner, wo die Videodateien gespeichert sind. Ist dieser Eintrag leer, dann werden die Dateien seit CMSimple_XH 1.5 in \"Folders Media\" oder bei älteren Versionen in \"Folders Downloads\" erwartet.";
+$plugin_tx['video']['cf_auto_hjs']="Ob die benötigten Skripte und Stylesheets immer geladen werden sollen (nötig, wenn Sie Videos im Template oder einer Newsbox verwenden wollen): \"1\" (ja) oder \"0\" (nein).";
 $plugin_tx['video']['cf_auto_resize']="Der Größenmodus: \"0\" (feste Größe wie eingestellt), \"1\" (flexible Größe als hätte das Element max-width:100%) or \"2\" (flexible Größe als hätte das Element width:100%).";
 $plugin_tx['video']['cf_prefer_flash']="Ob Flash-Video dem HTML5-Video vorgezogen werden soll: \"1\" (ja) oder \"0\" (nein).";
 $plugin_tx['video']['cf_default_controls']="Ob der Player Elemente zur Steuerung durch den Benutzer anzeigen soll: \"1\" (ja) oder \"0\" (nein). Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";

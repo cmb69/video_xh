@@ -27,6 +27,7 @@ $plugin_tx['video']['preload_none']="None";
 $plugin_tx['video']['cf_use_cdn']="Whether to use the latest version of VIDEO.JS via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";
 $plugin_tx['video']['cf_skin']="The name of a skin (e.g. \"tube\" or \"tube2\"). Leave empty to use the default skin.";
 $plugin_tx['video']['cf_folder_video']="A folder relative to the CMSimple root folder, where the video files are stored. If left empty, the files are expected in \"Folders Media\" since CMSimple_XH 1.5 or in \"Folders Downloads\" for older versions.";
+$plugin_tx['video']['cf_auto_hjs']="Whether the required scripts and stylesheets should be inserted always (needed if you use videos in the template or a newsbox): \"1\" (yes) or \"0\" (no).";
 $plugin_tx['video']['cf_auto_resize']="The size mode: \"0\" (fixed size according to width and height), \"1\" (flexible size as if element had max-width:100%) or \"2\" (flexible width as if element had width:100%).";
 $plugin_tx['video']['cf_prefer_flash']="Whether to prefer flash video over html5 video: \"1\" (yes) or \"0\" (no).";
 $plugin_tx['video']['cf_default_controls']="Whether the player has controls the user can interact with: \"1\" (yes) or \"0\" (no). This default can be overridden for each video in the plugin call.";

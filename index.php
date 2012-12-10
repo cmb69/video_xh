@@ -184,4 +184,12 @@ function video($name, $options = '')
     return $o;
 }
 
+
+/*
+ * Handle enable_newsbox config option.
+ */
+if ($plugin_cf['video']['auto_hjs']) {
+    video_hjs();
+}
+
 ?>
