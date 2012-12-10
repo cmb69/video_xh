@@ -8,23 +8,27 @@
 var video = {
 
     autosize: function(player, mode) {
-        var ar;
+        var ar, mw;
 
         if (mode == 0) {
             return;
         }
         ar = player.width() / player.height();
-        function resizeVideoJS() {
+        mw = player.width();
+        function resize() {
             var w;
 
             w = document.getElementById(player.id).parentElement.offsetWidth;
+            if (mode == 1 && w > mw) {
+                w = mw;
+            }
             player.width(w).height(Math.round(w / ar));
         }
-        resizeVideoJS();
+        resize();
         if (window.addEventListener) {
-            window.addEventListener('resize', resizeVideoJS, false);
+            window.addEventListener('resize', resize, false);
         } else if (window.attachEvent)  {
-            window.attachEvent('onresize', resizeVideoJS);
+            window.attachEvent('onresize', resize);
         }
 
     }
