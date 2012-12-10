@@ -61,7 +61,7 @@ function video_canonical_url($url) {
 function Video_folder()
 {
     global $pth, $plugin_cf;
-    
+
     $pcf = $plugin_cf['video'];
     return !empty($pcf['folder_video'])
 	? rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') .'/'
@@ -93,6 +93,7 @@ function video_hjs() {
 		.'<script type="text/javascript">VideoJS.options.flash.swf = \''.$lib.'video-js.swf\'</script>'."\n";
     }
     $order = $pcf['prefer_flash'] ? '\'flash\', \'html5\'' : '\'html5\', \'flash\'';
+    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'video/autosize.js"></script>';
     $hjs .= '<script type="text/javascript">VideoJS.options.techOrder = ['.$order.']</script>'."\n";
 }
 
@@ -110,17 +111,17 @@ function video_hjs() {
 function Video_getOpt($query, $validOpts)
 {
     global $plugin_cf;
-    
+
     $query = html_entity_decode($query, ENT_QUOTES, 'UTF-8');
     parse_str($query, $opts);
-    
+
     $res = array();
     foreach ($validOpts as $key) {
 	$res[$key] = isset($opts[$key])
 	    ? ($opts[$key] === '' ? true : $opts[$key])
 	    : $plugin_cf['video']["default_$key"];
     }
-    
+
     return $res;
 }
 
@@ -145,10 +146,10 @@ function video($name, $options = '')
     }
     $run++;
     $dn = Video_folder();
-	
+
     $keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height');
     $opts = Video_getOpt($options, $keys);
-    
+
     $fn = $dn . $name . '.jpg';
     $class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default') . '-skin';
     $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
@@ -172,30 +173,8 @@ function video($name, $options = '')
 	}
     }
     $o .= '</video>';
-    if ($pcf['auto_resize']) {
-	$o .= <<<SCRIPT
-<script type="text/javascript">
-/* <![CDATA[ */
-VideoJS("video_$run").ready(function() {
-    var p = this;
-    var ar = p.width() / p.height();
-    function resizeVideoJS() {
-	var w = document.getElementById(p.id).parentElement.offsetWidth;
-	p.width(w).height(Math.round(w / ar));
-    }
-    resizeVideoJS();
-    if (window.addEventListener) {
-	window.addEventListener('resize', resizeVideoJS, false); 
-    } else if (window.attachEvent)  {
-	window.attachEvent('onresize', resizeVideoJS);
-    }
-});
-/* ]]> */
-</script>
-SCRIPT;
-    } else {
-	$o .= '<script type="text/javascript">VideoJS("video_' . $run . '")</script>';
-    }
+    $o .= '<script type="text/javascript">VideoJS("video_' . $run
+	. '").ready(function(){video.autosize(this,' . $pcf['auto_resize'] . ')})</script>';
     return $o;
 }
 
