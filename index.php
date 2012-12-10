@@ -15,7 +15,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('VIDEO_VERSION', '1beta6');
+define('VIDEO_VERSION', '1beta7');
 
 
 /**
@@ -26,6 +26,7 @@ define('VIDEO_URL', 'http'
    . '://' . $_SERVER['SERVER_NAME']
    . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
    . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
+
 
 /**
  * Returns the fully qualified absolute URL of $url
@@ -78,7 +79,12 @@ function Video_folder()
  */
 function video_hjs() {
     global $hjs, $pth, $plugin_cf;
+    static $again = false;
 
+    if ($again) {
+	return;
+    }
+    $again = true;
     $pcf = $plugin_cf['video'];
     $lib = $pth['folder']['plugins'].'video/lib/';
     if (!empty($pcf['skin'])) {
@@ -93,8 +99,8 @@ function video_hjs() {
 		.'<script type="text/javascript">VideoJS.options.flash.swf = \''.$lib.'video-js.swf\'</script>'."\n";
     }
     $order = $pcf['prefer_flash'] ? '\'flash\', \'html5\'' : '\'html5\', \'flash\'';
-    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'video/autosize.js"></script>';
-    $hjs .= '<script type="text/javascript">VideoJS.options.techOrder = ['.$order.']</script>'."\n";
+    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'video/autosize.js"></script>'
+	. '<script type="text/javascript">VideoJS.options.techOrder = ['.$order.']</script>'."\n";
 }
 
 
