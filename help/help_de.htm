@@ -77,14 +77,6 @@ Um das Aussehen des Players zu ändern, sollten Sie einen anderen <a href="#usag
 <div class="toplink"><a href="#">Seitenanfang</a></div>
 
 <h2><a name="usage">Verwendung</a></h2>
-<p>Es ist wichtig, dass der Server die Videos mit dem richtigen Mime-Typ ausliefert.
-Sollte dies nicht der Fall sein, dann können Sie einen Apache-Server vermutlich
-mit den folgenden Zeilen in .htaccess entsprechend konfigurieren:</p>
-<pre>AddType video/webm .webm
-AddType video/mp4 .mp4
-AddType video/ogg .ogv
-</pre>
-<p>Wenn dies nicht möglich ist, bitten Sie Ihren Provider oder Server-Administrator die nötige Konfiguration vorzunehmen.</p>
 <p>Da Video_XH keinen Upload anbietet,
 müssen Sie Ihre Video-Dateien in den eingestellten Order per FTP,
 Filebrowser oder <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>
@@ -144,16 +136,23 @@ Um zu sehen wie es geht, schauen Sie sich den "tube" Skin an (lib/tube.css).</p>
 <div class="toplink"><a href="#">Seitenanfang</a></div>
 
 <h3><a name="trouble-shooting">Fehlerbehebung</a></h3>
-<p>Falls das Video nicht abgespielt werden kann:</p>
-<ul>
-<li>Prüfen Sie, ob dieses Video im Browser abgespielt werden kann, wenn Sie es direkt über die URL aufrufen.
-Das funktioniert allerdings nur, wenn der <a href="http://caniuse.com/#feat=video">Browser das Video-Format nativ unterstützt</a>.</li>
-</ul>
-<p>Wenn das Video nicht direkt abgespielt werden kann,
+<p>Falls das Video <em>gar</em> nicht abgespielt werden kann,
+prüfen Sie, ob dieses Video im Browser abgespielt werden kann, wenn Sie es direkt über die URL aufrufen.
+Das funktioniert allerdings nur, wenn der
+<a href="http://caniuse.com/#feat=video">Browser das Video-Format nativ unterstützt</a>
+und das Video mit dem richtigen Mime-Typ ausgeliefert wird.
+Sollte letzteres nicht der Fall sein, dann können Sie einen Apache-Server vermutlich
+mit den folgenden Zeilen in .htaccess entsprechend konfigurieren:</p>
+<pre>AddType video/webm .webm
+AddType video/mp4 .mp4
+AddType video/ogg .ogv
+</pre>
+<p>Wenn dies nicht möglich ist, bitten Sie Ihren Provider oder Server-Administrator die nötige Konfiguration vorzunehmen.</p>
+<p>Wenn das Video nicht <em>sofort</em> abgespielt werden kann,
 liegt das vermutlich an einem Kodierungs- oder Multiplex-Fehler.
 Es scheint, dass viele MP4-Muxer das "moov" Atom ans Ende des Videos hängen,
 was den Download der gesamten Datei erforderlich macht, bevor die Wiedergabe starten kann.
-Es ist das Beste zu versuchen, das Video mit <a href="http://yamb.unite-video.com/">Yamb</a> (MP4)
+Das Beste ist zu versuchen, das Video mit <a href="http://yamb.unite-video.com/">Yamb</a> (MP4)
 oder <a href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM) erneut zu multiplexen.</p>
 <div class="toplink"><a href="#">Seitenanfang</a></div>
 

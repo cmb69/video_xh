@@ -76,13 +76,6 @@ To change the look of the player, you should use another <a href="#usage-skins">
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="usage">Usage</a></h2>
-<p>It is important that the server serves the videos with the appropriate mime type.
-If this is not the case, you probably can configure your Apache with the following lines in .htaccess:</p>
-<pre>AddType video/webm .webm
-AddType video/mp4 .mp4
-AddType video/ogg .ogv
-</pre>
-<p>If that doesn't work, ask your provider or server admin to do the necessary configuration.</p>
 <p>As Video_XH provides no such possibility,
 you have to upload your video files to the configured video folder via FTP,
 a file browser or <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>.
@@ -136,12 +129,17 @@ To see how it's done have a look at the "tube" skin (lib/tube.css).</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h3><a name="trouble-shooting">Trouble Shooting</a></h3>
-<p>In case the video doesn't play:</p>
-<ul>
-<li>Check if this video can be played in the browser, when you call it's URL directly.
-This will only work, if the <a href="http://caniuse.com/#feat=video">browser natively supports the video format</a>.</li>
-</ul>
-<p>If the video can't be played directly, it's probably due to an encoding or muxing error.
+<p>In case the video doesn't play <em>at all</em>,
+check if the video can be played in the browser, when you call it's URL directly.
+This will only work, if the <a href="http://caniuse.com/#feat=video">browser natively supports the video format</a>
+and if the video is serverd with the appropriate mime type.
+If the latter is not the case, you probably can configure your Apache with the following lines in .htaccess:</p>
+<pre>AddType video/webm .webm
+AddType video/mp4 .mp4
+AddType video/ogg .ogv
+</pre>
+<p>If that doesn't work, ask your provider or server admin to do the necessary configuration.</p>
+<p>If the video can't be played <em>immediately</em>, it's probably due to an encoding or muxing error.
 It seems many MP4 muxers put the "moov" atom at the end of the video,
 what requires the player to download the complete file, before the playback starts.
 It's best to try to remux the video with <a href="http://yamb.unite-video.com/">Yamb</a> (MP4)
