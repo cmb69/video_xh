@@ -19,10 +19,15 @@ $plugin_tx['video']['label_controls']="Controls";
 $plugin_tx['video']['label_call']="Plugin Call";
 $plugin_tx['video']['label_width']="Width";
 $plugin_tx['video']['label_height']="Height";
+$plugin_tx['video']['label_resize']="Resize";
 
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="None";
+
+$plugin_tx['video']['resize_no']="No";
+$plugin_tx['video']['resize_shrink']="Shrink";
+$plugin_tx['video']['resize_full']="Full";
 
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 

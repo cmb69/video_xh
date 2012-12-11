@@ -173,10 +173,11 @@ function video($name, $options = '')
     }
     $run++;
     $files = Video_files($name);
+
     if (!empty($files)) {
 	$dn = Video_folder();
 
-	$keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height');
+	$keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height', 'resize');
 	$opts = Video_getOpt($options, $keys);
 
 	$fn = $dn . $name . '.jpg';
@@ -198,7 +199,7 @@ function video($name, $options = '')
 	}
 	$o .= '</video>';
 	$o .= '<script type="text/javascript">VideoJS("video_' . $run
-	    . '").ready(function(){video.autosize(this,' . $pcf['auto_resize'] . ')})</script>';
+	    . '").ready(function(){video.autosize(this,"' . $opts['resize'] . '")})</script>';
     } else {
 	$o = '<div class="cmsimplecore_warning">'
 	    . sprintf($ptx['error_missing'], $name) . '</div>';

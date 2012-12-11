@@ -84,7 +84,7 @@ function video_system_check() { // RELEASE-TODO
  *
  * @return array
  */
-function Video_availVideos()
+function Video_availableVideos()
 {
     $files = glob(Video_folder() . '*.???');
     $vids = array();
@@ -111,7 +111,7 @@ function Video_selectbox($id, $items, $default = null)
 {
     $o = '<select id="'. $id . '">';
     foreach ($items as $key => $val) {
-	$sel = isset($default) && $key == $default ? ' selected="selected"' : ''; 
+	$sel = isset($default) && $key == $default ? ' selected="selected"' : '';
 	$o .= '<option value="' . htmlspecialchars($key, ENT_COMPAT, 'UTF-8')
 	    . '"' . $sel . '>' . htmlspecialchars($val, ENT_COMPAT, 'UTF-8')
 	    . '</option>';
@@ -129,12 +129,12 @@ function Video_selectbox($id, $items, $default = null)
 function Video_adminMain()
 {
     global $pth, $plugin_cf, $plugin_tx;
-    
+
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
     $o = '<div id="video_call_builder">'
 	. '<label for="video_name">' . $ptx['label_name'] . '</label>'
-	. Video_selectbox('video_name', Video_availVideos()) . tag('br');
+	. Video_selectbox('video_name', Video_availableVideos()) . tag('br');
     $items = array();
     foreach (array('auto', 'metadata', 'none') as $key) {
 	$items[$key] = $ptx['preload_' . $key];
@@ -152,6 +152,12 @@ function Video_adminMain()
 	$o .= '<label for="' . $id . '">' . $ptx['label_' . $key] . '</label>'
 	    . tag('input id="' . $id . '" type="text" value="' . $pcf['default_' . $key]. '"') . tag('br');
     }
+    $items = array();
+    foreach (array('no', 'shrink', 'full') as $key) {
+	$items[$key] = $ptx['resize_' . $key];
+    }
+    $o .= '<label for="video_resize">' . $ptx['label_resize'] . '</label>'
+	. Video_selectbox('video_resize', $items, $pcf['default_resize']) . tag('br');
     $o .= tag('hr')
 	. '<label for="video_call">' . $ptx['label_call'] . '</label>'
 	. tag('input id="video_call" type="text" readonly="readonly"') . tag('br')

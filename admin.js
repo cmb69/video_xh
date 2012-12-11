@@ -11,12 +11,12 @@ var Video = {
 
     fields: {},
 
-    
+
     init: function() {
         var keys, i, key;
-        
+
         keys = ['name', 'preload', 'autoplay', 'loop', 'controls',
-            'width', 'height', 'call'];
+            'width', 'height', "resize", 'call'];
         for (i = 0; i < keys.length; i++) {
             key = keys[i];
             this.fields[key] = document.getElementById('video_' + key);
@@ -26,11 +26,11 @@ var Video = {
         }
         this.buildPluginCall();
     },
-    
+
 
     buildPluginCall: function() {
         var flds = Video.fields, opts = [], keys, key, i;
-        
+
         keys = ['width', 'height'];
         for (i = 0; i < keys.length; i++) {
             key = keys[i];
@@ -38,19 +38,20 @@ var Video = {
                 opts.push(key + '=' + flds[key].value);
             }
         }
-        
+
         opts.push('preload=' + flds['preload'].value);
-        
+        opts.push('resize=' + flds["resize"].value);
+
         keys = ['autoplay', 'loop', 'controls'];
         for (i = 0; i < keys.length; i++) {
             key = keys[i];
             opts.push(key + '=' + (flds[key].checked ? '1' : '0'));
         }
-        
+
         flds.call.value = '{{{PLUGIN:video(\'' + flds.name.value + '\', \''
             + opts.join('&') + '\');}}}';
     }
-    
+
 }
 
 Video.init();

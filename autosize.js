@@ -10,7 +10,7 @@ var video = {
     autosize: function(player, mode) {
         var ar, mw;
 
-        if (mode == 0) {
+        if (mode != "shrink" && mode != "full") {
             return;
         }
         ar = player.width() / player.height();
@@ -19,16 +19,16 @@ var video = {
             var w;
 
             w = document.getElementById(player.id).parentElement.offsetWidth;
-            if (mode == 1 && w > mw) {
+            if (mode == "shrink" && w > mw) {
                 w = mw;
             }
             player.width(w).height(Math.round(w / ar));
         }
         resize();
         if (window.addEventListener) {
-            window.addEventListener('resize', resize, false);
+            window.addEventListener("resize", resize, false);
         } else if (window.attachEvent)  {
-            window.attachEvent('onresize', resize);
+            window.attachEvent("onresize", resize);
         }
 
     }
