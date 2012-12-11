@@ -152,8 +152,8 @@ So, if necessary, you have to change the doctype declaration in your template to
 <pre>&lt;!DOCTYPE html&gt;</pre>
 <p>VideoJS' CSS doesn't validate. Basically it's CSS 3,
 but for browser compatibility several browser specific properties are used additionally.</p>
-<p>Basically it's no problem to display the same video several times on the same page.
-But that might not work, if the plugin call is exactly the same, e.g.</p>
+<p>Basically it should be possible to display the same video several times on the same page.
+But that will not work, if the plugin call is exactly the same, e.g.</p>
 <pre>{{{PLUGIN:video('LotR');}}}
 {{{PLUGIN:video('LotR');}}}</pre>
 <p>This is caused by the script evaluation of the plugin call,
@@ -161,6 +161,10 @@ which will evaluate identical calls only once (assuming that the function has no
 So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by inserting one or more spaces:</p>
 <pre>{{{PLUGIN:video('LotR');}}}
 {{{PLUGIN:video( 'LotR');}}}</pre>
+<p>Additionally playing the same video on a page
+(independently if it's called in the content or in/from the template)
+works only, if the videos are played in order.
+<strong>So it's best to avoid having the same video more than once on the same page.</strong></p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="license">License</a></h2>

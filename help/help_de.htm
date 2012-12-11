@@ -162,7 +162,7 @@ Falls nötig, sollten Sie also die Doctype-Deklaration in Ihrem Template ändern
 <pre>&lt;!DOCTYPE html&gt;</pre>
 <p>VideoJS' CSS validiert nicht. Grundsätzlich ist es CSS 3,
 aber für maximale Browser-Kompatibilität werden zusätzlich verschiedene browserspezifische Eigenschaften verwendet.</p>
-<p>Eigentlich ist es kein Problem, das gleiche Video mehrmals auf einer Seite anzuzeigen.
+<p>Eigentlich sollte es möglich sein, das gleiche Video mehrmals auf einer Seite anzuzeigen.
 Aber das funktioniert nicht, wenn der Plugin-Aufruf identisch ist, z.B.</p>
 <pre>{{{PLUGIN:video('LotR');}}}
 {{{PLUGIN:video('LotR');}}}</pre>
@@ -172,6 +172,10 @@ Verwenden Sie in diesem Fall das klassische CMSimple-Skripting, hi_pd_scripting
 oder überlisten Sie Plugin-Aufruf durch Einfügen eines oder mehrerer Leerzeichen:</p>
 <pre>{{{PLUGIN:video('LotR');}}}
 {{{PLUGIN:video( 'LotR');}}}</pre>
+<p>Darüber hinaus funktioniert die Wiedergabe des selben Videos auf einer Seite
+(unabhängig davon ob es im Content oder in/vom Template aufgerufen wird)
+nur, wenn die Videos nacheinander abgespielt werden.
+<strong>Daher vermeiden Sie am besten, das selbe Video mehr als einmal auf der selben Seite zu haben.</strong>
 <div class="toplink"><a href="#">Seitenanfang</a></div>
 
 <h2><a name="license">Lizenz</a></h2>
