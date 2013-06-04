@@ -5,7 +5,7 @@
 /**
  * Back-end of Video_XH.
  *
- * Copyright (c) 2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2012-2013 Christoph M. Becker (see license.txt)
  */
 
 
@@ -26,7 +26,7 @@ function video_version() {
     return '<h1><a href="http://3-magi.net/?CMSimple_XH/Video_XH">Video_XH</a></h1>'."\n"
 	    .tag('img class="video_plugin_icon" src="'.$pth['folder']['plugins'].'video/video.png" alt="Plugin icon"')."\n"
 	    .'<p style="margin-top: 1em">Version: '.VIDEO_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2012 <a href="http://3-magi.net/">Christoph M. Becker</a></p>'."\n"
+	    .'<p>Copyright &copy; 2012-2013 <a href="http://3-magi.net/">Christoph M. Becker</a></p>'."\n"
 	    .'<p>Video_XH is powered by <a href="http://videojs.com">Video.js</a></p>'."\n"
 	    .'<p class="video_license">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'

@@ -5,7 +5,7 @@
 /**
  * Front-end of Video_XH.
  *
- * Copyright (c) 2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2012-2013 Christoph M. Becker (see license.txt)
  */
 
 
