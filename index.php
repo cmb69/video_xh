@@ -1,11 +1,16 @@
 <?php
 
-// $Id$
-
 /**
  * Front-end of Video_XH.
  *
- * Copyright (c) 2012-2013 Christoph M. Becker (see license.txt)
+ * PHP versions 4 and 5
+ *
+ * @category Plugins
+ * @package  Video_XH
+ * @author   Christoph M. Becker <cmbecker69@gmx.de>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version  SVN: $Id$
+ * @link     http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
 
@@ -21,34 +26,38 @@ define('VIDEO_VERSION', '%VIDEO_VERSION%');
 /**
  * Fully qualified absolute URL to CMSimple's index.php.
  */
-define('VIDEO_URL', 'http'
-   . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-   . '://' . $_SERVER['SERVER_NAME']
-   . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
-   . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF']));
+define(
+    'VIDEO_URL', 'http'
+    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+    . '://' . $_SERVER['SERVER_NAME']
+    . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+    . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF'])
+);
 
 
 /**
  * Returns the fully qualified absolute URL of $url
  * in canonical form (i.e. with ./ and ../ resolved).
  *
- * @param string $url  A relative URL.
+ * @param string $url A relative URL.
+ *
  * @return string
  */
-function video_canonical_url($url) {
+function Video_canonicalUrl($url)
+{
     $parts = explode('/', VIDEO_URL . $url);
     $i = count($parts) - 1;
     while ($i >= 0) {
-	switch ($parts[$i]) {
-	case '.':
-	    array_splice($parts, $i, 1);
-	    break;
-	case '..':
-	    array_splice($parts, $i - 1, 2);
-	    $i--;
-	    break;
-	}
-	$i--;
+        switch ($parts[$i]) {
+        case '.':
+            array_splice($parts, $i, 1);
+            break;
+        case '..':
+            array_splice($parts, $i - 1, 2);
+            $i--;
+            break;
+        }
+        $i--;
     }
     return implode('/', $parts);
 }
@@ -65,17 +74,18 @@ function Video_folder()
 
     $pcf = $plugin_cf['video'];
     return !empty($pcf['folder_video'])
-	? rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') .'/'
-	: isset($pth['folder']['media'])
-	    ? $pth['folder']['media']
-	    : $pth['folder']['downloads'];
+        ? rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') .'/'
+        : isset($pth['folder']['media'])
+            ? $pth['folder']['media']
+            : $pth['folder']['downloads'];
 }
 
 
 /**
  * Returns a map of filenames to types.
  *
- * @param  string $name  Name of the video file without extension.
+ * @param string $name Name of the video file without extension.
+ *
  * @return array
  */
 function Video_files($name)
@@ -84,10 +94,10 @@ function Video_files($name)
     $dn = Video_folder();
     $files = array();
     foreach ($types as $ext => $type) {
-	$fn = $dn . $name . '.' . $ext;
-	if (file_exists($fn)) {
-	    $files[$fn] = $ext;
-	}
+        $fn = $dn . $name . '.' . $ext;
+        if (file_exists($fn)) {
+            $files[$fn] = $ext;
+        }
     }
     return $files;
 }
@@ -98,30 +108,39 @@ function Video_files($name)
  * @global string $hjs
  * @return void
  */
-function video_hjs() {
+function Video_hjs()
+{
     global $hjs, $pth, $plugin_cf;
     static $again = false;
 
     if ($again) {
-	return;
+        return;
     }
     $again = true;
     $pcf = $plugin_cf['video'];
     $lib = $pth['folder']['plugins'].'video/lib/';
     if (!empty($pcf['skin'])) {
-	$hjs .= '<link rel="stylesheet" href="'.$lib.$pcf['skin'].'.css" type="text/css">'."\n";
+        $hjs .= '<link rel="stylesheet" href="' . $lib . $pcf['skin']
+            . '.css" type="text/css">' . "\n";
     }
     if ($pcf['use_cdn']) {
-	$hjs .= '<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css" type="text/css">'."\n"
-		.'<script type="text/javascript" src="http://vjs.zencdn.net/c/video.js"></script>'."\n";
+        $hjs .= '<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css"'
+            . ' type="text/css">' . "\n"
+            . '<script type="text/javascript"'
+            . ' src="http://vjs.zencdn.net/c/video.js"></script>' . "\n";
     } else {
-	$hjs .= '<link rel="stylesheet" href="'.$lib.'video-js.min.css" type="text/css">'."\n"
-		.'<script type="text/javascript" src="'.$lib.'video.min.js"></script>'."\n"
-		.'<script type="text/javascript">VideoJS.options.flash.swf = \''.$lib.'video-js.swf\'</script>'."\n";
+        $hjs .= '<link rel="stylesheet" href="'.$lib.'video-js.min.css"'
+            . ' type="text/css">' . "\n"
+            . '<script type="text/javascript" src="'.$lib.'video.min.js"></script>'
+            . "\n"
+            . '<script type="text/javascript">VideoJS.options.flash.swf = \''
+            . $lib . 'video-js.swf\'</script>' . "\n";
     }
     $order = $pcf['prefer_flash'] ? '\'flash\', \'html5\'' : '\'html5\', \'flash\'';
-    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'video/autosize.js"></script>'
-	. '<script type="text/javascript">VideoJS.options.techOrder = ['.$order.']</script>'."\n";
+    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
+        . 'video/autosize.js"></script>'
+        . '<script type="text/javascript">VideoJS.options.techOrder = ['
+        . $order . ']</script>' . "\n";
 }
 
 
@@ -131,8 +150,9 @@ function video_hjs() {
  * Defaults are taken from $plugin_cf['video']['default_*'].
  * Those will be overridden with the options in $query.
  *
- * @param string $query  The options given like a query string.
- * @param array $validOpts  The valid options.
+ * @param string $query     The options given like a query string.
+ * @param array  $validOpts The valid options.
+ *
  * @return array
  */
 function Video_getOpt($query, $validOpts)
@@ -144,9 +164,9 @@ function Video_getOpt($query, $validOpts)
 
     $res = array();
     foreach ($validOpts as $key) {
-	$res[$key] = isset($opts[$key])
-	    ? ($opts[$key] === '' ? true : $opts[$key])
-	    : $plugin_cf['video']["default_$key"];
+        $res[$key] = isset($opts[$key])
+            ? ($opts[$key] === '' ? true : $opts[$key])
+            : $plugin_cf['video']["default_$key"];
     }
 
     return $res;
@@ -156,9 +176,9 @@ function Video_getOpt($query, $validOpts)
 /**
  * Returns the <video> element to embed the video.
  *
- * @access public
- * @param string $name  Name of the video file without extension.
- * @param string $options  The options in form of a query string.
+ * @param string $name    Name of the video file without extension.
+ * @param string $options The options in form of a query string.
+ *
  * @return string  The (X)HTML.
  */
 function video($name, $options = '')
@@ -169,40 +189,45 @@ function video($name, $options = '')
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
     if (!$run) {
-	video_hjs();
+        Video_hjs();
     }
     $run++;
     $files = Video_files($name);
 
     if (!empty($files)) {
-	$dn = Video_folder();
+        $dn = Video_folder();
 
-	$keys = array('controls', 'preload', 'autoplay', 'loop', 'width', 'height', 'resize');
-	$opts = Video_getOpt($options, $keys);
+        $keys = array(
+            'controls', 'preload', 'autoplay', 'loop', 'width', 'height', 'resize'
+        );
+        $opts = Video_getOpt($options, $keys);
 
-	$fn = $dn . $name . '.jpg';
-	$class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default') . '-skin';
-	$o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
-	    . '<video id="video_' . $run . '" class="video-js ' . $class . '"'
-	    . (!empty($opts['controls']) ? ' controls="controls"' : '')
-	    . (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
-	    . (!empty($opts['loop']) ? ' loop="loop"' : '')
-	    . (' preload="' . $opts['preload'] . '"')
-	    . (' width="' . $opts['width'] . '"')
-	    . (' height="' . $opts['height'] . '"')
-	    . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
-	    . '>';
-	foreach ($files as $fn => $type) {
-	    $o .= tag('source'
-		      . ' src="' . video_canonical_url($fn) . '"'
-		      . ' type="video/' . $type . '"');
-	}
-	$o .= '</video>';
-	$o .= '<script type="text/javascript">VideoJS("video_' . $run
-	    . '").ready(function(){video.autosize(this,"' . $opts['resize'] . '")})</script>';
+        $fn = $dn . $name . '.jpg';
+        $class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default')
+            . '-skin';
+        $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
+            . '<video id="video_' . $run . '" class="video-js ' . $class . '"'
+            . (!empty($opts['controls']) ? ' controls="controls"' : '')
+            . (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
+            . (!empty($opts['loop']) ? ' loop="loop"' : '')
+            . (' preload="' . $opts['preload'] . '"')
+            . (' width="' . $opts['width'] . '"')
+            . (' height="' . $opts['height'] . '"')
+            . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
+            . '>';
+        foreach ($files as $fn => $type) {
+            $o .= tag(
+                'source src="' . Video_canonicalUrl($fn) . '"'
+                . ' type="video/' . $type . '"'
+            );
+        }
+        $o .= '</video>';
+        $o .= '<script type="text/javascript">VideoJS("video_' . $run
+            . '").ready(function(){video.autosize(this,"' . $opts['resize']
+            . '")})</script>';
     } else {
-	$o = '<div class="cmsimplecore_warning">'
-	    . sprintf($ptx['error_missing'], $name) . '</div>';
+        $o = '<div class="cmsimplecore_warning">'
+            . sprintf($ptx['error_missing'], $name) . '</div>';
     }
     return $o;
 }
@@ -212,7 +237,7 @@ function video($name, $options = '')
  * Handle enable_newsbox config option.
  */
 if ($plugin_cf['video']['auto_hjs']) {
-    video_hjs();
+    Video_hjs();
 }
 
 ?>
