@@ -23,6 +23,8 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * Returns the version information view.
  *
+ * @global array The paths of system files and folders.
+ *
  * @return string  The (X)HTML.
  */
 function Video_version()
@@ -60,6 +62,10 @@ function Video_version()
 
 /**
  * Returns the requirements information view.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ * @global array The localization of the plugins.
  *
  * @return string  The (X)HTML.
  */
@@ -144,6 +150,10 @@ function Video_selectbox($id, $items, $default = null)
 
 /**
  * Returns the "call builder".
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the plugins.
+ * @global array The localization of the plugins.
  *
  * @return string  The (X)HTML.
  */

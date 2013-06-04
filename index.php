@@ -69,6 +69,9 @@ function Video_canonicalUrl($url)
 /**
  * Returns the relative path to the video folder.
  *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the plugins.
+ *
  * @return string
  */
 function Video_folder()
@@ -108,7 +111,10 @@ function Video_files($name)
 /**
  * Includes the necessary JS and CSS to the <head>.
  *
- * @global string
+ * @global string (X)HTML to insert in the HEAD element.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the plugins.
+ *
  * @return void
  */
 function Video_hjs()
@@ -156,6 +162,8 @@ function Video_hjs()
  * @param string $query     The options given like a query string.
  * @param array  $validOpts The valid options.
  *
+ * @global array The configuration of the plugins.
+ *
  * @return array
  */
 function Video_getOpt($query, $validOpts)
@@ -181,6 +189,10 @@ function Video_getOpt($query, $validOpts)
  *
  * @param string $name    Name of the video file without extension.
  * @param string $options The options in form of a query string.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the plugins.
+ * @global array The localization of the plugins.
  *
  * @return string  The (X)HTML.
  */
