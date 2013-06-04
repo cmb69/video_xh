@@ -5,7 +5,7 @@
  *
  * PHP versions 4 and 5
  *
- * @category Plugins
+ * @category CMSimple_XH
  * @package  Video_XH
  * @author   Christoph M. Becker <cmbecker69@gmx.de>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3

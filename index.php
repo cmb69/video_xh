@@ -5,7 +5,7 @@
  *
  * PHP versions 4 and 5
  *
- * @category Plugins
+ * @category CMSimple_XH
  * @package  Video_XH
  * @author   Christoph M. Becker <cmbecker69@gmx.de>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
@@ -20,6 +20,9 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
+/**
+ * The version string.
+ */
 define('VIDEO_VERSION', '%VIDEO_VERSION%');
 
 
@@ -105,7 +108,7 @@ function Video_files($name)
 /**
  * Includes the necessary JS and CSS to the <head>.
  *
- * @global string $hjs
+ * @global string
  * @return void
  */
 function Video_hjs()
