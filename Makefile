@@ -7,3 +7,7 @@ build:
 .PHONY: sniff
 sniff:
 	phpcs.bat *.php
+
+.PHONY: compat
+compat:
+	pci.bat -d .
