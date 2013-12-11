@@ -19,8 +19,8 @@ if (typeof video == "undefined") {
  * @param {Object}
  * @param {String}
  */
-video.autosize = function(player, mode) {
-    var ar, mw;
+video.autosize = function(id, mode) {
+    var ar, mw, player = videojs(id);
 
     if (mode != "shrink" && mode != "full") {
         return;
@@ -30,7 +30,7 @@ video.autosize = function(player, mode) {
     function resize() {
         var w;
 
-        w = document.getElementById(player.id).parentElement.offsetWidth;
+        w = document.getElementById(id).parentElement.offsetWidth;
         if (mode == "shrink" && w > mw) {
             w = mw;
         }

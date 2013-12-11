@@ -147,9 +147,9 @@ EOT;
     } else {
         $hjs .= <<<EOT
 <link rel="stylesheet" href="${lib}video-js.min.css" type="text/css">
-<script type="text/javascript" src="${lib}video.min.js"></script>
+<script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
-    VideoJS.options.flash.swf = "${lib}video-js.swf"
+    //VideoJS.options.flash.swf = "${lib}video-js.swf"
 </script>
 
 EOT;
@@ -159,7 +159,7 @@ EOT;
     $hjs .= <<<EOT
 <script type="text/javascript" src="$autosizePath"></script>
 <script type="text/javascript">
-    VideoJS.options.techOrder = [$order]
+    //VideoJS.options.techOrder = [$order]
 </script>
 
 EOT;
@@ -240,7 +240,7 @@ function video($name, $options = '')
             . (' width="' . $opts['width'] . '"')
             . (' height="' . $opts['height'] . '"')
             . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
-            . '>';
+            . 'data-setup="">';
         foreach ($files as $fn => $type) {
             $o .= tag(
                 'source src="' . Video_canonicalUrl($fn) . '"'
@@ -248,9 +248,14 @@ function video($name, $options = '')
             );
         }
         $o .= '</video>';
-        $o .= '<script type="text/javascript">VideoJS("video_' . $run
-            . '").ready(function(){video.autosize(this,"' . $opts['resize']
-            . '")})</script>';
+        $o .= <<<EOT
+<script type="text/javascript">
+    videojs("video_$run").ready(function () {
+	video.autosize("video_$run", "$opts[resize]");
+    });
+</script>
+
+EOT;
     } else {
         $o = '<div class="cmsimplecore_warning">'
             . sprintf($ptx['error_missing'], $name) . '</div>';
