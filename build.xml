@@ -65,6 +65,7 @@
                 <exclude name="video.komodoproject"/>
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
+                <exclude name="TODO"/>
             </fileset>
         </move>
         <delete dir="export"/>
