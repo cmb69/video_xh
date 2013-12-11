@@ -24,7 +24,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * The version number.
  */
-define('VIDEO_VERSION', '%VIDEO_VERSION%');
+define('VIDEO_VERSION', '@VIDEO_VERSION@');
 
 /**
  * Fully qualified absolute URL to CMSimple's index.php.
