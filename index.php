@@ -111,6 +111,31 @@ function Video_files($name)
 }
 
 /**
+ * Returns the path of an appropriate subtitle file; <var>false</var> otherwise.
+ *
+ * @param string $name A video name.
+ *
+ * @return string
+ *
+ * @global string The current language.
+ */
+function Video_subtitleFile($name)
+{
+    global $sl;
+
+    $dirname = Video_folder();
+    $filename = $dirname . $name . '.vtt';
+    $suffixes = array("_$sl.vtt", "_$sl.srt", '.vtt', '.srt');
+    foreach ($suffixes as $suffix) {
+	$filename = $dirname . $name . $suffix;
+	if (file_exists($filename)) {
+	    return $filename;
+	}
+    }
+    return false;
+}
+
+/**
  * Includes the necessary JS and CSS in the head element.
  *
  * @return void
@@ -206,12 +231,13 @@ function Video_getOpt($query, $validOpts)
  * @global array The paths of system files and folders.
  * @global array The configuration of the plugins.
  * @global array The localization of the plugins.
+ * @global string The current language. *
  *
  * @todo fix empty elements
  */
 function video($name, $options = '')
 {
-    global $pth, $plugin_cf, $plugin_tx;
+    global $pth, $plugin_cf, $plugin_tx, $sl;
     static $run = 0;
 
     $pcf = $plugin_cf['video'];
@@ -235,7 +261,7 @@ function video($name, $options = '')
         $filename = Video_folder() . $name . '.jpg';
 	$poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
         $o = <<<EOT
-<!-- Video_XH: -->
+<!-- Video_XH: $name -->
 <noscript>$ptx[message_no_js]</noscript>
 <video id="video_$run" class="video-js $class"$controls$autoplay$loop
        preload="$opts[preload]" width="$opts[width]" height="$opts[height]"$poster>
@@ -245,6 +271,13 @@ EOT;
 	    $url = Video_canonicalUrl($filename);
             $o .= <<<EOT
     <source src="$url" type="video/$type" />
+
+EOT;
+	}
+	$filename = Video_subtitleFile($name);
+	if ($filename) {
+	    $o .= <<<EOT
+    <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]" />
 
 EOT;
 	}

@@ -29,6 +29,8 @@ $plugin_tx['video']['resize_no']="No";
 $plugin_tx['video']['resize_shrink']="Shrink";
 $plugin_tx['video']['resize_full']="Full";
 
+$plugin_tx['video']['subtitle_label']="English";
+
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 
 $plugin_tx['video']['cf_use_cdn']="Whether to use the latest version of VIDEO.JS via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";

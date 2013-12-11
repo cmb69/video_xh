@@ -19,6 +19,7 @@ $plugin_tx['video']['label_height']="Výška";
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="Žiadne";
+$plugin_tx['video']['subtitle_label']="slovenčina";
 $plugin_tx['video']['cf_use_cdn']="Má sa použiť najnovšia verzia VIDEO.JS via CDN: \"1\" (áno) alebo \"0\" (nie, použiť lokálnu verziu).";
 $plugin_tx['video']['cf_folder_video']="Cesta k adresáru s videom relatívna voči koreňovému adresáru CMSimple. Ak necháte prázdne, predpokladá sa, že súbory videa budú uložené v adresári \"Media\" od CMSimple_XH 1.5 alebo v adresári \"Downloads\" pri starších verziách CMSimple.";
 $plugin_tx['video']['cf_prefer_flash']="Uprednostniť flash video pred HTML5 videom?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";

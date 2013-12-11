@@ -1,6 +1,7 @@
 <?php
 
 $plugin_tx['video']['message_no_js']="<div><strong>Zapnout Javascript pro lepší zážitek sledování!</strong></div>";
+$plugin_tx['video']['subtitle_label']="čeština";
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_phpversion']="PHP verze &ge; %s";
 $plugin_tx['video']['syscheck_extension']="Rozšíření '%s' načteno";
