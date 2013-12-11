@@ -1,10 +1,35 @@
-/* plugin info */
-img.video_plugin_icon {display: block; float: left; margin: 0 16px -16px 0}
-p.video_license {clear: both; text-align: justify}
+/*
+ * Plugin info.
+ */
+img.video_plugin_icon {
+    float: left;
+    margin: 0 16px -16px 0;
+}
+p.video_license {
+    clear: both;
+    text-align: justify;
+}
 
-/* call builder */
-#video_call_builder {padding: 1em 0}
-#video_call_builder label {float: left; width: 10em}
-#video_call_builder select, #video_call_builder input {float: left}
-#video_call_builder br {clear: both}
-#video_call_builder hr {margin: 1em 0}
+/*
+ * The call builder.
+ */
+#video_call_builder {
+    padding: 1em 0;
+}
+#video_call_builder p {
+    margin: 0.4em 0;
+}
+#video_call_builder label span {
+    display: inline-block; width: 20%;
+}
+#video_call_builder select,
+#video_call_builder input[type=text] {
+    width: 79%;
+}
+#video_call_builder hr {
+    margin: 1em 0;
+}
+#video_call_builder textarea {
+    width: 99%;
+    height: 5em;
+}

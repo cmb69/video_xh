@@ -126,6 +126,44 @@ function Video_availableVideos()
 }
 
 /**
+ * Returns an associative array of preload options.
+ *
+ * @return array
+ *
+ * @global array The localization of the plugins.
+ */
+function Video_preloadOptions()
+{
+    global $plugin_tx;
+
+    $ptx = $plugin_tx['video'];
+    $options = array();
+    foreach (array('auto', 'metadata', 'none') as $key) {
+        $options[$key] = $ptx['preload_' . $key];
+    }
+    return $options;
+}
+
+/**
+ * Returns an associative array of resize options.
+ *
+ * @return array
+ *
+ * @global array The localization of the plugins.
+ */
+function Video_resizeOptions()
+{
+    global $plugin_tx;
+
+    $ptx = $plugin_tx['video'];
+    $options = array();
+    foreach (array('no', 'shrink', 'full') as $key) {
+        $options[$key] = $ptx['resize_' . $key];
+    }
+    return $options;
+}
+
+/**
  * Returns a selectbox.
  *
  * @param string $id      The id of the selectbox.
@@ -150,6 +188,23 @@ function Video_selectbox($id, $items, $default = null)
 }
 
 /**
+ * Returns the view of a single field (incl. its label).
+ *
+ * @param string $label A label.
+ * @param string $field A field marked up as (X)HTML.
+ *
+ * @return (X)HTML.
+ */
+function Video_builderField($label, $field)
+{
+    $o = <<<EOT
+    <p><label><span>$label</span>$field</label></p>
+
+EOT;
+    return $o;
+}
+
+/**
  * Returns the "call builder".
  *
  * @return string (X)HTML.
@@ -164,45 +219,35 @@ function Video_adminMain()
 
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
-    $o = '<div id="video_call_builder">'
-        . '<label for="video_name">' . $ptx['label_name'] . '</label>'
-        . Video_selectbox('video_name', Video_availableVideos()) . tag('br');
-    $items = array();
-    foreach (array('auto', 'metadata', 'none') as $key) {
-        $items[$key] = $ptx['preload_' . $key];
-    }
-    $o .= '<label for="video_preload">' . $ptx['label_preload'] . '</label>'
-        . Video_selectbox('video_preload', $items, $pcf['default_preload'])
-        . tag('br');
+    $o = '<!-- Video_XH: call builder -->' . PHP_EOL
+        . '<div id="video_call_builder">' . PHP_EOL;
+    $field = Video_selectbox('video_name', Video_availableVideos());
+    $o .= Video_builderField($ptx['label_name'], $field);
+    $field = Video_selectbox(
+        'video_preload', Video_preloadOptions(), $pcf['default_preload']
+    );
+    $o .= Video_builderField($ptx['label_preload'], $field);
     foreach (array('autoplay', 'loop', 'controls') as $key) {
         $id = 'video_' . $key;
         $check = $pcf['default_' . $key] ? ' checked="checked"' : '';
-        $o .= '<label for="' . $id . '">' . $ptx['label_' . $key] . '</label>'
-            . tag('input id="' . $id . '" type="checkbox"' . $check) . tag('br');
+        $field = tag("input id=\"$id\" type=\"checkbox\"$check");
+        $o .= Video_builderField($ptx["label_$key"], $field);
     }
     foreach (array('width', 'height') as $key) {
         $id = 'video_' . $key;
-        $o .= '<label for="' . $id . '">' . $ptx['label_' . $key] . '</label>'
-            . tag(
-                'input id="' . $id . '" type="text" value="'
-                . $pcf['default_' . $key]. '"'
-            )
-            . tag('br');
+        $defaultKey = "default_$key";
+        $field = tag("input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\"");
+        $o .= Video_builderField($ptx["label_$key"], $field);
     }
-    $items = array();
-    foreach (array('no', 'shrink', 'full') as $key) {
-        $items[$key] = $ptx['resize_' . $key];
-    }
-    $o .= '<label for="video_resize">' . $ptx['label_resize'] . '</label>'
-        . Video_selectbox('video_resize', $items, $pcf['default_resize'])
-        . tag('br');
-    $o .= tag('hr')
-        . '<label for="video_call">' . $ptx['label_call'] . '</label>'
-        . tag('input id="video_call" type="text" readonly="readonly"')
-        . tag('br')
-        . '</div>'
-        . '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'video/admin.js"></script>';
+    $resizeSelect = Video_selectbox(
+        'video_resize', Video_resizeOptions(), $pcf['default_resize']
+    );
+    $jsPath = $pth['folder']['plugins'] . 'video/admin.js';
+    $o .= Video_builderField($ptx['label_resize'], $resizeSelect);
+    $o .= '    <p><textarea id="video_call" readonly="readonly"></textarea></p>'
+        . PHP_EOL;
+    $o .= '</div>' . PHP_EOL
+        . "<script type=\"text/javascript\" src=\"$jsPath\"></script>" . PHP_EOL;
     return $o;
 }
 
