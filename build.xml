@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id$ -->
+
+<project name="Video" default="default">
+
+    <!-- Filesets -->
+
+    <fileset id="php-sources" dir=".">
+        <include name="admin.php"/>
+        <include name="index.php"/>
+    </fileset>
+
+    <!-- Checks -->
+
+    <target name="sniff">
+        <phpcodesniffer standard="PEAR">
+            <fileset refid="php-sources"/>
+        </phpcodesniffer>
+    </target>
+
+    <target name="compat">
+        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern video ."
+              logoutput="true"/>
+    </target>
+
+    <!-- Documentation -->
+
+    <target name="php-doc">
+        <phpdoc title="Video_XH Developer Documentation" destdir="doc/php"
+                output="HTML:frames:default" defaultpackagename="Video"
+                defaultcategoryname="CMSimple_XH">
+            <fileset refid="php-sources"/>
+            <projdocfileset dir=".">
+               <include name="README"/>
+               <include name="CHANGELOG"/>
+            </projdocfileset>
+        </phpdoc>
+    </target>
+
+<!--    <target name="js-doc">
+        <exec command="jsdoc -destination doc/js pagemanager.js" checkreturn="true"/>
+    </target>
+-->
+    <target name="doc" depends="php-doc"/>
+
+    <!-- Build -->
+
+    <target name="build">
+        <fail unless="version" message="version is not defined!"/>
+        <svnexport revision="" repositoryurl="." todir="export"/>
+        <move todir="dist">
+            <fileset dir="export">
+                <include name="index.php"/>
+                <include name="version.nfo"/>
+            </fileset>
+            <filterchain>
+                <replacetokens>
+                    <token key="VIDEO_VERSION" value="${version}"/>
+                </replacetokens>
+            </filterchain>
+        </move>
+        <move todir="dist">
+            <fileset dir="export">
+                <exclude name="video.komodoproject"/>
+                <exclude name="build.xml"/>
+                <exclude name="phpcompatinfo.xml"/>
+            </fileset>
+        </move>
+        <delete dir="export"/>
+        <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
+        <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
+        <zip destfile="Video_XH-${version}.zip" basedir="dist" prefix="video/"/>
+        <delete dir="dist"/>
+    </target>
+
+</project>
