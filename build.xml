@@ -38,10 +38,10 @@
         </phpdoc>
     </target>
 
-<!--    <target name="js-doc">
-        <exec command="jsdoc -destination doc/js pagemanager.js" checkreturn="true"/>
+    <target name="js-doc">
+        <exec command="jsdoc --destination doc/js *.js" checkreturn="true"/>
     </target>
--->
+
     <target name="doc" depends="php-doc"/>
 
     <!-- Build -->
