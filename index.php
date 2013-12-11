@@ -206,6 +206,8 @@ function Video_getOpt($query, $validOpts)
  * @global array The paths of system files and folders.
  * @global array The configuration of the plugins.
  * @global array The localization of the plugins.
+ *
+ * @todo fix empty elements
  */
 function video($name, $options = '')
 {
@@ -221,34 +223,33 @@ function video($name, $options = '')
     $files = Video_files($name);
 
     if (!empty($files)) {
-        $dn = Video_folder();
-
         $keys = array(
             'controls', 'preload', 'autoplay', 'loop', 'width', 'height', 'resize'
         );
         $opts = Video_getOpt($options, $keys);
+	$class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
+        $class = "vjs-$class-skin";
+	$controls = !empty($opts['controls']) ? ' controls="controls"' : '';
+	$autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
+	$loop = !empty($opts['loop']) ? ' loop="loop"' : '';
+        $filename = Video_folder() . $name . '.jpg';
+	$poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
+        $o = <<<EOT
+<!-- Video_XH: -->
+<noscript>$ptx[message_no_js]</noscript>
+<video id="video_$run" class="video-js $class"$controls$autoplay$loop
+       preload="$opts[preload]" width="$opts[width]" height="$opts[height]"$poster>
 
-        $fn = $dn . $name . '.jpg';
-        $class = 'vjs-' . (!empty($pcf['skin']) ? $pcf['skin'] : 'default')
-            . '-skin';
-        $o = '<noscript>' . $ptx['message_no_js'] . '</noscript>'
-            . '<video id="video_' . $run . '" class="video-js ' . $class . '"'
-            . (!empty($opts['controls']) ? ' controls="controls"' : '')
-            . (!empty($opts['autoplay']) ? ' autoplay="autoplay"' : '')
-            . (!empty($opts['loop']) ? ' loop="loop"' : '')
-            . (' preload="' . $opts['preload'] . '"')
-            . (' width="' . $opts['width'] . '"')
-            . (' height="' . $opts['height'] . '"')
-            . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
-            . '>';
-        foreach ($files as $fn => $type) {
-            $o .= tag(
-                'source src="' . Video_canonicalUrl($fn) . '"'
-                . ' type="video/' . $type . '"'
-            );
-        }
-        $o .= '</video>';
+EOT;
+        foreach ($files as $filename => $type) {
+	    $url = Video_canonicalUrl($filename);
+            $o .= <<<EOT
+    <source src="$url" type="video/$type" />
+
+EOT;
+	}
         $o .= <<<EOT
+</video>
 <script type="text/javascript">
     videojs("video_$run", {}, function () {
 	video.autosize("video_$run", "$opts[resize]");
