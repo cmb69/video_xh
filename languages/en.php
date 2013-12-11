@@ -1,6 +1,6 @@
 <?php
 
-$plugin_tx['video']['message_no_js']="<div><strong>Enable Javascript for better/any viewing experience!</strong></div>";
+$plugin_tx['video']['message_no_js']="Enable Javascript for better/any viewing experience!";
 
 $plugin_tx['video']['menu_main']="Call Builder";
 

@@ -1,6 +1,6 @@
 <?php
 
-$plugin_tx['video']['message_no_js']="<div><strong>Aktivieren Sie Javascript um das Video besser bzw. überhaupt sehen zu können!</strong></div>";
+$plugin_tx['video']['message_no_js']="Aktivieren Sie Javascript um das Video besser bzw. überhaupt sehen zu können!";
 
 $plugin_tx['video']['menu_main']="Aufruf-Assistent";
 

@@ -262,7 +262,6 @@ function video($name, $options = '')
 	$poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
         $o = <<<EOT
 <!-- Video_XH: $name -->
-<noscript>$ptx[message_no_js]</noscript>
 <video id="video_$run" class="video-js $class"$controls$autoplay$loop
        preload="$opts[preload]" width="$opts[width]" height="$opts[height]"$poster>
 
@@ -288,6 +287,7 @@ EOT;
 	video.autosize("video_$run", "$opts[resize]");
     });
 </script>
+<noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
 
 EOT;
     } else {

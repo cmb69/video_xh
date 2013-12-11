@@ -1,4 +1,18 @@
 /*
+ * Notice, if JavaScript is disabled.
+ */
+.video_noscript {
+    background: #e9f5fb;
+    color: #16597a;
+    border: 1px solid #84c7e9;
+    padding: 0.7em;
+    padding-left: 36px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
+/*
  * Plugin info.
  */
 img.video_plugin_icon {

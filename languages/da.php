@@ -7,7 +7,7 @@
  * License.
  */
 
-$plugin_tx['video']['message_no_js']="<div><strong>Aktivere Javascript for bedere/nogen visning!</strong></div>";
+$plugin_tx['video']['message_no_js']="Aktivere Javascript for bedere/nogen visning!";
 $plugin_tx['video']['subtitle_label']="dansk";
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_phpversion']="PHP version &ge; %s";
