@@ -240,7 +240,7 @@ function video($name, $options = '')
             . (' width="' . $opts['width'] . '"')
             . (' height="' . $opts['height'] . '"')
             . (file_exists($fn) ? ' poster="' . $fn . '"' : '')
-            . 'data-setup="">';
+            . '>';
         foreach ($files as $fn => $type) {
             $o .= tag(
                 'source src="' . Video_canonicalUrl($fn) . '"'
@@ -250,7 +250,7 @@ function video($name, $options = '')
         $o .= '</video>';
         $o .= <<<EOT
 <script type="text/javascript">
-    videojs("video_$run").ready(function () {
+    videojs("video_$run", {}, function () {
 	video.autosize("video_$run", "$opts[resize]");
     });
 </script>
