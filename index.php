@@ -13,21 +13,23 @@
  * @link     http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
-
+/*
+ * Prevent direct access.
+ */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
-
 /**
- * The version string.
+ * The version number.
  */
 define('VIDEO_VERSION', '%VIDEO_VERSION%');
 
-
 /**
  * Fully qualified absolute URL to CMSimple's index.php.
+ *
+ * @todo: Use better definition.
  */
 define(
     'VIDEO_URL', 'http'
@@ -36,7 +38,6 @@ define(
     . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
     . preg_replace('/index.php$/', '', $_SERVER['PHP_SELF'])
 );
-
 
 /**
  * Returns the fully qualified absolute URL of $url
@@ -65,27 +66,28 @@ function Video_canonicalUrl($url)
     return implode('/', $parts);
 }
 
-
 /**
  * Returns the relative path to the video folder.
  *
+ * @return string
+ *
  * @global array The paths of system files and folders.
  * @global array The configuration of the plugins.
- *
- * @return string
  */
 function Video_folder()
 {
     global $pth, $plugin_cf;
 
     $pcf = $plugin_cf['video'];
-    return !empty($pcf['folder_video'])
-        ? rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') .'/'
-        : isset($pth['folder']['media'])
-            ? $pth['folder']['media']
-            : $pth['folder']['downloads'];
+    if (!empty($pcf['folder_video'])) {
+        $folder = rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') . '/';
+    } elseif (isset($pth['folder']['media'])) {
+        $folder = $pth['folder']['media'];
+    } else {
+        $folder = $pth['folder']['downloads'];
+    }
+    return $folder;
 }
-
 
 /**
  * Returns a map of filenames to types.
@@ -97,10 +99,10 @@ function Video_folder()
 function Video_files($name)
 {
     $types = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
-    $dn = Video_folder();
+    $dirname = Video_folder();
     $files = array();
     foreach ($types as $ext => $type) {
-        $fn = $dn . $name . '.' . $ext;
+        $fn = $dirname . $name . '.' . $ext;
         if (file_exists($fn)) {
             $files[$fn] = $ext;
         }
@@ -109,13 +111,15 @@ function Video_files($name)
 }
 
 /**
- * Includes the necessary JS and CSS to the <head>.
+ * Includes the necessary JS and CSS in the head element.
  *
- * @global string (X)HTML to insert in the HEAD element.
+ * @return void
+ *
+ * @global string The document fragment to insert in the head element.
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
  *
- * @return void
+ * @todo Remove CDN facility for better compat?
  */
 function Video_hjs()
 {
@@ -127,31 +131,39 @@ function Video_hjs()
     }
     $again = true;
     $pcf = $plugin_cf['video'];
-    $lib = $pth['folder']['plugins'].'video/lib/';
+    $lib = $pth['folder']['plugins'] . 'video/lib/';
     if (!empty($pcf['skin'])) {
-        $hjs .= '<link rel="stylesheet" href="' . $lib . $pcf['skin']
-            . '.css" type="text/css">' . "\n";
+        $hjs .= <<<EOT
+<link rel="stylesheet" href="$lib$pcf[skin].css" type="text/css">
+
+EOT;
     }
     if ($pcf['use_cdn']) {
-        $hjs .= '<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css"'
-            . ' type="text/css">' . "\n"
-            . '<script type="text/javascript"'
-            . ' src="http://vjs.zencdn.net/c/video.js"></script>' . "\n";
-    } else {
-        $hjs .= '<link rel="stylesheet" href="'.$lib.'video-js.min.css"'
-            . ' type="text/css">' . "\n"
-            . '<script type="text/javascript" src="'.$lib.'video.min.js"></script>'
-            . "\n"
-            . '<script type="text/javascript">VideoJS.options.flash.swf = \''
-            . $lib . 'video-js.swf\'</script>' . "\n";
-    }
-    $order = $pcf['prefer_flash'] ? '\'flash\', \'html5\'' : '\'html5\', \'flash\'';
-    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'video/autosize.js"></script>'
-        . '<script type="text/javascript">VideoJS.options.techOrder = ['
-        . $order . ']</script>' . "\n";
-}
+        $hjs .= <<<EOT
+<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css" type="text/css">
+<script type="text/javascript" src="http://vjs.zencdn.net/c/video.js"></script>
 
+EOT;
+    } else {
+        $hjs .= <<<EOT
+<link rel="stylesheet" href="${lib}video-js.min.css" type="text/css">
+<script type="text/javascript" src="${lib}video.min.js"></script>
+<script type="text/javascript">
+    VideoJS.options.flash.swf = "${lib}video-js.swf"
+</script>
+
+EOT;
+    }
+    $autosizePath = $pth['folder']['plugins'] . 'video/autosize.js';
+    $order = $pcf['prefer_flash'] ? '"flash", "html5"' : '"html5", "flash"';
+    $hjs .= <<<EOT
+<script type="text/javascript" src="$autosizePath"></script>
+<script type="text/javascript">
+    VideoJS.options.techOrder = [$order]
+</script>
+
+EOT;
+}
 
 /**
  * Returns all options.
@@ -162,39 +174,38 @@ function Video_hjs()
  * @param string $query     The options given like a query string.
  * @param array  $validOpts The valid options.
  *
- * @global array The configuration of the plugins.
- *
  * @return array
+ *
+ * @global array The configuration of the plugins.
  */
 function Video_getOpt($query, $validOpts)
 {
     global $plugin_cf;
 
-    $query = html_entity_decode($query, ENT_QUOTES, 'UTF-8');
+    $query = html_entity_decode($query, ENT_QUOTES, 'UTF-8'); // TODO: PHP 4!
     parse_str($query, $opts);
 
     $res = array();
     foreach ($validOpts as $key) {
+        // FIXME: no nested ternary op!
         $res[$key] = isset($opts[$key])
             ? ($opts[$key] === '' ? true : $opts[$key])
             : $plugin_cf['video']["default_$key"];
     }
-
     return $res;
 }
 
-
 /**
- * Returns the <video> element to embed the video.
+ * Returns the video element to embed the video.
  *
  * @param string $name    Name of the video file without extension.
  * @param string $options The options in form of a query string.
  *
+ * @return string (X)HTML.
+ *
  * @global array The paths of system files and folders.
  * @global array The configuration of the plugins.
  * @global array The localization of the plugins.
- *
- * @return string  The (X)HTML.
  */
 function video($name, $options = '')
 {
@@ -247,9 +258,8 @@ function video($name, $options = '')
     return $o;
 }
 
-
 /*
- * Handle enable_newsbox config option.
+ * Handle auto_hjs config option.
  */
 if ($plugin_cf['video']['auto_hjs']) {
     Video_hjs();
