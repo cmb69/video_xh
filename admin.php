@@ -291,4 +291,18 @@ if (isset($video) && $video == 'true') {
     }
 }
 
+/*
+ * Pass the available videos to JavaScript for use in an editor.
+ */
+$temp = json_encode(array_values(Video_availableVideos())); // TODO: provide fallback
+$hjs .= <<<EOT
+<script type="text/javascript">/* <![CDATA[ */
+if (typeof VIDEO == "undefined") {
+    var VIDEO = {};
+}
+VIDEO.availableVideos = $temp;
+/* ]]> */</script>
+
+EOT;
+
 ?>
