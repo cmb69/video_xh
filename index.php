@@ -149,7 +149,7 @@ EOT;
 <link rel="stylesheet" href="${lib}video-js.min.css" type="text/css">
 <script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
-    //VideoJS.options.flash.swf = "${lib}video-js.swf"
+    videojs.options.flash.swf = "${lib}video-js.swf";
 </script>
 
 EOT;
@@ -159,7 +159,7 @@ EOT;
     $hjs .= <<<EOT
 <script type="text/javascript" src="$autosizePath"></script>
 <script type="text/javascript">
-    //VideoJS.options.techOrder = [$order]
+    videojs.options.techOrder = [$order];
 </script>
 
 EOT;
