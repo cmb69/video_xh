@@ -19,7 +19,8 @@ $plugin_tx['video']['label_controls']="Steuerelemente";
 $plugin_tx['video']['label_call']="Plugin-Aufruf";
 $plugin_tx['video']['label_width']="Breite";
 $plugin_tx['video']['label_height']="Höhe";
-$plugin_tx['video']['label_resize']="Skalieren";
+$plugin_tx['video']['label_align']="Ausrichtung";
+$plugin_tx['video']['label_resize']="Skalierung";
 
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadaten";
@@ -28,6 +29,10 @@ $plugin_tx['video']['preload_none']="Nichts";
 $plugin_tx['video']['resize_no']="Nein";
 $plugin_tx['video']['resize_shrink']="Verkleinern";
 $plugin_tx['video']['resize_full']="Voll";
+
+$plugin_tx['video']['align_left']="links";
+$plugin_tx['video']['align_center']="mittig";
+$plugin_tx['video']['align_right']="rechts";
 
 $plugin_tx['video']['subtitle_label']="Deutsch";
 

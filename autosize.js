@@ -19,10 +19,15 @@ if (typeof video == "undefined") {
  * @param {Object}
  * @param {String}
  */
-video.autosize = function(id, mode) {
+video.init = function(id, alignment, resizeMode) {
     var ar, mw, player = videojs(id);
 
-    if (mode != "shrink" && mode != "full") {
+    // alignment
+    var div = document.getElementById(id);
+    var margins = {left: "0 auto 0 0", center: "0 auto", right: "0 0 0 auto"};
+    div.style.margin = margins[alignment];
+
+    if (resizeMode != "shrink" && resizeMode != "full") {
         return;
     }
     ar = player.width() / player.height();
@@ -31,7 +36,7 @@ video.autosize = function(id, mode) {
         var w;
 
         w = document.getElementById(id).parentElement.offsetWidth;
-        if (mode == "shrink" && w > mw) {
+        if (resizeMode == "shrink" && w > mw) {
             w = mw;
         }
         player.width(w).height(Math.round(w / ar));

@@ -2,4 +2,3 @@
 * link to encode4web in manuals
 * improve "call builder" (<http://cmsimpleforum.com/viewtopic.php?f=12&t=4613&p=29137#p29137>)
 * youtube technology (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
-* add "align" parameter (das dynamisch erzeugte DIV#video_n braucht margin:0 0/auto 0 0/auto) (sugg. by lianergoist)

@@ -31,7 +31,7 @@ video.initCallBuilder = function() {
 
     keys = [
         "name", "preload", "autoplay", "loop", "controls",
-        "width", "height", "resize", "call"
+        "width", "height", "align", "resize", "call"
     ];
     for (i = 0, len = keys.length; i < len; i++) {
         key = keys[i];
@@ -64,6 +64,7 @@ video.buildPluginCall = function() {
     }
 
     opts.push("preload=" + elements["preload"].value);
+    opts.push("align=" + elements["align"].value);
     opts.push("resize=" + elements["resize"].value);
 
     keys = ["autoplay", "loop", "controls"];

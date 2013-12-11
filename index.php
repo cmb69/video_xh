@@ -250,7 +250,8 @@ function video($name, $options = '')
 
     if (!empty($files)) {
         $keys = array(
-            'controls', 'preload', 'autoplay', 'loop', 'width', 'height', 'resize'
+            'controls', 'preload', 'autoplay', 'loop', 'width', 'height',
+	    'align', 'resize'
         );
         $opts = Video_getOpt($options, $keys);
 	$class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
@@ -284,7 +285,7 @@ EOT;
 </video>
 <script type="text/javascript">
     videojs("video_$run", {}, function () {
-	video.autosize("video_$run", "$opts[resize]");
+	video.init("video_$run", "$opts[align]", "$opts[resize]");
     });
 </script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>

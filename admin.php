@@ -164,6 +164,25 @@ function Video_resizeOptions()
 }
 
 /**
+ * Returns an associative array of align options.
+ *
+ * @return array
+ *
+ * @global array The localization of the plugins.
+ */
+function Video_alignOptions()
+{
+    global $plugin_tx;
+
+    $ptx = $plugin_tx['video'];
+    $options = array();
+    foreach (array('left', 'center', 'right') as $key) {
+        $options[$key] = $ptx['align_' . $key];
+    }
+    return $options;
+}
+
+/**
  * Returns a selectbox.
  *
  * @param string $id      The id of the selectbox.
@@ -239,13 +258,17 @@ function Video_adminMain()
         $field = tag("input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\"");
         $o .= Video_builderField($ptx["label_$key"], $field);
     }
-    $resizeSelect = Video_selectbox(
+    $field = Video_selectbox(
+        'video_align', Video_alignOptions(), $pcf['default_align']
+    );
+    $o .= Video_builderField($ptx['label_align'], $field);
+    $field = Video_selectbox(
         'video_resize', Video_resizeOptions(), $pcf['default_resize']
     );
-    $jsPath = $pth['folder']['plugins'] . 'video/admin.js';
-    $o .= Video_builderField($ptx['label_resize'], $resizeSelect);
+    $o .= Video_builderField($ptx['label_resize'], $field);
     $o .= '    <p><textarea id="video_call" readonly="readonly"></textarea></p>'
         . PHP_EOL;
+    $jsPath = $pth['folder']['plugins'] . 'video/admin.js';
     $o .= '</div>' . PHP_EOL
         . "<script type=\"text/javascript\" src=\"$jsPath\"></script>" . PHP_EOL;
     return $o;
