@@ -74,7 +74,7 @@ function Video_systemCheckView()
 {
     global $pth, $tx, $plugin_tx;
 
-    $phpVersion = '4.3.0';
+    $phpVersion = '4.3.10';
     $ptx = $plugin_tx['video'];
     $imgdir = $pth['folder']['plugins'] . 'video/images/';
     $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
