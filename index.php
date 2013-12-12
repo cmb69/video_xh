@@ -162,6 +162,27 @@ function Video_subtitleFile($name)
 }
 
 /**
+ * Returns a string with XHTML style empty elements converted to HTML according
+ * to the config option xhtml_endtags.
+ *
+ * @param string $xhtml An XHTML string.
+ *
+ * @return (X)HTML.
+ *
+ * @global array The configuration of the core.
+ */
+function Video_xhtml($xhtml)
+{
+    global $cf;
+
+    if ($cf['xhtml']['endtags'] == 'true') {
+	return $xhtml;
+    } else {
+	return str_replace(' />', '>', $xhtml);
+    }
+}
+
+/**
  * Includes the necessary JS and CSS in the head element.
  *
  * @return void
@@ -181,20 +202,21 @@ function Video_hjs()
     $again = true;
     $pcf = $plugin_cf['video'];
     $lib = $pth['folder']['plugins'] . 'video/lib/';
+    $o = '';
     if (!empty($pcf['skin'])) {
-        $hjs .= <<<EOT
-<link rel="stylesheet" href="$lib$pcf[skin].css" type="text/css">
+        $o .= <<<EOT
+<link rel="stylesheet" href="$lib$pcf[skin].css" type="text/css" />
 
 EOT;
     }
     if ($pcf['use_cdn']) {
-        $hjs .= <<<EOT
+        $o .= <<<EOT
 <link rel="stylesheet" href="http://vjs.zencdn.net/4.3/video-js.css" type="text/css">
 <script type="text/javascript" src="http://vjs.zencdn.net/4.3/video.js"></script>
 
 EOT;
     } else {
-        $hjs .= <<<EOT
+        $o .= <<<EOT
 <link rel="stylesheet" href="${lib}video-js.min.css" type="text/css">
 <script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
@@ -205,13 +227,14 @@ EOT;
     }
     $autosizePath = $pth['folder']['plugins'] . 'video/autosize.js';
     $order = $pcf['prefer_flash'] ? '"flash", "html5"' : '"html5", "flash"';
-    $hjs .= <<<EOT
+    $o .= <<<EOT
 <script type="text/javascript" src="$autosizePath"></script>
 <script type="text/javascript">
     videojs.options.techOrder = [$order];
 </script>
 
 EOT;
+    $hjs .= Video_xhtml($o);
 }
 
 /**
@@ -257,8 +280,6 @@ function Video_getOpt($query, $validOpts)
  * @global array The configuration of the plugins.
  * @global array The localization of the plugins.
  * @global string The current language. *
- *
- * @todo fix empty elements
  */
 function video($name, $options = '')
 {
@@ -320,7 +341,7 @@ EOT;
         $o = '<div class="cmsimplecore_warning">'
             . sprintf($ptx['error_missing'], $name) . '</div>';
     }
-    return $o;
+    return Video_xhtml($o);
 }
 
 /*
