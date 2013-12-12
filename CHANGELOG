@@ -1,30 +1,44 @@
+Version 1beta7 - released 2013-12-12
+cmb     fixed potential bugs, where wrong video URLs were generated on unusually configured servers
+cmb     fixed several minor glitches
+cmb     upgraded to Video.js 4.3.0
+cmb     added align option (suggested by lianergoist)
+cmb     added optional autosize mode (suggested by Tata)
+cmb     added support for subtitles (suggested by Ulrich and Holger)
+cmb     added config option auto_hjs
+cmb     added version.nfo
+cmb     added metaconfig.php
+cmb     revised manuals
+cmb     improved call builder
+cmb     improved QA (Phing, PHP_CI, CodeSniffer, PHPDoc)
+
 Version 1beta6 - released 2012-12-06
-cmb	added the "tube2" skin (contributed by bca)
+cmb     added the "tube2" skin (contributed by bca)
 
 Version 1beta5 - released 2012-12-05
-cmb	added option to auto-resize the videos (suggested by Tata)
-cmb	added support for skins and the "tube" skin (contributed by bca)
-cmb	added Slovak translation (contributed by Tata)
-cmb	added German translation and user manual
+cmb     added option to auto-resize the videos (suggested by Tata)
+cmb     added support for skins and the "tube" skin (contributed by bca)
+cmb     added Slovak translation (contributed by Tata)
+cmb     added German translation and user manual
 
 Version 1beta4 - released 2012-07-16
-cmb	fixed missing port number in VIDEO_URL (reported by bca)
-cmb	added more video options (defaults in config; optional arguments to
-	    video()): autoplay, loop, controls
-cmb	added a "call builder"
-cmb	updated manual accordingly
+cmb     fixed missing port number in VIDEO_URL (reported by bca)
+cmb     added more video options (defaults in config; optional arguments to
+        video()): autoplay, loop, controls
+cmb     added a "call builder"
+cmb     updated manual accordingly
 
 Version 1beta3 - released 2012-06-27
-cmb	changed required file extension for OGG video from .ogg to .ogv
-cmb	changed preference order (WebM -> MP4 -> OGG)
-cmb	switched to fully qualified absolute URLs for better Flash compatibility
-cmb	updated manual accordingly and added a section about trouble shooting
+cmb     changed required file extension for OGG video from .ogg to .ogv
+cmb     changed preference order (WebM -> MP4 -> OGG)
+cmb     switched to fully qualified absolute URLs for better Flash compatibility
+cmb     updated manual accordingly and added a section about trouble shooting
 
 Version 1beta2 - released 2012-05-22
-cmb	added danish translation (contributed by maeg)
-cmb	added czech translation (contributed by oldnema)
-cmb	added config option "prefer flash" (inspired by bca)
-cmb	added config option "preload"
+cmb     added danish translation (contributed by maeg)
+cmb     added czech translation (contributed by oldnema)
+cmb     added config option "prefer flash" (inspired by bca)
+cmb     added config option "preload"
 
 Version 1beta1 - released 2012-05-01
-cmb	initial release
+cmb     initial release
