@@ -169,8 +169,6 @@ function Video_subtitleFile($name)
  * @global string The document fragment to insert in the head element.
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
- *
- * @todo Remove CDN facility for better compat?
  */
 function Video_hjs()
 {
