@@ -52,16 +52,16 @@ define(
 function Video_entitiyDecoded($string)
 {
     if (version_compare(phpversion(), '5', '>=')) {
-	return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+        return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
     } else {
-	$replacePairs = array(
-	    '&amp;' => '&',
-	    '&quot;' => '"',
-	    '&apos;' => '\'',
-	    '&lt;' => '<',
-	    '&gt;' => '>'
-	);
-	return strtr($string, $replacePairs);
+        $replacePairs = array(
+            '&amp;' => '&',
+            '&quot;' => '"',
+            '&apos;' => '\'',
+            '&lt;' => '<',
+            '&gt;' => '>'
+        );
+        return strtr($string, $replacePairs);
     }
 }
 
@@ -153,10 +153,10 @@ function Video_subtitleFile($name)
     $filename = $dirname . $name . '.vtt';
     $suffixes = array("_$sl.vtt", "_$sl.srt", '.vtt', '.srt');
     foreach ($suffixes as $suffix) {
-	$filename = $dirname . $name . $suffix;
-	if (file_exists($filename)) {
-	    return $filename;
-	}
+        $filename = $dirname . $name . $suffix;
+        if (file_exists($filename)) {
+            return $filename;
+        }
     }
     return false;
 }
@@ -176,9 +176,9 @@ function Video_xhtml($xhtml)
     global $cf;
 
     if ($cf['xhtml']['endtags'] == 'true') {
-	return $xhtml;
+        return $xhtml;
     } else {
-	return str_replace(' />', '>', $xhtml);
+        return str_replace(' />', '>', $xhtml);
     }
 }
 
@@ -195,10 +195,10 @@ function Video_includeJs()
     static $again = false;
 
     if (!$again) {
-	$jsPath = $pth['folder']['plugins'] . 'video/video.js';
-	$hjs .= "<script type=\"text/javascript\" src=\"$jsPath\"></script>"
-	    . PHP_EOL;
-	$again = true;
+        $jsPath = $pth['folder']['plugins'] . 'video/video.js';
+        $hjs .= "<script type=\"text/javascript\" src=\"$jsPath\"></script>"
+            . PHP_EOL;
+        $again = true;
     }
 }
 
@@ -278,11 +278,11 @@ function Video_getOpt($query, $validOpts)
 
     $res = array();
     foreach ($validOpts as $key) {
-	if (isset($opts[$key])) {
-	    $res[$key] = ($opts[$key] === '') ? true : $opts[$key];
-	} else {
-	    $res[$key] = $plugin_cf['video']["default_$key"];
-	}
+        if (isset($opts[$key])) {
+            $res[$key] = ($opts[$key] === '') ? true : $opts[$key];
+        } else {
+            $res[$key] = $plugin_cf['video']["default_$key"];
+        }
     }
     return $res;
 }
@@ -316,16 +316,16 @@ function video($name, $options = '')
     if (!empty($files)) {
         $keys = array(
             'controls', 'preload', 'autoplay', 'loop', 'width', 'height',
-	    'align', 'resize'
+            'align', 'resize'
         );
         $opts = Video_getOpt($options, $keys);
-	$class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
+        $class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
         $class = "vjs-$class-skin";
-	$controls = !empty($opts['controls']) ? ' controls="controls"' : '';
-	$autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
-	$loop = !empty($opts['loop']) ? ' loop="loop"' : '';
+        $controls = !empty($opts['controls']) ? ' controls="controls"' : '';
+        $autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
+        $loop = !empty($opts['loop']) ? ' loop="loop"' : '';
         $filename = Video_folder() . $name . '.jpg';
-	$poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
+        $poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
         $o = <<<EOT
 <!-- Video_XH: $name -->
 <video id="video_$run" class="video-js $class"$controls$autoplay$loop
@@ -333,24 +333,24 @@ function video($name, $options = '')
 
 EOT;
         foreach ($files as $filename => $type) {
-	    $url = Video_canonicalUrl($filename);
+            $url = Video_canonicalUrl($filename);
             $o .= <<<EOT
     <source src="$url" type="video/$type" />
 
 EOT;
-	}
-	$filename = Video_subtitleFile($name);
-	if ($filename) {
-	    $o .= <<<EOT
+        }
+        $filename = Video_subtitleFile($name);
+        if ($filename) {
+            $o .= <<<EOT
     <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]" />
 
 EOT;
-	}
+        }
         $o .= <<<EOT
 </video>
 <script type="text/javascript">
     videojs("video_$run", {}, function () {
-	VIDEO.init("video_$run", "$opts[align]", "$opts[resize]");
+        VIDEO.init("video_$run", "$opts[align]", "$opts[resize]");
     });
 </script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
