@@ -183,6 +183,26 @@ function Video_xhtml($xhtml)
 }
 
 /**
+ * Includes the required JavaScript in the head element.
+ *
+ * @return void
+ *
+ * @global array The paths of system files and folders.
+ */
+function Video_includeJs()
+{
+    global $pth, $hjs;
+    static $again = false;
+
+    if (!$again) {
+	$jsPath = $pth['folder']['plugins'] . 'video/video.js';
+	$hjs .= "<script type=\"text/javascript\" src=\"$jsPath\"></script>"
+	    . PHP_EOL;
+	$again = true;
+    }
+}
+
+/**
  * Includes the necessary JS and CSS in the head element.
  *
  * @return void
@@ -225,10 +245,9 @@ EOT;
 
 EOT;
     }
-    $autosizePath = $pth['folder']['plugins'] . 'video/autosize.js';
+    Video_includeJs();
     $order = $pcf['prefer_flash'] ? '"flash", "html5"' : '"html5", "flash"';
     $o .= <<<EOT
-<script type="text/javascript" src="$autosizePath"></script>
 <script type="text/javascript">
     videojs.options.techOrder = [$order];
 </script>
@@ -331,7 +350,7 @@ EOT;
 </video>
 <script type="text/javascript">
     videojs("video_$run", {}, function () {
-	video.init("video_$run", "$opts[align]", "$opts[resize]");
+	VIDEO.init("video_$run", "$opts[align]", "$opts[resize]");
     });
 </script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>

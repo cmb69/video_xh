@@ -262,6 +262,7 @@ function Video_adminMain()
 
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
+    Video_includeJs();
     $o = '<!-- Video_XH: call builder -->' . PHP_EOL
         . '<div id="video_call_builder">' . PHP_EOL;
     $field = Video_selectbox('video_name', Video_availableVideos());
@@ -292,9 +293,12 @@ function Video_adminMain()
     $o .= Video_builderField($ptx['label_resize'], $field);
     $o .= '    <p><textarea id="video_call" readonly="readonly"></textarea></p>'
         . PHP_EOL;
-    $jsPath = $pth['folder']['plugins'] . 'video/admin.js';
-    $o .= '</div>' . PHP_EOL
-        . "<script type=\"text/javascript\" src=\"$jsPath\"></script>" . PHP_EOL;
+    $o .= <<<EOT
+</div>
+<script type="text/javascript">/* <![CDATA[ */
+VIDEO.initCallBuilder();
+/* ]]> */</script>
+EOT;
     return $o;
 }
 
@@ -319,11 +323,9 @@ if (isset($video) && $video == 'true') {
  * Pass the available videos to JavaScript for use in an editor.
  */
 $temp = Video_asJson(array_values(Video_availableVideos()));
+Video_includeJs();
 $hjs .= <<<EOT
 <script type="text/javascript">/* <![CDATA[ */
-if (typeof VIDEO == "undefined") {
-    var VIDEO = {};
-}
 VIDEO.availableVideos = $temp;
 /* ]]> */</script>
 
