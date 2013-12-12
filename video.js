@@ -14,21 +14,6 @@
 VIDEO = {};
 
 /**
- * Registers an event listener.
- *
- * @param {EventTarget}   target
- * @param {string}        eventName An event name.
- * @param {EventListener} listener  A listener function.
- */
-VIDEO.register = function (target, eventName, listener) {
-    if (typeof target.addEventListener != "undefined") {
-        target.addEventListener(eventName, listener, false);
-    } else if (typeof target.attachEvent != "undefined")  {
-        target.attachEvent("on" + eventName, listener);
-    }
-}
-
-/**
  * Initializes a video player.
  *
  * @param {string} id         A player's id attribute.
@@ -78,7 +63,11 @@ VIDEO.init = function (id, alignment, resizeMode) {
         width = player.width();
         aspectRatio = width / player.height();
         resize();
-        VIDEO.register(window, "resize", resize);
+        if (typeof addEventListener != "undefined") {
+            addEventListener("resize", resize, false);
+        } else if (typeof attachEvent != "undefined")  {
+            attachEvent("onresize", resize);
+        }
     }
 }
 
@@ -98,6 +87,10 @@ VIDEO.initCallBuilder = function () {
     var key;
     var element;
 
+    function selectContent() {
+        this.select();
+    }
+
     keys = [
         "name", "preload", "autoplay", "loop", "controls",
         "width", "height", "align", "resize", "call"
@@ -107,11 +100,9 @@ VIDEO.initCallBuilder = function () {
         element = document.getElementById("video_" + key);
         VIDEO.callBuilderElements[key] = element;
         if (key != "call") {
-            VIDEO.register(element, "change", VIDEO.buildPluginCall);
+            element.onchange = VIDEO.buildPluginCall;
         } else {
-            VIDEO.register(element, "click", function () {
-                this.select();
-            });
+            element.onclick = selectContent;
         }
     }
     VIDEO.buildPluginCall();
