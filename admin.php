@@ -22,6 +22,30 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
+ * Returns a PHP value encoded as JSON text.
+ *
+ * @param mixed $value A PHP value.
+ *
+ * @return string
+ *
+ * @global array The paths of system files and folders.
+ */
+function Video_asJson($value)
+{
+    global $pth;
+
+    if (function_exists('json_encode')) {
+        return json_encode($value);
+    } else {
+        if (!class_exists('CMB_JSON')) {
+            include_once $pth['folder']['plugins'] . 'video/JSON.php';
+            $json = new CMB_JSON();
+            return $json->encode($value);
+        }
+    }
+}
+
+/**
  * Returns the about view.
  *
  * @return string (X)HTML.
@@ -294,7 +318,7 @@ if (isset($video) && $video == 'true') {
 /*
  * Pass the available videos to JavaScript for use in an editor.
  */
-$temp = json_encode(array_values(Video_availableVideos())); // TODO: provide fallback
+$temp = Video_asJson(array_values(Video_availableVideos()));
 $hjs .= <<<EOT
 <script type="text/javascript">/* <![CDATA[ */
 if (typeof VIDEO == "undefined") {
