@@ -60,12 +60,18 @@
                 </replacetokens>
             </filterchain>
         </move>
+        <jsMin targetDir="dist" suffix="" failOnError="true">
+            <fileset dir="export">
+                <include name="*.js"/>
+            </fileset>
+        </jsMin>
         <move todir="dist">
             <fileset dir="export">
                 <exclude name="video.komodoproject"/>
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="TODO"/>
+                <exclude name="*.js"/>
             </fileset>
         </move>
         <delete dir="export"/>
