@@ -131,6 +131,34 @@ function Video_systemCheckView()
 }
 
 /**
+ * Returns all available skins.
+ *
+ * @return array
+ *
+ * @global array The paths of system files and folders.
+ */
+function Video_availableSkins()
+{
+    global $pth;
+
+    $skinPath = $pth['folder']['plugins'] . 'video/lib/';
+    $skins = array();
+    $dirHandle = opendir($skinPath);
+    if ($dirHandle !== false) {
+        while (($entry = readdir($dirHandle)) !== false) {
+            if ($entry != 'video-js.min.css'
+                && pathinfo($entry, PATHINFO_EXTENSION) == 'css'
+            ) {
+                $skins[] = $entry;
+            }
+        }
+    }
+    natcasesort($skins);
+    array_unshift($skins, '');
+    return $skins;
+}
+
+/**
  * Returns all recognized videos in the video folder.
  *
  * @return array
