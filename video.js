@@ -16,11 +16,15 @@ VIDEO = {};
 /**
  * Initializes a video player.
  *
+ * The initialization of the actual player is done by Video.js. Here we are just
+ * aligning the player element and set up a listener to resize the element to
+ * cater for flexible templates.
+ *
  * @param {string} id         A player's id attribute.
  * @param {string} alignment  An alignment specifier.
  * @param {string} resizeMode A resize mode specifier.
  */
-VIDEO.init = function (id, alignment, resizeMode) {
+VIDEO.initPlayer = function (id, alignment, resizeMode) {
     var playerDiv;
     var player;
     var width;
@@ -72,25 +76,56 @@ VIDEO.init = function (id, alignment, resizeMode) {
 }
 
 /**
- * The relevant elements of the call builder.
- *
- * @type {Array.<HTMLInputElement>}
- */
-VIDEO.callBuilderElements = {};
-
-/**
  * Initializes the call builder.
+ *
+ * Sets up event handler properties to automatically update the plugin call when
+ * the input changes and to select the whole plugin call when the user clicks in
+ * its textarea.
  */
 VIDEO.initCallBuilder = function () {
+    var elements;
     var keys;
     var i;
     var key;
     var element;
 
+    /**
+     * Builds the plugin call.
+     */
+    function buildPluginCall() {
+        var opts;
+        var keys;
+        var key
+        var i;
+
+        opts = [];
+        keys = ["width", "height"];
+        for (i = 0; i < keys.length; i++) {
+            key = keys[i];
+            if (elements[key].value != "") {
+                opts.push(key + '=' + elements[key].value);
+            }
+        }
+        opts.push("preload=" + elements["preload"].value);
+        opts.push("align=" + elements["align"].value);
+        opts.push("resize=" + elements["resize"].value);
+        keys = ["autoplay", "loop", "controls"];
+        for (i = 0; i < keys.length; i++) {
+            key = keys[i];
+            opts.push(key + "=" + (elements[key].checked ? "1" : "0"));
+        }
+        elements.call.value = "{{{PLUGIN:video('" + elements.name.value + "', '"
+            + opts.join('&') + "');}}}";
+    }
+
+    /**
+     * Selects the content of an element.
+     */
     function selectContent() {
         this.select();
     }
 
+    elements = {};
     keys = [
         "name", "preload", "autoplay", "loop", "controls",
         "width", "height", "align", "resize", "call"
@@ -98,43 +133,12 @@ VIDEO.initCallBuilder = function () {
     for (i = 0; i < keys.length; i++) {
         key = keys[i];
         element = document.getElementById("video_" + key);
-        VIDEO.callBuilderElements[key] = element;
+        elements[key] = element;
         if (key != "call") {
-            element.onchange = VIDEO.buildPluginCall;
+            element.onchange = buildPluginCall;
         } else {
             element.onclick = selectContent;
         }
     }
-    VIDEO.buildPluginCall();
-}
-
-/**
- * Builds the plugin call.
- */
-VIDEO.buildPluginCall = function () {
-    var elements;
-    var opts;
-    var keys;
-    var key
-    var i;
-
-    elements = VIDEO.callBuilderElements;
-    opts = [];
-    keys = ["width", "height"];
-    for (i = 0; i < keys.length; i++) {
-        key = keys[i];
-        if (elements[key].value != "") {
-            opts.push(key + '=' + elements[key].value);
-        }
-    }
-    opts.push("preload=" + elements["preload"].value);
-    opts.push("align=" + elements["align"].value);
-    opts.push("resize=" + elements["resize"].value);
-    keys = ["autoplay", "loop", "controls"];
-    for (i = 0; i < keys.length; i++) {
-        key = keys[i];
-        opts.push(key + "=" + (elements[key].checked ? "1" : "0"));
-    }
-    elements.call.value = "{{{PLUGIN:video('" + elements.name.value + "', '"
-        + opts.join('&') + "');}}}";
+    buildPluginCall();
 }

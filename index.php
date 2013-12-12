@@ -350,7 +350,7 @@ EOT;
 </video>
 <script type="text/javascript">
     videojs("video_$run", {}, function () {
-        VIDEO.init("video_$run", "$opts[align]", "$opts[resize]");
+        VIDEO.initPlayer("video_$run", "$opts[align]", "$opts[resize]");
     });
 </script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
