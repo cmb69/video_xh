@@ -149,7 +149,7 @@ function Video_availableSkins()
             if ($entry != 'video-js.min.css'
                 && pathinfo($entry, PATHINFO_EXTENSION) == 'css'
             ) {
-                $skins[] = $entry;
+                $skins[] = basename($entry, '.css');
             }
         }
     }
