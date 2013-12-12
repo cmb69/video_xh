@@ -191,8 +191,8 @@ EOT;
     }
     if ($pcf['use_cdn']) {
         $hjs .= <<<EOT
-<link rel="stylesheet" href="http://vjs.zencdn.net/c/video-js.css" type="text/css">
-<script type="text/javascript" src="http://vjs.zencdn.net/c/video.js"></script>
+<link rel="stylesheet" href="http://vjs.zencdn.net/4.3/video-js.css" type="text/css">
+<script type="text/javascript" src="http://vjs.zencdn.net/4.3/video.js"></script>
 
 EOT;
     } else {
