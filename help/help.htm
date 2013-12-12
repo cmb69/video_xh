@@ -1,22 +1,22 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
-<meta name="content-language" content="en">
-<title>Video_XH - Manual</title>
+<title>Video_XH &ndash; Manual</title>
 <link rel="stylesheet" type="text/css" href="./stylesheet.css">
 </head>
 
 <body>
 
 <h1>Video_XH - a CMSimple_XH Plugin</h1>
-<img src="../video.png" width="128" height="128" alt="Plugin Icon" style="display: block; float: left; margin: 0 16px -16px 0">
-<p>Video_XH facilitates presenting videos on a CMSimple site.
-It uses the HTML5 video element wherever possible,
-and provides a fallback to flash video.
-The supported video formats depend on the browser resp. the flash player.</p>
+<img src="../video.png" width="128" height="128" alt="Plugin Icon"
+style="float:left; margin:0 16px -16px 0">
+<p>Video_XH facilitates presenting videos on a CMSimple_XH site. It uses the
+HTML5 video element wherever possible, and provides a fallback to Flash video.
+The supported video formats depend on the browser resp. the Flash player. For
+the best user experience, JavaScript has to be enabled in the visitor's
+browser.</p>
 
 <ul id="nav">
 <li><a href="#notice">Important Notice</a></li>
@@ -25,6 +25,7 @@ The supported video formats depend on the browser resp. the flash player.</p>
 <li><a href="#settings">Settings</a></li>
 <li><a href="#usage">Usage</a>
 <ul>
+<li><a href="#usage-subtitles">Subtitles</a></li>
 <li><a href="#usage-skins">Skins</a></li>
 <li><a href="#trouble-shooting">Trouble Shooting</a></li>
 </ul></li>
@@ -35,123 +36,154 @@ The supported video formats depend on the browser resp. the flash player.</p>
 
 <div id="body">
 
-<p><strong>Please do read this manual,
-<em>before</em> you encounter any problems!</strong></p>
+<p><strong>Please do read this manual, <em>before</em> you encounter any
+problems!</strong></p>
 
-<h2><a name="notice">Important Notice</a></h2>
-<p><strong>Video_XH couldn't be tested so far in various environments.
-It is a so called BETA version. Use with caution!</strong></p>
+<h2 id="notice">Important Notice</h2>
+<p><strong>Video_XH couldn't be tested so far in various environments. It is a
+so called BETA version. Use with caution!</strong></p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="requirements">Requirements</a></h2>
-<p>Video_XH is a plugin for CMSimple_XH.
-It requires a UTF-8 encoded version.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Video_XH is a plugin for CMSimple_XH. It requires a UTF-8 encoded
+version.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="installation">Installation</a></h2>
-<p>The installation is done as with many other CMSimple_XH plugins.
-See the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">
-CMSimple_XH wiki</a> for further details.</p>
+<h2 id="installation">Installation</h2>
+<p>The installation is done as with many other CMSimple_XH plugins. See the <a
+href="http://www.cmsimple-xh.org/wiki/doku.php/installation"> CMSimple_XH
+wiki</a> for further details.</p>
 <ol>
-<li><strong>Backup the data on your server.</strong></li>
+<li>Backup the data on your server.</li>
 <li>Unzip the distribution on your computer.</li>
-<li>Upload the whole directory video/ to your server into the CMSimple_XH plugins directory.</li>
-<li>Set write permissions for the subdirectories config/, css/ and languages/.</li>
-<li><strong>Switch to "Video" in the back-end to check if all requirements are fulfilled.</strong></li>
+<li>Upload the whole directory video/ to your server into CMSimple_XH's plugins
+directory.</li>
+<li>Set write permissions for the subdirectories config/, css/ and
+languages/.</li>
+<li>Switch to "Video" in the back-end to check if all requirements are
+fulfilled.</li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="settings">Settings</a></h2>
-<p>The plugin's configuration is done as with many other
-CMSimple_XH plugins in the website's back-end.
-Select "Video" from "Plugins".</p>
-<p>You can change the default settings of Video_XH in "Plugin Config".
-Hints for the options will be displayed
-when hovering over the help icon with your mouse.</p>
-<p>Localization is done in "Plugin Language".
-You can translate the character strings to your own language,
-or customize them according to your needs.</p>
-<p>The look of Video_XH can be customized in "Plugin Stylesheet".
-To change the look of the player, you should use another <a href="#usage-skins">skin</a>.</p>
+<h2 id="settings">Settings</h2>
+<p>The plugin's configuration is done as with many other CMSimple_XH plugins in
+the website's back-end. Select "Plugins" &rarr; "Video".</p>
+<p>You can change the default settings of Video_XH under "Config". Hints for the
+options will be displayed when hovering over the help icon with your mouse.</p>
+<p>Localization is done under "Language". You can translate the character
+strings to your own language, or customize them according to your needs.</p>
+<p>The look of Video_XH can be customized under "Stylesheet". To change the look
+of the player, you should use another <a href="#usage-skins">skin</a>.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="usage">Usage</a></h2>
-<p>As Video_XH provides no such possibility,
-you have to upload your video files to the configured video folder via FTP,
-a file browser or <a href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>.
-Supported video formats are MP4 (AVC Baseline@L3.0/AAC), WebM (VP8/Vorbis) and OGG (Theora/Vorbis).
-To support all major browsers you should upload a *.mp4
-<em>and</em> a *.webm/*.ogv version of the video.
-Additionally you might want to upload a "poster" to the same folder,
-i.e. an image, that will be displayed before the video is started, in JPEG format (*.jpg).</p>
+<h2 id="usage">Usage</h2>
+<p>As Video_XH provides no such possibility, you have to upload your video files
+to the configured video folder via FTP, a file browser or <a
+href="http://3-magi.net/?CMSimple_XH/Uploader_XH">Uploader_XH</a>. Supported
+video formats are MP4 (AVC Baseline@L3.0/AAC), WebM (VP8/Vorbis) and OGG
+(Theora/Vorbis). You can easily convert your videos to these formats with <a
+href="http://3-magi.net/?CMSimple_XH/encode4web">encode4web</a>. To support all
+major browsers you should upload a *.mp4 <em>and</em> a *.webm/*.ogv version of
+the video. Additionally you might want to upload a so-called poster to the same
+folder, i.e. an image, that will be displayed before the video is started, in
+JPEG format (*.jpg).</p>
 
-<p>To display a video on a CMSimple page insert the following plugin call in the content:</p>
-<pre>{{{PLUGIN:video(%NAME%, %OPTIONS%);}}}</pre>
+<p>To display a video on a CMSimple_XH page insert the following plugin call in the content:</p>
+<pre>{{{PLUGIN:video('%NAME%', '%OPTIONS%');}}}</pre>
 <p>The meaning of the parameters:</p>
 <dl>
 <dt><code>%NAME%</code></dt>
-<dd>The name of the video file <em>without any extension</em>.
-Actually this is a path relative to the configured video folder.</dd>
+<dd>The name of the video file <em>without any extension</em>. Actually, this is
+a path relative to the configured video folder.</dd>
 <dt><code>%OPTIONS%</code></dt>
 <dd>Options for each video as a string in the same format as a query string
 (everything after the question mark in an HTTP GET request). Options that are
 left out default to the respective values in the plugin's configuration. You can
 use the "Call Builder" offered in the plugin administration to assemble the
 plugin call for you. After you're finished entering the desired values, just
-copy the content of the "Plugin Call" input field and paste it in a page.</dd>
+copy the content of the textarea at the bottom and paste it in a page.</dd>
 </dl>
 <p>To display a video on all pages, insert the following in the template:</p>
-<pre>&lt;?php echo video(%NAME%, %OPTIONS%);?&gt;</pre>
-<p>In this case, or if you want to display videos in a newsbox or in another plugin
-that's called from the template, you have to additionally insert the following
-in the head section of the template above &lt;?php echo head();?&gt;:</p>
-<pre>&lt;?php Video_hjs();?&gt;</pre>
-<p>Alternatively you can just set the configuration option "auto hjs" to "1".</p>
+<pre>&lt;?php echo video('%NAME%', '%OPTIONS%');?&gt;</pre>
+<p>In this case, or if you want to display videos in a newsbox or in another
+plugin that's called from the template, you have to activate the configuration
+option "auto hjs".</p>
 <h4>Examples</h4>
 <dl>
 <dt><pre>{{{PLUGIN:video('LotR');}}}</pre></dt>
-<dd>This will display the LotR.webm, LotR.mp4 or LotR.ogv video in the configured video folder
-with the configured width and height. If LotR.jpg exists, it will be used as poster.</dd>
-<dt><pre>{{{PLUGIN:video('music/thriller', 'width=320&amp;height=240');}}}</pre></dt>
-<dd>Will display the "thriller" video in the subfolder music/,
-with a size of 320px x 240px. Note that scaling the video for playback might not be the best option.</dd>
-<dt><pre>{{{PLUGIN:video('banner', 'autoplay&amp;loop&amp;controls=0');}}}</pre></dt>
-<dd>Will autoplay the "banner" video starting over when finished without showing any controls.
-This is particularly useful for banner or background videos.</dd>
+<dd>This will display the LotR.webm, LotR.mp4 and/or LotR.ogv video in the
+configured video folder with the configured width and height. If LotR.jpg
+exists, it will be used as poster.</dd>
+<dt><pre>
+{{{PLUGIN:video('music/thriller', 'width=320&amp;height=240');}}}
+</pre></dt>
+<dd>Will display the "thriller" video in the subfolder music/, with a size of
+320px &times; 240px. Note that scaling the video for playback might not be the
+best option.</dd>
+<dt><pre>
+{{{PLUGIN:video('banner', 'autoplay&amp;loop&amp;controls=0');}}}
+</pre></dt>
+<dd>Will autoplay the "banner" video starting over when finished without showing
+any controls. This is particularly useful for banner or background videos.</dd>
 </dl>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="usage-skins">Skins</a></h3>
-<p>The video player of Video_XH is stylable with skins. To use another skin than the default,
-you have to create a file my_skin.css in the lib/ folder, which contains style definitions
-for .vjs-my_skin-skin, and you have to change the according configuration option.
-To see how it's done have a look at the "tube" skin (lib/tube.css).</p>
+<h3 id="usage-subtitles">Subtitles</h3>
+<p>On supporting browsers, the video players can optionally display subtitles.
+The subtitles have to be in separate files (not muxed into the container), where
+<a href="http://dev.w3.org/html5/webvtt/">WebVTT</a> is the recommended file
+format, though SRT might also work. Just place a respective file *.vtt resp.
+*.srt beside the video files, and the visitor is able to activate the subtitles
+if he likes.</p>
+<p>For multilingual websites you'll want to have subtitles in multiple
+languages. Just name them *_LANG.vtt resp. *_LANG.srt, e.g. *_en.vtt and
+*_de.vtt. The player will offer only the subtitles of the currently selected
+language.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3><a name="trouble-shooting">Trouble Shooting</a></h3>
-<p>In case the video doesn't play <em>at all</em>,
-check if the video can be played in the browser, when you call it's URL directly.
-This will only work, if the <a href="http://caniuse.com/#feat=video">browser natively supports the video format</a>
-and if the video is serverd with the appropriate mime type.
-If the latter is not the case, you probably can configure your Apache with the following lines in .htaccess:</p>
-<pre>AddType video/webm .webm
+<h3 id="usage-skins">Skins</h3>
+<p>The video player of Video_XH is stylable with skins. To use another skin than
+the default, you have to create a file my_skin.css in the lib/ folder, which
+contains CSS rules for .vjs-my_skin-skin, and you have to change the according
+configuration option. To see how it's done have a look at the "tube" skin
+(lib/tube.css). Alternatively, you can create your own skin with the <a
+href="http://designer.videojs.com/">Video.js Player Designer</a>.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h3 id="trouble-shooting">Trouble Shooting</h3>
+<p>In case the video doesn't play <em>at all</em>, check if the video can be
+played in the browser, when you call it's URL directly. This will only work, if
+the <a href="http://caniuse.com/#feat=video">browser natively supports the video
+format</a> and if the video is served with the appropriate MIME type. If the
+latter is not the case, you probably can configure your Apache with the
+following lines in .htaccess:</p>
+<pre>
+AddType video/webm .webm
 AddType video/mp4 .mp4
 AddType video/ogg .ogv
 </pre>
-<p>If that doesn't work, ask your provider or server admin to do the necessary configuration.</p>
-<p>If the video can't be played <em>immediately</em>, it's probably due to an encoding or muxing error.
-It seems many MP4 muxers put the "moov" atom at the end of the video,
-what requires the player to download the complete file, before the playback starts.
-It's best to try to remux the video with <a href="http://yamb.unite-video.com/">Yamb</a> (MP4)
-or <a href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM).</p>
+<p>If that doesn't work, ask your provider or server admin to do the necessary
+configuration.</p>
+<p>If the video can't be played <em>immediately</em>, it's probably due to an
+encoding or muxing error. It seems many MP4 muxers put the "moov" atom at the
+end of the video, what requires the player to download the complete file, before
+the playback starts. It's best to try to remux the video with <a
+href="http://yamb.unite-video.com/">Yamb</a> (MP4) or <a
+href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM).</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="limitations">Limitations</a></h2>
-<p>The HTML5 video element doesn't validate neither in HTML 4.01 nor XHTML 1.0/1.1.
-So, if necessary, you have to change the doctype declaration in your template to:</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>
+<p>The HTML5 video element doesn neither validate in HTML 4.01 nor XHTML
+1.0/1.1. So, if you deem it necessary, you have to change the doctype
+declaration in your template to:</p>
 <pre>&lt;!DOCTYPE html&gt;</pre>
-<p>VideoJS' CSS doesn't validate. Basically it's CSS 3,
-but for browser compatibility several browser specific properties are used additionally.</p>
+<p>VideoJS' CSS doesn't validate. Basically it's CSS 3, but for best
+cross-browser experience several browser specific properties are used
+additionally.</p>
+</li>
+<li>
 <p>Basically it should be possible to display the same video several times on the same page.
 But that will not work, if the plugin call is exactly the same, e.g.</p>
 <pre>{{{PLUGIN:video('LotR');}}}
@@ -161,34 +193,39 @@ which will evaluate identical calls only once (assuming that the function has no
 So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by inserting one or more spaces:</p>
 <pre>{{{PLUGIN:video('LotR');}}}
 {{{PLUGIN:video( 'LotR');}}}</pre>
-<p>Additionally playing the same video on a page
-(independently if it's called in the content or in/from the template)
-works only, if the videos are played in order.
-<strong>So it's best to avoid having the same video more than once on the same page.</strong></p>
+<p>This issue is solved since CMSimple_XH 1.6, so you can savely use the same
+plugin call multiple times on a single page.</p>
+</li>
+</ul>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="license">License</a></h2>
-<p>Video_XH is licensed under
-<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<h2 id="license">License</h2>
+<p>Video_XH is licensed under <a
+href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 <p>&copy; 2012-2013 Christoph M. Becker</p>
 <p>Danish translation &copy; 2012 Jens Maegard<br>
 Czech translation &copy; 2012 Josef Němec<br>
 Slovak translation &copy; 2012 Dr. Martin Sereday</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="credits">Credits</a></h2>
-<p>Video_XH is powered by <a href="http://videojs.com/">Video.js</a>.
-Many thanks to Zencoder, Inc. for releasing it under LGPL.</p>
-<p>The plugin icon is designed by <a href="http://www.mentalrey.it/">Alessandro Rei</a>.
-Many thanks for releasing it under GPL.</p>
-<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
-Many thanks for making these icons freely available.</p>
-<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a>
-for tips, suggestions and testing.
-Particularly I want to thank bca for being the first beta tester and for contributing the "tube" and "tube2" skin.</p>
-<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter Harteg</a>, the "father" of CMSimple,
-and all developers of <a href="http://www.cmsimple-xh.org/">
-CMSimple_XH</a> without whom this amazing CMS wouldn't exist.</p>
+<h2 id="credits">Credits</h2>
+<p>Video_XH is powered by <a href="http://videojs.com/">Video.js</a>. Many
+thanks to <a href="http://www.brightcove.com/">brightcove</a> for releasing it
+under the Apache License 2.0.</p>
+<p>The plugin icon is designed by <a href="http://www.mentalrey.it/">Alessandro
+Rei</a>. Many thanks for releasing it under GPL.</p>
+<p>This plugin uses free applications icons from <a
+href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons
+freely available.</p>
+<p>Many thanks to the community at the <a
+href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> for tips, suggestions
+and testing. Particularly I want to thank bca for being the first beta tester,
+for contributing the "tube" and "tube2" skin and informing me about Video.js 4,
+and Ulrich and Holger who inspired the subtitle support.</p>
+<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
+Harteg</a>, the "father" of CMSimple, and all developers of <a
+href="http://www.cmsimple-xh.org/"> CMSimple_XH</a> without whom this amazing
+CMS wouldn't exist.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 </div>
