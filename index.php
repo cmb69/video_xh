@@ -40,6 +40,32 @@ define(
 );
 
 /**
+ * Returns a string with all (X)HTML entities decoded.
+ *
+ * Provides a simplified fallback for PHP 4, which should be sufficient for our
+ * needs.
+ *
+ * @param string $string A string.
+ *
+ * @return string
+ */
+function Video_entitiyDecoded($string)
+{
+    if (version_compare(php_version(), '5', '>=')) {
+	return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+    } else {
+	$replacePairs = array(
+	    '&amp;' => '&',
+	    '&quot;' => '"',
+	    '&apos;' => '\'',
+	    '&lt;' => '<',
+	    '&gt;' => '>'
+	);
+	return strtr($string, $replacePairs);
+    }
+}
+
+/**
  * Returns the fully qualified absolute URL of $url
  * in canonical form (i.e. with ./ and ../ resolved).
  *
@@ -207,15 +233,16 @@ function Video_getOpt($query, $validOpts)
 {
     global $plugin_cf;
 
-    $query = html_entity_decode($query, ENT_QUOTES, 'UTF-8'); // TODO: PHP 4!
+    $query = Video_entitiyDecoded($query);
     parse_str($query, $opts);
 
     $res = array();
     foreach ($validOpts as $key) {
-        // FIXME: no nested ternary op!
-        $res[$key] = isset($opts[$key])
-            ? ($opts[$key] === '' ? true : $opts[$key])
-            : $plugin_cf['video']["default_$key"];
+	if (isset($opts[$key])) {
+	    $res[$key] = ($opts[$key] === '') ? true : $opts[$key];
+	} else {
+	    $res[$key] = $plugin_cf['video']["default_$key"];
+	}
     }
     return $res;
 }
