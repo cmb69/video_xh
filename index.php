@@ -315,12 +315,16 @@ function video($name, $options = '')
 
     if (!empty($files)) {
         $keys = array(
-            'controls', 'preload', 'autoplay', 'loop', 'width', 'height',
-            'align', 'resize'
+            'align', 'autoplay', 'centered', 'controls', 'height', 'loop',
+            'preload', 'resize', 'width',
+
         );
         $opts = Video_getOpt($options, $keys);
         $class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
         $class = "vjs-$class-skin";
+        if ($opts['centered']) {
+            $class .= ' vjs-big-play-centered';
+        }
         $controls = !empty($opts['controls']) ? ' controls="controls"' : '';
         $autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
         $loop = !empty($opts['loop']) ? ' loop="loop"' : '';

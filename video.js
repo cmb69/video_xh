@@ -109,7 +109,7 @@ VIDEO.initCallBuilder = function () {
         opts.push("preload=" + elements["preload"].value);
         opts.push("align=" + elements["align"].value);
         opts.push("resize=" + elements["resize"].value);
-        keys = ["autoplay", "loop", "controls"];
+        keys = ["autoplay", "loop", "controls", "centered"];
         for (i = 0; i < keys.length; i++) {
             key = keys[i];
             opts.push(key + "=" + (elements[key].checked ? "1" : "0"));
@@ -127,7 +127,7 @@ VIDEO.initCallBuilder = function () {
 
     elements = {};
     keys = [
-        "name", "preload", "autoplay", "loop", "controls",
+        "name", "preload", "autoplay", "loop", "controls", "centered",
         "width", "height", "align", "resize", "call"
     ];
     for (i = 0; i < keys.length; i++) {

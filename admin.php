@@ -299,7 +299,7 @@ function Video_adminMain()
         'video_preload', Video_preloadOptions(), $pcf['default_preload']
     );
     $o .= Video_builderField($ptx['label_preload'], $field);
-    foreach (array('autoplay', 'loop', 'controls') as $key) {
+    foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
         $id = 'video_' . $key;
         $check = $pcf['default_' . $key] ? ' checked="checked"' : '';
         $field = tag("input id=\"$id\" type=\"checkbox\"$check");
