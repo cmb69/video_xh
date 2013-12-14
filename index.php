@@ -234,7 +234,7 @@ EOT;
 EOT;
     } else {
         $o .= <<<EOT
-<link rel="stylesheet" href="${lib}video-js.min.css" type="text/css">
+//<link rel="stylesheet" href="${lib}video-js.css" type="text/css">
 <script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
     videojs.options.flash.swf = "${lib}video-js.swf";
