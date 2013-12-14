@@ -221,20 +221,23 @@ function Video_hjs()
     $lib = $pth['folder']['plugins'] . 'video/lib/';
     $o = '';
     if (!empty($pcf['skin'])) {
-        $o .= <<<EOT
-<link rel="stylesheet" href="$lib$pcf[skin].css" type="text/css" />
+        $css = "$lib$pcf[skin].css";
+    } elseif ($pcf['use_cdn']) {
+        $css = 'http://vjs.zencdn.net/4.3/video-js.css';
+    } else {
+        $css = "${lib}video-js.css";
+    }
+    $o .= <<<EOT
+<link rel="stylesheet" href="$css" type="text/css">
 
 EOT;
-    }
     if ($pcf['use_cdn']) {
         $o .= <<<EOT
-<link rel="stylesheet" href="http://vjs.zencdn.net/4.3/video-js.css" type="text/css">
 <script type="text/javascript" src="http://vjs.zencdn.net/4.3/video.js"></script>
 
 EOT;
     } else {
         $o .= <<<EOT
-//<link rel="stylesheet" href="${lib}video-js.css" type="text/css">
 <script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
     videojs.options.flash.swf = "${lib}video-js.swf";
