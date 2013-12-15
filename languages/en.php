@@ -1,8 +1,5 @@
 <?php
 
-$plugin_tx['video']['align_center']="center";
-$plugin_tx['video']['align_left']="left";
-$plugin_tx['video']['align_right']="right";
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 $plugin_tx['video']['label_autoplay']="Autoplay";
 $plugin_tx['video']['label_call']="Plugin Call";

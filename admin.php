@@ -216,25 +216,6 @@ function Video_resizeOptions()
 }
 
 /**
- * Returns an associative array of align options.
- *
- * @return array
- *
- * @global array The localization of the plugins.
- */
-function Video_alignOptions()
-{
-    global $plugin_tx;
-
-    $ptx = $plugin_tx['video'];
-    $options = array();
-    foreach (array('left', 'center', 'right') as $key) {
-        $options[$key] = $ptx['align_' . $key];
-    }
-    return $options;
-}
-
-/**
  * Returns a selectbox.
  *
  * @param string $id      The id of the selectbox.
