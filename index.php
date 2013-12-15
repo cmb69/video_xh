@@ -279,7 +279,7 @@ EOT;
  * Defaults are taken from $plugin_cf['video']['default_*'].
  * Those will be overridden with the options in $query.
  *
- * @param string $query     The options given like a query string.
+ * @param string $query The options given like a query string.
  *
  * @return array
  *
@@ -437,7 +437,8 @@ EOT;
 
 EOT;
         }
-        $filename = array_keys($files)[0];
+        $filenames = array_keys($files);
+        $filename = $filenames[0];
         $style = Video_resizeStyle($opts['resize']);
         $link = Video_downloadLink($name, $filename, $style);
         $o .= <<<EOT
