@@ -26,7 +26,7 @@ $plugin_tx['video']['cf_default_controls']="Má video obsahovať aj avládacie p
 $plugin_tx['video']['cf_default_preload']="Má sa video načítať pri načítaní stránky?: \"auto\" (video sa začne načítavať spolu so stránkou, ak to prehliadač povolí), \"metadata\" (načítajú sa iba metadata) alebo \"none\" (žiadne dáta viadea sa nenačítajú). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
 $plugin_tx['video']['cf_default_autoplay']="Má sa video spustiť po načítaní stránky?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa. Autoplay nepodporujú Apple iOS zariadenia.";
 $plugin_tx['video']['cf_default_loop']="Má sa video po ukončení prehrávania spustiť znovu?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_width']="Šírka videa. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_height']="Výška videa. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_width']="Šírka videa <ins>(pixel)</ins>. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_height']="Výška videa <ins>(pixel)</ins>. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
 
 ?>
