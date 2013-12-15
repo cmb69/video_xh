@@ -315,7 +315,7 @@ function video($name, $options = '')
 
     if (!empty($files)) {
         $keys = array(
-            'align', 'autoplay', 'centered', 'controls', 'height', 'loop',
+            'autoplay', 'centered', 'controls', 'height', 'loop',
             'preload', 'resize', 'width',
 
         );
@@ -364,11 +364,14 @@ EOT;
 </video>
 <script type="text/javascript">/* <![CDATA[ */
 (function () {
-    var video = document.getElementById("video_$run");
+    var video, align;
+
+    video = document.getElementById("video_$run");
     video.width = "$opts[width]";
     video.height = "$opts[height]";
+    align = video.parentNode.style.textAlign;
     videojs("video_$run", {}, function () {
-        VIDEO.initPlayer("video_$run", "$opts[align]", "$opts[resize]");
+        VIDEO.initPlayer("video_$run", align, "$opts[resize]");
     });
 })();
 /* ]]> */</script>

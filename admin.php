@@ -312,10 +312,6 @@ function Video_adminMain()
         $o .= Video_builderField($ptx["label_$key"], $field);
     }
     $field = Video_selectbox(
-        'video_align', Video_alignOptions(), $pcf['default_align']
-    );
-    $o .= Video_builderField($ptx['label_align'], $field);
-    $field = Video_selectbox(
         'video_resize', Video_resizeOptions(), $pcf['default_resize']
     );
     $o .= Video_builderField($ptx['label_resize'], $field);

@@ -11,7 +11,6 @@ $plugin_cf['video']['default_controls']="1";
 $plugin_cf['video']['default_centered']="1";
 $plugin_cf['video']['default_width']="512";
 $plugin_cf['video']['default_height']="288";
-$plugin_cf['video']['default_align']="left";
 $plugin_cf['video']['default_resize']="no";
 $plugin_cf['video']['prefer_flash']="0";
 
