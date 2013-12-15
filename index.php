@@ -329,11 +329,21 @@ function video($name, $options = '')
         $autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
         $loop = !empty($opts['loop']) ? ' loop="loop"' : '';
         $filename = Video_folder() . $name . '.jpg';
-        $poster = file_exists($filename) ? ' poster="' . $filename . '"' : '';
+        $poster = file_exists($filename) ? 'poster="' . $filename . '"' : '';
+        switch ($opts['resize']) {
+        case 'full':
+            $style = 'style="width:100%"';
+            break;
+        case 'shrink':
+            $style = 'style="max-width:100%';
+            break;
+        default:
+            $style = '';
+        }
         $o = <<<EOT
 <!-- Video_XH: $name -->
 <video id="video_$run" class="video-js $class"$controls$autoplay$loop
-       preload="$opts[preload]" width="$opts[width]" height="$opts[height]"$poster>
+       preload="$opts[preload]" $poster $style>
 
 EOT;
         foreach ($files as $filename => $type) {
@@ -352,11 +362,16 @@ EOT;
         }
         $o .= <<<EOT
 </video>
-<script type="text/javascript">
+<script type="text/javascript">/* <![CDATA[ */
+(function () {
+    var video = document.getElementById("video_$run");
+    video.width = "$opts[width]";
+    video.height = "$opts[height]";
     videojs("video_$run", {}, function () {
         VIDEO.initPlayer("video_$run", "$opts[align]", "$opts[resize]");
     });
-</script>
+})();
+/* ]]> */</script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
 
 EOT;
