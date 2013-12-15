@@ -110,7 +110,7 @@
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="TODO"/>
                 <exclude name="*.js"/>
-                <exclude name="tests/*"/>
+                <exclude name="tests/**"/>
             </fileset>
         </move>
         <delete dir="export"/>
