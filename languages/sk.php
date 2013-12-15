@@ -1,6 +1,5 @@
 <?php
 
-$plugin_tx['video']['message_no_js']="Povoľte Javascript pre lepšie zobrazovanie!";
 $plugin_tx['video']['menu_main']="Výzva pre konštruktor";
 $plugin_tx['video']['syscheck_title']="Kontrola systému";
 $plugin_tx['video']['syscheck_phpversion']="PHP verzia &ge; %s";

@@ -13,7 +13,6 @@ $plugin_tx['video']['label_preload']="Preload";
 $plugin_tx['video']['label_resize']="Resize";
 $plugin_tx['video']['label_width']="Width";
 $plugin_tx['video']['menu_main']="Call Builder";
-$plugin_tx['video']['message_no_js']="Enable JavaScript for better/any viewing experience!";
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="None";

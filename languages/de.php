@@ -13,7 +13,6 @@ $plugin_tx['video']['label_preload']="Vorladen";
 $plugin_tx['video']['label_resize']="Skalierung";
 $plugin_tx['video']['label_width']="Breite";
 $plugin_tx['video']['menu_main']="Aufruf-Assistent";
-$plugin_tx['video']['message_no_js']="Aktivieren Sie JavaScript um das Video besser bzw. überhaupt sehen zu können!";
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadaten";
 $plugin_tx['video']['preload_none']="Nichts";

@@ -380,7 +380,6 @@ EOT;
 <script type="text/javascript">
 VIDEO.initPlayer("video_$run", $opts[width], $opts[height], "$opts[resize]");
 </script>
-<noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
 
 EOT;
     } else {
