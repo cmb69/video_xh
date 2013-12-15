@@ -1,3 +1,9 @@
+Version 1beta8 - released 2013-12-15
+cmb     replaced align option with usual text alignment
+cmb     added option to center the play button (inspired by hixi)
+cmb     improved behavior when JavaScript is disabled
+cmb     improved QA (model class has full test coverage)
+
 Version 1beta7 - released 2013-12-12
 cmb     fixed potential bugs, where wrong video URLs were generated on unusually configured servers
 cmb     fixed several minor glitches
