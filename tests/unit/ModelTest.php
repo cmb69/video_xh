@@ -14,8 +14,14 @@
  * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
+ /**
+  * The file system mock objects.
+  */
 require_once 'vfsStream/vfsStream.php';
 
+/**
+ * The class under test.
+ */
 require './classes/Model.php';
 
 /**
@@ -79,6 +85,26 @@ class ModelTest extends PHPUnit_Framework_TestCase
     {
         $expected = $this->baseFolder . 'userfiles/media/';
         $actual = $this->model->videoFolder();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testNonStandardVideoFolder()
+    {
+        $folders = array('base' => './');
+        $config = array('folder_video' => 'foo');
+        $expected = './foo/';
+        $model = new Video_Model($folders, $config);
+        $actual = $model->videoFolder();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testBCVideoFolder()
+    {
+        $folders = array('downloads' => './downloads/');
+        $config = array('folder_video' => '');
+        $expected = './downloads/';
+        $model = new Video_Model($folders, $config);
+        $actual = $model->videoFolder();
         $this->assertEquals($expected, $actual);
     }
 
@@ -148,7 +174,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
                 )
             ),
             array(
-                'autoplay=1&centered=0&controls=0&height=360&loop=1&preload=metadata&resize=full&width=640',
+                'autoplay=1&centered=0&controls=0&height=360&loop=1'
+                    . '&preload=metadata&resize=full&width=640',
                 array(
                     'autoplay' => '1',
                     'centered' => '0',
