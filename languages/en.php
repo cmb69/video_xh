@@ -5,6 +5,7 @@ $plugin_tx['video']['label_autoplay']="Autoplay";
 $plugin_tx['video']['label_call']="Plugin Call";
 $plugin_tx['video']['label_centered']="Centered";
 $plugin_tx['video']['label_controls']="Controls";
+$plugin_tx['video']['label_download']="Download %s video";
 $plugin_tx['video']['label_height']="Height";
 $plugin_tx['video']['label_loop']="Loop";
 $plugin_tx['video']['label_name']="Video";

@@ -362,11 +362,14 @@ EOT;
         }
         $filename = array_keys($files)[0];
         $basename = basename($filename);
+        $download = sprintf($ptx['label_download'], $basename);
         if ($poster) {
             $link = Video_folder() . $name . '.jpg';
-            $link = tag("img src=\"$link\" alt=\"\"");
+            $link = tag(
+                "img src=\"$link\" alt=\"$download\" title=\"$download\" $style"
+            );
         } else {
-            $link = $basename;
+            $link = $download;
         }
         $o .= <<<EOT
     <a href="$filename">$link</a>

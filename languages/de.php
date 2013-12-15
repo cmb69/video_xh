@@ -5,6 +5,7 @@ $plugin_tx['video']['label_autoplay']="Auto-Wiedergabe";
 $plugin_tx['video']['label_call']="Plugin-Aufruf";
 $plugin_tx['video']['label_centered']="Zentriert";
 $plugin_tx['video']['label_controls']="Steuerelemente";
+$plugin_tx['video']['label_download']="%s Video herunter laden";
 $plugin_tx['video']['label_height']="Höhe";
 $plugin_tx['video']['label_loop']="Wiederholen";
 $plugin_tx['video']['label_name']="Video";
