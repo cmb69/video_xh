@@ -280,15 +280,19 @@ EOT;
  * Those will be overridden with the options in $query.
  *
  * @param string $query     The options given like a query string.
- * @param array  $validOpts The valid options.
  *
  * @return array
  *
  * @global array The configuration of the plugins.
  */
-function Video_getOpt($query, $validOpts)
+function Video_getOpt($query)
 {
     global $plugin_cf;
+
+    $validOpts = array(
+        'autoplay', 'centered', 'controls', 'height', 'loop', 'preload',
+        'resize', 'width'
+    );
 
     $query = Video_entitiyDecoded($query);
     parse_str($query, $opts);
@@ -412,12 +416,7 @@ function video($name, $options = '')
     $files = Video_files($name);
 
     if (!empty($files)) {
-        $keys = array(
-            'autoplay', 'centered', 'controls', 'height', 'loop',
-            'preload', 'resize', 'width',
-
-        );
-        $opts = Video_getOpt($options, $keys);
+        $opts = Video_getOpt($options);
         $attributes = Video_videoAttributes($name, $opts);
         $o = <<<EOT
 <!-- Video_XH: $name -->
