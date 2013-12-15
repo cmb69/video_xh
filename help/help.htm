@@ -15,7 +15,7 @@ style="float:left; margin:0 16px -16px 0">
 <p>Video_XH facilitates presenting videos on a CMSimple_XH site. It uses the
 HTML5 video element wherever possible, and provides a fallback to Flash video.
 The supported video formats depend on the browser resp. the Flash player. For
-the best user experience, JavaScript has to be enabled in the visitor's
+the best user experience, JavaScript should be enabled in the visitor's
 browser.</p>
 
 <ul id="nav">
@@ -145,8 +145,7 @@ language.</p>
 <p>The video player of Video_XH is stylable with skins. To use another skin than
 the default, you have to create a file my_skin.css in the lib/ folder, which
 contains CSS rules for .vjs-my_skin-skin, and you have to change the according
-configuration option. To see how it's done have a look at the "tube" skin
-(lib/tube.css). Alternatively, you can create your own skin with the <a
+configuration option. The easiest way to create your own skin might be the <a
 href="http://designer.videojs.com/">Video.js Player Designer</a>.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
@@ -196,6 +195,8 @@ So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by ins
 <p>This issue is solved since CMSimple_XH 1.6, so you can savely use the same
 plugin call multiple times on a single page.</p>
 </li>
+<li>The delivered skins "tube" and "tube2" don't work well with subtitles. So if
+you have subtitles, use the default skin.</li>
 </ul>
 <div class="toplink"><a href="#">back to top</a></div>
 
