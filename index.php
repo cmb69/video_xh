@@ -198,6 +198,8 @@ function Video_xhtml($xhtml)
  * @return void
  *
  * @global array The paths of system files and folders.
+ *
+ * @staticvar bool Whether this function has already been called.
  */
 function Video_includeJs()
 {
@@ -220,6 +222,8 @@ function Video_includeJs()
  * @global string The document fragment to insert in the head element.
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
+ *
+ * @staticvar bool Whether this function has already been called.
  */
 function Video_hjs()
 {
@@ -392,6 +396,8 @@ function Video_videoAttributes($name, $options)
  * @global array The paths of system files and folders.
  * @global array The localization of the plugins.
  * @global string The current language.
+ *
+ * @staticvar int The number of times this function has been called.
  */
 function video($name, $options = '')
 {
