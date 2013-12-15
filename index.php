@@ -351,6 +351,37 @@ function Video_downloadLink($videoname, $filename, $style)
 }
 
 /**
+ * Returns the attributes for a video element.
+ *
+ * @param string $name    A video name.
+ * @param array  $options Video options.
+ *
+ * @return string
+ *
+ * @global array The configuration of the plugins.
+ */
+function Video_videoAttributes($name, $options)
+{
+    global $plugin_cf;
+
+    $pcf = $plugin_cf['video'];
+    $class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
+    $class = "vjs-$class-skin";
+    if ($options['centered']) {
+        $class .= ' vjs-big-play-centered';
+    }
+    $poster = Video_posterFile($name);
+    $attributes = 'class="video-js ' . $class . '"'
+        . (!empty($options['controls']) ? ' controls="controls"' : '')
+        . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
+        . (!empty($options['loop']) ? ' loop="loop"' : '')
+        . ' preload="' . $options['preload'] . '"'
+        . ($poster ? ' poster="' . $poster . '"' : '')
+        . ' ' . Video_resizeStyle($options['resize']);
+    return $attributes;
+}
+
+/**
  * Returns the video element to embed the video.
  *
  * @param string $name    Name of the video file without extension.
@@ -359,16 +390,14 @@ function Video_downloadLink($videoname, $filename, $style)
  * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
- * @global array The configuration of the plugins.
  * @global array The localization of the plugins.
- * @global string The current language. *
+ * @global string The current language.
  */
 function video($name, $options = '')
 {
-    global $pth, $plugin_cf, $plugin_tx, $sl;
+    global $pth, $plugin_tx, $sl;
     static $run = 0;
 
-    $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
     if (!$run) {
         Video_hjs();
@@ -383,21 +412,10 @@ function video($name, $options = '')
 
         );
         $opts = Video_getOpt($options, $keys);
-        $class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
-        $class = "vjs-$class-skin";
-        if ($opts['centered']) {
-            $class .= ' vjs-big-play-centered';
-        }
-        $controls = !empty($opts['controls']) ? ' controls="controls"' : '';
-        $autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
-        $loop = !empty($opts['loop']) ? ' loop="loop"' : '';
-        $filename = Video_posterFile($name);
-        $poster = $filename ? 'poster="' . $filename . '"' : '';
-        $style = Video_resizeStyle($opts['resize']);
+        $attributes = Video_videoAttributes($name, $opts);
         $o = <<<EOT
 <!-- Video_XH: $name -->
-<video id="video_$run" class="video-js $class"$controls$autoplay$loop
-       preload="$opts[preload]" $poster $style>
+<video id="video_$run" $attributes>
 
 EOT;
         foreach ($files as $filename => $type) {
@@ -415,6 +433,7 @@ EOT;
 EOT;
         }
         $filename = array_keys($files)[0];
+        $style = Video_resizeStyle($opts['resize']);
         $link = Video_downloadLink($name, $filename, $style);
         $o .= <<<EOT
     <a href="$filename">$link</a>
