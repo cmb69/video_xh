@@ -5,12 +5,13 @@
  *
  * PHP versions 4 and 5
  *
- * @category CMSimple_XH
- * @package  Video_XH
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version  SVN: $Id$
- * @link     http://3-magi.net/?CMSimple_XH/Video_XH
+ * @category  CMSimple_XH
+ * @package   Video
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2012-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
 /*
@@ -20,6 +21,11 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
+
+/**
+ * The model class.
+ */
+require_once $pth['folder']['plugin_classes'] . 'Model.php';
 
 /**
  * The version number.
@@ -46,7 +52,7 @@ define(
  *
  * @return string
  */
-function Video_entitiyDecoded($string)
+function Video_entityDecoded($string)
 {
     if (version_compare(phpversion(), '5', '>=')) {
         return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
@@ -60,115 +66,6 @@ function Video_entitiyDecoded($string)
         );
         return strtr($string, $replacePairs);
     }
-}
-
-/**
- * Returns the fully qualified absolute URL of $url
- * in canonical form (i.e. with ./ and ../ resolved).
- *
- * @param string $url A relative URL.
- *
- * @return string
- */
-function Video_canonicalUrl($url)
-{
-    $parts = explode('/', VIDEO_URL . $url);
-    $i = count($parts) - 1;
-    while ($i >= 0) {
-        switch ($parts[$i]) {
-        case '.':
-            array_splice($parts, $i, 1);
-            break;
-        case '..':
-            array_splice($parts, $i - 1, 2);
-            $i--;
-            break;
-        }
-        $i--;
-    }
-    return implode('/', $parts);
-}
-
-/**
- * Returns the relative path to the video folder.
- *
- * @return string
- *
- * @global array The paths of system files and folders.
- * @global array The configuration of the plugins.
- */
-function Video_folder()
-{
-    global $pth, $plugin_cf;
-
-    $pcf = $plugin_cf['video'];
-    if (!empty($pcf['folder_video'])) {
-        $folder = rtrim($pth['folder']['base'] . $pcf['folder_video'], '/') . '/';
-    } elseif (isset($pth['folder']['media'])) {
-        $folder = $pth['folder']['media'];
-    } else {
-        $folder = $pth['folder']['downloads'];
-    }
-    return $folder;
-}
-
-/**
- * Returns the filename of the poster; <var>false</var> if no poster is available.
- *
- * @param string $name A video name.
- *
- * @return string
- */
-function Video_posterFile($name)
-{
-    $filename = Video_folder() . $name . '.jpg';
-    return file_exists($filename) ? $filename : false;
-}
-
-/**
- * Returns a map of filenames to types.
- *
- * @param string $name Name of the video file without extension.
- *
- * @return array
- */
-function Video_files($name)
-{
-    $types = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
-    $dirname = Video_folder();
-    $files = array();
-    foreach ($types as $ext => $type) {
-        $fn = $dirname . $name . '.' . $ext;
-        if (file_exists($fn)) {
-            $files[$fn] = $ext;
-        }
-    }
-    return $files;
-}
-
-/**
- * Returns the path of an appropriate subtitle file; <var>false</var> otherwise.
- *
- * @param string $name A video name.
- *
- * @return string
- *
- * @global string The current language.
- */
-function Video_subtitleFile($name)
-{
-    global $sl;
-
-    $dirname = Video_folder();
-    $filename = $dirname . $name . '.vtt';
-    $suffixes = array("_$sl.vtt", "_$sl.srt", '.vtt', '.srt');
-    foreach ($suffixes as $suffix) {
-        $filename = $dirname . $name . $suffix;
-        if (file_exists($filename)) {
-            return $filename;
-        }
-    }
-    return false;
 }
 
 /**
@@ -274,41 +171,6 @@ EOT;
 }
 
 /**
- * Returns all options.
- *
- * Defaults are taken from $plugin_cf['video']['default_*'].
- * Those will be overridden with the options in $query.
- *
- * @param string $query The options given like a query string.
- *
- * @return array
- *
- * @global array The configuration of the plugins.
- */
-function Video_getOpt($query)
-{
-    global $plugin_cf;
-
-    $validOpts = array(
-        'autoplay', 'centered', 'controls', 'height', 'loop', 'preload',
-        'resize', 'width'
-    );
-
-    $query = Video_entitiyDecoded($query);
-    parse_str($query, $opts);
-
-    $res = array();
-    foreach ($validOpts as $key) {
-        if (isset($opts[$key])) {
-            $res[$key] = ($opts[$key] === '') ? true : $opts[$key];
-        } else {
-            $res[$key] = $plugin_cf['video']["default_$key"];
-        }
-    }
-    return $res;
-}
-
-/**
  * Returns a style attribute according to the resize mode.
  *
  * @param string $resizeMode A resize mode ("no", "shrink" or "full").
@@ -339,15 +201,16 @@ function Video_resizeStyle($resizeMode)
  *
  * @return string (X)HTML.
  *
- * @global array The localization of the plugins.
+ * @global array  The localization of the plugins.
+ * @global object The video model.
  */
 function Video_downloadLink($videoname, $filename, $style)
 {
-    global $plugin_tx;
+    global $plugin_tx, $_Video;
 
     $basename = basename($filename);
     $download = sprintf($plugin_tx['video']['label_download'], $basename);
-    $poster = Video_posterFile($videoname);
+    $poster = $_Video->posterFile($videoname);
     if ($poster) {
         $link = tag(
             "img src=\"$poster\" alt=\"$download\" title=\"$download\" $style"
@@ -366,11 +229,12 @@ function Video_downloadLink($videoname, $filename, $style)
  *
  * @return string
  *
- * @global array The configuration of the plugins.
+ * @global array  The configuration of the plugins.
+ * @global object The video model.
  */
 function Video_videoAttributes($name, $options)
 {
-    global $plugin_cf;
+    global $plugin_cf, $_Video;
 
     $pcf = $plugin_cf['video'];
     $class = !empty($pcf['skin']) ? $pcf['skin'] : 'default';
@@ -378,7 +242,7 @@ function Video_videoAttributes($name, $options)
     if ($options['centered']) {
         $class .= ' vjs-big-play-centered';
     }
-    $poster = Video_posterFile($name);
+    $poster = $_Video->posterFile($name);
     $attributes = 'class="video-js ' . $class . '"'
         . (!empty($options['controls']) ? ' controls="controls"' : '')
         . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
@@ -397,15 +261,16 @@ function Video_videoAttributes($name, $options)
  *
  * @return string (X)HTML.
  *
- * @global array The paths of system files and folders.
- * @global array The localization of the plugins.
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the plugins.
  * @global string The current language.
+ * @global object The video model.
  *
  * @staticvar int The number of times this function has been called.
  */
 function video($name, $options = '')
 {
-    global $pth, $plugin_tx, $sl;
+    global $pth, $plugin_tx, $sl, $_Video;
     static $run = 0;
 
     $ptx = $plugin_tx['video'];
@@ -413,10 +278,10 @@ function video($name, $options = '')
         Video_hjs();
     }
     $run++;
-    $files = Video_files($name);
+    $files = $_Video->videoFiles($name);
 
     if (!empty($files)) {
-        $opts = Video_getOpt($options);
+        $opts = $_Video->getOptions(Video_entityDecoded($options));
         $attributes = Video_videoAttributes($name, $opts);
         $o = <<<EOT
 <!-- Video_XH: $name -->
@@ -424,13 +289,13 @@ function video($name, $options = '')
 
 EOT;
         foreach ($files as $filename => $type) {
-            $url = Video_canonicalUrl($filename);
+            $url = VIDEO_URL . $_Video->canonicalUrl($filename);
             $o .= <<<EOT
     <source src="$url" type="video/$type" />
 
 EOT;
         }
-        $filename = Video_subtitleFile($name);
+        $filename = $_Video->subtitleFile($name);
         if ($filename) {
             $o .= <<<EOT
     <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]" />
@@ -458,6 +323,11 @@ EOT;
     }
     return Video_xhtml($o);
 }
+
+/**
+ * The model object.
+ */
+$_Video = new Video_Model($pth['folder'], $plugin_cf['video']);
 
 /*
  * Handle auto_hjs config option.

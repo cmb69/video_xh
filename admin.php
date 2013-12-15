@@ -5,12 +5,13 @@
  *
  * PHP versions 4 and 5
  *
- * @category CMSimple_XH
- * @package  Video_XH
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version  SVN: $Id$
- * @link     http://3-magi.net/?CMSimple_XH/Video_XH
+ * @category  CMSimple_XH
+ * @package   Video
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2012-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
 /*
@@ -19,6 +20,35 @@
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
+}
+
+/**
+ * Creates an array by using the values from the keys array as keys
+ * and the values from the values array as the corresponding values,
+ * and returns it.
+ *
+ * Provides a <b>simplified</b> fallback of array_combine() for PHP < 5.
+ *
+ * @param array $keys   An array of keys.
+ * @param array $values An array of values.
+ *
+ * @return array
+ *
+ * @access private
+ */
+function Video_combineArrays($keys, $values)
+{
+    $func = 'array_combine';
+    if (function_exists($func)) {
+        return $func($keys, $values);
+    } else {
+        $count = count($keys);
+        $array = array();
+        for ($i = 0; $i < $count; ++$i) {
+            $array[$keys[$i]] = $values[$i];
+        }
+        return $array;
+    }
 }
 
 /**
@@ -159,25 +189,6 @@ function Video_availableSkins()
 }
 
 /**
- * Returns all recognized videos in the video folder.
- *
- * @return array
- */
-function Video_availableVideos()
-{
-    $files = glob(Video_folder() . '*.???');
-    $vids = array();
-    foreach ($files as $file) {
-        $pp = pathinfo($file);
-        if (in_array($pp['extension'], array('mp4', 'webm', 'ogv'))) {
-            $name = substr($pp['basename'], 0, -(strlen($pp['extension']) + 1));
-            $vids[$name] = $name;
-        }
-    }
-    return array_unique($vids);
-}
-
-/**
  * Returns an associative array of preload options.
  *
  * @return array
@@ -261,20 +272,23 @@ EOT;
  *
  * @return string (X)HTML.
  *
- * @global array The paths of system files and folders.
- * @global array The configuration of the plugins.
- * @global array The localization of the plugins.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the plugins.
+ * @global array  The localization of the plugins.
+ * @global object The video model.
  */
 function Video_adminMain()
 {
-    global $pth, $plugin_cf, $plugin_tx;
+    global $pth, $plugin_cf, $plugin_tx, $_Video;
 
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];
     Video_includeJs();
     $o = '<!-- Video_XH: call builder -->' . PHP_EOL
         . '<div id="video_call_builder">' . PHP_EOL;
-    $field = Video_selectbox('video_name', Video_availableVideos());
+    $videos = $_Video->availableVideos();
+    $videos = Video_combineArrays($videos, $videos);
+    $field = Video_selectbox('video_name', $videos);
     $o .= Video_builderField($ptx['label_name'], $field);
     $field = Video_selectbox(
         'video_preload', Video_preloadOptions(), $pcf['default_preload']
@@ -327,7 +341,7 @@ if (isset($video) && $video == 'true') {
 /*
  * Pass the available videos to JavaScript for use in an editor.
  */
-$temp = Video_asJson(array_values(Video_availableVideos()));
+$temp = Video_asJson(array_values($_Video->availableVideos()));
 Video_includeJs();
 $hjs .= <<<EOT
 <script type="text/javascript">/* <![CDATA[ */
