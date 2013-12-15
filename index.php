@@ -377,19 +377,9 @@ EOT;
 EOT;
         $o .= <<<EOT
 </video>
-<script type="text/javascript">/* <![CDATA[ */
-(function () {
-    var video, align;
-
-    video = document.getElementById("video_$run");
-    video.width = "$opts[width]";
-    video.height = "$opts[height]";
-    align = video.parentNode.style.textAlign;
-    videojs("video_$run", {}, function () {
-        VIDEO.initPlayer("video_$run", align, "$opts[resize]");
-    });
-})();
-/* ]]> */</script>
+<script type="text/javascript">
+VIDEO.initPlayer("video_$run", $opts[width], $opts[height], "$opts[resize]");
+</script>
 <noscript><p class="video_noscript">$ptx[message_no_js]</p></noscript>
 
 EOT;

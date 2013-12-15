@@ -16,63 +16,80 @@ VIDEO = {};
 /**
  * Initializes a video player.
  *
- * The initialization of the actual player is done by Video.js. Here we are just
- * aligning the player element and set up a listener to resize the element to
- * cater for flexible templates.
- *
  * @param {string} id         A player's id attribute.
- * @param {string} alignment  An alignment specifier.
+ * @param {Number} width      A width in pixels.
+ * @param {Number} height     A height in pixels.
  * @param {string} resizeMode A resize mode specifier.
  */
-VIDEO.initPlayer = function (id, alignment, resizeMode) {
-    var playerDiv;
-    var player;
-    var width;
-    var aspectRatio;
+VIDEO.initPlayer = function (id, width, height, resizeMode) {
+    var video;
+    var align;
 
     /**
-     * Aligns the video player.
+     * Performs post-initialization of a video player, i.e. aligning the player
+     * element and setting up a listener to resize the element to cater for
+     * flexible templates.
+     *
+     * @param {string} alignment  An alignment specifier.
      */
-    function align() {
-        switch (alignment) {
-        case "center":
-            playerDiv.style.margin = "0 auto";
-            break;
-        case "right":
-            playerDiv.style.margin = "0 0 0 auto";
-            break;
+    function postinit(alignment) {
+        var playerDiv;
+        var player;
+        var width;
+        var aspectRatio;
+
+        /**
+         * Aligns the video player.
+         */
+        function align() {
+            switch (alignment) {
+            case "center":
+                playerDiv.style.margin = "0 auto";
+                break;
+            case "right":
+                playerDiv.style.margin = "0 0 0 auto";
+                break;
+            }
+        }
+
+        /**
+         * Resizes the video player.
+         */
+        function resize() {
+            var newWidth;
+
+            newWidth = playerDiv.parentNode.offsetWidth;
+            if (newWidth > width && resizeMode == "shrink") {
+                newWidth = width;
+            }
+            player.width(newWidth)
+            player.height(Math.round(newWidth / aspectRatio));
+        }
+
+        playerDiv = document.getElementById(id);
+        player = videojs(id);
+
+        align();
+
+        if (resizeMode == "shrink" || resizeMode == "full") {
+            width = player.width();
+            aspectRatio = width / player.height();
+            resize();
+            if (typeof addEventListener != "undefined") {
+                addEventListener("resize", resize, false);
+            } else if (typeof attachEvent != "undefined")  {
+                attachEvent("onresize", resize);
+            }
         }
     }
 
-    /**
-     * Resizes the video player.
-     */
-    function resize() {
-        var newWidth;
-
-        newWidth = playerDiv.parentNode.offsetWidth;
-        if (newWidth > width && resizeMode == "shrink") {
-            newWidth = width;
-        }
-        player.width(newWidth)
-        player.height(Math.round(newWidth / aspectRatio));
-    }
-
-    playerDiv = document.getElementById(id);
-    player = videojs(id);
-
-    align();
-
-    if (resizeMode == "shrink" || resizeMode == "full") {
-        width = player.width();
-        aspectRatio = width / player.height();
-        resize();
-        if (typeof addEventListener != "undefined") {
-            addEventListener("resize", resize, false);
-        } else if (typeof attachEvent != "undefined")  {
-            attachEvent("onresize", resize);
-        }
-    }
+    video = document.getElementById(id);
+    video.width = width;
+    video.height = height;
+    align = video.parentNode.style.textAlign;
+    videojs(id, {}, function () {
+        postinit(align);
+    });
 }
 
 /**
