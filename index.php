@@ -288,6 +288,34 @@ function Video_getOpt($query, $validOpts)
 }
 
 /**
+ * Returns a link for downloading the video.
+ *
+ * @param string $videoname A video name.
+ * @param string $filename  A file path.
+ * @param string $style     A value for the style attribute.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The localization of the plugins.
+ */
+function Video_downloadLink($videoname, $filename, $style)
+{
+    global $plugin_tx;
+
+    $basename = basename($filename);
+    $download = sprintf($plugin_tx['video']['label_download'], $basename);
+    $poster = Video_folder() . $videoname . '.jpg';
+    if (file_exists($poster)) {
+        $link = tag(
+            "img src=\"$poster\" alt=\"$download\" title=\"$download\" $style"
+        );
+    } else {
+        $link = $download;
+    }
+    return $link;
+}
+
+/**
  * Returns the video element to embed the video.
  *
  * @param string $name    Name of the video file without extension.
@@ -361,16 +389,7 @@ EOT;
 EOT;
         }
         $filename = array_keys($files)[0];
-        $basename = basename($filename);
-        $download = sprintf($ptx['label_download'], $basename);
-        if ($poster) {
-            $link = Video_folder() . $name . '.jpg';
-            $link = tag(
-                "img src=\"$link\" alt=\"$download\" title=\"$download\" $style"
-            );
-        } else {
-            $link = $download;
-        }
+        $link = Video_downloadLink($name, $filename, $style);
         $o .= <<<EOT
     <a href="$filename">$link</a>
 
