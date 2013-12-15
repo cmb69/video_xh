@@ -360,6 +360,18 @@ EOT;
 
 EOT;
         }
+        $filename = array_keys($files)[0];
+        $basename = basename($filename);
+        if ($poster) {
+            $link = Video_folder() . $name . '.jpg';
+            $link = tag("img src=\"$link\" alt=\"\"");
+        } else {
+            $link = $basename;
+        }
+        $o .= <<<EOT
+    <a href="$filename">$link</a>
+
+EOT;
         $o .= <<<EOT
 </video>
 <script type="text/javascript">/* <![CDATA[ */
