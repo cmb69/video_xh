@@ -113,6 +113,19 @@ function Video_folder()
 }
 
 /**
+ * Returns the filename of the poster; <var>false</var> if no poster is available.
+ *
+ * @param string $name A video name.
+ *
+ * @return string
+ */
+function Video_posterFile($name)
+{
+    $filename = Video_folder() . $name . '.jpg';
+    return file_exists($filename) ? $filename : false;
+}
+
+/**
  * Returns a map of filenames to types.
  *
  * @param string $name Name of the video file without extension.
@@ -326,8 +339,8 @@ function Video_downloadLink($videoname, $filename, $style)
 
     $basename = basename($filename);
     $download = sprintf($plugin_tx['video']['label_download'], $basename);
-    $poster = Video_folder() . $videoname . '.jpg';
-    if (file_exists($poster)) {
+    $poster = Video_posterFile($videoname);
+    if ($poster) {
         $link = tag(
             "img src=\"$poster\" alt=\"$download\" title=\"$download\" $style"
         );
@@ -378,8 +391,8 @@ function video($name, $options = '')
         $controls = !empty($opts['controls']) ? ' controls="controls"' : '';
         $autoplay = !empty($opts['autoplay']) ? ' autoplay="autoplay"' : '';
         $loop = !empty($opts['loop']) ? ' loop="loop"' : '';
-        $filename = Video_folder() . $name . '.jpg';
-        $poster = file_exists($filename) ? 'poster="' . $filename . '"' : '';
+        $filename = Video_posterFile($name);
+        $poster = $filename ? 'poster="' . $filename . '"' : '';
         $style = Video_resizeStyle($opts['resize']);
         $o = <<<EOT
 <!-- Video_XH: $name -->
