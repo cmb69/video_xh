@@ -288,11 +288,33 @@ function Video_getOpt($query, $validOpts)
 }
 
 /**
+ * Returns a style attribute according to the resize mode.
+ *
+ * @param string $resizeMode A resize mode ("no", "shrink" or "full").
+ *
+ * @return string
+ */
+function Video_resizeStyle($resizeMode)
+{
+    switch ($resizeMode) {
+    case 'full':
+        $style = 'style="width:100%"';
+        break;
+    case 'shrink':
+        $style = 'style="max-width:100%';
+        break;
+    default:
+        $style = '';
+    }
+    return $style;
+}
+
+/**
  * Returns a link for downloading the video.
  *
  * @param string $videoname A video name.
  * @param string $filename  A file path.
- * @param string $style     A value for the style attribute.
+ * @param string $style     A style attribute.
  *
  * @return string (X)HTML.
  *
@@ -358,16 +380,7 @@ function video($name, $options = '')
         $loop = !empty($opts['loop']) ? ' loop="loop"' : '';
         $filename = Video_folder() . $name . '.jpg';
         $poster = file_exists($filename) ? 'poster="' . $filename . '"' : '';
-        switch ($opts['resize']) {
-        case 'full':
-            $style = 'style="width:100%"';
-            break;
-        case 'shrink':
-            $style = 'style="max-width:100%';
-            break;
-        default:
-            $style = '';
-        }
+        $style = Video_resizeStyle($opts['resize']);
         $o = <<<EOT
 <!-- Video_XH: $name -->
 <video id="video_$run" class="video-js $class"$controls$autoplay$loop
