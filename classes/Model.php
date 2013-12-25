@@ -58,7 +58,7 @@ class Video_Model
     }
 
     /**
-     * Returns a URL in canonical form (i.e. with ./ and ../ resolved).
+     * Returns a URL in normalized form (i.e. with ./ and ../ resolved).
      *
      * @param string $url An absolute URL.
      *
@@ -66,11 +66,11 @@ class Video_Model
      *
      * @access public
      */
-    function canonicalUrl($url)
+    function normalizedUrl($url)
     {
         $parts = explode('/', $url);
-        $i = count($parts) - 1;
-        while ($i >= 0) {
+        $i = 0;
+        while ($i < count($parts)) {
             switch ($parts[$i]) {
             case '.':
                 array_splice($parts, $i, 1);
@@ -79,8 +79,9 @@ class Video_Model
                 array_splice($parts, $i - 1, 2);
                 $i--;
                 break;
+            default:
+                $i++;
             }
-            $i--;
         }
         return implode('/', $parts);
     }

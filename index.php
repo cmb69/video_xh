@@ -289,7 +289,7 @@ function video($name, $options = '')
 
 EOT;
         foreach ($files as $filename => $type) {
-            $url = VIDEO_URL . $_Video->canonicalUrl($filename);
+            $url = VIDEO_URL . $_Video->normalizedUrl($filename);
             $o .= <<<EOT
     <source src="$url" type="video/$type" />
 

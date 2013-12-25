@@ -73,11 +73,11 @@ class ModelTest extends PHPUnit_Framework_TestCase
         file_put_contents($this->mediaFolder . 'movie.webm', '');
     }
 
-    public function testCanonicalUrl()
+    public function testNormalizedUrl()
     {
-        $url = 'http://example.com/foo/../bar/./baz/index.html';
+        $url = 'http://example.com/foo/./../bar/./baz/index.html';
         $expected = 'http://example.com/bar/baz/index.html';
-        $actual = $this->model->canonicalUrl($url);
+        $actual = $this->model->normalizedUrl($url);
         $this->assertEquals($expected, $actual);
     }
 
