@@ -1,50 +1,56 @@
+Version 1rc1 - released 2013-12-25
+* fixed bug, where wrong video URLs were constructed for second languages
+  (reported by hixi)
+* fixed bug, where URL normalization didn't properly work (reported by manu)
+
 Version 1beta8 - released 2013-12-15
-cmb     replaced align option with usual text alignment
-cmb     added option to center the play button (inspired by hixi)
-cmb     improved behavior when JavaScript is disabled
-cmb     improved QA (model class has full test coverage)
+* replaced align option with usual text alignment
+* added option to center the play button (inspired by hixi)
+* improved behavior when JavaScript is disabled
+* improved QA (model class has full test coverage)
 
 Version 1beta7 - released 2013-12-12
-cmb     fixed potential bugs, where wrong video URLs were generated on unusually configured servers
-cmb     fixed several minor glitches
-cmb     upgraded to Video.js 4.3.0
-cmb     added align option (suggested by lianergoist)
-cmb     added optional autosize mode (suggested by Tata)
-cmb     added support for subtitles (suggested by Ulrich and Holger)
-cmb     added config option auto_hjs
-cmb     added version.nfo
-cmb     added metaconfig.php
-cmb     revised manuals
-cmb     improved call builder
-cmb     improved QA (Phing, PHP_CI, CodeSniffer, PHPDoc)
+* fixed potential bugs, where wrong video URLs were generated on unusually
+  configured servers
+* fixed several minor glitches
+* upgraded to Video.js 4.3.0
+* added align option (suggested by lianergoist)
+* added optional autosize mode (suggested by Tata)
+* added support for subtitles (suggested by Ulrich and Holger)
+* added config option auto_hjs
+* added version.nfo
+* added metaconfig.php
+* revised manuals
+* improved call builder
+* improved QA (Phing, PHP_CI, CodeSniffer, PHPDoc)
 
 Version 1beta6 - released 2012-12-06
-cmb     added the "tube2" skin (contributed by bca)
+* added the "tube2" skin (contributed by bca)
 
 Version 1beta5 - released 2012-12-05
-cmb     added option to auto-resize the videos (suggested by Tata)
-cmb     added support for skins and the "tube" skin (contributed by bca)
-cmb     added Slovak translation (contributed by Tata)
-cmb     added German translation and user manual
+* added option to auto-resize the videos (suggested by Tata)
+* added support for skins and the "tube" skin (contributed by bca)
+* added Slovak translation (contributed by Tata)
+* added German translation and user manual
 
 Version 1beta4 - released 2012-07-16
-cmb     fixed missing port number in VIDEO_URL (reported by bca)
-cmb     added more video options (defaults in config; optional arguments to
-        video()): autoplay, loop, controls
-cmb     added a "call builder"
-cmb     updated manual accordingly
+* fixed missing port number in VIDEO_URL (reported by bca)
+* added more video options (defaults in config; optional arguments to video()):
+  autoplay, loop, controls
+* added a "call builder"
+* updated manual accordingly
 
 Version 1beta3 - released 2012-06-27
-cmb     changed required file extension for OGG video from .ogg to .ogv
-cmb     changed preference order (WebM -> MP4 -> OGG)
-cmb     switched to fully qualified absolute URLs for better Flash compatibility
-cmb     updated manual accordingly and added a section about trouble shooting
+* changed required file extension for OGG video from .ogg to .ogv
+* changed preference order (WebM -> MP4 -> OGG)
+* switched to fully qualified absolute URLs for better Flash compatibility
+* updated manual accordingly and added a section about trouble shooting
 
 Version 1beta2 - released 2012-05-22
-cmb     added danish translation (contributed by maeg)
-cmb     added czech translation (contributed by oldnema)
-cmb     added config option "prefer flash" (inspired by bca)
-cmb     added config option "preload"
+* added danish translation (contributed by maeg)
+* added czech translation (contributed by oldnema)
+* added config option "prefer flash" (inspired by bca)
+* added config option "preload"
 
 Version 1beta1 - released 2012-05-01
-cmb     initial release
+* initial release
