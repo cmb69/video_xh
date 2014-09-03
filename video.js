@@ -6,12 +6,14 @@
  * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
  */
 
+/*global  videojs */
+
 /**
  * The plugin's namespace.
  *
  * @namespace
  */
-VIDEO = {};
+var VIDEO = {};
 
 /**
  * Initializes a video player.
@@ -22,8 +24,9 @@ VIDEO = {};
  * @param {string} resizeMode A resize mode specifier.
  */
 VIDEO.initPlayer = function (id, width, height, resizeMode) {
-    var video;
-    var align;
+    "use strict";
+
+    var video, align;
 
     /**
      * Performs post-initialization of a video player, i.e. aligning the player
@@ -33,10 +36,7 @@ VIDEO.initPlayer = function (id, width, height, resizeMode) {
      * @param {string} alignment  An alignment specifier.
      */
     function postinit(alignment) {
-        var playerDiv;
-        var player;
-        var width;
-        var aspectRatio;
+        var playerDiv, player, width, aspectRatio;
 
         /**
          * Aligns the video player.
@@ -59,10 +59,10 @@ VIDEO.initPlayer = function (id, width, height, resizeMode) {
             var newWidth;
 
             newWidth = playerDiv.parentNode.offsetWidth;
-            if (newWidth > width && resizeMode == "shrink") {
+            if (newWidth > width && resizeMode === "shrink") {
                 newWidth = width;
             }
-            player.width(newWidth)
+            player.width(newWidth);
             player.height(Math.round(newWidth / aspectRatio));
         }
 
@@ -71,14 +71,14 @@ VIDEO.initPlayer = function (id, width, height, resizeMode) {
 
         align();
 
-        if (resizeMode == "shrink" || resizeMode == "full") {
+        if (resizeMode === "shrink" || resizeMode === "full") {
             width = player.width();
             aspectRatio = width / player.height();
             resize();
-            if (typeof addEventListener != "undefined") {
-                addEventListener("resize", resize, false);
-            } else if (typeof attachEvent != "undefined")  {
-                attachEvent("onresize", resize);
+            if (typeof window.addEventListener !== "undefined") {
+                window.addEventListener("resize", resize, false);
+            } else if (typeof window.attachEvent !== "undefined") {
+                window.attachEvent("onresize", resize);
             }
         }
     }
@@ -90,7 +90,7 @@ VIDEO.initPlayer = function (id, width, height, resizeMode) {
     videojs(id, {}, function () {
         postinit(align);
     });
-}
+};
 
 /**
  * Initializes the call builder.
@@ -100,33 +100,28 @@ VIDEO.initPlayer = function (id, width, height, resizeMode) {
  * its textarea.
  */
 VIDEO.initCallBuilder = function () {
-    var elements;
-    var keys;
-    var i;
-    var key;
-    var element;
+    "use strict";
+
+    var elements, keys, i, key, element;
 
     /**
      * Builds the plugin call.
      */
     function buildPluginCall() {
-        var opts;
-        var keys;
-        var key
-        var i;
+        var opts, keys, key, i;
 
         opts = [];
         keys = ["width", "height"];
-        for (i = 0; i < keys.length; i++) {
+        for (i = 0; i < keys.length; i += 1) {
             key = keys[i];
-            if (elements[key].value != "") {
+            if (elements[key].value !== "") {
                 opts.push(key + '=' + elements[key].value);
             }
         }
-        opts.push("preload=" + elements["preload"].value);
-        opts.push("resize=" + elements["resize"].value);
+        opts.push("preload=" + elements.preload.value);
+        opts.push("resize=" + elements.resize.value);
         keys = ["autoplay", "loop", "controls", "centered"];
-        for (i = 0; i < keys.length; i++) {
+        for (i = 0; i < keys.length; i += 1) {
             key = keys[i];
             opts.push(key + "=" + (elements[key].checked ? "1" : "0"));
         }
@@ -137,8 +132,9 @@ VIDEO.initCallBuilder = function () {
     /**
      * Selects the content of an element.
      */
-    function selectContent() {
-        this.select();
+    function selectContent(event) {
+        event = event || window.event;
+        (event.target || event.srcElement).select();
     }
 
     elements = {};
@@ -146,15 +142,15 @@ VIDEO.initCallBuilder = function () {
         "name", "preload", "autoplay", "loop", "controls", "centered",
         "width", "height", "resize", "call"
     ];
-    for (i = 0; i < keys.length; i++) {
+    for (i = 0; i < keys.length; i += 1) {
         key = keys[i];
         element = document.getElementById("video_" + key);
         elements[key] = element;
-        if (key != "call") {
+        if (key !== "call") {
             element.onchange = buildPluginCall;
         } else {
             element.onclick = selectContent;
         }
     }
     buildPluginCall();
-}
+};
