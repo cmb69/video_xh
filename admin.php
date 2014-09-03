@@ -90,7 +90,7 @@ function Video_aboutView()
     $iconPath = $pth['folder']['plugins'] . 'video/video.png';
     $version = VIDEO_VERSION;
     $o = <<<EOT
-<h1><a href="http://3-magi.net/?CMSimple_XH/Video_XH">Video_XH</a></h1>
+<h1>Video</h1>
 <img class="video_plugin_icon" width="128" height="128" src="$iconPath"
      alt="{$plugin_tx['video']['alt_logo']}" />
 <p style="margin-top:1em">Version: $version</p>
@@ -104,9 +104,9 @@ function Video_aboutView()
     (at your option) any later version.</p>
 <p class="video_license">
     This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.</p>
+    but <em>without any warranty</em>; without even the implied warranty of
+    <em>merchantability</em> or <em>fitness for a particular purpose</em>.
+    See the GNU General Public License for more details.</p>
 <p class="video_license">
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see
@@ -286,6 +286,7 @@ function Video_adminMain()
     $ptx = $plugin_tx['video'];
     Video_includeJs();
     $o = '<!-- Video_XH: call builder -->' . PHP_EOL
+        . '<h1>Video &ndash; ' . $ptx['menu_main'] . '</h1>' . PHP_EOL
         . '<div id="video_call_builder">' . PHP_EOL;
     $videos = $_Video->availableVideos();
     $videos = Video_combineArrays($videos, $videos);
