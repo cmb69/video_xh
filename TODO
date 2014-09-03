@@ -1,1 +1,11 @@
-* youtube technology (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
+* XH_registerStandardPluginMenuItems()
+* CSRF protection
+* Compatibility with CMSimple
+* XH_wantsPluginAdministration()
+* bump copyright year
+* change admin headings
+* fix bug, where video-js is selectable as skin
+* document that tube and tube2 are broken
+
+* youtube technology
+  (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
