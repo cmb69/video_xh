@@ -1,6 +1,6 @@
 /**
  * @file      JavaScript of Video_XH.
- * @version   $Id: autosize.js 73 2013-12-11 22:46:25Z cmb $
+ * @version   $Id$
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2012-2014 Christoph M. Becker (http://3-magi.net/)
  * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
