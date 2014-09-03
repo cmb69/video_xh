@@ -184,7 +184,7 @@ function Video_resizeStyle($resizeMode)
         $style = 'style="width:100%"';
         break;
     case 'shrink':
-        $style = 'style="max-width:100%';
+        $style = 'style="max-width:100%"';
         break;
     default:
         $style = '';
