@@ -2,10 +2,12 @@
 * CSRF protection
 * Compatibility with CMSimple
 * XH_wantsPluginAdministration()
-* bump copyright year
 * change admin headings
 * fix bug, where video-js is selectable as skin
 * document that tube and tube2 are broken
+* manual: intro should be justified
+* get rid of JSON fallback
 
 * youtube technology
   (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
+* add lite mode (no JS)
