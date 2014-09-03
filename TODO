@@ -1,6 +1,5 @@
 * CSRF protection
 * Compatibility with CMSimple
-* XH_wantsPluginAdministration()
 * change admin headings
 * document that tube and tube2 are broken
 * manual: intro should be justified

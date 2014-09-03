@@ -332,7 +332,10 @@ if (function_exists('XH_registerStandardPluginMenuItems')) {
 /*
  * Handle the plugin administration.
  */
-if (isset($video) && $video == 'true') {
+if (function_exists('XH_wantsPluginAdministration')
+    && XH_wantsPluginAdministration('video')
+    || isset($video) && $video == 'true'
+) {
     $o .= print_plugin_admin('on');
     switch ($admin) {
     case '':
