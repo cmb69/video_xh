@@ -1,6 +1,4 @@
-* document that tube and tube2 are broken
 * switch to PHP_CI 3
-* video.js: remove align() handling?
 
 * youtube technology
   (https://github.com/zencoder/video-js/blob/master/docs/tech.md)

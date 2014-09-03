@@ -19,7 +19,7 @@ the best user experience, JavaScript should be enabled in the visitor's
 browser.</p>
 
 <ul id="nav">
-<li><a href="#notice">Important Notice</a></li>
+<!--<li><a href="#notice">Important Notice</a></li>-->
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
@@ -39,10 +39,8 @@ browser.</p>
 <p><strong>Please do read this manual, <em>before</em> you encounter any
 problems!</strong></p>
 
-<h2 id="notice">Important Notice</h2>
-<p><strong>Video_XH couldn't be tested so far in various environments. It is a
-so called BETA version. Use with caution!</strong></p>
-<div class="toplink"><a href="#">back to top</a></div>
+<!--<h2 id="notice">Important Notice</h2>-->
+<!--<div class="toplink"><a href="#">back to top</a></div>-->
 
 <h2 id="requirements">Requirements</h2>
 <p>Video_XH is a plugin for CMSimple_XH. It requires a UTF-8 encoded
@@ -69,9 +67,10 @@ fulfilled.</li>
 <p>The plugin's configuration is done as with many other CMSimple_XH plugins in
 the website's back-end. Select "Plugins" &rarr; "Video".</p>
 <p>You can change the default settings of Video_XH under "Config". Hints for the
-options will be displayed when hovering over the help icon with your mouse.</p>
+options will be displayed when hovering over the help icons with your mouse.</p>
 <p>Localization is done under "Language". You can translate the character
-strings to your own language, or customize them according to your needs.</p>
+strings to your own language (if there is no appropriate language file
+available), or customize them according to your needs.</p>
 <p>The look of Video_XH can be customized under "Stylesheet". To change the look
 of the player, you should use another <a href="#usage-skins">skin</a>.</p>
 <div class="toplink"><a href="#">back to top</a></div>
@@ -151,7 +150,7 @@ href="http://designer.videojs.com/">Video.js Player Designer</a>.</p>
 
 <h3 id="trouble-shooting">Trouble Shooting</h3>
 <p>In case the video doesn't play <em>at all</em>, check if the video can be
-played in the browser, when you call it's URL directly. This will only work, if
+played in the browser, when you call its URL directly. This will only work, if
 the <a href="http://caniuse.com/#feat=video">browser natively supports the video
 format</a> and if the video is served with the appropriate MIME type. If the
 latter is not the case, you probably can configure your Apache with the
@@ -195,8 +194,7 @@ So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by ins
 <p>This issue is solved since CMSimple_XH 1.6, so you can savely use the same
 plugin call multiple times on a single page.</p>
 </li>
-<li>The delivered skins "tube" and "tube2" don't work well with subtitles. So if
-you have subtitles, use the default skin.</li>
+<li>The delivered skins "tube" and "tube2" are slightly broken.</li>
 </ul>
 <div class="toplink"><a href="#">back to top</a></div>
 
