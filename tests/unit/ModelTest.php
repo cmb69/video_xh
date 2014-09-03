@@ -25,7 +25,7 @@ require_once 'vfsStream/vfsStream.php';
 require './classes/Model.php';
 
 /**
- * A test case for the video model.
+ * Testing the video model.
  *
  * @category Testing
  * @package  Video
@@ -35,12 +35,32 @@ require './classes/Model.php';
  */
 class ModelTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * The base folder.
+     *
+     * @var string
+     */
     protected $baseFolder;
 
+    /**
+     * The media folder.
+     *
+     * @var string
+     */
     protected $mediaFolder;
 
-    protected $model;
+    /**
+     * The test subject.
+     *
+     * @var Video_Model
+     */
+    protected $subject;
 
+    /**
+     * Sets up the test fixture.
+     *
+     * @return void
+     */
     public function setUp()
     {
         vfsStreamWrapper::register();
@@ -64,7 +84,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
             'default_height' => '288',
             'default_resize' => 'no'
         );
-        $this->model = new Video_Model($folders, $config);
+        $this->subject = new Video_Model($folders, $config);
         mkdir($folders['media'], 0777, true);
         file_put_contents($this->mediaFolder . 'movie.avi', '');
         file_put_contents($this->mediaFolder . 'movie.jpg', '');
@@ -73,90 +93,150 @@ class ModelTest extends PHPUnit_Framework_TestCase
         file_put_contents($this->mediaFolder . 'movie.webm', '');
     }
 
+    /**
+     * Tests ::normalizedUrl().
+     *
+     * @return void
+     */
     public function testNormalizedUrl()
     {
         $url = 'http://example.com/foo/./../bar/./baz/index.html';
         $expected = 'http://example.com/bar/baz/index.html';
-        $actual = $this->model->normalizedUrl($url);
+        $actual = $this->subject->normalizedUrl($url);
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests ::videoFolder().
+     *
+     * @return void
+     */
     public function testVideoFolder()
     {
         $expected = $this->baseFolder . 'userfiles/media/';
-        $actual = $this->model->videoFolder();
+        $actual = $this->subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests a non standard video folder.
+     *
+     * @return void
+     */
     public function testNonStandardVideoFolder()
     {
         $folders = array('base' => './');
         $config = array('folder_video' => 'foo');
         $expected = './foo/';
-        $model = new Video_Model($folders, $config);
-        $actual = $model->videoFolder();
+        $subject = new Video_Model($folders, $config);
+        $actual = $subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests a backward compatible video folder.
+     *
+     * @return void
+     */
     public function testBCVideoFolder()
     {
         $folders = array('downloads' => './downloads/');
         $config = array('folder_video' => '');
         $expected = './downloads/';
-        $model = new Video_Model($folders, $config);
-        $actual = $model->videoFolder();
+        $subject = new Video_Model($folders, $config);
+        $actual = $subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests ::availableVideos().
+     *
+     * @return void
+     */
     public function testAvailableVideos()
     {
         $expected = array('movie');
-        $actual = $this->model->availableVideos();
+        $actual = $this->subject->availableVideos();
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests ::videoFiles().
+     *
+     * @return void
+     */
     public function testVideoFiles()
     {
         $expected = array(
             $this->mediaFolder . 'movie.webm' => 'webm',
             $this->mediaFolder . 'movie.mp4' => 'mp4'
         );
-        $actual = $this->model->videoFiles('movie');
+        $actual = $this->subject->videoFiles('movie');
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests no video files.
+     *
+     * @return void
+     */
     public function testNoVideoFiles()
     {
-        $actual = $this->model->videoFiles('foo');
+        $actual = $this->subject->videoFiles('foo');
         $this->assertEmpty($actual);
     }
 
+    /**
+     * Tests ::posterFile().
+     *
+     * @return void
+     */
     public function testPosterFile()
     {
         $expected = $this->mediaFolder . 'movie.jpg';
-        $actual = $this->model->posterFile('movie');
+        $actual = $this->subject->posterFile('movie');
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests no poster file.
+     *
+     * @return void
+     */
     public function testNoPosterFile()
     {
-        $actual = $this->model->posterFile('foo');
+        $actual = $this->subject->posterFile('foo');
         $this->assertFalse($actual);
     }
 
+    /**
+     * Tests ::subtitleFile().
+     *
+     * @return void
+     */
     public function testSubtitleFile()
     {
         $expected = $this->mediaFolder . 'movie.vtt';
-        $actual = $this->model->subtitleFile('movie');
+        $actual = $this->subject->subtitleFile('movie');
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests no subtitle file.
+     *
+     * @return void
+     */
     public function testNoSubtitleFile()
     {
-        $actual = $this->model->subtitleFile('foo');
+        $actual = $this->subject->subtitleFile('foo');
         $this->assertFalse($actual);
     }
 
+    /**
+     * Returns data for ::testGetOptions().
+     *
+     * @return void
+     */
     public function dataForGetOptions()
     {
         return array(
@@ -191,14 +271,20 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests ::getOptions().
+     *
+     * @param string $query    A query string.
+     * @param array  $expected An array of expected options.
+     *
+     * @return void
+     *
      * @dataProvider dataForGetOptions
      */
     public function testGetOptions($query, $expected)
     {
-        $actual = $this->model->getOptions($query);
+        $actual = $this->subject->getOptions($query);
         $this->assertEquals($expected, $actual);
     }
 }
-
 
 ?>

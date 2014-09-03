@@ -9,6 +9,7 @@
 * get rid of JSON fallback
 * switch to PHP_CI 3
 * fix video.js according to JSLint
+* update vfsStream
 
 * youtube technology
   (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
