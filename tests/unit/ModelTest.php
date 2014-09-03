@@ -14,15 +14,13 @@
  * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
- /**
-  * The file system mock objects.
-  */
-require_once 'vfsStream/vfsStream.php';
+require_once './vendor/autoload.php';
 
-/**
- * The class under test.
- */
 require './classes/Model.php';
+
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * Testing the video model.
