@@ -3,7 +3,6 @@
 * Compatibility with CMSimple
 * XH_wantsPluginAdministration()
 * change admin headings
-* fix bug, where video-js is selectable as skin
 * document that tube and tube2 are broken
 * manual: intro should be justified
 * get rid of JSON fallback

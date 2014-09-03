@@ -176,7 +176,7 @@ function Video_availableSkins()
     $dirHandle = opendir($skinPath);
     if ($dirHandle !== false) {
         while (($entry = readdir($dirHandle)) !== false) {
-            if ($entry != 'video-js.min.css'
+            if ($entry != 'video-js.css'
                 && pathinfo($entry, PATHINFO_EXTENSION) == 'css'
             ) {
                 $skins[] = basename($entry, '.css');
