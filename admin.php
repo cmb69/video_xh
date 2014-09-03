@@ -323,6 +323,13 @@ EOT;
 }
 
 /*
+ * Register plugin menu items.
+ */
+if (function_exists('XH_registerStandardPluginMenuItems')) {
+    XH_registerStandardPluginMenuItems(true);
+}
+
+/*
  * Handle the plugin administration.
  */
 if (isset($video) && $video == 'true') {
