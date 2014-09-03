@@ -81,17 +81,18 @@ function Video_asJson($value)
  * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
+ * @global array The localization of the plugins.
  */
 function Video_aboutView()
 {
-    global $pth;
+    global $pth, $plugin_tx;
 
     $iconPath = $pth['folder']['plugins'] . 'video/video.png';
     $version = VIDEO_VERSION;
     $o = <<<EOT
 <h1><a href="http://3-magi.net/?CMSimple_XH/Video_XH">Video_XH</a></h1>
 <img class="video_plugin_icon" width="128" height="128" src="$iconPath"
-     alt="Plugin icon" />
+     alt="{$plugin_tx['video']['alt_logo']}" />
 <p style="margin-top:1em">Version: $version</p>
 <p>Copyright &copy; 2012-2014
     <a href="http://3-magi.net/">Christoph M. Becker</a></p>

@@ -1,5 +1,6 @@
 <?php
 
+$plugin_tx['video']['alt_logo']="Film reel";
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 $plugin_tx['video']['label_autoplay']="Autoplay";
 $plugin_tx['video']['label_call']="Plugin Call";
