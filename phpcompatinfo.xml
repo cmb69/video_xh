@@ -10,14 +10,8 @@
 
     <excludes>
         <exclude id="video">
-            <directory name="config"/>
-            <directory name="css"/>
-            <directory name="doc"/>
-            <directory name="help"/>
-            <directory name="images"/>
-            <directory name="languages"/>
-            <directory name="lib"/>
             <directory name="tests"/>
+            <directory name="vendor"/>
         </exclude>
     </excludes>
 </phpcompatinfo>

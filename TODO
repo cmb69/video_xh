@@ -1,5 +1,4 @@
 * switch to PHP_CI 3
-
 * youtube technology
   (https://github.com/zencoder/video-js/blob/master/docs/tech.md)
 * add lite mode (no JS) (<http://camendesign.com/code/video_for_everybody>)

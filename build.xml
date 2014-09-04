@@ -66,9 +66,9 @@
         <exec command="jsdoc --destination doc/js *.js" checkreturn="true"/>
     </target>
 
-    <target name="doc" depends="php-doc"/>
+    <target name="doc" depends="php-doc,js-doc"/>
 
-    <!-- Build -->
+    <!-- build -->
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>

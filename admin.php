@@ -64,8 +64,9 @@ function Video_asJson($value)
 {
     global $pth;
 
-    if (function_exists('json_encode')) {
-        return json_encode($value);
+    $func = 'json_encode';
+    if (function_exists($func)) {
+        return $func($value);
     } else {
         if (!class_exists('CMB_JSON')) {
             include_once $pth['folder']['plugins'] . 'video/JSON.php';
