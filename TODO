@@ -4,3 +4,5 @@
 * add lite mode (no JS) (<http://camendesign.com/code/video_for_everybody>)
 * get rid of JSON fallback
 * require CMSimple_XH >= ?
+* resize to percentage for adaptive videos (sugg. by Tata
+  <http://cmsimpleforum.com/viewtopic.php?f=12&t=5407&p=43620#p43571>)
