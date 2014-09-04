@@ -1,3 +1,10 @@
+Version 1.0 - released 2014-09-04
+* fixed bug, where resize=shrink caused the video not to work (reported by Tata)
+* fixed bug, where video-js.css was selectable as skin
+* updated to Video.js 4.7.3
+* added support for some CMSimple_XH 1.6 APIs
+* revised manuals
+
 Version 1rc1 - released 2013-12-25
 * fixed bug, where wrong video URLs were constructed for second languages
   (reported by hixi)
