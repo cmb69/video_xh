@@ -95,7 +95,6 @@
                 <exclude name="composer.*"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
-                <exclude name="TODO"/>
                 <exclude name="tests/**"/>
                 <exclude name="video.js"/>
             </fileset>
