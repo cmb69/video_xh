@@ -98,7 +98,6 @@
                 <exclude name="TODO"/>
                 <exclude name="tests/**"/>
                 <exclude name="video.js"/>
-                <exclude name="video.komodoproject"/>
             </fileset>
         </move>
         <delete dir="export"/>
