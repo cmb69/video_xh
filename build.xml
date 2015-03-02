@@ -41,8 +41,8 @@
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
-    <target name="php-doc">
-        <phpdoc title="Video_XH Developer Documentation" destdir="doc/php"
+    <target name="doc" description="generates the developer documentation">
+        <phpdoc title="Video_XH Developer Documentation" destdir="doc"
                 output="HTML:Smarty:HandS" defaultpackagename="Video"
                 defaultcategoryname="CMSimple_XH" parseprivate="true">
             <fileset refid="php-sources"/>
@@ -52,13 +52,6 @@
             </projdocfileset>
         </phpdoc>
     </target>
-
-    <target name="js-doc">
-        <exec command="jsdoc --destination doc/js *.js" checkreturn="true"/>
-    </target>
-
-    <target name="doc" description="generates the developer documentation"
-            depends="php-doc,js-doc"/>
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
