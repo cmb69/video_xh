@@ -48,6 +48,8 @@ class Video_Model
      * @param array $folders An array of folder paths.
      * @param array $config  Configuration options.
      *
+     * @return void
+     *
      * @access public
      */
     function Video_Model($folders, $config)
