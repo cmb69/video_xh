@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Video" default="default">
-
-    <!-- filesets -->
+<project name="Video" default="help">
 
     <fileset id="php-sources" dir=".">
         <include name="admin.php"/>
@@ -14,24 +12,25 @@
         <include name="*Test.php"/>
     </fileset>
 
-    <!-- static analysis -->
+    <target name="help" description="lists available targets">
+        <exec command="phing -l" outputProperty="help"/>
+        <echo>${help}</echo>
+    </target>
 
-    <target name="sniff">
+    <target name="sniff" description="checks adherence to PEAR CS">
         <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
             <fileset refid="unit-tests"/>
         </phpcodesniffer>
     </target>
 
-    <target name="compat">
+    <target name="compat" description="checks PHP requirements">
         <exec command="phpcompatinfo --configuration phpcompatinfo.xml print
                                      --exclude-pattern video ."
               logoutput="true"/>
     </target>
 
-    <!-- tests -->
-
-    <target name="unit-tests">
+    <target name="unit-tests" description="runs all unit tests">
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
@@ -40,13 +39,9 @@
         </phpunit>
     </target>
 
-    <target name="tests" depends="unit-tests"/>
-
-    <target name="coverage">
+    <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
-
-    <!-- documentation -->
 
     <target name="php-doc">
         <phpdoc title="Video_XH Developer Documentation" destdir="doc/php"
@@ -64,9 +59,8 @@
         <exec command="jsdoc --destination doc/js *.js" checkreturn="true"/>
     </target>
 
-    <target name="doc" depends="php-doc,js-doc"/>
-
-    <!-- build -->
+    <target name="doc" description="generates the developer documentation"
+            depends="php-doc,js-doc"/>
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
