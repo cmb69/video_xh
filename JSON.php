@@ -6,7 +6,6 @@
  * @package   CMB
  * @copyright Copyright (c) 2012-2015 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   $Id: JSON.php 18 2013-04-27 12:11:24Z Chistoph Becker $
  */
 
 
