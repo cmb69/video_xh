@@ -1,4 +1,8 @@
-Version 1.0 - released 2015-09-04
+Version 1.0.1 - released 2015-03-03
+* fixed potential issue wrt. to json_encode() fallback
+* updated to Video.js 4.12.1
+
+Version 1.0 - released 2014-09-04
 * fixed bug, where resize=shrink caused the video not to work (reported by Tata)
 * fixed bug, where video-js.css was selectable as skin
 * updated to Video.js 4.7.3
