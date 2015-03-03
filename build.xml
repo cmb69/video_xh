@@ -53,7 +53,7 @@
         </phpdoc>
     </target>
 
-    <target name="build">
+    <target name="build" description="builds a distributable ZIP archive">
         <fail unless="version" message="version is not defined!"/>
         <exec command="git archive -o export.tar HEAD" checkreturn="true"/>
         <untar file="export.tar" todir="export"/>
