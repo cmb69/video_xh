@@ -63,16 +63,78 @@ function Video_asJson($value)
 {
     global $pth;
 
-    $func = 'json_encode';
-    if (function_exists($func)) {
-        return $func($value);
+    if (function_exists('json_encode')) {
+        return json_encode($value);
     } else {
-        if (!class_exists('CMB_JSON')) {
-            include_once $pth['folder']['plugins'] . 'video/JSON.php';
-            $json = new CMB_JSON();
-            return $json->encode($value);
-        }
+        return Video_encodeJson($value);
     }
+}
+
+/**
+ * Returns a PHP value encoded as JSON string.
+ *
+ * A fallback for json_encode().
+ *
+ * @param mixed $value A PHP value.
+ *
+ * @return string
+ *
+ * @access public
+ */
+function Video_encodeJson($value)
+{
+    switch (gettype($value)) {
+    case 'boolean':
+        return $value ? 'true' : 'false';
+    case 'integer':
+    case 'double':
+        return $value;
+    case 'string':
+        return '"' . Video_quoteJsonString($value) . '"';
+    case 'array':
+        if (array_keys($value) === range(0, count($value) - 1)) {
+            // encode as array
+            $elts = array();
+            foreach ($value as $val) {
+                $elts[] = Video_encodeJson($val);
+            }
+            return '[' . implode(',', $elts) . ']';
+        } else {
+            // encode as object
+            $members = array();
+            foreach ($value as $key => $val) {
+                $members[] = '"' . Video_quoteJsonString($key) . '":'
+                    . Video_encodeJson($val);
+            }
+            return '{' . implode(',', $members) . '}';
+        }
+    case 'object':
+        return Video_encodeJson(get_object_vars($value));
+    case 'NULL':
+        return 'null';
+    default:
+        $msg = __FUNCTION__ . '(): type is unsupported, encoded as null';
+        trigger_error($msg, E_USER_WARNING);
+        return 'null';
+    }
+}
+/**
+ * Quotes a string for use as JSON string.
+ *
+ * @param string $string A string.
+ *
+ * @return string
+ *
+ * @access protected
+ */
+function Video_quoteJsonString($string)
+{
+    $string = addcslashes($string, "\"\\/");
+    $escape = create_function(
+        '$matches', 'return sprintf("\\u%04X", ord($matches[0]));'
+    );
+    $string = preg_replace_callback('/[\x00-\x1f]/', $escape, $string);
+    return $string;
 }
 
 /**
