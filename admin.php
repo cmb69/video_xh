@@ -37,9 +37,8 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
  */
 function Video_combineArrays($keys, $values)
 {
-    $func = 'array_combine';
-    if (function_exists($func)) {
-        return $func($keys, $values);
+    if (function_exists('array_combine')) {
+        return array_combine($keys, $values);
     } else {
         $count = count($keys);
         $array = array();
