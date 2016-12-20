@@ -115,6 +115,7 @@ function Video_includeJs()
  *
  * @return void
  *
+ * @global string The current language code.
  * @global string The document fragment to insert in the head element.
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
@@ -123,7 +124,7 @@ function Video_includeJs()
  */
 function Video_hjs()
 {
-    global $hjs, $pth, $plugin_cf;
+    global $sl, $hjs, $pth, $plugin_cf;
     static $again = false;
 
     if ($again) {
@@ -131,6 +132,7 @@ function Video_hjs()
     }
     $again = true;
     $pcf = $plugin_cf['video'];
+    $playerLang = Video_playerLang();
     $lib = $pth['folder']['plugins'] . 'video/lib/';
     $o = '';
     if (!empty($pcf['skin'])) {
@@ -147,6 +149,9 @@ EOT;
     if ($pcf['use_cdn']) {
         $o .= <<<EOT
 <script type="text/javascript" src="http://vjs.zencdn.net/4.7.3/video.js"></script>
+<script type="text/javascript">
+    videojs.addLanguage('$sl', $playerLang);
+</script>
 
 EOT;
     } else {
@@ -154,6 +159,7 @@ EOT;
 <script type="text/javascript" src="${lib}video.js"></script>
 <script type="text/javascript">
     videojs.options.flash.swf = "${lib}video-js.swf";
+    videojs.addLanguage('$sl', $playerLang);
 </script>
 
 EOT;
@@ -250,6 +256,68 @@ function Video_videoAttributes($name, $options)
         . ($poster ? ' poster="' . $poster . '"' : '')
         . ' ' . Video_resizeStyle($options['resize']);
     return $attributes;
+}
+
+/**
+ * Returns a JSON string containing the current localization.
+ *
+ * @return string
+ * 
+ * @global array The localization of the plugins.
+ */
+function Video_playerLang()
+{
+    global $plugin_tx;
+
+    if (function_exists('json_encode')) {
+        $playerLang = array();
+        foreach (Video_playerLanguageKeys() as $key => $text) {
+            $playerLang[$text] = $plugin_tx['video'][$key];
+        }
+        return json_encode($playerLang);
+    } else {
+        return '{}';
+    }
+}
+
+/**
+ * Returns the player language keys.
+ *
+ * @return array
+ */
+function Video_playerLanguageKeys()
+{
+    return array(
+        'player_play' => 'Play',
+        'player_pause' => 'Pause',
+        'player_current_time' => 'Current Time',
+        'player_duration_time' => 'Duration Time',
+        'player_remaining_time' => 'Remaining Time',
+        'player_stream_type' => 'Stream Type',
+        'player_live' => 'LIVE',
+        'player_loaded' => 'Loaded',
+        'player_progress' => 'Progress',
+        'player_fullscreen' => 'Fullscreen',
+        'player_non_fullscreen' => 'Non-Fullscreen',
+        'player_mute' => 'Mute',
+        'player_unmuted' => 'Unmuted',
+        'player_playback_rate' => 'Playback Rate',
+        'player_subtitles' => 'Subtitles',
+        'player_subtitles_off' => 'subtitles off',
+        'player_captions' => 'Captions',
+        'player_captions_off' => 'captions off',
+        'player_chapters' => 'Chapters',
+        'player_abort_playback_user' => 'You aborted the video playback',
+        'player_network_error' =>
+            'A network error caused the video download to fail part-way.',
+        'player_cant_load' =>
+            'The video could not be loaded, either because the server or network'
+            . ' failed or because the format is not supported.',
+        'player_abort_playback' =>
+            'The video playback was aborted due to a corruption problem or'
+            . ' because the video used features your browser did not support.',
+        'player_incompatible' => 'No compatible source was found for this video.'
+    );
 }
 
 /**
