@@ -88,6 +88,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
         file_put_contents($this->mediaFolder . 'movie.mp4', '');
         file_put_contents($this->mediaFolder . 'movie.vtt', '');
         file_put_contents($this->mediaFolder . 'movie.webm', '');
+        file_put_contents($this->mediaFolder . 'movie', '');
     }
 
     /**

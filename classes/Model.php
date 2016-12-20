@@ -146,6 +146,9 @@ class Video_Model
         if ($dirHandle) {
             while (($file = readdir($dirHandle)) !== false) {
                 $pathinfo = pathinfo($file);
+                if (!isset($pathinfo['extension'])) {
+                    continue;
+                }
                 $basename = $pathinfo['basename'];
                 $extension = $pathinfo['extension'];
                 if (in_array($extension, $this->extensions())) {
