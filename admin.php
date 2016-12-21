@@ -8,7 +8,7 @@
  * @category  CMSimple_XH
  * @package   Video
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2012-2015 Christoph M. Becker <http://3-magi.net/>
+ * @copyright 2012-2016 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
@@ -155,7 +155,7 @@ function Video_aboutView()
 <img class="video_plugin_icon" width="128" height="128" src="$iconPath"
      alt="{$plugin_tx['video']['alt_logo']}" />
 <p style="margin-top:1em">Version: $version</p>
-<p>Copyright &copy; 2012-2015
+<p>Copyright &copy; 2012-2016
     <a href="http://3-magi.net/">Christoph M. Becker</a></p>
 <p>Video_XH is powered by <a href="http://videojs.com">Video.js</a></p>
 <p class="video_license">
