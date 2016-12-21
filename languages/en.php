@@ -63,6 +63,6 @@ $plugin_tx['video']['cf_default_resize']="The resize mode: \"no\" (fixed size ac
 $plugin_tx['video']['cf_default_width']="The width of the video in pixels. This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_prefer_flash']="Whether to prefer flash video over html5 video: \"1\" (yes) or \"0\" (no).";
 $plugin_tx['video']['cf_skin']="The name of a skin (e.g. \"tube\" or \"tube2\"). Leave empty to use the default skin.";
-$plugin_tx['video']['cf_use_cdn']="Whether to use the latest version of VIDEO.JS via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";
+$plugin_tx['video']['cf_use_cdn']="Whether to use Video.js via CDN: \"1\" (yes) or \"0\" (no, use local version instead).";
 
 ?>

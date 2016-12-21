@@ -138,7 +138,7 @@ function Video_hjs()
     if (!empty($pcf['skin'])) {
         $css = "$lib$pcf[skin].css";
     } elseif ($pcf['use_cdn']) {
-        $css = 'http://vjs.zencdn.net/4.7.3/video-js.css';
+        $css = 'http://vjs.zencdn.net/4.12.15/video-js.css';
     } else {
         $css = "${lib}video-js.css";
     }
@@ -148,7 +148,7 @@ function Video_hjs()
 EOT;
     if ($pcf['use_cdn']) {
         $o .= <<<EOT
-<script type="text/javascript" src="http://vjs.zencdn.net/4.7.3/video.js"></script>
+<script type="text/javascript" src="http://vjs.zencdn.net/4.12.15/video.js"></script>
 <script type="text/javascript">
     videojs.addLanguage('$sl', $playerLang);
 </script>
