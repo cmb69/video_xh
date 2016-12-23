@@ -52,10 +52,25 @@ class Video_Model
      *
      * @access public
      */
-    function Video_Model($folders, $config)
+    function __construct($folders, $config)
     {
         $this->folders = $folders;
         $this->config = $config;
+    }
+
+    /**
+     * Fallback constructor for PHP 4.
+     *
+     * @param array $folders An array of folder paths.
+     * @param array $config  Configuration options.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function Video_Model($folders, $config)
+    {
+        Video_Model::__construct($folders, $config);
     }
 
     /**
