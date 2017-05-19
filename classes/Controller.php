@@ -24,6 +24,11 @@ namespace Video;
 class Controller
 {
     /**
+     * @var string
+     */
+    protected $pluginFolder;
+
+    /**
      * @var array
      */
     protected $config;
@@ -42,8 +47,19 @@ class Controller
     {
         global $pth, $plugin_cf, $plugin_tx;
 
+        $this->pluginFolder = "{$pth['folder']['plugins']}video/";
         $this->config = $plugin_cf['video'];
         $this->lang = $plugin_tx['video'];
         $this->model = new Model($pth['folder'], $this->config);
+    }
+
+    /**
+     * @param string
+     */
+    protected function addScript($filename)
+    {
+        global $bjs;
+
+        $bjs .= sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
     }
 }

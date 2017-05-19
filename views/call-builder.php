@@ -10,6 +10,3 @@
     <p><label><span><?=$this->text('label_resize')?></span><?=$this->resizeSelect()?></label></p>
     <p><textarea id="video_call" readonly></textarea></p>
 </div>
-<script type="text/javascript">
-VIDEO.initCallBuilder();
-</script>

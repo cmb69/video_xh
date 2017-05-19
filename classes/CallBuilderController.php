@@ -28,7 +28,7 @@ class CallBuilderController extends Controller
      */
     public function defaultAction()
     {
-        Video_includeJs();
+        $this->addScript("{$this->pluginFolder}video.min.js");
         $view = new View('call-builder');
         $videos = $this->model->availableVideos();
         $videos = array_combine($videos, $videos);

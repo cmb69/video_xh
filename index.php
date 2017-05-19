@@ -29,19 +29,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 define('VIDEO_VERSION', '@VIDEO_VERSION@');
 
-function Video_includeJs()
-{
-    global $pth, $hjs;
-    static $again = false;
-
-    if (!$again) {
-        $jsPath = $pth['folder']['plugins'] . 'video/video.min.js';
-        $hjs .= "<script type=\"text/javascript\" src=\"$jsPath\"></script>"
-            . PHP_EOL;
-        $again = true;
-    }
-}
-
 /**
  * @param string $name
  * @param string $options
