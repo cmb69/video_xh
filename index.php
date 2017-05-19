@@ -22,11 +22,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * The model class.
- */
-require_once $pth['folder']['plugin_classes'] . 'Model.php';
-
-/**
  * The version number.
  */
 define('VIDEO_VERSION', '@VIDEO_VERSION@');
