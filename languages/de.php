@@ -50,18 +50,18 @@ $plugin_tx['video']['syscheck_extension']="Erweiterung '%s' geladen";
 $plugin_tx['video']['syscheck_phpversion']="PHP-Version &ge; %s";
 $plugin_tx['video']['syscheck_title']="Systemprüfung";
 $plugin_tx['video']['syscheck_writable']="Ordner '%s' beschreibbar";
-$plugin_tx['video']['cf_auto_hjs']="Ob die benötigten Skripte und Stylesheets immer geladen werden sollen (nötig, wenn Sie Videos im Template oder einer Newsbox verwenden wollen): \"1\" (ja) oder \"0\" (nein).";
-$plugin_tx['video']['cf_default_autoplay']="Ob das Video automatisch abgespielt werden soll, sobald die Seite geladen wurde: \"1\" (ja) oder \"0\" (nein). Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden. Das automatische Abspielen wird von Apple iOS Geräten nicht unterstützt.";
-$plugin_tx['video']['cf_default_centered']="Ob der Wiedergabeknopf zentriert angezeigt werden soll: \"1\" (yes) oder \"0\" (no). Diese Einstellung funktioniert nicht unbedingt bei benutzerdefinierten Skins. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
-$plugin_tx['video']['cf_default_controls']="Ob der Player Elemente zur Steuerung durch den Benutzer anzeigen soll: \"1\" (ja) oder \"0\" (nein). Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
+$plugin_tx['video']['cf_auto_hjs']="Ob die benötigten Skripte und Stylesheets immer geladen werden sollen (nötig, wenn Sie Videos im Template oder einer Newsbox verwenden wollen).";
+$plugin_tx['video']['cf_default_autoplay']="Ob das Video automatisch abgespielt werden soll, sobald die Seite geladen wurde. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden. Das automatische Abspielen wird von Apple iOS Geräten nicht unterstützt.";
+$plugin_tx['video']['cf_default_centered']="Ob der Wiedergabeknopf zentriert angezeigt werden soll. Diese Einstellung funktioniert nicht unbedingt bei benutzerdefinierten Skins. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
+$plugin_tx['video']['cf_default_controls']="Ob der Player Elemente zur Steuerung durch den Benutzer anzeigen soll. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
 $plugin_tx['video']['cf_default_height']="Die Höhe des Videos in Bildpunkten. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
-$plugin_tx['video']['cf_default_loop']="Ob das Video in einer Schleife abgespielt werden soll: \"1\" (ja) oder \"0\" (nein). Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden..";
+$plugin_tx['video']['cf_default_loop']="Ob das Video in einer Schleife abgespielt werden soll. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden..";
 $plugin_tx['video']['cf_default_preload']="Ob und wie das Video geladen werden soll, wenn die Seite angezeigt wird: \"auto\" (unverzüglich mit dem Download beginnen, wenn der Browser dies erlaubt), \"metadata\" (nur die Metadaten des Videos laden) oder \"none\" (keine Videodaten im Voraus herunter laden). Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
 $plugin_tx['video']['cf_default_resize']="Skalierungsmodus: \"no\" (feste Größe gemäß Breite und Höhe), \"shrink\" (variable Größe als ob das Element max-width:100% hätte) oder \"full\" (variable Größe als ob das Element width:100% hätte).";
 $plugin_tx['video']['cf_default_width']="Die Breite des Videos in Bildpunkten. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
-$plugin_tx['video']['cf_folder_video']="Ein Ordner relativ zum CMSimple-Installationsordner, wo die Videodateien gespeichert sind. Ist dieser Eintrag leer, dann werden die Dateien seit CMSimple_XH 1.5 in \"Folders Media\" oder bei älteren Versionen in \"Folders Downloads\" erwartet.";
-$plugin_tx['video']['cf_prefer_flash']="Ob Flash-Video dem HTML5-Video vorgezogen werden soll: \"1\" (ja) oder \"0\" (nein).";
-$plugin_tx['video']['cf_use_cdn']="Ob Video.js per CDN verwendet werden soll: \"1\" (ja) oder \"0\" (nein, lokale Version verwenden).";
+$plugin_tx['video']['cf_folder_video']="Ein Ordner relativ zum CMSimple-Installationsordner, wo die Videodateien gespeichert sind. Ist dieser Eintrag leer, dann werden die Dateien in \"Folders Media\ erwartet.";
+$plugin_tx['video']['cf_prefer_flash']="Ob Flash-Video dem HTML5-Video vorgezogen werden soll.";
+$plugin_tx['video']['cf_use_cdn']="Ob Video.js per CDN verwendet werden soll.";
 $plugin_tx['video']['cf_skin']="Der Name eines Skins (z.B. \"tube\" oder \"tube2\"). Leer lassen, um den Standard-Skin zu verwenden.";
 
 ?>

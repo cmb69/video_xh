@@ -166,8 +166,8 @@ function Video_selectbox($id, $items, $default = null)
         $sel = isset($default) && $key == $default
             ? ' selected="selected"'
             : '';
-        $o .= '<option value="' . htmlspecialchars($key, ENT_COMPAT, 'UTF-8')
-            . '"' . $sel . '>' . htmlspecialchars($val, ENT_COMPAT, 'UTF-8')
+        $o .= '<option value="' . XH_hsc($key)
+            . '"' . $sel . '>' . XH_hsc($val)
             . '</option>';
     }
     $o .= '</select>';
@@ -232,14 +232,9 @@ EOT;
     return $o;
 }
 
-if (function_exists('XH_registerStandardPluginMenuItems')) {
-    XH_registerStandardPluginMenuItems(true);
-}
+XH_registerStandardPluginMenuItems(true);
 
-if (function_exists('XH_wantsPluginAdministration')
-    && XH_wantsPluginAdministration('video')
-    || isset($video) && $video == 'true'
-) {
+if (XH_wantsPluginAdministration('video')) {
     $o .= print_plugin_admin('on');
     switch ($admin) {
         case '':

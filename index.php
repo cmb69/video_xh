@@ -29,13 +29,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 define('VIDEO_VERSION', '@VIDEO_VERSION@');
 
-define(
-    'VIDEO_URL',
-    'http'
-    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index\.php$/', '', $sn)
-);
-
 /**
  * @param string $xhtml
  * @return string
@@ -267,7 +260,7 @@ function video($name, $options = '')
 
 EOT;
         foreach ($files as $filename => $type) {
-            $url = $_Video->normalizedUrl(VIDEO_URL . $filename);
+            $url = $_Video->normalizedUrl(CMSIMPLE_URL . $filename);
             $o .= <<<EOT
     <source src="$url" type="video/$type" />
 
@@ -296,8 +289,7 @@ VIDEO.initPlayer("video_$run", $opts[width], $opts[height], "$opts[resize]");
 
 EOT;
     } else {
-        $o = '<div class="cmsimplecore_warning">'
-            . sprintf($ptx['error_missing'], $name) . '</div>';
+        $o = XH_message('fail', $ptx['error_missing'], $name);
     }
     return Video_xhtml($o);
 }

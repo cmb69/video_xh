@@ -18,13 +18,12 @@ $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="Žiadne";
 $plugin_tx['video']['subtitle_label']="slovenčina";
-$plugin_tx['video']['cf_folder_video']="Cesta k adresáru s videom relatívna voči koreňovému adresáru CMSimple. Ak necháte prázdne, predpokladá sa, že súbory videa budú uložené v adresári \"Media\" od CMSimple_XH 1.5 alebo v adresári \"Downloads\" pri starších verziách CMSimple.";
-$plugin_tx['video']['cf_prefer_flash']="Uprednostniť flash video pred HTML5 videom?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_controls']="Má video obsahovať aj avládacie plrvky?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_prefer_flash']="Uprednostniť flash video pred HTML5 videom? Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_controls']="Má video obsahovať aj avládacie plrvky? Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
 $plugin_tx['video']['cf_default_preload']="Má sa video načítať pri načítaní stránky?: \"auto\" (video sa začne načítavať spolu so stránkou, ak to prehliadač povolí), \"metadata\" (načítajú sa iba metadata) alebo \"none\" (žiadne dáta viadea sa nenačítajú). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_autoplay']="Má sa video spustiť po načítaní stránky?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa. Autoplay nepodporujú Apple iOS zariadenia.";
-$plugin_tx['video']['cf_default_loop']="Má sa video po ukončení prehrávania spustiť znovu?: \"1\" (áno) alebo \"0\" (nie). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_width']="Šírka videa <ins>(pixel)</ins>. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
-$plugin_tx['video']['cf_default_height']="Výška videa <ins>(pixel)</ins>. Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_autoplay']="Má sa video spustiť po načítaní stránky? Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa. Autoplay nepodporujú Apple iOS zariadenia.";
+$plugin_tx['video']['cf_default_loop']="Má sa video po ukončení prehrávania spustiť znovu? Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_width']="Šírka videa (pixel). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
+$plugin_tx['video']['cf_default_height']="Výška videa (pixel). Toto štandardné nastavenie sa môže prepísať individuálne pri volaní každého videa.";
 
 ?>
