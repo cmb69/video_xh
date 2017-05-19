@@ -17,6 +17,13 @@
         <echo>${help}</echo>
     </target>
 
+    <target name="mess" description="detects code flaws">
+        <phpmd>
+            <fileset refid="php-sources"/>
+            <fileset refid="unit-tests"/>
+         </phpmd>
+    </target>
+
     <target name="sniff" description="checks adherence to PEAR CS">
         <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
