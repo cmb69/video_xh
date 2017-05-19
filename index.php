@@ -42,32 +42,6 @@ define(
 );
 
 /**
- * Returns a string with all (X)HTML entities decoded.
- *
- * Provides a simplified fallback for PHP 4, which should be sufficient for our
- * needs.
- *
- * @param string $string A string.
- *
- * @return string
- */
-function Video_entityDecoded($string)
-{
-    if (version_compare(phpversion(), '5', '>=')) {
-        return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
-    } else {
-        $replacePairs = array(
-            '&amp;' => '&',
-            '&quot;' => '"',
-            '&apos;' => '\'',
-            '&lt;' => '<',
-            '&gt;' => '>'
-        );
-        return strtr($string, $replacePairs);
-    }
-}
-
-/**
  * Returns a string with XHTML style empty elements converted to HTML according
  * to the config option xhtml_endtags.
  *
@@ -348,7 +322,7 @@ function video($name, $options = '')
     $files = $_Video->videoFiles($name);
 
     if (!empty($files)) {
-        $opts = $_Video->getOptions(Video_entityDecoded($options));
+        $opts = $_Video->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
         $attributes = Video_videoAttributes($name, $opts);
         $o = <<<EOT
 <!-- Video_XH: $name -->

@@ -22,121 +22,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * Creates an array by using the values from the keys array as keys
- * and the values from the values array as the corresponding values,
- * and returns it.
- *
- * Provides a <b>simplified</b> fallback of array_combine() for PHP < 5.
- *
- * @param array $keys   An array of keys.
- * @param array $values An array of values.
- *
- * @return array
- *
- * @access private
- */
-function Video_combineArrays($keys, $values)
-{
-    if (function_exists('array_combine')) {
-        return array_combine($keys, $values);
-    } else {
-        $count = count($keys);
-        $array = array();
-        for ($i = 0; $i < $count; ++$i) {
-            $array[$keys[$i]] = $values[$i];
-        }
-        return $array;
-    }
-}
-
-/**
- * Returns a PHP value encoded as JSON text.
- *
- * @param mixed $value A PHP value.
- *
- * @return string
- *
- * @global array The paths of system files and folders.
- */
-function Video_asJson($value)
-{
-    global $pth;
-
-    if (function_exists('json_encode')) {
-        return json_encode($value);
-    } else {
-        return Video_encodeJson($value);
-    }
-}
-
-/**
- * Returns a PHP value encoded as JSON string.
- *
- * A fallback for json_encode().
- *
- * @param mixed $value A PHP value.
- *
- * @return string
- *
- * @access public
- */
-function Video_encodeJson($value)
-{
-    switch (gettype($value)) {
-    case 'boolean':
-        return $value ? 'true' : 'false';
-    case 'integer':
-    case 'double':
-        return $value;
-    case 'string':
-        return '"' . Video_quoteJsonString($value) . '"';
-    case 'array':
-        if (array_keys($value) === range(0, count($value) - 1)) {
-            // encode as array
-            $elts = array();
-            foreach ($value as $val) {
-                $elts[] = Video_encodeJson($val);
-            }
-            return '[' . implode(',', $elts) . ']';
-        } else {
-            // encode as object
-            $members = array();
-            foreach ($value as $key => $val) {
-                $members[] = '"' . Video_quoteJsonString($key) . '":'
-                    . Video_encodeJson($val);
-            }
-            return '{' . implode(',', $members) . '}';
-        }
-    case 'object':
-        return Video_encodeJson(get_object_vars($value));
-    case 'NULL':
-        return 'null';
-    default:
-        $msg = __FUNCTION__ . '(): type is unsupported, encoded as null';
-        trigger_error($msg, E_USER_WARNING);
-        return 'null';
-    }
-}
-/**
- * Quotes a string for use as JSON string.
- *
- * @param string $string A string.
- *
- * @return string
- *
- * @access protected
- */
-function Video_quoteJsonString($string)
-{
-    $string = addcslashes($string, "\"\\/");
-    $escape = create_function(
-        '$matches', 'return sprintf("\\u%04X", ord($matches[0]));'
-    );
-    $string = preg_replace_callback('/[\x00-\x1f]/', $escape, $string);
-    return $string;
-}
-
-/**
  * Returns the about view.
  *
  * @return string (X)HTML.
@@ -190,7 +75,7 @@ function Video_systemCheckView()
 {
     global $pth, $tx, $plugin_tx;
 
-    $phpVersion = '4.3.10';
+    $phpVersion = '5.3.0';
     $ptx = $plugin_tx['video'];
     $imgdir = $pth['folder']['plugins'] . 'video/images/';
     $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
@@ -200,7 +85,7 @@ function Video_systemCheckView()
         . (version_compare(PHP_VERSION, $phpVersion) >= 0 ? $ok : $fail)
         . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], $phpVersion)
         . tag('br') . PHP_EOL;
-    foreach (array('pcre') as $ext) {
+    foreach (array('json') as $ext) {
         $o .= (extension_loaded($ext) ? $ok : $fail)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
             . tag('br') . PHP_EOL;
@@ -350,7 +235,7 @@ function Video_adminMain()
         . '<h1>Video &ndash; ' . $ptx['menu_main'] . '</h1>' . PHP_EOL
         . '<div id="video_call_builder">' . PHP_EOL;
     $videos = $_Video->availableVideos();
-    $videos = Video_combineArrays($videos, $videos);
+    $videos = array_combine($videos, $videos);
     $field = Video_selectbox('video_name', $videos);
     $o .= Video_builderField($ptx['label_name'], $field);
     $field = Video_selectbox(
@@ -414,7 +299,7 @@ if (function_exists('XH_wantsPluginAdministration')
 /*
  * Pass the available videos to JavaScript for use in an editor.
  */
-$temp = Video_asJson(array_values($_Video->availableVideos()));
+$temp = json_encode(array_values($_Video->availableVideos()));
 Video_includeJs();
 $hjs .= <<<EOT
 <script type="text/javascript">/* <![CDATA[ */
