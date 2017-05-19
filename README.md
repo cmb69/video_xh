@@ -4,7 +4,7 @@ Video_XH – a CMSimple_XH plugin
 [![stable: 1.1](https://img.shields.io/badge/stable-1.1-blue.svg)](https://github.com/cmb69/video_xh/releases/tag/1.1)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
-Copyright (c) 2012-2016 Christoph M. Becker
+Copyright (c) 2012-2017 Christoph M. Becker
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
