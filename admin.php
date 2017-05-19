@@ -219,14 +219,13 @@ EOT;
  *
  * @return string (X)HTML.
  *
- * @global array  The paths of system files and folders.
  * @global array  The configuration of the plugins.
  * @global array  The localization of the plugins.
  * @global object The video model.
  */
 function Video_adminMain()
 {
-    global $pth, $plugin_cf, $plugin_tx, $_Video;
+    global $plugin_cf, $plugin_tx, $_Video;
 
     $pcf = $plugin_cf['video'];
     $ptx = $plugin_tx['video'];

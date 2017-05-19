@@ -190,7 +190,7 @@ class Video_Model
     {
         $dirname = $this->videoFolder();
         $files = array();
-        foreach ($this->types() as $extension => $type) {
+        foreach (array_keys($this->types()) as $extension) {
             $filename = $dirname . $name . '.' . $extension;
             if (file_exists($filename)) {
                 $files[$filename] = $extension;

@@ -302,7 +302,6 @@ function Video_playerLanguageKeys()
  *
  * @return string (X)HTML.
  *
- * @global array  The paths of system files and folders.
  * @global array  The localization of the plugins.
  * @global string The current language.
  * @global object The video model.
@@ -311,7 +310,7 @@ function Video_playerLanguageKeys()
  */
 function video($name, $options = '')
 {
-    global $pth, $plugin_tx, $sl, $_Video;
+    global $plugin_tx, $sl, $_Video;
     static $run = 0;
 
     $ptx = $plugin_tx['video'];
