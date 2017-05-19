@@ -26,7 +26,7 @@ The supported video formats depend on the browser.</p>
 <li><a href="#usage-subtitles">Subtitles</a></li>
 <li><a href="#trouble-shooting">Trouble Shooting</a></li>
 </ul></li>
-<li><a href="#limitations">Limitations</a></li>
+<!--<li><a href="#limitations">Limitations</a></li>-->
 <li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
 </ul>
@@ -156,23 +156,10 @@ href="http://yamb.unite-video.com/">Yamb</a> (MP4) or <a
 href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM).</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
+<!--
 <h2 id="limitations">Limitations</h2>
-<ul>
-<li>
-<p>Basically it should be possible to display the same video several times on the same page.
-But that will not work, if the plugin call is exactly the same, e.g.</p>
-<pre>{{{PLUGIN:video('LotR');}}}
-{{{PLUGIN:video('LotR');}}}</pre>
-<p>This is caused by the script evaluation of the plugin call,
-which will evaluate identical calls only once (assuming that the function has no side effects).
-So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by inserting one or more spaces:</p>
-<pre>{{{PLUGIN:video('LotR');}}}
-{{{PLUGIN:video( 'LotR');}}}</pre>
-<p>This issue is solved since CMSimple_XH 1.6, so you can savely use the same
-plugin call multiple times on a single page.</p>
-</li>
-</ul>
 <div class="toplink"><a href="#">back to top</a></div>
+-->
 
 <h2 id="license">License</h2>
 <p>Video_XH is licensed under <a

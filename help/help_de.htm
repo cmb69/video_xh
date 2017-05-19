@@ -27,7 +27,7 @@ Browser ab.</p>
 <li><a href="#usage-subtitles">Untertitel</a></li>
 <li><a href="#trouble-shooting">Fehlerbehebung</a></li>
 </ul></li>
-<li><a href="#limitations">Einschränkungen</a></li>
+<!--<li><a href="#limitations">Einschränkungen</a></li>-->
 <li><a href="#license">Lizenz</a></li>
 <li><a href="#credits">Danksagung</a></li>
 </ul>
@@ -165,29 +165,10 @@ ist zu versuchen, das Video mit <a href="http://yamb.unite-video.com/">Yamb</a>
 (WebM) erneut zu multiplexen.</p>
 <div class="toplink"><a href="#">Seitenanfang</a></div>
 
+<!--
 <h2 id="limitations">Einschränkungen</h2>
-<ul>
-<li>
-<p>Eigentlich sollte es möglich sein, das gleiche Video mehrmals auf einer Seite
-anzuzeigen. Aber das funktioniert nicht, wenn der Plugin-Aufruf identisch ist,
-z.B.</p>
-<pre>
-{{{PLUGIN:video('LotR');}}}
-{{{PLUGIN:video('LotR');}}}
-</pre>
-<p>Dies wird durch die Skript-Evaluierung des Plugin-Aufrufs verursacht, die
-identische Aufrufe nur ein einziges mal evaluiert (unter der Annahme, dass die
-Funktion keine Nebenwirkungen hat). Verwenden Sie in diesem Fall das klassische
-CMSimple-Skripting, hi_pd_scripting oder überlisten Sie Plugin-Aufruf durch
-Einfügen eines oder mehrerer Leerzeichen:</p>
-<pre>
-{{{PLUGIN:video('LotR');}}}
-{{{PLUGIN:video( 'LotR');}}}</pre>
-<p>Dieses Problem ist seit CMSimple_XH 1.6 behoben, so dass Sie bedenkenlos den
-gleichen Pluginaufruf mehrfach auf einer einzigen Seite notieren können.</p>
-</li>
-</ul>
 <div class="toplink"><a href="#">Seitenanfang</a></div>
+-->
 
 <h2 id="license">Lizenz</h2>
 <p>Video_XH kann unter Einhaltung der <a
