@@ -5,7 +5,6 @@
     <p><label><span><?=$this->text('label_autoplay')?></span><?=$this->autoplayInput()?></label></p>
     <p><label><span><?=$this->text('label_loop')?></span><?=$this->loopInput()?></label></p>
     <p><label><span><?=$this->text('label_controls')?></span><?=$this->controlsInput()?></label></p>
-    <p><label><span><?=$this->text('label_centered')?></span><?=$this->centeredInput()?></label></p>
     <p><label><span><?=$this->text('label_width')?></span><?=$this->widthInput()?></label></p>
     <p><label><span><?=$this->text('label_height')?></span><?=$this->heightInput()?></label></p>
     <p><label><span><?=$this->text('label_resize')?></span><?=$this->resizeSelect()?></label></p>

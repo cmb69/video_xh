@@ -13,10 +13,8 @@
 <img src="../video.png" width="128" height="128" alt="Film reel"
 style="float:left; margin:0 16px -16px 0">
 <p>Video_XH facilitates presenting videos on a CMSimple_XH site. It uses the
-HTML5 video element wherever possible, and provides a fallback to Flash video.
-The supported video formats depend on the browser resp. the Flash player. For
-the best user experience, JavaScript should be enabled in the visitor's
-browser.</p>
+HTML5 video element wherever possible, and provides a a download link as fallback otherwise.
+The supported video formats depend on the browser.</p>
 
 <ul id="nav">
 <!--<li><a href="#notice">Important Notice</a></li>-->
@@ -26,7 +24,6 @@ browser.</p>
 <li><a href="#usage">Usage</a>
 <ul>
 <li><a href="#usage-subtitles">Subtitles</a></li>
-<li><a href="#usage-skins">Skins</a></li>
 <li><a href="#trouble-shooting">Trouble Shooting</a></li>
 </ul></li>
 <li><a href="#limitations">Limitations</a></li>
@@ -139,20 +136,10 @@ languages. Just name them *_LANG.vtt resp. *_LANG.srt, e.g. *_en.vtt and
 language.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h3 id="usage-skins">Skins</h3>
-<p>The video player of Video_XH is stylable with skins. To use another skin than
-the default, you have to create a file my_skin.css in the lib/ folder, which
-contains CSS rules for .vjs-my_skin-skin, and you have to change the according
-configuration option. The easiest way to create your own skin might be the <a
-href="http://designer.videojs.com/">Video.js Player Designer</a>.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
 <h3 id="trouble-shooting">Trouble Shooting</h3>
-<p>In case the video doesn't play <em>at all</em>, check if the video can be
-played in the browser, when you call its URL directly. This will only work, if
-the <a href="http://caniuse.com/#feat=video">browser natively supports the video
-format</a> and if the video is served with the appropriate MIME type. If the
-latter is not the case, you probably can configure your Apache with the
+<p>In case the video doesn't play <em>at all</em>,
+the video might be served with an unappropriate MIME type. If this
+is the case, you probably can configure your Apache with the
 following lines in .htaccess:</p>
 <pre>
 AddType video/webm .webm
@@ -176,9 +163,6 @@ href="http://www.bunkus.org/videotools/mkvtoolnix/">MKVToolNix</a> (WebM).</p>
 1.0/1.1. So, if you deem it necessary, you have to change the doctype
 declaration in your template to:</p>
 <pre>&lt;!DOCTYPE html&gt;</pre>
-<p>VideoJS' CSS doesn't validate. Basically it's CSS 3, but for best
-cross-browser experience several browser specific properties are used
-additionally.</p>
 </li>
 <li>
 <p>Basically it should be possible to display the same video several times on the same page.
@@ -193,7 +177,6 @@ So use classic CMSimple scripting, hi_pdscripting or fool the plugin call by ins
 <p>This issue is solved since CMSimple_XH 1.6, so you can savely use the same
 plugin call multiple times on a single page.</p>
 </li>
-<li>The delivered skins "tube" and "tube2" are slightly broken.</li>
 </ul>
 <div class="toplink"><a href="#">back to top</a></div>
 
@@ -207,9 +190,6 @@ Slovak translation &copy; 2012 Dr. Martin Sereday</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2 id="credits">Credits</h2>
-<p>Video_XH is powered by <a href="http://videojs.com/">Video.js</a>. Many
-thanks to <a href="http://www.brightcove.com/">brightcove</a> for releasing it
-under the Apache License 2.0.</p>
 <p>The plugin icon is designed by <a href="http://www.mentalrey.it/">Alessandro
 Rei</a>. Many thanks for releasing it under GPL.</p>
 <p>This plugin uses free applications icons from <a

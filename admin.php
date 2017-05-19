@@ -76,30 +76,6 @@ function Video_systemCheckView()
     return $o;
 }
 
-/**
- * @return array
- */
-function Video_availableSkins()
-{
-    global $pth;
-
-    $skinPath = $pth['folder']['plugins'] . 'video/lib/';
-    $skins = array();
-    $dirHandle = opendir($skinPath);
-    if ($dirHandle !== false) {
-        while (($entry = readdir($dirHandle)) !== false) {
-            if ($entry != 'video-js.css'
-                && pathinfo($entry, PATHINFO_EXTENSION) == 'css'
-            ) {
-                $skins[] = basename($entry, '.css');
-            }
-        }
-    }
-    natcasesort($skins);
-    array_unshift($skins, '');
-    return $skins;
-}
-
 XH_registerStandardPluginMenuItems(true);
 
 if (XH_wantsPluginAdministration('video')) {

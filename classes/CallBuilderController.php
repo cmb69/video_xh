@@ -56,7 +56,7 @@ class CallBuilderController
         $view->nameSelect = new HtmlString($field);
         $field = $this->selectbox('video_preload', $this->preloadOptions(), $this->config['default_preload']);
         $view->preloadSelect = new HtmlString($field);
-        foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
+        foreach (array('autoplay', 'loop', 'controls') as $key) {
             $id = 'video_' . $key;
             $check = $this->config['default_' . $key] ? ' checked="checked"' : '';
             $field = "<input id=\"$id\" type=\"checkbox\"$check>";

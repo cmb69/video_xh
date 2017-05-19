@@ -61,7 +61,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
             'default_autoplay' => '0',
             'default_loop' => '0',
             'default_controls' => '1',
-            'default_centered' => '1',
             'default_width' => '512',
             'default_height' => '288',
             'default_resize' => 'no'
@@ -170,7 +169,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
                 '',
                 array(
                     'autoplay' => '0',
-                    'centered' => '1',
                     'controls' => '1',
                     'height' => '288',
                     'loop' => '0',
@@ -180,11 +178,10 @@ class ModelTest extends PHPUnit_Framework_TestCase
                 )
             ),
             array(
-                'autoplay=1&centered=0&controls=0&height=360&loop=1'
+                'autoplay=1&controls=0&height=360&loop=1'
                     . '&preload=metadata&resize=full&width=640',
                 array(
                     'autoplay' => '1',
-                    'centered' => '0',
                     'controls' => '0',
                     'height' => '360',
                     'loop' => '1',
