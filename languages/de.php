@@ -26,7 +26,6 @@ $plugin_tx['video']['syscheck_extension']="Erweiterung '%s' geladen";
 $plugin_tx['video']['syscheck_phpversion']="PHP-Version &ge; %s";
 $plugin_tx['video']['syscheck_title']="Systemprüfung";
 $plugin_tx['video']['syscheck_writable']="Ordner '%s' beschreibbar";
-$plugin_tx['video']['cf_auto_hjs']="Ob die benötigten Skripte und Stylesheets immer geladen werden sollen (nötig, wenn Sie Videos im Template oder einer Newsbox verwenden wollen).";
 $plugin_tx['video']['cf_default_autoplay']="Ob das Video automatisch abgespielt werden soll, sobald die Seite geladen wurde. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden. Das automatische Abspielen wird von Apple iOS Geräten nicht unterstützt.";
 $plugin_tx['video']['cf_default_controls']="Ob der Player Elemente zur Steuerung durch den Benutzer anzeigen soll. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
 $plugin_tx['video']['cf_default_height']="Die Höhe des Videos in Bildpunkten. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";

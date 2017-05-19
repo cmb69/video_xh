@@ -1,7 +1,6 @@
 <?php
 
 $plugin_cf['video']['folder_video']="";
-$plugin_cf['video']['auto_hjs']="0";
 $plugin_cf['video']['default_preload']="auto";
 $plugin_cf['video']['default_autoplay']="0";
 $plugin_cf['video']['default_loop']="0";

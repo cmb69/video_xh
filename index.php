@@ -53,7 +53,3 @@ function video($name, $options = '')
     (new Video\VideoController($name, $options))->defaultAction();
     return ob_get_clean();
 }
-
-if ($plugin_cf['video']['auto_hjs']) {
-    Video_includeJs();
-}

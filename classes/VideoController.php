@@ -39,9 +39,6 @@ class VideoController extends Controller
         global $sl;
         static $run = 0;
     
-        if (!$run) {
-            Video_includeJs();
-        }
         $run++;
         $files = $this->model->videoFiles($this->name);
     
