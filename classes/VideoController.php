@@ -36,17 +36,17 @@ class VideoController extends Controller
 
     public function defaultAction()
     {
-        global $sl, $_Video;
+        global $sl;
         static $run = 0;
     
         if (!$run) {
             Video_includeJs();
         }
         $run++;
-        $files = $_Video->videoFiles($this->name);
+        $files = $this->model->videoFiles($this->name);
     
         if (!empty($files)) {
-            $opts = $_Video->getOptions(html_entity_decode($this->options, ENT_QUOTES, 'UTF-8'));
+            $opts = $this->model->getOptions(html_entity_decode($this->options, ENT_QUOTES, 'UTF-8'));
             $attributes = $this->videoAttributes($this->name, $opts);
             $o = <<<EOT
 <!-- Video_XH: $this->name -->
@@ -54,13 +54,13 @@ class VideoController extends Controller
 
 EOT;
             foreach ($files as $filename => $type) {
-                $url = $_Video->normalizedUrl(CMSIMPLE_URL . $filename);
+                $url = $this->model->normalizedUrl(CMSIMPLE_URL . $filename);
                 $o .= <<<EOT
     <source src="$url" type="video/$type">
 
 EOT;
             }
-            $filename = $_Video->subtitleFile($this->name);
+            $filename = $this->model->subtitleFile($this->name);
             if ($filename) {
                 $o .= <<<EOT
     <track src="$filename" srclang="$sl" label="{$this->lang['subtitle_label']}">
@@ -92,9 +92,7 @@ EOT;
      */
     private function videoAttributes($name, $options)
     {
-        global $_Video;
-    
-        $poster = $_Video->posterFile($name);
+        $poster = $this->model->posterFile($name);
         $attributes = 'class=""'
             . (!empty($options['controls']) ? ' controls="controls"' : '')
             . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
@@ -134,11 +132,9 @@ EOT;
      */
     private function downloadLink($videoname, $filename, $style)
     {
-        global $_Video;
-    
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);
-        $poster = $_Video->posterFile($videoname);
+        $poster = $this->model->posterFile($videoname);
         if ($poster) {
             $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" $style>";
         } else {

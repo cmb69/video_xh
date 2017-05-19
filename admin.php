@@ -57,7 +57,7 @@ function Video_systemCheckView()
         . (version_compare(PHP_VERSION, $phpVersion) >= 0 ? $ok : $fail)
         . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], $phpVersion)
         . '<br>' . PHP_EOL;
-    foreach (array('json') as $ext) {
+    foreach (array() as $ext) {
         $o .= (extension_loaded($ext) ? $ok : $fail)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
             . '<br>' . PHP_EOL;
@@ -93,13 +93,3 @@ if (XH_wantsPluginAdministration('video')) {
             $o .= plugin_admin_common($action, $admin, $plugin);
     }
 }
-
-$temp = json_encode(array_values($_Video->availableVideos()));
-Video_includeJs();
-$hjs .= <<<EOT
-<script type="text/javascript">/* <![CDATA[ */
-VIDEO.availableVideos = $temp;
-/* ]]> */</script>
-
-EOT;
-

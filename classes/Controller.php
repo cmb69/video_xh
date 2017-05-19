@@ -33,11 +33,17 @@ class Controller
      */
     protected $lang;
 
+    /**
+     * @var Model
+     */
+    protected $model;
+
     public function __construct()
     {
-        global $plugin_cf, $plugin_tx;
+        global $pth, $plugin_cf, $plugin_tx;
 
         $this->config = $plugin_cf['video'];
         $this->lang = $plugin_tx['video'];
+        $this->model = new Model($pth['folder'], $this->config);
     }
 }

@@ -54,8 +54,6 @@ function video($name, $options = '')
     return ob_get_clean();
 }
 
-$_Video = new Video\Model($pth['folder'], $plugin_cf['video']);
-
 if ($plugin_cf['video']['auto_hjs']) {
     Video_includeJs();
 }

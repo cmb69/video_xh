@@ -28,11 +28,9 @@ class CallBuilderController extends Controller
      */
     public function defaultAction()
     {
-        global $_Video;
-    
         Video_includeJs();
         $view = new View('call-builder');
-        $videos = $_Video->availableVideos();
+        $videos = $this->model->availableVideos();
         $videos = array_combine($videos, $videos);
         $field = $this->selectbox('video_name', $videos);
         $view->nameSelect = new HtmlString($field);
