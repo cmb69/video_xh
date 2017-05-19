@@ -13,10 +13,13 @@
  * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
+namespace Video;
+
 require_once './vendor/autoload.php';
 
 require './classes/Model.php';
 
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -49,7 +52,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var Video_Model
+     * @var Model
      */
     protected $subject;
 
@@ -81,7 +84,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
             'default_height' => '288',
             'default_resize' => 'no'
         );
-        $this->subject = new Video_Model($folders, $config);
+        $this->subject = new Model($folders, $config);
         mkdir($folders['media'], 0777, true);
         file_put_contents($this->mediaFolder . 'movie.avi', '');
         file_put_contents($this->mediaFolder . 'movie.jpg', '');
@@ -126,7 +129,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $folders = array('base' => './');
         $config = array('folder_video' => 'foo');
         $expected = './foo/';
-        $subject = new Video_Model($folders, $config);
+        $subject = new Model($folders, $config);
         $actual = $subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }
@@ -141,7 +144,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $folders = array('downloads' => './downloads/');
         $config = array('folder_video' => '');
         $expected = './downloads/';
-        $subject = new Video_Model($folders, $config);
+        $subject = new Model($folders, $config);
         $actual = $subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }

@@ -367,7 +367,7 @@ EOT;
 /**
  * The model object.
  */
-$_Video = new Video_Model($pth['folder'], $plugin_cf['video']);
+$_Video = new Video\Model($pth['folder'], $plugin_cf['video']);
 
 /*
  * Handle auto_hjs config option.

@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Video_XH
  */
 
+namespace Video;
+
 /**
  * The video model class.
  *
@@ -22,7 +24,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Video_XH
  */
-class Video_Model
+class Model
 {
     /**
      * The folder paths.
