@@ -43,122 +43,15 @@ function Video_includeJs()
 }
 
 /**
- * @param string $resizeMode
- * @return string
- */
-function Video_resizeStyle($resizeMode)
-{
-    switch ($resizeMode) {
-        case 'full':
-            $style = 'style="width:100%"';
-            break;
-        case 'shrink':
-            $style = 'style="max-width:100%"';
-            break;
-        default:
-            $style = '';
-    }
-    return $style;
-}
-
-/**
- * @param string $videoname
- * @param string $filename
- * @param string $style
- * @return string
- */
-function Video_downloadLink($videoname, $filename, $style)
-{
-    global $plugin_tx, $_Video;
-
-    $basename = basename($filename);
-    $download = sprintf($plugin_tx['video']['label_download'], $basename);
-    $poster = $_Video->posterFile($videoname);
-    if ($poster) {
-        $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" $style>";
-    } else {
-        $link = $download;
-    }
-    return $link;
-}
-
-/**
- * @param string $name
- * @param array $options
- * @return string
- */
-function Video_videoAttributes($name, $options)
-{
-    global $_Video;
-
-    $poster = $_Video->posterFile($name);
-    $attributes = 'class=""'
-        . (!empty($options['controls']) ? ' controls="controls"' : '')
-        . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
-        . (!empty($options['loop']) ? ' loop="loop"' : '')
-        . ' preload="' . $options['preload'] . '"'
-        . ' width="' . $options['width'] . '"'
-        . ' height="' . $options['height'] . '"'
-        . ($poster ? ' poster="' . $poster . '"' : '')
-        . ' ' . Video_resizeStyle($options['resize']);
-    return $attributes;
-}
-
-/**
  * @param string $name
  * @param string $options
  * @return string
  */
 function video($name, $options = '')
 {
-    global $plugin_tx, $sl, $_Video;
-    static $run = 0;
-
-    $ptx = $plugin_tx['video'];
-    if (!$run) {
-        Video_includeJs();
-    }
-    $run++;
-    $files = $_Video->videoFiles($name);
-
-    if (!empty($files)) {
-        $opts = $_Video->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
-        $attributes = Video_videoAttributes($name, $opts);
-        $o = <<<EOT
-<!-- Video_XH: $name -->
-<video id="video_$run" $attributes>
-
-EOT;
-        foreach ($files as $filename => $type) {
-            $url = $_Video->normalizedUrl(CMSIMPLE_URL . $filename);
-            $o .= <<<EOT
-    <source src="$url" type="video/$type">
-
-EOT;
-        }
-        $filename = $_Video->subtitleFile($name);
-        if ($filename) {
-            $o .= <<<EOT
-    <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]">
-
-EOT;
-        }
-        $filenames = array_keys($files);
-        $filename = $filenames[0];
-        $style = Video_resizeStyle($opts['resize']);
-        $link = Video_downloadLink($name, $filename, $style);
-        $o .= <<<EOT
-    <a href="$filename">$link</a>
-
-EOT;
-        $o .= <<<EOT
-</video>
-
-EOT;
-    } else {
-        $o = XH_message('fail', $ptx['error_missing'], $name);
-    }
-    return $o;
+    ob_start();
+    (new Video\VideoController($name, $options))->defaultAction();
+    return ob_get_clean();
 }
 
 $_Video = new Video\Model($pth['folder'], $plugin_cf['video']);
