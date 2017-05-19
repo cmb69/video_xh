@@ -1,16 +1,22 @@
 <?php
 
 /**
- * Front-end of Video_XH.
+ * Copyright 2012-2017 Christoph M. Becker
  *
- * PHP versions 4 and 5
+ * This file is part of Video_XH.
  *
- * @category  CMSimple_XH
- * @package   Video
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2012-2017 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Video_XH
+ * Video_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Video_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -21,14 +27,8 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
 }
 
-/**
- * The version number.
- */
 define('VIDEO_VERSION', '@VIDEO_VERSION@');
 
-/**
- * Fully qualified absolute URL to CMSimple's index.php.
- */
 define(
     'VIDEO_URL',
     'http'
@@ -37,14 +37,8 @@ define(
 );
 
 /**
- * Returns a string with XHTML style empty elements converted to HTML according
- * to the config option xhtml_endtags.
- *
- * @param string $xhtml An XHTML string.
- *
- * @return (X)HTML.
- *
- * @global array The configuration of the core.
+ * @param string $xhtml
+ * @return string
  */
 function Video_xhtml($xhtml)
 {
@@ -57,15 +51,6 @@ function Video_xhtml($xhtml)
     }
 }
 
-/**
- * Includes the required JavaScript in the head element.
- *
- * @return void
- *
- * @global array The paths of system files and folders.
- *
- * @staticvar bool Whether this function has already been called.
- */
 function Video_includeJs()
 {
     global $pth, $hjs;
@@ -79,18 +64,6 @@ function Video_includeJs()
     }
 }
 
-/**
- * Includes the necessary JS and CSS in the head element.
- *
- * @return void
- *
- * @global string The current language code.
- * @global string The document fragment to insert in the head element.
- * @global array  The paths of system files and folders.
- * @global array  The configuration of the plugins.
- *
- * @staticvar bool Whether this function has already been called.
- */
 function Video_hjs()
 {
     global $sl, $hjs, $pth, $plugin_cf;
@@ -145,38 +118,29 @@ EOT;
 }
 
 /**
- * Returns a style attribute according to the resize mode.
- *
- * @param string $resizeMode A resize mode ("no", "shrink" or "full").
- *
+ * @param string $resizeMode
  * @return string
  */
 function Video_resizeStyle($resizeMode)
 {
     switch ($resizeMode) {
-    case 'full':
-        $style = 'style="width:100%"';
-        break;
-    case 'shrink':
-        $style = 'style="max-width:100%"';
-        break;
-    default:
-        $style = '';
+        case 'full':
+            $style = 'style="width:100%"';
+            break;
+        case 'shrink':
+            $style = 'style="max-width:100%"';
+            break;
+        default:
+            $style = '';
     }
     return $style;
 }
 
 /**
- * Returns a link for downloading the video.
- *
- * @param string $videoname A video name.
- * @param string $filename  A file path.
- * @param string $style     A style attribute.
- *
- * @return string (X)HTML.
- *
- * @global array  The localization of the plugins.
- * @global object The video model.
+ * @param string $videoname
+ * @param string $filename
+ * @param string $style
+ * @return string
  */
 function Video_downloadLink($videoname, $filename, $style)
 {
@@ -196,15 +160,9 @@ function Video_downloadLink($videoname, $filename, $style)
 }
 
 /**
- * Returns the attributes for a video element.
- *
- * @param string $name    A video name.
- * @param array  $options Video options.
- *
+ * @param string $name
+ * @param array $options
  * @return string
- *
- * @global array  The configuration of the plugins.
- * @global object The video model.
  */
 function Video_videoAttributes($name, $options)
 {
@@ -228,11 +186,7 @@ function Video_videoAttributes($name, $options)
 }
 
 /**
- * Returns a JSON string containing the current localization.
- *
  * @return string
- * 
- * @global array The localization of the plugins.
  */
 function Video_playerLang()
 {
@@ -250,8 +204,6 @@ function Video_playerLang()
 }
 
 /**
- * Returns the player language keys.
- *
  * @return array
  */
 function Video_playerLanguageKeys()
@@ -290,18 +242,9 @@ function Video_playerLanguageKeys()
 }
 
 /**
- * Returns the video element to embed the video.
- *
- * @param string $name    Name of the video file without extension.
- * @param string $options The options in form of a query string.
- *
- * @return string (X)HTML.
- *
- * @global array  The localization of the plugins.
- * @global string The current language.
- * @global object The video model.
- *
- * @staticvar int The number of times this function has been called.
+ * @param string $name
+ * @param string $options
+ * @return string
  */
 function video($name, $options = '')
 {
@@ -359,16 +302,8 @@ EOT;
     return Video_xhtml($o);
 }
 
-/**
- * The model object.
- */
 $_Video = new Video\Model($pth['folder'], $plugin_cf['video']);
 
-/*
- * Handle auto_hjs config option.
- */
 if ($plugin_cf['video']['auto_hjs']) {
     Video_hjs();
 }
-
-?>

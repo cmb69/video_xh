@@ -1,16 +1,22 @@
 <?php
 
 /**
- * Back-end of Video_XH.
+ * Copyright 2012-2017 Christoph M. Becker
  *
- * PHP versions 4 and 5
+ * This file is part of Video_XH.
  *
- * @category  CMSimple_XH
- * @package   Video
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2012-2017 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Video_XH
+ * Video_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Video_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -22,12 +28,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 /**
- * Returns the about view.
- *
- * @return string (X)HTML.
- *
- * @global array The paths of system files and folders.
- * @global array The localization of the plugins.
+ * @return string
  */
 function Video_aboutView()
 {
@@ -63,13 +64,7 @@ EOT;
 }
 
 /**
- * Returns the system check view.
- *
- * @return string (X)HTML.
- *
- * @global array The paths of system files and folders.
- * @global array The localization of the core.
- * @global array The localization of the plugins.
+ * @return string
  */
 function Video_systemCheckView()
 {
@@ -108,11 +103,7 @@ function Video_systemCheckView()
 }
 
 /**
- * Returns all available skins.
- *
  * @return array
- *
- * @global array The paths of system files and folders.
  */
 function Video_availableSkins()
 {
@@ -136,11 +127,7 @@ function Video_availableSkins()
 }
 
 /**
- * Returns an associative array of preload options.
- *
  * @return array
- *
- * @global array The localization of the plugins.
  */
 function Video_preloadOptions()
 {
@@ -155,11 +142,7 @@ function Video_preloadOptions()
 }
 
 /**
- * Returns an associative array of resize options.
- *
  * @return array
- *
- * @global array The localization of the plugins.
  */
 function Video_resizeOptions()
 {
@@ -174,13 +157,10 @@ function Video_resizeOptions()
 }
 
 /**
- * Returns a selectbox.
- *
- * @param string $id      The id of the selectbox.
- * @param array  $items   The options (key->value, value->html).
- * @param string $default The selected option.
- *
- * @return string (X)HTML.
+ * @param string $id
+ * @param array $items
+ * @param string $default
+ * @return string
  */
 function Video_selectbox($id, $items, $default = null)
 {
@@ -198,12 +178,9 @@ function Video_selectbox($id, $items, $default = null)
 }
 
 /**
- * Returns the view of a single field (incl. its label).
- *
- * @param string $label A label.
- * @param string $field A field marked up as (X)HTML.
- *
- * @return (X)HTML.
+ * @param string $label
+ * @param string $field
+ * @return string
  */
 function Video_builderField($label, $field)
 {
@@ -215,13 +192,7 @@ EOT;
 }
 
 /**
- * Returns the "call builder".
- *
- * @return string (X)HTML.
- *
- * @global array  The configuration of the plugins.
- * @global array  The localization of the plugins.
- * @global object The video model.
+ * @return string
  */
 function Video_adminMain()
 {
@@ -237,9 +208,7 @@ function Video_adminMain()
     $videos = array_combine($videos, $videos);
     $field = Video_selectbox('video_name', $videos);
     $o .= Video_builderField($ptx['label_name'], $field);
-    $field = Video_selectbox(
-        'video_preload', Video_preloadOptions(), $pcf['default_preload']
-    );
+    $field = Video_selectbox('video_preload', Video_preloadOptions(), $pcf['default_preload']);
     $o .= Video_builderField($ptx['label_preload'], $field);
     foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
         $id = 'video_' . $key;
@@ -253,9 +222,7 @@ function Video_adminMain()
         $field = tag("input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\"");
         $o .= Video_builderField($ptx["label_$key"], $field);
     }
-    $field = Video_selectbox(
-        'video_resize', Video_resizeOptions(), $pcf['default_resize']
-    );
+    $field = Video_selectbox('video_resize', Video_resizeOptions(), $pcf['default_resize']);
     $o .= Video_builderField($ptx['label_resize'], $field);
     $o .= '    <p><textarea id="video_call" readonly="readonly"></textarea></p>'
         . PHP_EOL;
@@ -268,36 +235,27 @@ EOT;
     return $o;
 }
 
-/*
- * Register plugin menu items.
- */
 if (function_exists('XH_registerStandardPluginMenuItems')) {
     XH_registerStandardPluginMenuItems(true);
 }
 
-/*
- * Handle the plugin administration.
- */
 if (function_exists('XH_wantsPluginAdministration')
     && XH_wantsPluginAdministration('video')
     || isset($video) && $video == 'true'
 ) {
     $o .= print_plugin_admin('on');
     switch ($admin) {
-    case '':
-        $o .= Video_aboutView() . tag('hr') . Video_systemCheckView();
-        break;
-    case 'plugin_main':
-        $o .= Video_adminMain();
-        break;
-    default:
-        $o .= plugin_admin_common($action, $admin, $plugin);
+        case '':
+            $o .= Video_aboutView() . tag('hr') . Video_systemCheckView();
+            break;
+        case 'plugin_main':
+            $o .= Video_adminMain();
+            break;
+        default:
+            $o .= plugin_admin_common($action, $admin, $plugin);
     }
 }
 
-/*
- * Pass the available videos to JavaScript for use in an editor.
- */
 $temp = json_encode(array_values($_Video->availableVideos()));
 Video_includeJs();
 $hjs .= <<<EOT
@@ -307,4 +265,3 @@ VIDEO.availableVideos = $temp;
 
 EOT;
 
-?>

@@ -1,16 +1,22 @@
 <?php
 
 /**
- * Testing the video model.
+ * Copyright 2012-2017 Christoph M. Becker
  *
- * PHP version 5
+ * This file is part of Video_XH.
  *
- * @category  Testing
- * @package   Video
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2012-2017 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Video_XH
+ * Video_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Video_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Video;
@@ -20,43 +26,23 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-/**
- * Testing the video model.
- *
- * @category Testing
- * @package  Video
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Video_XH
- */
 class ModelTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * The base folder.
-     *
      * @var string
      */
     protected $baseFolder;
 
     /**
-     * The media folder.
-     *
      * @var string
      */
     protected $mediaFolder;
 
     /**
-     * The test subject.
-     *
      * @var Model
      */
     protected $subject;
 
-    /**
-     * Sets up the test fixture.
-     *
-     * @return void
-     */
     public function setUp()
     {
         vfsStreamWrapper::register();
@@ -90,11 +76,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         file_put_contents($this->mediaFolder . 'movie', '');
     }
 
-    /**
-     * Tests ::normalizedUrl().
-     *
-     * @return void
-     */
     public function testNormalizedUrl()
     {
         $url = 'http://example.com/foo/./../bar/./baz/index.html';
@@ -103,11 +84,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests ::videoFolder().
-     *
-     * @return void
-     */
     public function testVideoFolder()
     {
         $expected = $this->baseFolder . 'userfiles/media/';
@@ -115,11 +91,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests a non standard video folder.
-     *
-     * @return void
-     */
     public function testNonStandardVideoFolder()
     {
         $folders = array('base' => './');
@@ -130,11 +101,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests a backward compatible video folder.
-     *
-     * @return void
-     */
     public function testBCVideoFolder()
     {
         $folders = array('downloads' => './downloads/');
@@ -145,11 +111,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests ::availableVideos().
-     *
-     * @return void
-     */
     public function testAvailableVideos()
     {
         $expected = array('movie');
@@ -157,11 +118,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests ::videoFiles().
-     *
-     * @return void
-     */
     public function testVideoFiles()
     {
         $expected = array(
@@ -172,22 +128,12 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests no video files.
-     *
-     * @return void
-     */
     public function testNoVideoFiles()
     {
         $actual = $this->subject->videoFiles('foo');
         $this->assertEmpty($actual);
     }
 
-    /**
-     * Tests ::posterFile().
-     *
-     * @return void
-     */
     public function testPosterFile()
     {
         $expected = $this->mediaFolder . 'movie.jpg';
@@ -195,22 +141,12 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests no poster file.
-     *
-     * @return void
-     */
     public function testNoPosterFile()
     {
         $actual = $this->subject->posterFile('foo');
         $this->assertFalse($actual);
     }
 
-    /**
-     * Tests ::subtitleFile().
-     *
-     * @return void
-     */
     public function testSubtitleFile()
     {
         $expected = $this->mediaFolder . 'movie.vtt';
@@ -218,11 +154,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests no subtitle file.
-     *
-     * @return void
-     */
     public function testNoSubtitleFile()
     {
         $actual = $this->subject->subtitleFile('foo');
@@ -230,9 +161,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns data for ::testGetOptions().
-     *
-     * @return void
+     * @return array
      */
     public function dataForGetOptions()
     {
@@ -268,13 +197,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests ::getOptions().
-     *
-     * @param string $query    A query string.
-     * @param array  $expected An array of expected options.
-     *
-     * @return void
-     *
+     * @param string $query
+     * @param array $expected
      * @dataProvider dataForGetOptions
      */
     public function testGetOptions($query, $expected)
@@ -283,5 +207,3 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-?>

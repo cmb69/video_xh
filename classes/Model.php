@@ -1,52 +1,41 @@
 <?php
 
 /**
- * The video model.
+ * Copyright 2012-2017 Christoph M. Becker
  *
- * PHP versions 4 and 5
+ * This file is part of Video_XH.
  *
- * @category  CMSimple_XH
- * @package   Video
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2012-2017 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Video_XH
+ * Video_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Video_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Video;
 
-/**
- * The video model class.
- *
- * @category CMSimple_XH
- * @package  Video
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Video_XH
- */
 class Model
 {
     /**
-     * The folder paths.
-     *
      * @var array
      */
     private $folders;
 
     /**
-     * The configuration options.
-     *
      * @var array
      */
     private $config;
 
     /**
-     * Initializes a new model object.
-     *
-     * @param array $folders An array of folder paths.
-     * @param array $config  Configuration options.
-     *
-     * @return void
+     * @param array $folders
+     * @param array $config
      */
     public function __construct($folders, $config)
     {
@@ -55,10 +44,7 @@ class Model
     }
 
     /**
-     * Returns a URL in normalized form (i.e. with ./ and ../ resolved).
-     *
-     * @param string $url An absolute URL.
-     *
+     * @param string $url
      * @return string
      */
     public function normalizedUrl($url)
@@ -67,24 +53,21 @@ class Model
         $i = 0;
         while ($i < count($parts)) {
             switch ($parts[$i]) {
-            case '.':
-                array_splice($parts, $i, 1);
-                break;
-            case '..':
-                array_splice($parts, $i - 1, 2);
-                $i--;
-                break;
-            default:
-                $i++;
+                case '.':
+                    array_splice($parts, $i, 1);
+                    break;
+                case '..':
+                    array_splice($parts, $i - 1, 2);
+                    $i--;
+                    break;
+                default:
+                    $i++;
             }
         }
         return implode('/', $parts);
     }
 
     /**
-     * Returns an associative array (file extension => MIME type) of the
-     * recognized video formats.
-     *
      * @return array
      */
     private function types()
@@ -93,8 +76,6 @@ class Model
     }
 
     /**
-     * Returns an array of recognized video file extensions.
-     *
      * @return array
      */
     private function extensions()
@@ -103,8 +84,6 @@ class Model
     }
 
     /**
-     * Returns the relative path to the video folder.
-     *
      * @return string
      */
     public function videoFolder()
@@ -121,8 +100,6 @@ class Model
     }
 
     /**
-     * Returns all recognized videos in the video folder.
-     *
      * @return array
      */
     public function availableVideos()
@@ -149,10 +126,7 @@ class Model
     }
 
     /**
-     * Returns a map of filenames to types.
-     *
-     * @param string $name Name of the video file without extension.
-     *
+     * @param string $name
      * @return array
      */
     public function videoFiles($name)
@@ -169,11 +143,7 @@ class Model
     }
 
     /**
-     * Returns the filename of the poster; <var>false</var> if no poster is
-     * available.
-     *
-     * @param string $name A video name.
-     *
+     * @param string $name
      * @return string
      */
     public function posterFile($name)
@@ -183,13 +153,8 @@ class Model
     }
 
     /**
-     * Returns the path of an appropriate subtitle file; <var>false</var> otherwise.
-     *
-     * @param string $name A video name.
-     *
+     * @param string $name
      * @return string
-     *
-     * @global string The current language.
      */
     public function subtitleFile($name)
     {
@@ -207,13 +172,7 @@ class Model
     }
 
     /**
-     * Returns all options.
-     *
-     * Defaults are taken from $plugin_cf['video']['default_*'].
-     * Those will be overridden with the options in $query.
-     *
-     * @param string $query The options given like a query string.
-     *
+     * @param string $query
      * @return array
      */
     public function getOptions($query)
@@ -233,7 +192,4 @@ class Model
         }
         return $res;
     }
-
 }
-
-?>
