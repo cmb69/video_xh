@@ -100,90 +100,6 @@ function Video_availableSkins()
     return $skins;
 }
 
-/**
- * @return array
- */
-function Video_preloadOptions()
-{
-    global $plugin_tx;
-
-    $ptx = $plugin_tx['video'];
-    $options = array();
-    foreach (array('auto', 'metadata', 'none') as $key) {
-        $options[$key] = $ptx['preload_' . $key];
-    }
-    return $options;
-}
-
-/**
- * @return array
- */
-function Video_resizeOptions()
-{
-    global $plugin_tx;
-
-    $ptx = $plugin_tx['video'];
-    $options = array();
-    foreach (array('no', 'shrink', 'full') as $key) {
-        $options[$key] = $ptx['resize_' . $key];
-    }
-    return $options;
-}
-
-/**
- * @param string $id
- * @param array $items
- * @param string $default
- * @return string
- */
-function Video_selectbox($id, $items, $default = null)
-{
-    $o = '<select id="'. $id . '">';
-    foreach ($items as $key => $val) {
-        $sel = isset($default) && $key == $default
-            ? ' selected="selected"'
-            : '';
-        $o .= '<option value="' . XH_hsc($key)
-            . '"' . $sel . '>' . XH_hsc($val)
-            . '</option>';
-    }
-    $o .= '</select>';
-    return $o;
-}
-
-/**
- * @return string
- */
-function Video_adminMain()
-{
-    global $plugin_cf, $_Video;
-
-    $pcf = $plugin_cf['video'];
-    Video_includeJs();
-    $view = new Video\View('call-builder');
-    $videos = $_Video->availableVideos();
-    $videos = array_combine($videos, $videos);
-    $field = Video_selectbox('video_name', $videos);
-    $view->nameSelect = new Video\HtmlString($field);
-    $field = Video_selectbox('video_preload', Video_preloadOptions(), $pcf['default_preload']);
-    $view->preloadSelect = new Video\HtmlString($field);
-    foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
-        $id = 'video_' . $key;
-        $check = $pcf['default_' . $key] ? ' checked="checked"' : '';
-        $field = "<input id=\"$id\" type=\"checkbox\"$check>";
-        $view->{"{$key}Input"} = new Video\HtmlString($field);
-    }
-    foreach (array('width', 'height') as $key) {
-        $id = 'video_' . $key;
-        $defaultKey = "default_$key";
-        $field = "<input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\">";
-        $view->{"{$key}Input"} = new Video\HtmlString($field);
-    }
-    $field = Video_selectbox('video_resize', Video_resizeOptions(), $pcf['default_resize']);
-    $view->resizeSelect = new Video\HtmlString($field);
-    return (string) $view;
-}
-
 XH_registerStandardPluginMenuItems(true);
 
 if (XH_wantsPluginAdministration('video')) {
@@ -193,7 +109,9 @@ if (XH_wantsPluginAdministration('video')) {
             $o .= Video_aboutView() . '<hr>' . Video_systemCheckView();
             break;
         case 'plugin_main':
-            $o .= Video_adminMain();
+            ob_start();
+            (new Video\CallBuilderController)->defaultAction();
+            $o .= ob_get_clean();
             break;
         default:
             $o .= plugin_admin_common($action, $admin, $plugin);
