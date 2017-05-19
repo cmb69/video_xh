@@ -30,19 +30,15 @@ class Model
      * The folder paths.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $folders;
+    private $folders;
 
     /**
      * The configuration options.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $config;
+    private $config;
 
     /**
      * Initializes a new model object.
@@ -51,10 +47,8 @@ class Model
      * @param array $config  Configuration options.
      *
      * @return void
-     *
-     * @access public
      */
-    function __construct($folders, $config)
+    public function __construct($folders, $config)
     {
         $this->folders = $folders;
         $this->config = $config;
@@ -66,10 +60,8 @@ class Model
      * @param string $url An absolute URL.
      *
      * @return string
-     *
-     * @access public
      */
-    function normalizedUrl($url)
+    public function normalizedUrl($url)
     {
         $parts = explode('/', $url);
         $i = 0;
@@ -94,10 +86,8 @@ class Model
      * recognized video formats.
      *
      * @return array
-     *
-     * @access protected
      */
-    function types()
+    private function types()
     {
         return array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
     }
@@ -106,10 +96,8 @@ class Model
      * Returns an array of recognized video file extensions.
      *
      * @return array
-     *
-     * @access protected
      */
-    function extensions()
+    private function extensions()
     {
         return array_keys($this->types());
     }
@@ -118,10 +106,8 @@ class Model
      * Returns the relative path to the video folder.
      *
      * @return string
-     *
-     * @access public
      */
-    function videoFolder()
+    public function videoFolder()
     {
         if (!empty($this->config['folder_video'])) {
             $folder = $this->folders['base'] . $this->config['folder_video'];
@@ -138,10 +124,8 @@ class Model
      * Returns all recognized videos in the video folder.
      *
      * @return array
-     *
-     * @access public
      */
-    function availableVideos()
+    public function availableVideos()
     {
         $dirHandle = opendir($this->videoFolder());
         $videos = array();
@@ -170,10 +154,8 @@ class Model
      * @param string $name Name of the video file without extension.
      *
      * @return array
-     *
-     * @access public
      */
-    function videoFiles($name)
+    public function videoFiles($name)
     {
         $dirname = $this->videoFolder();
         $files = array();
@@ -193,10 +175,8 @@ class Model
      * @param string $name A video name.
      *
      * @return string
-     *
-     * @access public
      */
-    function posterFile($name)
+    public function posterFile($name)
     {
         $filename = $this->videoFolder() . $name . '.jpg';
         return file_exists($filename) ? $filename : false;
@@ -210,10 +190,8 @@ class Model
      * @return string
      *
      * @global string The current language.
-     *
-     * @access public
      */
-    function subtitleFile($name)
+    public function subtitleFile($name)
     {
         global $sl;
 
@@ -237,10 +215,8 @@ class Model
      * @param string $query The options given like a query string.
      *
      * @return array
-     *
-     * @access public
      */
-    function getOptions($query)
+    public function getOptions($query)
     {
         $validOptions = array(
             'autoplay', 'centered', 'controls', 'height', 'loop', 'preload',
