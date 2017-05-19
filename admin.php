@@ -32,35 +32,12 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
  */
 function Video_aboutView()
 {
-    global $pth, $plugin_tx;
+    global $pth;
 
-    $iconPath = $pth['folder']['plugins'] . 'video/video.png';
-    $version = VIDEO_VERSION;
-    $o = <<<EOT
-<h1>Video</h1>
-<img class="video_plugin_icon" width="128" height="128" src="$iconPath"
-     alt="{$plugin_tx['video']['alt_logo']}" />
-<p style="margin-top:1em">Version: $version</p>
-<p>Copyright &copy; 2012-2017
-    <a href="http://3-magi.net/">Christoph M. Becker</a></p>
-<p>Video_XH is powered by <a href="http://videojs.com">Video.js</a></p>
-<p class="video_license">
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.</p>
-<p class="video_license">
-    This program is distributed in the hope that it will be useful,
-    but <em>without any warranty</em>; without even the implied warranty of
-    <em>merchantability</em> or <em>fitness for a particular purpose</em>.
-    See the GNU General Public License for more details.</p>
-<p class="video_license">
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see
-    <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a></p>
-
-EOT;
-    return $o;
+    $view = new Video\View('info');
+    $view->logo = "{$pth['folder']['plugins']}video/video.png";
+    $view->version = VIDEO_VERSION;
+    return (string) $view;
 }
 
 /**
@@ -175,61 +152,36 @@ function Video_selectbox($id, $items, $default = null)
 }
 
 /**
- * @param string $label
- * @param string $field
- * @return string
- */
-function Video_builderField($label, $field)
-{
-    $o = <<<EOT
-    <p><label><span>$label</span>$field</label></p>
-
-EOT;
-    return $o;
-}
-
-/**
  * @return string
  */
 function Video_adminMain()
 {
-    global $plugin_cf, $plugin_tx, $_Video;
+    global $plugin_cf, $_Video;
 
     $pcf = $plugin_cf['video'];
-    $ptx = $plugin_tx['video'];
     Video_includeJs();
-    $o = '<!-- Video_XH: call builder -->' . PHP_EOL
-        . '<h1>Video &ndash; ' . $ptx['menu_main'] . '</h1>' . PHP_EOL
-        . '<div id="video_call_builder">' . PHP_EOL;
+    $view = new Video\View('call-builder');
     $videos = $_Video->availableVideos();
     $videos = array_combine($videos, $videos);
     $field = Video_selectbox('video_name', $videos);
-    $o .= Video_builderField($ptx['label_name'], $field);
+    $view->nameSelect = new Video\HtmlString($field);
     $field = Video_selectbox('video_preload', Video_preloadOptions(), $pcf['default_preload']);
-    $o .= Video_builderField($ptx['label_preload'], $field);
+    $view->preloadSelect = new Video\HtmlString($field);
     foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
         $id = 'video_' . $key;
         $check = $pcf['default_' . $key] ? ' checked="checked"' : '';
         $field = "<input id=\"$id\" type=\"checkbox\"$check>";
-        $o .= Video_builderField($ptx["label_$key"], $field);
+        $view->{"{$key}Input"} = new Video\HtmlString($field);
     }
     foreach (array('width', 'height') as $key) {
         $id = 'video_' . $key;
         $defaultKey = "default_$key";
         $field = "<input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\">";
-        $o .= Video_builderField($ptx["label_$key"], $field);
+        $view->{"{$key}Input"} = new Video\HtmlString($field);
     }
     $field = Video_selectbox('video_resize', Video_resizeOptions(), $pcf['default_resize']);
-    $o .= Video_builderField($ptx['label_resize'], $field);
-    $o .= '    <p><textarea id="video_call" readonly="readonly"></textarea></p>'
-        . PHP_EOL;
-    $o .= <<<EOT
-</div>
-<script type="text/javascript">/* <![CDATA[ */
-VIDEO.initCallBuilder();
-/* ]]> */</script>
-EOT;
-    return $o;
+    $view->resizeSelect = new Video\HtmlString($field);
+    return (string) $view;
 }
 
 XH_registerStandardPluginMenuItems(true);
