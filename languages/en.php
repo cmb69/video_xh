@@ -47,7 +47,6 @@ $plugin_tx['video']['resize_shrink']="Shrink";
 $plugin_tx['video']['subtitle_label']="English";
 $plugin_tx['video']['syscheck_encoding']="Encoding 'UTF-8' configured";
 $plugin_tx['video']['syscheck_extension']="Extension '%s' loaded";
-$plugin_tx['video']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['video']['syscheck_phpversion']="PHP version &ge; %s";
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_writable']="Folder '%s' writable";

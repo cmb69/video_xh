@@ -47,7 +47,6 @@ $plugin_tx['video']['resize_shrink']="Verkleinern";
 $plugin_tx['video']['subtitle_label']="Deutsch";
 $plugin_tx['video']['syscheck_encoding']="UTF-8-Kodierung eingestellt";
 $plugin_tx['video']['syscheck_extension']="Erweiterung '%s' geladen";
-$plugin_tx['video']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['video']['syscheck_phpversion']="PHP-Version &ge; %s";
 $plugin_tx['video']['syscheck_title']="Systemprüfung";
 $plugin_tx['video']['syscheck_writable']="Ordner '%s' beschreibbar";

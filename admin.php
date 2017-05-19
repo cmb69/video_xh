@@ -85,9 +85,6 @@ function Video_systemCheckView()
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
             . tag('br') . PHP_EOL;
     }
-    $o .= (!get_magic_quotes_runtime() ? $ok : $fail)
-        . '&nbsp;&nbsp;' . $ptx['syscheck_magic_quotes']
-        . tag('br') . tag('br') . PHP_EOL;
     $o .= (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
         . '&nbsp;&nbsp;' . $ptx['syscheck_encoding']
         . tag('br') . tag('br') . PHP_EOL;

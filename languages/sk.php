@@ -5,7 +5,6 @@ $plugin_tx['video']['syscheck_title']="Kontrola systému";
 $plugin_tx['video']['syscheck_phpversion']="PHP verzia &ge; %s";
 $plugin_tx['video']['syscheck_extension']="Rozšírenie '%s' načítané";
 $plugin_tx['video']['syscheck_encoding']="Kódovanie 'UTF-8' nastavené";
-$plugin_tx['video']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['video']['syscheck_writable']="Adresár '%s' umožňuje zápis";
 $plugin_tx['video']['label_name']="Video";
 $plugin_tx['video']['label_preload']="Predčítanie";
