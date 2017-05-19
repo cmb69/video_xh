@@ -35,7 +35,7 @@ function Video_includeJs()
     static $again = false;
 
     if (!$again) {
-        $jsPath = $pth['folder']['plugins'] . 'video/video.js';
+        $jsPath = $pth['folder']['plugins'] . 'video/video.min.js';
         $hjs .= "<script type=\"text/javascript\" src=\"$jsPath\"></script>"
             . PHP_EOL;
         $again = true;
