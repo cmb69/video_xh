@@ -29,21 +29,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 define('VIDEO_VERSION', '@VIDEO_VERSION@');
 
-/**
- * @param string $xhtml
- * @return string
- */
-function Video_xhtml($xhtml)
-{
-    global $cf;
-
-    if ($cf['xhtml']['endtags'] == 'true') {
-        return $xhtml;
-    } else {
-        return str_replace(' />', '>', $xhtml);
-    }
-}
-
 function Video_includeJs()
 {
     global $pth, $hjs;
@@ -107,7 +92,7 @@ EOT;
 </script>
 
 EOT;
-    $hjs .= Video_xhtml($o);
+    $hjs .= $o;
 }
 
 /**
@@ -143,9 +128,7 @@ function Video_downloadLink($videoname, $filename, $style)
     $download = sprintf($plugin_tx['video']['label_download'], $basename);
     $poster = $_Video->posterFile($videoname);
     if ($poster) {
-        $link = tag(
-            "img src=\"$poster\" alt=\"$download\" title=\"$download\" $style"
-        );
+        $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" $style>";
     } else {
         $link = $download;
     }
@@ -262,14 +245,14 @@ EOT;
         foreach ($files as $filename => $type) {
             $url = $_Video->normalizedUrl(CMSIMPLE_URL . $filename);
             $o .= <<<EOT
-    <source src="$url" type="video/$type" />
+    <source src="$url" type="video/$type">
 
 EOT;
         }
         $filename = $_Video->subtitleFile($name);
         if ($filename) {
             $o .= <<<EOT
-    <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]" />
+    <track src="$filename" srclang="$sl" label="$ptx[subtitle_label]">
 
 EOT;
         }
@@ -291,7 +274,7 @@ EOT;
     } else {
         $o = XH_message('fail', $ptx['error_missing'], $name);
     }
-    return Video_xhtml($o);
+    return $o;
 }
 
 $_Video = new Video\Model($pth['folder'], $plugin_cf['video']);

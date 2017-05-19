@@ -73,28 +73,28 @@ function Video_systemCheckView()
     $phpVersion = '5.4.0';
     $ptx = $plugin_tx['video'];
     $imgdir = $pth['folder']['plugins'] . 'video/images/';
-    $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
-    $warn = tag('img src="' . $imgdir . 'warn.png" alt="warning"');
-    $fail = tag('img src="' . $imgdir . 'fail.png" alt="failure"');
+    $ok = '<img src="' . $imgdir . 'ok.png" alt="ok">';
+    $warn = '<img src="' . $imgdir . 'warn.png" alt="warning">';
+    $fail = '<img src="' . $imgdir . 'fail.png" alt="failure">';
     $o = '<h4>' . $ptx['syscheck_title'] . '</h4>' . PHP_EOL
         . (version_compare(PHP_VERSION, $phpVersion) >= 0 ? $ok : $fail)
         . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], $phpVersion)
-        . tag('br') . PHP_EOL;
+        . '<br>' . PHP_EOL;
     foreach (array('json') as $ext) {
         $o .= (extension_loaded($ext) ? $ok : $fail)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext)
-            . tag('br') . PHP_EOL;
+            . '<br>' . PHP_EOL;
     }
     $o .= (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
         . '&nbsp;&nbsp;' . $ptx['syscheck_encoding']
-        . tag('br') . tag('br') . PHP_EOL;
+        . '<br>' . '<br>' . PHP_EOL;
     foreach (array('config/', 'css/', 'languages/') as $folder) {
         $folders[] = $pth['folder']['plugins'] . 'video/' . $folder;
     }
     foreach ($folders as $folder) {
         $o .= (is_writable($folder) ? $ok : $warn)
             . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_writable'], $folder)
-            . tag('br') . PHP_EOL;
+            . '<br>' . PHP_EOL;
     }
     return $o;
 }
@@ -210,13 +210,13 @@ function Video_adminMain()
     foreach (array('autoplay', 'loop', 'controls', 'centered') as $key) {
         $id = 'video_' . $key;
         $check = $pcf['default_' . $key] ? ' checked="checked"' : '';
-        $field = tag("input id=\"$id\" type=\"checkbox\"$check");
+        $field = "<input id=\"$id\" type=\"checkbox\"$check>";
         $o .= Video_builderField($ptx["label_$key"], $field);
     }
     foreach (array('width', 'height') as $key) {
         $id = 'video_' . $key;
         $defaultKey = "default_$key";
-        $field = tag("input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\"");
+        $field = "<input id=\"$id\" type=\"text\" value=\"$pcf[$defaultKey]\">";
         $o .= Video_builderField($ptx["label_$key"], $field);
     }
     $field = Video_selectbox('video_resize', Video_resizeOptions(), $pcf['default_resize']);
@@ -238,7 +238,7 @@ if (XH_wantsPluginAdministration('video')) {
     $o .= print_plugin_admin('on');
     switch ($admin) {
         case '':
-            $o .= Video_aboutView() . tag('hr') . Video_systemCheckView();
+            $o .= Video_aboutView() . '<hr>' . Video_systemCheckView();
             break;
         case 'plugin_main':
             $o .= Video_adminMain();
