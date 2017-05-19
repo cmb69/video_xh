@@ -59,21 +59,6 @@ class Video_Model
     }
 
     /**
-     * Fallback constructor for PHP 4.
-     *
-     * @param array $folders An array of folder paths.
-     * @param array $config  Configuration options.
-     *
-     * @return void
-     *
-     * @access public
-     */
-    function Video_Model($folders, $config)
-    {
-        Video_Model::__construct($folders, $config);
-    }
-
-    /**
      * Returns a URL in normalized form (i.e. with ./ and ../ resolved).
      *
      * @param string $url An absolute URL.
