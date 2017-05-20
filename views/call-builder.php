@@ -50,7 +50,7 @@
             <input id="video_class" type="text" value="<?=$this->className()?>">
         </p>
         <p>
-            <textarea id="video_call" readonly></textarea>
+            <textarea id="video_call"></textarea>
         </p>
     </form>
 </script>

@@ -38,7 +38,7 @@
     vertical-align: top;
     width: 79%;
 }
-#video_call {
+#video_call_builder #video_call {
     width: 99%;
     height: 5em;
 }
