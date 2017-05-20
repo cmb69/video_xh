@@ -50,16 +50,24 @@ class VideoController extends Controller
             $view->className = $this->options['class'];
             $view->attributes = new HtmlString($this->videoAttributes());
             $sources = [];
-            foreach ($files as $filename => $type) {
-                $url = $this->model->normalizedUrl(CMSIMPLE_URL . $filename);
+            foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
             $view->sources = $sources;
             $view->track = $this->model->subtitleFile($this->name);
             $view->langCode = $sl;
-            $filename = array_keys($files)[0];
+            reset($files);
+            $filename = key($files);
+            $view->contentUrl = $this->model->normalizedUrl(CMSIMPLE_URL . $filename);
             $view->filename = $filename;
             $view->downloadLink = new HtmlString($this->downloadLink($filename));
+            $view->title = $this->options['title'];
+            $view->description = $this->options['description'];
+            $poster = $this->model->posterFile($this->name);
+            if ($poster) {
+                $view->thumbnailUrl = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
+            }
+            $view->uploadDate = date('c', filectime($filename));
             $view->render();
         } else {
             echo XH_message('fail', $this->lang['error_missing'], $this->name);

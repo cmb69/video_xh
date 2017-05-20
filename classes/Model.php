@@ -162,8 +162,8 @@ class Model
     public function getOptions($query)
     {
         $validOptions = array(
-            'autoplay', 'class', 'controls', 'height', 'loop', 'preload',
-            'width'
+            'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
+            'title', 'width'
         );
         parse_str($query, $options);
         $res = array();

@@ -1,5 +1,7 @@
 <?php
 
+$plugin_cf['video']['default_title']="";
+$plugin_cf['video']['default_description']="";
 $plugin_cf['video']['default_preload']="auto";
 $plugin_cf['video']['default_autoplay']="0";
 $plugin_cf['video']['default_loop']="0";

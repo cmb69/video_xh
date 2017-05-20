@@ -31,6 +31,8 @@ class CallBuilderController extends Controller
         $this->addScript("{$this->pluginFolder}video.min.js");
         $view = new View('call-builder');
         $view->videos = $this->model->availableVideos();
+        $view->title = $this->config['default_title'];
+        $view->description = $this->config['default_description'];
         $view->preloadOptions = $this->preloadOptions();
         $view->autoplay = $this->config['default_autoplay'] ? 'checked' : '';
         $view->loop = $this->config['default_loop'] ? 'checked' : '';

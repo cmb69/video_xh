@@ -44,6 +44,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $this->mediaFolder = vfsStream::url('test') . '/userfiles/media/';
         $config = array(
+            'default_title' => '',
+            'default_description' => '',
             'default_preload' => 'auto',
             'default_autoplay' => '0',
             'default_loop' => '0',
@@ -130,23 +132,27 @@ class ModelTest extends PHPUnit_Framework_TestCase
                 array(
                     'autoplay' => '0',
                     'controls' => '1',
+                    'description' => '',
                     'height' => '288',
                     'loop' => '0',
                     'preload' => 'auto',
                     'class' => 'video_video',
+                    'title' => '',
                     'width' => '512'
                 )
             ),
             array(
-                'autoplay=1&controls=0&height=360&loop=1'
-                    . '&preload=metadata&class=video_video&width=640',
+                'autoplay=1&controls=0&description=blah%20blah&height=360&loop=1'
+                    . '&preload=metadata&class=video_video&title=foo&width=640',
                 array(
                     'autoplay' => '1',
                     'controls' => '0',
+                    'description' => 'blah blah',
                     'height' => '360',
                     'loop' => '1',
                     'preload' => 'metadata',
                     'class' => 'video_video',
+                    'title' => 'foo',
                     'width' => '640'
                 )
             )

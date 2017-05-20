@@ -28,14 +28,17 @@
 }
 #video_call_builder label {
     display: inline-block;
+    vertical-align: top;
     width: 19%;
 }
 #video_call_builder select,
-#video_call_builder input[type=text] {
+#video_call_builder input[type=text],
+#video_call_builder textarea {
     display: inline-block;
+    vertical-align: top;
     width: 79%;
 }
-#video_call_builder textarea {
+#video_call {
     width: 99%;
     height: 5em;
 }

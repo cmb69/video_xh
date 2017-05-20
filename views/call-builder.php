@@ -10,6 +10,14 @@
             </select>
         </p>
         <p>
+            <label for="video_title"><?=$this->text('label_title')?></label>
+            <input id="video_title" type="text" value="<?=$this->title()?>">
+        </p>
+        <p>
+            <label for="video_description"><?=$this->text('label_description')?></label>
+            <textarea id="video_description"><?=$this->description()?></textarea>
+        </p>
+        <p>
             <label for="video_preload"><?=$this->text('label_preload')?></label>
             <select id="video_preload">
 <?php foreach ($this->preloadOptions as $option):?>
