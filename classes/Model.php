@@ -24,9 +24,9 @@ namespace Video;
 class Model
 {
     /**
-     * @var array
+     * @var string
      */
-    private $folders;
+    private $videoFolder;
 
     /**
      * @var array
@@ -34,12 +34,12 @@ class Model
     private $config;
 
     /**
-     * @param array $folders
+     * @param array $folder
      * @param array $config
      */
-    public function __construct($folders, $config)
+    public function __construct($folder, $config)
     {
-        $this->folders = $folders;
+        $this->videoFolder = $folder;
         $this->config = $config;
     }
 
@@ -84,27 +84,11 @@ class Model
     }
 
     /**
-     * @return string
-     */
-    public function videoFolder()
-    {
-        if (!empty($this->config['folder_video'])) {
-            $folder = $this->folders['base'] . $this->config['folder_video'];
-            $folder = rtrim($folder, '/') . '/';
-        } elseif (isset($this->folders['media'])) {
-            $folder = $this->folders['media'];
-        } else {
-            $folder = $this->folders['downloads'];
-        }
-        return $folder;
-    }
-
-    /**
      * @return array
      */
     public function availableVideos()
     {
-        $dirHandle = opendir($this->videoFolder());
+        $dirHandle = opendir($this->videoFolder);
         $videos = array();
         if ($dirHandle) {
             while (($file = readdir($dirHandle)) !== false) {
@@ -131,7 +115,7 @@ class Model
      */
     public function videoFiles($name)
     {
-        $dirname = $this->videoFolder();
+        $dirname = $this->videoFolder;
         $files = array();
         foreach (array_keys($this->types()) as $extension) {
             $filename = $dirname . $name . '.' . $extension;
@@ -148,7 +132,7 @@ class Model
      */
     public function posterFile($name)
     {
-        $filename = $this->videoFolder() . $name . '.jpg';
+        $filename = $this->videoFolder . $name . '.jpg';
         return file_exists($filename) ? $filename : false;
     }
 
@@ -160,7 +144,7 @@ class Model
     {
         global $sl;
 
-        $dirname = $this->videoFolder();
+        $dirname = $this->videoFolder;
         $suffixes = array("_$sl.vtt", "_$sl.srt", '.vtt', '.srt');
         foreach ($suffixes as $suffix) {
             $filename = $dirname . $name . $suffix;

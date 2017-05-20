@@ -31,32 +31,19 @@ class ModelTest extends PHPUnit_Framework_TestCase
     /**
      * @var string
      */
-    protected $baseFolder;
-
-    /**
-     * @var string
-     */
-    protected $mediaFolder;
+    private $mediaFolder;
 
     /**
      * @var Model
      */
-    protected $subject;
+    private $subject;
 
-    public function setUp()
+    protected function setUp()
     {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
-        $this->baseFolder = vfsStream::url('test') . '/';
-        $this->mediaFolder = $this->baseFolder . 'userfiles/media/';
-        $folders = array(
-            'base' => $this->baseFolder,
-            'media' => $this->mediaFolder,
-            'downloads' => $this->baseFolder . 'userfiles/downloads/',
-            'plugins' => $this->baseFolder . 'plugins/'
-        );
+        $this->mediaFolder = vfsStream::url('test') . '/userfiles/media/';
         $config = array(
-            'folder_video' => '',
             'default_preload' => 'auto',
             'default_autoplay' => '0',
             'default_loop' => '0',
@@ -65,8 +52,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
             'default_height' => '288',
             'default_resize' => 'no'
         );
-        $this->subject = new Model($folders, $config);
-        mkdir($folders['media'], 0777, true);
+        $this->subject = new Model($this->mediaFolder, $config);
+        mkdir($this->mediaFolder, 0777, true);
         file_put_contents($this->mediaFolder . 'movie.avi', '');
         file_put_contents($this->mediaFolder . 'movie.jpg', '');
         file_put_contents($this->mediaFolder . 'movie.mp4', '');
@@ -80,33 +67,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $url = 'http://example.com/foo/./../bar/./baz/index.html';
         $expected = 'http://example.com/bar/baz/index.html';
         $actual = $this->subject->normalizedUrl($url);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testVideoFolder()
-    {
-        $expected = $this->baseFolder . 'userfiles/media/';
-        $actual = $this->subject->videoFolder();
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testNonStandardVideoFolder()
-    {
-        $folders = array('base' => './');
-        $config = array('folder_video' => 'foo');
-        $expected = './foo/';
-        $subject = new Model($folders, $config);
-        $actual = $subject->videoFolder();
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testBCVideoFolder()
-    {
-        $folders = array('downloads' => './downloads/');
-        $config = array('folder_video' => '');
-        $expected = './downloads/';
-        $subject = new Model($folders, $config);
-        $actual = $subject->videoFolder();
         $this->assertEquals($expected, $actual);
     }
 

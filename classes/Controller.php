@@ -50,7 +50,7 @@ class Controller
         $this->pluginFolder = "{$pth['folder']['plugins']}video/";
         $this->config = $plugin_cf['video'];
         $this->lang = $plugin_tx['video'];
-        $this->model = new Model($pth['folder'], $this->config);
+        $this->model = new Model($pth['folder']['media'], $this->config);
     }
 
     /**

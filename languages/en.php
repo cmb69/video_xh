@@ -28,7 +28,6 @@ $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_warning']="warning";
 $plugin_tx['video']['syscheck_writable']="'%s' is writable";
 $plugin_tx['video']['syscheck_xhversion']="CMSimple_XH version ≥ %s";
-$plugin_tx['video']['cf_folder_video']="A folder relative to the CMSimple root folder, where the video files are stored. If left empty, the files are expected in \"Folders Media\".";
 $plugin_tx['video']['cf_default_autoplay']="Whether the video will start playing as soon as the page is loaded. This default can be overridden for each video in the plugin call. Autoplay is not supported by Apple iOS devices.";
 $plugin_tx['video']['cf_default_controls']="Whether the player has controls the user can interact with. This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_default_height']="The height of the video in pixels. This default can be overridden for each video in the plugin call.";
