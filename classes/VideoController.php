@@ -23,15 +23,21 @@ namespace Video;
 
 class VideoController extends Controller
 {
+    /**
+     * @var string
+     */
     private $name;
 
+    /**
+     * @var array
+     */
     private $options;
 
     public function __construct($name, $options = '')
     {
         parent::__construct();
         $this->name = $name;
-        $this->options = $options;
+        $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }
 
     public function defaultAction()
@@ -43,72 +49,50 @@ class VideoController extends Controller
         $files = $this->model->videoFiles($this->name);
     
         if (!empty($files)) {
-            $opts = $this->model->getOptions(html_entity_decode($this->options, ENT_QUOTES, 'UTF-8'));
-            $attributes = $this->videoAttributes($this->name, $opts);
-            $o = <<<EOT
-<!-- Video_XH: $this->name -->
-<video id="video_$run" $attributes>
-
-EOT;
+            $view = new View('video');
+            $view->run = $run;
+            $view->attributes = new HtmlString($this->videoAttributes());
+            $sources = [];
             foreach ($files as $filename => $type) {
                 $url = $this->model->normalizedUrl(CMSIMPLE_URL . $filename);
-                $o .= <<<EOT
-    <source src="$url" type="video/$type">
-
-EOT;
+                $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $filename = $this->model->subtitleFile($this->name);
-            if ($filename) {
-                $o .= <<<EOT
-    <track src="$filename" srclang="$sl" label="{$this->lang['subtitle_label']}">
-
-EOT;
-            }
-            $filenames = array_keys($files);
-            $filename = $filenames[0];
-            $style = $this->resizeStyle($opts['resize']);
-            $link = $this->downloadLink($this->name, $filename, $style);
-            $o .= <<<EOT
-    <a href="$filename">$link</a>
-
-EOT;
-            $o .= <<<EOT
-</video>
-
-EOT;
+            $view->sources = $sources;
+            $view->track = $this->model->subtitleFile($this->name);
+            $view->langCode = $sl;
+            $filename = array_keys($files)[0];
+            $view->filename = $filename;
+            $view->downloadLink = new HtmlString($this->downloadLink($filename));
+            $view->render();
         } else {
-            $o = XH_message('fail', $this->lang['error_missing'], $this->name);
+            echo XH_message('fail', $this->lang['error_missing'], $this->name);
         }
-        echo $o;
     }
 
     /**
-     * @param string $name
-     * @param array $options
      * @return string
      */
-    private function videoAttributes($name, $options)
+    private function videoAttributes()
     {
-        $poster = $this->model->posterFile($name);
+        $poster = $this->model->posterFile($this->name);
         $attributes = 'class=""'
-            . (!empty($options['controls']) ? ' controls="controls"' : '')
-            . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
-            . (!empty($options['loop']) ? ' loop="loop"' : '')
-            . ' preload="' . $options['preload'] . '"'
-            . ' width="' . $options['width'] . '"'
-            . ' height="' . $options['height'] . '"'
+            . (!empty($this->options['controls']) ? ' controls="controls"' : '')
+            . (!empty($this->options['autoplay']) ? ' autoplay="autoplay"' : '')
+            . (!empty($this->options['loop']) ? ' loop="loop"' : '')
+            . ' preload="' . $this->options['preload'] . '"'
+            . ' width="' . $this->options['width'] . '"'
+            . ' height="' . $this->options['height'] . '"'
             . ($poster ? ' poster="' . $poster . '"' : '')
-            . ' ' . $this->resizeStyle($options['resize']);
+            . ' ' . $this->resizeStyle();
         return $attributes;
     }
 
     /**
-     * @param string $resizeMode
      * @return string
      */
-    private function resizeStyle($resizeMode)
+    private function resizeStyle()
     {
-        switch ($resizeMode) {
+        switch ($this->options['resize']) {
             case 'full':
                 $style = 'style="width:100%"';
                 break;
@@ -122,16 +106,15 @@ EOT;
     }
 
     /**
-     * @param string $videoname
      * @param string $filename
-     * @param string $style
      * @return string
      */
-    private function downloadLink($videoname, $filename, $style)
+    private function downloadLink($filename)
     {
+        $style = $this->resizeStyle();
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);
-        $poster = $this->model->posterFile($videoname);
+        $poster = $this->model->posterFile($this->name);
         if ($poster) {
             $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" $style>";
         } else {
