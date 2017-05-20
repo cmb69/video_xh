@@ -9,7 +9,6 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">classes</directory>
             <file>index.php</file>
-            <file>admin.php</file>
         </whitelist>
     </filter>
     <logging>

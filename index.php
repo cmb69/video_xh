@@ -19,16 +19,6 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Prevent direct access.
- */
-if (!defined('CMSIMPLE_XH_VERSION')) {
-    header('HTTP/1.0 403 Forbidden');
-    exit;
-}
-
-define('VIDEO_VERSION', '@VIDEO_VERSION@');
-
 /**
  * @param string $name
  * @param string $options
@@ -40,3 +30,5 @@ function video($name, $options = '')
     (new Video\VideoController($name, $options))->defaultAction();
     return ob_get_clean();
 }
+
+(new Video\Plugin)->run();

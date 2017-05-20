@@ -26,10 +26,10 @@ class InfoController
     public function defaultAction()
     {
         global $pth;
-    
+
         $view = new View('info');
         $view->logo = "{$pth['folder']['plugins']}video/video.png";
-        $view->version = VIDEO_VERSION;
+        $view->version = Plugin::VERSION;
         $view->checks = (new SystemCheckService)->getChecks();
         $view->render();
     }
