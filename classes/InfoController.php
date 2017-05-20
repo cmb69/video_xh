@@ -21,14 +21,12 @@
 
 namespace Video;
 
-class InfoController
+class InfoController extends Controller
 {
     public function defaultAction()
     {
-        global $pth;
-
         $view = new View('info');
-        $view->logo = "{$pth['folder']['plugins']}video/video.png";
+        $view->logo = "{$this->pluginFolder}video.png";
         $view->version = Plugin::VERSION;
         $view->checks = (new SystemCheckService)->getChecks();
         $view->render();
