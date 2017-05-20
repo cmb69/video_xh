@@ -36,5 +36,6 @@ $plugin_tx['video']['cf_default_loop']="Whether the video will start over as soo
 $plugin_tx['video']['cf_default_preload']="If and how the video should be loaded when the page loads: \"auto\" (start loading the video immediately, if the browser agrees), \"metadata\" (load only the meta data of the video) or \"none\" (don't preload any of the video data). This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_default_resize']="The resize mode: \"no\" (fixed size according to width and height), \"shrink\" (flexible size as if element had max-width:100%) or \"full\" (flexible width as if element had width:100%).";
 $plugin_tx['video']['cf_default_width']="The width of the video in pixels. This default can be overridden for each video in the plugin call.";
+$plugin_tx['video']['cf_show_tab']="Whether the call builder should be shown in a tab above the editor";
 
 ?>

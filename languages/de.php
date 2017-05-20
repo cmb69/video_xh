@@ -37,5 +37,6 @@ $plugin_tx['video']['cf_default_preload']="Ob und wie das Video geladen werden s
 $plugin_tx['video']['cf_default_resize']="Skalierungsmodus: \"no\" (feste Größe gemäß Breite und Höhe), \"shrink\" (variable Größe als ob das Element max-width:100% hätte) oder \"full\" (variable Größe als ob das Element width:100% hätte).";
 $plugin_tx['video']['cf_default_width']="Die Breite des Videos in Bildpunkten. Diese Voreinstellung kann individuell für jedes Video im Plugin-Aufruf überschrieben werden.";
 $plugin_tx['video']['cf_folder_video']="Ein Ordner relativ zum CMSimple-Installationsordner, wo die Videodateien gespeichert sind. Ist dieser Eintrag leer, dann werden die Dateien in \"Folders Media\ erwartet.";
+$plugin_tx['video']['cf_show_tab']="Ob der Aufruf-Assistent in einem Reiter über dem Editor angezeigt werden soll.";
 
 ?>

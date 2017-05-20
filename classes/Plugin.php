@@ -29,9 +29,19 @@ class Plugin
     {
         if (XH_ADM) {
             XH_registerStandardPluginMenuItems(true);
+            $this->registerTab();
             if (XH_wantsPluginAdministration('video')) {
                 $this->handleAdministration();
             }
+        }
+    }
+
+    private function registerTab()
+    {
+        global $pd_router, $pth, $plugin_cf;
+
+        if ($plugin_cf['video']['show_tab']) {
+            $pd_router->add_tab('Video', "{$pth['folder']['plugins']}video/Video_view.php");
         }
     }
 

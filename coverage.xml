@@ -9,6 +9,7 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">classes</directory>
             <file>index.php</file>
+            <file>Video_view.php</file>
         </whitelist>
     </filter>
     <logging>

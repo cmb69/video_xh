@@ -4,6 +4,7 @@
 
     <fileset id="php-sources" dir=".">
         <include name="index.php"/>
+        <include name="Video_view.php"/>
         <include name="classes/*.php"/>
     </fileset>
 
