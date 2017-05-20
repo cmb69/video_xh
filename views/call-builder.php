@@ -1,6 +1,6 @@
 <h1>Video – <?=$this->text('menu_main')?></h1>
 <script type="text/x-template" id="video_call_builder">
-    <div id="video_call_builder">
+    <form id="video_call_builder">
         <p>
             <label for="video_name"><?=$this->text('label_name')?></label>
             <select id="video_name">
@@ -48,5 +48,5 @@
         <p>
             <textarea id="video_call" readonly></textarea>
         </p>
-    </div>
+    </form>
 </script>
