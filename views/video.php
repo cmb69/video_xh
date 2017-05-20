@@ -1,4 +1,4 @@
-<video id="video_<?=$this->run()?>" <?=$this->attributes()?>>
+<video class="video_video" <?=$this->attributes()?>>
 <?php foreach ($this->sources as $source):?>
     <source src="<?=$this->escape($source->url)?>" type="video/<?=$this->escape($source->type)?>">
 <?php endforeach?>

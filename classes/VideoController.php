@@ -43,14 +43,10 @@ class VideoController extends Controller
     public function defaultAction()
     {
         global $sl;
-        static $run = 0;
-    
-        $run++;
+
         $files = $this->model->videoFiles($this->name);
-    
         if (!empty($files)) {
             $view = new View('video');
-            $view->run = $run;
             $view->attributes = new HtmlString($this->videoAttributes());
             $sources = [];
             foreach ($files as $filename => $type) {
