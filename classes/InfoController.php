@@ -19,30 +19,18 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Prevent direct access.
- */
-if (!defined('CMSIMPLE_XH_VERSION')) {
-    header('HTTP/1.0 403 Forbidden');
-    exit;
-}
+namespace Video;
 
-XH_registerStandardPluginMenuItems(true);
-
-if (XH_wantsPluginAdministration('video')) {
-    $o .= print_plugin_admin('on');
-    switch ($admin) {
-        case '':
-            ob_start();
-            (new Video\InfoController)->defaultAction();
-            $o .= ob_get_clean();
-            break;
-        case 'plugin_main':
-            ob_start();
-            (new Video\CallBuilderController)->defaultAction();
-            $o .= ob_get_clean();
-            break;
-        default:
-            $o .= plugin_admin_common($action, $admin, $plugin);
+class InfoController
+{
+    public function defaultAction()
+    {
+        global $pth;
+    
+        $view = new View('info');
+        $view->logo = "{$pth['folder']['plugins']}video/video.png";
+        $view->version = VIDEO_VERSION;
+        $view->checks = (new SystemCheckService)->getChecks();
+        $view->render();
     }
 }
