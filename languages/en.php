@@ -4,13 +4,13 @@ $plugin_tx['video']['alt_logo']="Film reel";
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 $plugin_tx['video']['label_autoplay']="Autoplay";
 $plugin_tx['video']['label_call']="Plugin Call";
+$plugin_tx['video']['label_class']="CSS Class";
 $plugin_tx['video']['label_controls']="Controls";
 $plugin_tx['video']['label_download']="Download %s video";
 $plugin_tx['video']['label_height']="Height";
 $plugin_tx['video']['label_loop']="Loop";
 $plugin_tx['video']['label_name']="Video";
 $plugin_tx['video']['label_preload']="Preload";
-$plugin_tx['video']['label_resize']="Resize";
 $plugin_tx['video']['label_width']="Width";
 $plugin_tx['video']['menu_main']="Call Builder";
 $plugin_tx['video']['preload_auto']="Auto";
@@ -33,8 +33,8 @@ $plugin_tx['video']['cf_default_controls']="Whether the player has controls the 
 $plugin_tx['video']['cf_default_height']="The height of the video in pixels. This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_default_loop']="Whether the video will start over as soon as it ends. This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_default_preload']="If and how the video should be loaded when the page loads: \"auto\" (start loading the video immediately, if the browser agrees), \"metadata\" (load only the meta data of the video) or \"none\" (don't preload any of the video data). This default can be overridden for each video in the plugin call.";
-$plugin_tx['video']['cf_default_resize']="The resize mode: \"no\" (fixed size according to width and height), \"shrink\" (flexible size as if element had max-width:100%) or \"full\" (flexible width as if element had width:100%).";
 $plugin_tx['video']['cf_default_width']="The width of the video in pixels. This default can be overridden for each video in the plugin call.";
+$plugin_tx['video']['cf_default_class']="The CSS class that shall be assigned to the video element. This default can be overridden for each video in the plugin call.";
 $plugin_tx['video']['cf_show_tab']="Whether the call builder should be shown in a tab above the editor";
 
 ?>

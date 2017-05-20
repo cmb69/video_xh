@@ -38,12 +38,8 @@
             <input id="video_height" type="text" value="<?=$this->height()?>">
         </p>
         <p>
-            <label for="video_resize"><?=$this->text('label_resize')?></label>
-            <select id="video_resize">
-<?php foreach ($this->resizeOptions as $option):?>
-                <option value="<?=$this->escape($option->id)?>" <?=$this->escape($option->selected)?>><?=$this->escape($option->label)?></option>
-<?php endforeach?>
-            </select>
+            <label for="video_class"><?=$this->text('label_class')?></label>
+            <input id="video_class" type="text" value="<?=$this->className()?>">
         </p>
         <p>
             <textarea id="video_call" readonly></textarea>

@@ -47,6 +47,7 @@ class VideoController extends Controller
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
             $view = new View('video');
+            $view->className = $this->options['class'];
             $view->attributes = new HtmlString($this->videoAttributes());
             $sources = [];
             foreach ($files as $filename => $type) {
@@ -78,27 +79,8 @@ class VideoController extends Controller
             . ' preload="' . $this->options['preload'] . '"'
             . ' width="' . $this->options['width'] . '"'
             . ' height="' . $this->options['height'] . '"'
-            . ($poster ? ' poster="' . $poster . '"' : '')
-            . ' ' . $this->resizeStyle();
+            . ($poster ? ' poster="' . $poster . '"' : '');
         return $attributes;
-    }
-
-    /**
-     * @return string
-     */
-    private function resizeStyle()
-    {
-        switch ($this->options['resize']) {
-            case 'full':
-                $style = 'style="width:100%"';
-                break;
-            case 'shrink':
-                $style = 'style="max-width:100%"';
-                break;
-            default:
-                $style = '';
-        }
-        return $style;
     }
 
     /**
@@ -107,12 +89,11 @@ class VideoController extends Controller
      */
     private function downloadLink($filename)
     {
-        $style = $this->resizeStyle();
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);
         $poster = $this->model->posterFile($this->name);
         if ($poster) {
-            $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" $style>";
+            $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$this->options['class']}\">";
         } else {
             $link = $download;
         }

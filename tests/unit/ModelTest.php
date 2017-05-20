@@ -50,7 +50,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
             'default_controls' => '1',
             'default_width' => '512',
             'default_height' => '288',
-            'default_resize' => 'no'
+            'default_class' => 'video_video'
         );
         $this->subject = new Model($this->mediaFolder, $config);
         mkdir($this->mediaFolder, 0777, true);
@@ -133,20 +133,20 @@ class ModelTest extends PHPUnit_Framework_TestCase
                     'height' => '288',
                     'loop' => '0',
                     'preload' => 'auto',
-                    'resize' => 'no',
+                    'class' => 'video_video',
                     'width' => '512'
                 )
             ),
             array(
                 'autoplay=1&controls=0&height=360&loop=1'
-                    . '&preload=metadata&resize=full&width=640',
+                    . '&preload=metadata&class=video_video&width=640',
                 array(
                     'autoplay' => '1',
                     'controls' => '0',
                     'height' => '360',
                     'loop' => '1',
                     'preload' => 'metadata',
-                    'resize' => 'full',
+                    'class' => 'video_video',
                     'width' => '640'
                 )
             )

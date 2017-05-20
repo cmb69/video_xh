@@ -37,7 +37,7 @@ class CallBuilderController extends Controller
         $view->controls = $this->config['default_controls'] ? 'checked' : '';
         $view->width = $this->config['default_width'];
         $view->height = $this->config['default_height'];
-        $view->resizeOptions = $this->resizeOptions();
+        $view->className = $this->config['default_class'];
         $view->render();
     }
 
@@ -50,20 +50,6 @@ class CallBuilderController extends Controller
         foreach (array('auto', 'metadata', 'none') as $id) {
             $label = $this->lang["preload_{$id}"];
             $selected = $id === $this->config['default_preload'] ? 'selected' : '';
-            $options[] = (object) compact('id', 'label', 'selected');
-        }
-        return $options;
-    }
-
-    /**
-     * @return array
-     */
-    private function resizeOptions()
-    {
-        $options = [];
-        foreach (array('no', 'shrink', 'full') as $id) {
-            $label = $this->lang["resize_{$id}"];
-            $selected = $id === $this->config['default_resize'] ? 'selected' : '';
             $options[] = (object) compact('id', 'label', 'selected');
         }
         return $options;
