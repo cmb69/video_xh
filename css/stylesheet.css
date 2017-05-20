@@ -18,15 +18,14 @@
 #video_call_builder p {
     margin: 0.4em 0;
 }
-#video_call_builder label span {
-    display: inline-block; width: 20%;
+#video_call_builder label {
+    display: inline-block;
+    width: 19%;
 }
 #video_call_builder select,
 #video_call_builder input[type=text] {
+    display: inline-block;
     width: 79%;
-}
-#video_call_builder hr {
-    margin: 1em 0;
 }
 #video_call_builder textarea {
     width: 99%;

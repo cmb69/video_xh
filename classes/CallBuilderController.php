@@ -30,48 +30,15 @@ class CallBuilderController extends Controller
     {
         $this->addScript("{$this->pluginFolder}video.min.js");
         $view = new View('call-builder');
-        $videos = $this->model->availableVideos();
-        $videos = array_combine($videos, $videos);
-        $field = $this->selectbox('video_name', $videos);
-        $view->nameSelect = new HtmlString($field);
-        $field = $this->selectbox('video_preload', $this->preloadOptions(), $this->config['default_preload']);
-        $view->preloadSelect = new HtmlString($field);
-        foreach (array('autoplay', 'loop', 'controls') as $key) {
-            $id = 'video_' . $key;
-            $check = $this->config['default_' . $key] ? ' checked="checked"' : '';
-            $field = "<input id=\"$id\" type=\"checkbox\"$check>";
-            $view->{"{$key}Input"} = new HtmlString($field);
-        }
-        foreach (array('width', 'height') as $key) {
-            $id = 'video_' . $key;
-            $defaultKey = "default_$key";
-            $field = "<input id=\"$id\" type=\"text\" value=\"{$this->config[$defaultKey]}\">";
-            $view->{"{$key}Input"} = new HtmlString($field);
-        }
-        $field = $this->selectbox('video_resize', $this->resizeOptions(), $this->config['default_resize']);
-        $view->resizeSelect = new HtmlString($field);
+        $view->videos = $this->model->availableVideos();
+        $view->preloadOptions = $this->preloadOptions();
+        $view->autoplay = $this->config['default_autoplay'] ? 'checked' : '';
+        $view->loop = $this->config['default_loop'] ? 'checked' : '';
+        $view->controls = $this->config['default_controls'] ? 'checked' : '';
+        $view->width = $this->config['default_width'];
+        $view->height = $this->config['default_height'];
+        $view->resizeOptions = $this->resizeOptions();
         $view->render();
-    }
-
-    /**
-     * @param string $id
-     * @param array $items
-     * @param string $default
-     * @return string
-     */
-    private function selectbox($id, $items, $default = null)
-    {
-        $o = '<select id="'. $id . '">';
-        foreach ($items as $key => $val) {
-            $sel = isset($default) && $key == $default
-                ? ' selected="selected"'
-                : '';
-            $o .= '<option value="' . XH_hsc($key)
-                . '"' . $sel . '>' . XH_hsc($val)
-                . '</option>';
-        }
-        $o .= '</select>';
-        return $o;
     }
 
     /**
@@ -79,9 +46,11 @@ class CallBuilderController extends Controller
      */
     private function preloadOptions()
     {
-        $options = array();
-        foreach (array('auto', 'metadata', 'none') as $key) {
-            $options[$key] = $this->lang['preload_' . $key];
+        $options = [];
+        foreach (array('auto', 'metadata', 'none') as $id) {
+            $label = $this->lang["preload_{$id}"];
+            $selected = $id === $this->config['default_preload'] ? 'selected' : '';
+            $options[] = (object) compact('id', 'label', 'selected');
         }
         return $options;
     }
@@ -91,9 +60,11 @@ class CallBuilderController extends Controller
      */
     private function resizeOptions()
     {
-        $options = array();
-        foreach (array('no', 'shrink', 'full') as $key) {
-            $options[$key] = $this->lang['resize_' . $key];
+        $options = [];
+        foreach (array('no', 'shrink', 'full') as $id) {
+            $label = $this->lang["resize_{$id}"];
+            $selected = $id === $this->config['default_resize'] ? 'selected' : '';
+            $options[] = (object) compact('id', 'label', 'selected');
         }
         return $options;
     }
