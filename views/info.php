@@ -1,6 +1,6 @@
 <h1>Video</h1>
-<img class="video_plugin_icon" width="128" height="128" src="<?=$this->logo()?>" alt="<?$this->text('alt_logo')?>">
-<p style="margin-top:1em">Version: <?=$this->version()?></p>
+<img class="video_logo" width="128" height="128" src="<?=$this->logo()?>" alt="<?$this->text('alt_logo')?>">
+<p>Version: <?=$this->version()?></p>
 <p>Copyright © 2012-2017 Christoph M. Becker</p>
 <p class="video_license">
     Video_XH is free software: you can redistribute it and/or modify it under

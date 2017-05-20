@@ -1,12 +1,11 @@
 /*
- * Plugin info.
+ * Plugin info
  */
-img.video_plugin_icon {
+.video_logo {
     float: left;
-    margin: 0 16px -16px 0;
+    margin: 0.5em 1.5em 0.5em 0;
 }
-p.video_license {
-    clear: both;
+.video_license {
     text-align: justify;
 }
 
