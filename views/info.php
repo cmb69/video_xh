@@ -18,3 +18,9 @@
     You should have received a copy of the GNU General Public License along with
     Video_XH. If not, see http://www.gnu.org/licenses/
 </p>
+<div class="video_syscheck">
+    <h2><?=$this->text('syscheck_title')?></h2>
+<?php foreach ($this->checks as $check):?>
+    <p class="xh_<?=$this->escape($check->state)?>"><?=$this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
+<?php endforeach?>
+</div>
