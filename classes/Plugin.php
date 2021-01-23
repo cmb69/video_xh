@@ -23,7 +23,7 @@ namespace Video;
 
 class Plugin
 {
-    const VERSION = '@VIDEO_VERSION@';
+    const VERSION = '1.1';
 
     public function run()
     {
