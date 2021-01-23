@@ -88,10 +88,11 @@
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
-      Uploader_XH ermöglicht den Upload von Dateien in die images, downloads, userfiles und media Ordner.
-      Im Gegensatz zum Standard-Filemanager erlaubt es Warteschlangen- und gestückelte Uploads,
-      so dass es eine Alternative zu FTP darstellt, wenn viele und/oder große Dateien hoch geladen werden sollen.
-      Allerdings ist Uploader_XH kein alternativer Filemanager.
+      Video_XH ermöglicht die Präsentation von Videos auf einer
+      CMSimple_XH-Website. Es verwendet wo immer möglich das HTML5 Video-Element, und
+      nutzt andernfalls den Flash-Player. Die unterstützten Video-Formate hängen vom
+      Browser bzw. dem Flash-Player ab. Für das beste Nutzungserlebnis sollte
+      JavaScript im Browser des Besuchers aktiviert sein.
    </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->
