@@ -34,7 +34,7 @@ class Model
     private $config;
 
     /**
-     * @param array $folder
+     * @param string $folder
      * @param array $config
      */
     public function __construct($folder, $config)
@@ -138,7 +138,7 @@ class Model
 
     /**
      * @param string $name
-     * @return string
+     * @return string|false
      */
     public function subtitleFile($name)
     {

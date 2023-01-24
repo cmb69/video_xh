@@ -54,7 +54,7 @@ class Controller
     }
 
     /**
-     * @param string
+     * @param string $filename
      */
     protected function addScript($filename)
     {
