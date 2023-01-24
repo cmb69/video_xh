@@ -19,9 +19,10 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @return string */
 function Video_view()
 {
     ob_start();
     (new Video\CallBuilderController)->defaultAction();
-    return ob_get_clean();
+    return (string) ob_get_clean();
 }

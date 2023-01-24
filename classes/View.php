@@ -50,6 +50,7 @@ class View
     }
 
     /**
+     * @param array<mixed> $_data
      * @return void
      */
     public function render(array $_data)

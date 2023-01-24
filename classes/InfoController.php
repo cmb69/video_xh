@@ -23,6 +23,7 @@ namespace Video;
 
 class InfoController extends Controller
 {
+    /** @return void */
     public function defaultAction()
     {
         $view = new View('info');

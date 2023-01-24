@@ -64,7 +64,7 @@ class ModelTest extends TestCase
         file_put_contents($this->mediaFolder . 'movie', '');
     }
 
-    public function testNormalizedUrl()
+    public function testNormalizedUrl(): void
     {
         $url = 'http://example.com/foo/./../bar/./baz/index.html';
         $expected = 'http://example.com/bar/baz/index.html';
@@ -72,14 +72,14 @@ class ModelTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testAvailableVideos()
+    public function testAvailableVideos(): void
     {
         $expected = array('movie');
         $actual = $this->subject->availableVideos();
         $this->assertEquals($expected, $actual);
     }
 
-    public function testVideoFiles()
+    public function testVideoFiles(): void
     {
         $expected = array(
             $this->mediaFolder . 'movie.webm' => 'webm',
@@ -89,40 +89,40 @@ class ModelTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testNoVideoFiles()
+    public function testNoVideoFiles(): void
     {
         $actual = $this->subject->videoFiles('foo');
         $this->assertEmpty($actual);
     }
 
-    public function testPosterFile()
+    public function testPosterFile(): void
     {
         $expected = $this->mediaFolder . 'movie.jpg';
         $actual = $this->subject->posterFile('movie');
         $this->assertEquals($expected, $actual);
     }
 
-    public function testNoPosterFile()
+    public function testNoPosterFile(): void
     {
         $actual = $this->subject->posterFile('foo');
         $this->assertFalse($actual);
     }
 
-    public function testSubtitleFile()
+    public function testSubtitleFile(): void
     {
         $expected = $this->mediaFolder . 'movie.vtt';
         $actual = $this->subject->subtitleFile('movie');
         $this->assertEquals($expected, $actual);
     }
 
-    public function testNoSubtitleFile()
+    public function testNoSubtitleFile(): void
     {
         $actual = $this->subject->subtitleFile('foo');
         $this->assertFalse($actual);
     }
 
     /**
-     * @return array
+     * @return array<array{string,array<string>}>
      */
     public function dataForGetOptions()
     {
@@ -161,10 +161,10 @@ class ModelTest extends TestCase
 
     /**
      * @param string $query
-     * @param array $expected
+     * @param array<string> $expected
      * @dataProvider dataForGetOptions
      */
-    public function testGetOptions($query, $expected)
+    public function testGetOptions($query, $expected): void
     {
         $actual = $this->subject->getOptions($query);
         $this->assertEquals($expected, $actual);

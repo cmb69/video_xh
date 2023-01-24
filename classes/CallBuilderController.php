@@ -21,6 +21,8 @@
 
 namespace Video;
 
+use stdClass;
+
 class CallBuilderController extends Controller
 {
     /**
@@ -45,7 +47,7 @@ class CallBuilderController extends Controller
     }
 
     /**
-     * @return array
+     * @return array<stdClass>
      */
     private function preloadOptions()
     {

@@ -1,11 +1,12 @@
 <?php
 
+use stdClass;
 use Video\View;
 
 /**
  * @var View $this
  * @var string $version
- * @var array $checks
+ * @var array<stdClass> $checks
  */
 ?>
 

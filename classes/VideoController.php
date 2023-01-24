@@ -29,10 +29,14 @@ class VideoController extends Controller
     private $name;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     private $options;
 
+    /**
+     * @param string $name
+     * @param string $options
+     */
     public function __construct($name, $options = '')
     {
         parent::__construct();
@@ -40,6 +44,7 @@ class VideoController extends Controller
         $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }
 
+    /** @return void */
     public function defaultAction()
     {
         global $sl;
@@ -63,7 +68,7 @@ class VideoController extends Controller
                 "downloadLink" => new HtmlString($this->downloadLink($filename)),
                 "title" => $this->options['title'],
                 "description" => $this->options['description'],
-                "uploadDate" => date('c', filectime($filename)),
+                "uploadDate" => date('c', (int) filectime($filename)),
             ];
             $poster = $this->model->posterFile($this->name);
             if ($poster) {

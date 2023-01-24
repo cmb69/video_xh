@@ -28,7 +28,7 @@ function video($name, $options = '')
 {
     ob_start();
     (new Video\VideoController($name, $options))->defaultAction();
-    return ob_get_clean();
+    return (string) ob_get_clean();
 }
 
 (new Video\Plugin)->run();

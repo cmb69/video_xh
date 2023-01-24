@@ -1,5 +1,6 @@
 <?php
 
+use stdClass;
 use Video\View;
 use Video\HtmlString;
 
@@ -7,7 +8,7 @@ use Video\HtmlString;
  * @var View $this
  * @var string $className
  * @var HtmlString $attributes
- * @var array $sources
+ * @var array<stdClass> $sources
  * @var string $track
  * @var string $langCode
  * @var string $contentUrl

@@ -25,6 +25,7 @@ class Plugin
 {
     const VERSION = '2.0-dev';
 
+    /** @return void */
     public function run()
     {
         if (defined("XH_ADM") && XH_ADM) {
@@ -36,6 +37,7 @@ class Plugin
         }
     }
 
+    /** @return void */
     private function registerTab()
     {
         global $pd_router, $pth, $plugin_cf;
@@ -45,6 +47,7 @@ class Plugin
         }
     }
 
+    /** @return void */
     private function handleAdministration()
     {
         global $o, $admin;

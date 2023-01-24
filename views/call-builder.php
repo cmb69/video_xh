@@ -4,10 +4,10 @@ use Video\View;
 
 /**
  * @var View $this
- * @var array $videos
+ * @var array<string> $videos
  * @var string $title
  * @var string $description
- * @var array $preloadOptions
+ * @var array<stdClass> $preloadOptions
  * @var string $autoplay
  * @var string $loop
  * @var string $controls

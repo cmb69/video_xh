@@ -29,13 +29,13 @@ class Model
     private $videoFolder;
 
     /**
-     * @var array
+     * @var array<string>
      */
     private $config;
 
     /**
      * @param string $folder
-     * @param array $config
+     * @param array<string> $config
      */
     public function __construct($folder, $config)
     {
@@ -68,7 +68,7 @@ class Model
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     private function types()
     {
@@ -76,7 +76,7 @@ class Model
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     private function extensions()
     {
@@ -84,7 +84,7 @@ class Model
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
     public function availableVideos()
     {
@@ -111,7 +111,7 @@ class Model
 
     /**
      * @param string $name
-     * @return array
+     * @return array<string>
      */
     public function videoFiles($name)
     {
@@ -128,7 +128,7 @@ class Model
 
     /**
      * @param string $name
-     * @return string
+     * @return string|false
      */
     public function posterFile($name)
     {
@@ -157,7 +157,7 @@ class Model
 
     /**
      * @param string $query
-     * @return array
+     * @return array<mixed>
      */
     public function getOptions($query)
     {

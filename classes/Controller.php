@@ -29,12 +29,12 @@ class Controller
     protected $pluginFolder;
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $config;
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $lang;
 
@@ -55,6 +55,7 @@ class Controller
 
     /**
      * @param string $filename
+     * @return void
      */
     protected function addScript($filename)
     {
