@@ -24,7 +24,7 @@ namespace Video;
 class CallBuilderController extends Controller
 {
     /**
-     * @return string
+     * @return void
      */
     public function defaultAction()
     {

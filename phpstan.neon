@@ -1,0 +1,11 @@
+parameters:
+  level: 0
+  paths:
+    - classes/
+    - tests/
+#    - views/
+    - index.php
+    - Video_view.php
+  scanFiles:
+    - ../../cmsimple/adminfuncs.php
+    - ../../cmsimple/functions.php
