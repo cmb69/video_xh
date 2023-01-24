@@ -61,4 +61,15 @@ class CallBuilderController extends Controller
         }
         return $options;
     }
+
+    /**
+     * @param string $filename
+     * @return void
+     */
+    private function addScript($filename)
+    {
+        global $bjs;
+
+        $bjs .= sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
+    }
 }

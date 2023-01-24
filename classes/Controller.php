@@ -52,15 +52,4 @@ class Controller
         $this->lang = $plugin_tx['video'];
         $this->model = new Model($pth['folder']['media'], $this->config);
     }
-
-    /**
-     * @param string $filename
-     * @return void
-     */
-    protected function addScript($filename)
-    {
-        global $bjs;
-
-        $bjs .= sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
-    }
 }
