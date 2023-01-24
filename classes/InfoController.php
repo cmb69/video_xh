@@ -26,8 +26,9 @@ class InfoController extends Controller
     public function defaultAction()
     {
         $view = new View('info');
-        $view->version = Plugin::VERSION;
-        $view->checks = (new SystemCheckService)->getChecks();
-        $view->render();
+        $view->render([
+            "version" => Plugin::VERSION,
+            "checks" => (new SystemCheckService)->getChecks(),
+        ]);
     }
 }

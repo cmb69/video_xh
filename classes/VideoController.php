@@ -46,29 +46,30 @@ class VideoController extends Controller
 
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
-            $view = new View('video');
-            $view->className = $this->options['class'];
-            $view->attributes = new HtmlString($this->videoAttributes());
+            $filename = key($files);
             $sources = [];
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view->sources = $sources;
-            $view->track = $this->model->subtitleFile($this->name);
-            $view->langCode = $sl;
-            reset($files);
-            $filename = key($files);
-            $view->contentUrl = $this->model->normalizedUrl(CMSIMPLE_URL . $filename);
-            $view->filename = $filename;
-            $view->downloadLink = new HtmlString($this->downloadLink($filename));
-            $view->title = $this->options['title'];
-            $view->description = $this->options['description'];
+            $view = new View('video');
+            $data = [
+                "className" => $this->options['class'],
+                "attributes" => new HtmlString($this->videoAttributes()),
+                "sources" => $sources,
+                "track" => $this->model->subtitleFile($this->name),
+                "langCode" => $sl,
+                "contentUrl" => $this->model->normalizedUrl(CMSIMPLE_URL . $filename),
+                "filename" => $filename,
+                "downloadLink" => new HtmlString($this->downloadLink($filename)),
+                "title" => $this->options['title'],
+                "description" => $this->options['description'],
+                "uploadDate" => date('c', filectime($filename)),
+            ];
             $poster = $this->model->posterFile($this->name);
             if ($poster) {
-                $view->thumbnailUrl = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
+                $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
             }
-            $view->uploadDate = date('c', filectime($filename));
-            $view->render();
+            $view->render($data);
         } else {
             echo XH_message('fail', $this->lang['error_missing'], $this->name);
         }
