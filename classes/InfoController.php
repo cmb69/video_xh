@@ -26,7 +26,6 @@ class InfoController extends Controller
     public function defaultAction()
     {
         $view = new View('info');
-        $view->logo = "{$this->pluginFolder}video.png";
         $view->version = Plugin::VERSION;
         $view->checks = (new SystemCheckService)->getChecks();
         $view->render();
