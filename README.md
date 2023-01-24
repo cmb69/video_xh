@@ -183,7 +183,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Video_XH. If not, see https://www.gnu.org/licenses/.
 
-© 2012-2017 Christoph M. Becker
+© 2012-2023 Christoph M. Becker
 
 Danish translation © 2012 Jens Maegard  
 Czech translation © 2012 Josef Němec  

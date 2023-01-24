@@ -192,7 +192,7 @@ bestimmten Zweck*. Details finden Sie in der GNU General Public License.
 Sie sollten ein Exemplar der GNU General Public License zusammen mit
 Video_XH erhalten haben. Falls nicht, siehe <https://www.gnu.org/licenses/>.
 
-© 2012-2017 Christoph M. Becker
+© 2012-2023 Christoph M. Becker
 
 Dänische Übersetzung © 2012 Jens Maegard  
 Tschechische Übersetzung © 2012 Josef Němec  
