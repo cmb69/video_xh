@@ -1,6 +1,5 @@
 <?php
 
-use stdClass;
 use Video\View;
 
 /**
