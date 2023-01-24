@@ -47,7 +47,7 @@ class Plugin
 
     private function handleAdministration()
     {
-        global $o, $admin, $action;
+        global $o, $admin;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
