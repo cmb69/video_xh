@@ -27,7 +27,7 @@ class Plugin
 
     public function run()
     {
-        if (XH_ADM) {
+        if (defined("XH_ADM") && XH_ADM) {
             XH_registerStandardPluginMenuItems(true);
             $this->registerTab();
             if (XH_wantsPluginAdministration('video')) {
@@ -62,7 +62,7 @@ class Plugin
                 $o .= ob_get_clean();
                 break;
             default:
-                $o .= plugin_admin_common($action, $admin, 'video');
+                $o .= plugin_admin_common();
         }
     }
 }
