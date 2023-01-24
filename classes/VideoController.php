@@ -56,7 +56,7 @@ class VideoController extends Controller
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view = new View($pth['folder']['plugins'], $plugin_tx['video']);
+            $view = new View("{$pth['folder']['plugins']}video/views/", $plugin_tx['video']);
             $data = [
                 "className" => $this->options['class'],
                 "attributes" => new HtmlString($this->videoAttributes()),

@@ -58,7 +58,7 @@ class View
     public function render($_template, array $_data)
     {
         extract($_data);
-        include "{$this->templateFolder}video/views/{$_template}.php";
+        include "{$this->templateFolder}{$_template}.php";
     }
 
     /**
