@@ -1,2 +1,4 @@
 tests/coverage
 vendor
+/.phpunit.cache/test-results
+/.phpunit.result.cache
