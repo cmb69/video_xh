@@ -47,7 +47,7 @@ class VideoController extends Controller
     /** @return void */
     public function defaultAction()
     {
-        global $sl;
+        global $sl, $pth, $plugin_tx;
 
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
@@ -56,7 +56,7 @@ class VideoController extends Controller
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view = new View();
+            $view = new View($pth['folder']['plugins'], $plugin_tx['video']);
             $data = [
                 "className" => $this->options['class'],
                 "attributes" => new HtmlString($this->videoAttributes()),

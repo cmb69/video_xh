@@ -23,17 +23,31 @@ namespace Video;
 
 class View
 {
+    /** @var string */
+    private $templateFolder;
+
+    /** @var array<string> */
+    private $lang;
+
+    /**
+     * @param string $templateFolder
+     * @param array<string> $lang
+     */
+    public function __construct($templateFolder, array $lang)
+    {
+        $this->templateFolder = $templateFolder;
+        $this->lang = $lang;
+    }
+
     /**
      * @param string $key
      * @return string
      */
     public function text($key)
     {
-        global $plugin_tx;
-
         $args = func_get_args();
         array_shift($args);
-        return $this->escape(vsprintf($plugin_tx['video'][$key], $args));
+        return $this->escape(vsprintf($this->lang[$key], $args));
     }
 
     /**
@@ -43,10 +57,8 @@ class View
      */
     public function render($_template, array $_data)
     {
-        global $pth;
-
         extract($_data);
-        include "{$pth['folder']['plugins']}video/views/{$_template}.php";
+        include "{$this->templateFolder}video/views/{$_template}.php";
     }
 
     /**

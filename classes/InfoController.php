@@ -26,7 +26,9 @@ class InfoController extends Controller
     /** @return void */
     public function defaultAction()
     {
-        $view = new View();
+        global $pth, $plugin_tx;
+
+        $view = new View($pth['folder']['plugins'], $plugin_tx['video']);
         $view->render('info', [
             "version" => Plugin::VERSION,
             "checks" => (new SystemCheckService)->getChecks(),
