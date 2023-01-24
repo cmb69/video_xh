@@ -1,3 +1,22 @@
+<?php
+
+use Video\View;
+
+/**
+ * @var View $this
+ * @var array $videos
+ * @var string $title
+ * @var string $description
+ * @var array $preloadOptions
+ * @var string $autoplay
+ * @var string $loop
+ * @var string $controls
+ * @var string $width
+ * @var string $height
+ * @var string $className
+ */
+?>
+
 <h1>Video – <?=$this->text('menu_main')?></h1>
 <script type="text/x-template" id="video_call_builder">
     <form id="video_call_builder">

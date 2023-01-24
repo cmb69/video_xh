@@ -1,3 +1,25 @@
+<?php
+
+use Video\View;
+use Video\HtmlString;
+
+/**
+ * @var View $this
+ * @var string $className
+ * @var HtmlString $attributes
+ * @var array $sources
+ * @var string $track
+ * @var string $langCode
+ * @var string $contentUrl
+ * @var string $filename
+ * @var HtmlString $downloadLink
+ * @var string $title
+ * @var string $description
+ * @var string $uploadDate
+ * @var ?string $thumbnailUrl
+ */
+?>
+
 <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
     <meta itemprop="name" content="<?=$this->escape($title)?>">
     <meta itemprop="description" content="<?=$this->escape($description)?>">

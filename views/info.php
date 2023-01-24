@@ -1,3 +1,14 @@
+<?php
+
+use Video\View;
+
+/**
+ * @var View $this
+ * @var string $version
+ * @var array $checks
+ */
+?>
+
 <h1>Video <?=$this->escape($version)?></h1>
 <div class="video_syscheck">
     <h2><?=$this->text('syscheck_title')?></h2>
