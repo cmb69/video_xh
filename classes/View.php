@@ -91,24 +91,6 @@ class View
     }
 
     /**
-     * @param string $key
-     * @param int $count
-     */
-    protected function plural($key, $count)
-    {
-        global $plugin_tx;
-
-        if ($count == 0) {
-            $key .= '_0';
-        } else {
-            $key .= XH_numberSuffix($count);
-        }
-        $args = func_get_args();
-        array_shift($args);
-        return $this->escape(vsprintf($plugin_tx['video'][$key], $args));
-    }
-
-    /**
      * @return void
      */
     public function render()
