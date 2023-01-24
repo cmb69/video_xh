@@ -31,8 +31,8 @@ class CallBuilderController extends Controller
     public function defaultAction()
     {
         $this->addScript("{$this->pluginFolder}video.min.js");
-        $view = new View('call-builder');
-        $view->render([
+        $view = new View();
+        $view->render('call-builder', [
             "videos" => $this->model->availableVideos(),
             "title" => $this->config['default_title'],
             "description" => $this->config['default_description'],

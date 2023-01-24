@@ -24,19 +24,6 @@ namespace Video;
 class View
 {
     /**
-     * @var string
-     */
-    private $template;
-
-    /**
-     * @param string $template
-     */
-    public function __construct($template)
-    {
-        $this->template = $template;
-    }
-
-    /**
      * @param string $key
      * @return string
      */
@@ -50,15 +37,16 @@ class View
     }
 
     /**
+     * @param string $_template
      * @param array<mixed> $_data
      * @return void
      */
-    public function render(array $_data)
+    public function render($_template, array $_data)
     {
         global $pth;
 
         extract($_data);
-        include "{$pth['folder']['plugins']}video/views/{$this->template}.php";
+        include "{$pth['folder']['plugins']}video/views/{$_template}.php";
     }
 
     /**

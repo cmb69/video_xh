@@ -56,7 +56,7 @@ class VideoController extends Controller
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view = new View('video');
+            $view = new View();
             $data = [
                 "className" => $this->options['class'],
                 "attributes" => new HtmlString($this->videoAttributes()),
@@ -74,7 +74,7 @@ class VideoController extends Controller
             if ($poster) {
                 $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
             }
-            $view->render($data);
+            $view->render('video', $data);
         } else {
             echo XH_message('fail', $this->lang['error_missing'], $this->name);
         }
