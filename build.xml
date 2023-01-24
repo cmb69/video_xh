@@ -31,10 +31,6 @@
         </phpcodesniffer>
     </target>
 
-    <target name="compat" description="checks PHP requirements">
-        <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
-    </target>
-
     <target name="unit-tests" description="runs all unit tests">
         <phpunit bootstrap="tests/unit/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
