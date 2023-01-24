@@ -48,7 +48,7 @@ class SystemCheckService
     {
         return array(
             $this->checkPhpVersion('5.4.0'),
-            $this->checkXhVersion('1.6.3'),
+            $this->checkXhVersion('1.7.0'),
             $this->checkWritability("{$this->pluginFolder}css/"),
             $this->checkWritability("{$this->pluginFolder}config"),
             $this->checkWritability("{$this->pluginFolder}languages/")
