@@ -1,4 +1,4 @@
-<h1>Video <?=$this->version()?></h1>
+<h1>Video <?=$this->escape($this->version)?></h1>
 <div class="video_syscheck">
     <h2><?=$this->text('syscheck_title')?></h2>
 <?php foreach ($this->checks as $check):?>

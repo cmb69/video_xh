@@ -11,11 +11,11 @@
         </p>
         <p>
             <label for="video_title"><?=$this->text('label_title')?></label>
-            <input id="video_title" type="text" value="<?=$this->title()?>">
+            <input id="video_title" type="text" value="<?=$this->escape($this->title)?>">
         </p>
         <p>
             <label for="video_description"><?=$this->text('label_description')?></label>
-            <textarea id="video_description"><?=$this->description()?></textarea>
+            <textarea id="video_description"><?=$this->escape($this->description)?></textarea>
         </p>
         <p>
             <label for="video_preload"><?=$this->text('label_preload')?></label>
@@ -27,27 +27,27 @@
         </p>
         <p>
             <label for="video_autoplay"><?=$this->text('label_autoplay')?></label>
-            <input id="video_autoplay" type="checkbox" <?=$this->autoplay()?>>
+            <input id="video_autoplay" type="checkbox" <?=$this->escape($this->autoplay)?>>
         </p>
         <p>
             <label for="video_loop"><?=$this->text('label_loop')?></label>
-            <input id="video_loop" type="checkbox" <?=$this->loop()?>>
+            <input id="video_loop" type="checkbox" <?=$this->escape($this->loop)?>>
         </p>
         <p>
             <label for="video_controls"><?=$this->text('label_controls')?></label>
-            <input id="video_controls" type="checkbox" <?=$this->controls()?>>
+            <input id="video_controls" type="checkbox" <?=$this->escape($this->controls)?>>
         </p>
         <p>
             <label for="video_width"><?=$this->text('label_width')?></label>
-            <input id="video_width" type="text" value="<?=$this->width()?>">
+            <input id="video_width" type="text" value="<?=$this->escape($this->width)?>">
         </p>
         <p>
             <label for="video_height"><?=$this->text('label_height')?></label>
-            <input id="video_height" type="text" value="<?=$this->height()?>">
+            <input id="video_height" type="text" value="<?=$this->escape($this->height)?>">
         </p>
         <p>
             <label for="video_class"><?=$this->text('label_class')?></label>
-            <input id="video_class" type="text" value="<?=$this->className()?>">
+            <input id="video_class" type="text" value="<?=$this->escape($this->className)?>">
         </p>
         <p>
             <textarea id="video_call"></textarea>

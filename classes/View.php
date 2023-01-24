@@ -60,15 +60,6 @@ class View
     }
 
     /**
-     * @param string $name
-     * @return string
-     */
-    public function __call($name, array $args)
-    {
-        return $this->escape($this->data[$name]);
-    }
-
-    /**
      * @param string $key
      * @return string
      */
