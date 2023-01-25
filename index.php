@@ -28,11 +28,13 @@ use Video\Model;
  */
 function video($name, $options = '')
 {
-    global $pth, $plugin_cf, $plugin_tx;
+    global $pth, $sl, $plugin_cf, $plugin_tx;
 
     ob_start();
     $controller = new Video\VideoController(
+        "{$pth['folder']['plugins']}video/",
         $plugin_tx["video"],
+        $sl,
         new Model($pth['folder']['media'], $plugin_cf['video']),
         $name,
         $options

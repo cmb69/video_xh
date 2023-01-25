@@ -23,12 +23,26 @@ namespace Video;
 
 class InfoController
 {
+    /** @var string $pluginFolder */
+    private $pluginFolder;
+
+    /** @var array<string> */
+    private $lang;
+
+    /**
+     * @param string $pluginFolder
+     * @param array<string> $lang
+     */
+    public function __construct($pluginFolder, array $lang)
+    {
+        $this->pluginFolder = $pluginFolder;
+        $this->lang = $lang;
+    }
+
     /** @return void */
     public function defaultAction()
     {
-        global $pth, $plugin_tx;
-
-        $view = new View("{$pth['folder']['plugins']}video/views/", $plugin_tx['video']);
+        $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('info', [
             "version" => Plugin::VERSION,
             "checks" => (new SystemCheckService)->getChecks(),

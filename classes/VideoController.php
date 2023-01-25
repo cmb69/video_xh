@@ -23,8 +23,14 @@ namespace Video;
 
 class VideoController
 {
+    /** @var string */
+    private $pluginFolder;
+
     /** @var array<string> */
     private $lang;
+
+    /** @var string */
+    private $sl;
 
     /** @var Model */
     private $model;
@@ -40,13 +46,17 @@ class VideoController
     private $options;
 
     /**
+     * @param string $pluginFolder
      * @param array<string> $lang
+     * @param string $sl
      * @param string $name
      * @param string $options
      */
-    public function __construct(array $lang, Model $model, $name, $options = '')
+    public function __construct($pluginFolder, array $lang, $sl, Model $model, $name, $options = '')
     {
+        $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
+        $this->sl = $sl;
         $this->model = $model;
         $this->name = $name;
         $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
@@ -55,8 +65,6 @@ class VideoController
     /** @return void */
     public function defaultAction()
     {
-        global $sl, $pth;
-
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
             $filename = key($files);
@@ -64,13 +72,13 @@ class VideoController
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view = new View("{$pth['folder']['plugins']}video/views/", $this->lang);
+            $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [
                 "className" => $this->options['class'],
                 "attributes" => new HtmlString($this->videoAttributes()),
                 "sources" => $sources,
                 "track" => $this->model->subtitleFile($this->name),
-                "langCode" => $sl,
+                "langCode" => $this->sl,
                 "contentUrl" => $this->model->normalizedUrl(CMSIMPLE_URL . $filename),
                 "filename" => $filename,
                 "downloadLink" => new HtmlString($this->downloadLink($filename)),
