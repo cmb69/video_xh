@@ -24,14 +24,14 @@ use Video\Model;
 /** @return string */
 function Video_view()
 {
-    global $pth, $plugin_cf, $plugin_tx;
+    global $pth, $plugin_cf, $plugin_tx, $sl;
 
     ob_start();
     $controller = new Video\CallBuilderController(
         "{$pth['folder']['plugins']}video/",
         $plugin_cf['video'],
         $plugin_tx['video'],
-        new Model($pth['folder']['media'], $plugin_cf['video'])
+        new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
     );
     $controller->defaultAction();
     return (string) ob_get_clean();

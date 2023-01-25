@@ -35,7 +35,7 @@ function video($name, $options = '')
         "{$pth['folder']['plugins']}video/",
         $plugin_tx["video"],
         $sl,
-        new Model($pth['folder']['media'], $plugin_cf['video']),
+        new Model($pth['folder']['media'], $plugin_cf['video'], $sl),
         $name,
         $options
     );

@@ -50,7 +50,7 @@ class Plugin
     /** @return void */
     private function handleAdministration()
     {
-        global $o, $admin, $pth, $plugin_cf, $plugin_tx;
+        global $o, $admin, $pth, $plugin_cf, $plugin_tx, $sl;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
@@ -65,7 +65,7 @@ class Plugin
                     "{$pth['folder']['plugins']}video/",
                     $plugin_cf['video'],
                     $plugin_tx['video'],
-                    new Model($pth['folder']['media'], $plugin_cf['video'])
+                    new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
                 );
                 $controller->defaultAction();
                 $o .= ob_get_clean();

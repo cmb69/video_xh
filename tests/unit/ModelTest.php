@@ -54,7 +54,7 @@ class ModelTest extends TestCase
             'default_height' => '288',
             'default_class' => 'video_video'
         );
-        $this->subject = new Model($this->mediaFolder, $config);
+        $this->subject = new Model($this->mediaFolder, $config, "en");
         mkdir($this->mediaFolder, 0777, true);
         file_put_contents($this->mediaFolder . 'movie.avi', '');
         file_put_contents($this->mediaFolder . 'movie.jpg', '');

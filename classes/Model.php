@@ -33,14 +33,19 @@ class Model
      */
     private $config;
 
+    /** @var string $sl */
+    private $sl;
+
     /**
      * @param string $folder
      * @param array<string> $config
+     * @param string $sl
      */
-    public function __construct($folder, $config)
+    public function __construct($folder, $config, $sl)
     {
         $this->videoFolder = $folder;
         $this->config = $config;
+        $this->sl = $sl;
     }
 
     /**
@@ -142,10 +147,8 @@ class Model
      */
     public function subtitleFile($name)
     {
-        global $sl;
-
         $dirname = $this->videoFolder;
-        $suffixes = array("_$sl.vtt", "_$sl.srt", '.vtt', '.srt');
+        $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
         foreach ($suffixes as $suffix) {
             $filename = $dirname . $name . $suffix;
             if (file_exists($filename)) {
