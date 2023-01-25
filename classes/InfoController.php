@@ -49,7 +49,57 @@ class InfoController
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('info', [
             "version" => Plugin::VERSION,
-            "checks" => (new SystemCheckService($this->pluginFolder, $this->lang, $this->systemChecker))->getChecks(),
+            "checks" => $this->getChecks(),
         ]);
+    }
+
+    /**
+     * @return object[]
+     */
+    private function getChecks()
+    {
+        return array(
+            $this->checkPhpVersion('5.4.0'),
+            $this->checkXhVersion('1.7.0'),
+            $this->checkWritability("{$this->pluginFolder}css/"),
+            $this->checkWritability("{$this->pluginFolder}config"),
+            $this->checkWritability("{$this->pluginFolder}languages/")
+        );
+    }
+
+    /**
+     * @param string $version
+     * @return object
+     */
+    private function checkPhpVersion($version)
+    {
+        $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
+        $label = sprintf($this->lang['syscheck_phpversion'], $version);
+        $stateLabel = $this->lang["syscheck_$state"];
+        return (object) compact('state', 'label', 'stateLabel');
+    }
+
+    /**
+     * @param string $version
+     * @return object
+     */
+    private function checkXhVersion($version)
+    {
+        $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
+        $label = sprintf($this->lang['syscheck_xhversion'], $version);
+        $stateLabel = $this->lang["syscheck_$state"];
+        return (object) compact('state', 'label', 'stateLabel');
+    }
+
+    /**
+     * @param string $folder
+     * @return object
+     */
+    private function checkWritability($folder)
+    {
+        $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
+        $label = sprintf($this->lang['syscheck_writable'], $folder);
+        $stateLabel = $this->lang["syscheck_$state"];
+        return (object) compact('state', 'label', 'stateLabel');
     }
 }
