@@ -42,12 +42,12 @@ class InfoControllerTest extends TestCase
 
             <h1>Video 2.0-dev</h1>
             <div class="video_syscheck">
-                <h2>System check</h2>
-                <p class="xh_success">Checking that PHP version ≥ 5.4.0 … okay</p>
-                <p class="xh_success">Checking that CMSimple_XH version ≥ 1.7.0 … okay</p>
-                <p class="xh_success">Checking that './css/' is writable … okay</p>
-                <p class="xh_success">Checking that './config' is writable … okay</p>
-                <p class="xh_success">Checking that './languages/' is writable … okay</p>
+              <h2>System check</h2>
+              <p class="xh_success">Checking that PHP version ≥ 5.4.0 … okay</p>
+              <p class="xh_success">Checking that CMSimple_XH version ≥ 1.7.0 … okay</p>
+              <p class="xh_success">Checking that './css/' is writable … okay</p>
+              <p class="xh_success">Checking that './config' is writable … okay</p>
+              <p class="xh_success">Checking that './languages/' is writable … okay</p>
             </div>
 
             HTML
