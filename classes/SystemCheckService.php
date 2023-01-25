@@ -21,7 +21,7 @@
 
 namespace Video;
 
-class SystemChecker
+class SystemCheckService
 {
     /**
      * @param string $version

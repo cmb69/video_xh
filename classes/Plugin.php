@@ -59,7 +59,7 @@ class Plugin
                 $controller = new InfoController(
                     "{$pth['folder']['plugins']}video/",
                     $plugin_tx['video'],
-                    new SystemChecker()
+                    new SystemCheckService()
                 );
                 $controller->defaultAction();
                 $o .= ob_get_clean();
