@@ -61,13 +61,13 @@ class InfoController
 
     /**
      * @param string $version
-     * @return array{state:string,label:string,stateLabel:string}
+     * @return array{class:string,label:string,stateLabel:string}
      */
     private function checkPhpVersion($version)
     {
         $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
         return [
-            'state' => $state,
+            'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_phpversion'], $version),
             'stateLabel' => $this->lang["syscheck_$state"],
         ];
@@ -75,13 +75,13 @@ class InfoController
 
     /**
      * @param string $version
-     * @return array{state:string,label:string,stateLabel:string}
+     * @return array{class:string,label:string,stateLabel:string}
      */
     private function checkXhVersion($version)
     {
         $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
         return [
-            'state' => $state,
+            'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_xhversion'], $version),
             'stateLabel' => $this->lang["syscheck_$state"],
         ];
@@ -89,13 +89,13 @@ class InfoController
 
     /**
      * @param string $folder
-     * @return array{state:string,label:string,stateLabel:string}
+     * @return array{class:string,label:string,stateLabel:string}
      */
     private function checkWritability($folder)
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
         return [
-            'state' => $state,
+            'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_writable'], $folder),
             'stateLabel' => $this->lang["syscheck_$state"],
         ];
