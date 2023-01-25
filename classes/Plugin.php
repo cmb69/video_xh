@@ -56,7 +56,12 @@ class Plugin
         switch ($admin) {
             case '':
                 ob_start();
-                (new InfoController("{$pth['folder']['plugins']}video/", $plugin_tx['video']))->defaultAction();
+                $controller = new InfoController(
+                    "{$pth['folder']['plugins']}video/",
+                    $plugin_tx['video'],
+                    new SystemCheckService()
+                );
+                $controller->defaultAction();
                 $o .= ob_get_clean();
                 break;
             case 'plugin_main':

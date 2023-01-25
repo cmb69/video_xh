@@ -24,72 +24,29 @@ namespace Video;
 class SystemCheckService
 {
     /**
-     * @var string
+     * @param string $version
+     * @return bool
      */
-    private $pluginFolder;
-
-    /**
-     * @var array<string>
-     */
-    private $lang;
-
-    /**
-     * @param string $pluginFolder
-     * @param array<string> $lang
-     */
-    public function __construct($pluginFolder, $lang)
+    public function checkPhpVersion($version)
     {
-        $this->pluginFolder = $pluginFolder;
-        $this->lang = $lang;
-    }
-
-    /**
-     * @return object[]
-     */
-    public function getChecks()
-    {
-        return array(
-            $this->checkPhpVersion('5.4.0'),
-            $this->checkXhVersion('1.7.0'),
-            $this->checkWritability("{$this->pluginFolder}css/"),
-            $this->checkWritability("{$this->pluginFolder}config"),
-            $this->checkWritability("{$this->pluginFolder}languages/")
-        );
+        return version_compare(PHP_VERSION, $version, 'ge');
     }
 
     /**
      * @param string $version
-     * @return object
+     * @return bool
      */
-    private function checkPhpVersion($version)
+    public function checkXhVersion($version)
     {
-        $state = version_compare(PHP_VERSION, $version, 'ge') ? 'success' : 'fail';
-        $label = sprintf($this->lang['syscheck_phpversion'], $version);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
-    }
-
-    /**
-     * @param string $version
-     * @return object
-     */
-    private function checkXhVersion($version)
-    {
-        $state = version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge') ? 'success' : 'fail';
-        $label = sprintf($this->lang['syscheck_xhversion'], $version);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
+        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
     }
 
     /**
      * @param string $folder
-     * @return object
+     * @return bool
      */
-    private function checkWritability($folder)
+    public function checkWritability($folder)
     {
-        $state = is_writable($folder) ? 'success' : 'warning';
-        $label = sprintf($this->lang['syscheck_writable'], $folder);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
+        return is_writable($folder);
     }
 }
