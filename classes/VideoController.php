@@ -84,7 +84,7 @@ class VideoController
                 "downloadLink" => new HtmlString($this->downloadLink($filename)),
                 "title" => $this->options['title'],
                 "description" => $this->options['description'],
-                "uploadDate" => date('c', (int) filectime($filename)),
+                "uploadDate" => date('c', $this->model->uploadDate($filename)),
             ];
             $poster = $this->model->posterFile($this->name);
             if ($poster) {
