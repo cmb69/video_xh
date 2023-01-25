@@ -66,9 +66,11 @@ class InfoController
     private function checkPhpVersion($version)
     {
         $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
-        $label = sprintf($this->lang['syscheck_phpversion'], $version);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
+        return (object) [
+            'state' => $state,
+            'label' => sprintf($this->lang['syscheck_phpversion'], $version),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
     }
 
     /**
@@ -78,9 +80,11 @@ class InfoController
     private function checkXhVersion($version)
     {
         $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
-        $label = sprintf($this->lang['syscheck_xhversion'], $version);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
+        return (object) [
+            'state' => $state,
+            'label' => sprintf($this->lang['syscheck_xhversion'], $version),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
     }
 
     /**
@@ -90,8 +94,10 @@ class InfoController
     private function checkWritability($folder)
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
-        $label = sprintf($this->lang['syscheck_writable'], $folder);
-        $stateLabel = $this->lang["syscheck_$state"];
-        return (object) compact('state', 'label', 'stateLabel');
+        return (object) [
+            'state' => $state,
+            'label' => sprintf($this->lang['syscheck_writable'], $folder),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
     }
 }
