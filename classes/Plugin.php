@@ -55,25 +55,21 @@ class Plugin
         $o .= print_plugin_admin('on');
         switch ($admin) {
             case '':
-                ob_start();
                 $controller = new InfoController(
                     "{$pth['folder']['plugins']}video/",
                     $plugin_tx['video'],
                     new SystemCheckService()
                 );
-                $controller->defaultAction();
-                $o .= ob_get_clean();
+                $o .= $controller->defaultAction()->process();
                 break;
             case 'plugin_main':
-                ob_start();
                 $controller = new CallBuilderController(
                     "{$pth['folder']['plugins']}video/",
                     $plugin_cf['video'],
                     $plugin_tx['video'],
                     new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
                 );
-                $controller->defaultAction();
-                $o .= ob_get_clean();
+                $o .= $controller->defaultAction()->process();
                 break;
             default:
                 $o .= plugin_admin_common();

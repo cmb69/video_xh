@@ -51,13 +51,12 @@ class CallBuilderController
     }
 
     /**
-     * @return void
+     * @return Response
      */
     public function defaultAction()
     {
-        $this->addScript("{$this->pluginFolder}video.min.js");
         $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $view->render('call-builder', [
+        $output = $view->render('call-builder', [
             "videos" => $this->model->availableVideos(),
             "title" => $this->config['default_title'],
             "description" => $this->config['default_description'],
@@ -69,6 +68,7 @@ class CallBuilderController
             "height" => $this->config['default_height'],
             "className" => $this->config['default_class'],
         ]);
+        return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
     }
 
     /**
@@ -87,12 +87,10 @@ class CallBuilderController
 
     /**
      * @param string $filename
-     * @return void
+     * @return string
      */
-    private function addScript($filename)
+    private function renderScript($filename)
     {
-        global $bjs;
-
-        $bjs .= sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
+        return sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
     }
 }

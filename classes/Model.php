@@ -159,6 +159,15 @@ class Model
     }
 
     /**
+     * @param string $filename
+     * @return int
+     */
+    public function uploadDate($filename)
+    {
+        return (int) filectime($filename);
+    }
+
+    /**
      * @param string $query
      * @return array<mixed>
      */

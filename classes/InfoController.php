@@ -43,11 +43,11 @@ class InfoController
         $this->systemChecker = $systemChecker;
     }
 
-    /** @return void */
+    /** @return Response */
     public function defaultAction()
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $view->render('info', [
+        $output = $view->render('info', [
             "version" => Plugin::VERSION,
             "checks" => [
                 $this->checkPhpVersion('5.4.0'),
@@ -57,6 +57,7 @@ class InfoController
                 $this->checkWritability("{$this->pluginFolder}languages/")
             ],
         ]);
+        return new Response($output);
     }
 
     /**
