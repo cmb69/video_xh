@@ -3,6 +3,7 @@
 require_once './vendor/autoload.php';
 require_once '../../cmsimple/functions.php';
 
+require_once './classes/CallBuilderController.php';
 require_once './classes/HtmlString.php';
 require_once './classes/InfoController.php';
 require_once './classes/Model.php';
