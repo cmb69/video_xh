@@ -57,7 +57,7 @@ class CallBuilderController
     {
         $this->addScript("{$this->pluginFolder}video.min.js");
         $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $view->render('call-builder', [
+        echo $view->render('call-builder', [
             "videos" => $this->model->availableVideos(),
             "title" => $this->config['default_title'],
             "description" => $this->config['default_description'],

@@ -47,7 +47,7 @@ class InfoController
     public function defaultAction()
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $view->render('info', [
+        echo $view->render('info', [
             "version" => Plugin::VERSION,
             "checks" => [
                 $this->checkPhpVersion('5.4.0'),

@@ -90,7 +90,7 @@ class VideoController
             if ($poster) {
                 $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
             }
-            $view->render('video', $data);
+            echo $view->render('video', $data);
         } else {
             echo XH_message('fail', $this->lang['error_missing'], $this->name);
         }
