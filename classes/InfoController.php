@@ -45,7 +45,7 @@ class InfoController
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('info', [
             "version" => Plugin::VERSION,
-            "checks" => (new SystemCheckService)->getChecks(),
+            "checks" => (new SystemCheckService($this->pluginFolder, $this->lang))->getChecks(),
         ]);
     }
 }
