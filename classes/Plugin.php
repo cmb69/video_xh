@@ -60,7 +60,7 @@ class Plugin
                     $plugin_tx['video'],
                     new SystemCheckService()
                 );
-                $o .= $controller->defaultAction()->output();
+                $o .= $controller->defaultAction()->process();
                 break;
             case 'plugin_main':
                 $controller = new CallBuilderController(
@@ -69,7 +69,7 @@ class Plugin
                     $plugin_tx['video'],
                     new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
                 );
-                $o .= $controller->defaultAction()->output();
+                $o .= $controller->defaultAction()->process();
                 break;
             default:
                 $o .= plugin_admin_common();

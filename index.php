@@ -38,7 +38,7 @@ function video($name, $options = '')
         $name,
         $options
     );
-    return $controller->defaultAction()->output();
+    return $controller->defaultAction()->process();
 }
 
 (new Video\Plugin)->run();

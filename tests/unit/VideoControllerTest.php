@@ -59,23 +59,24 @@ class VideoControllerTest extends TestCase
         $response = $subject->defaultAction();
 
         $this->assertEquals(
-            <<<'HTML'
+            new Response(<<<'HTML'
 
-            <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-              <meta itemprop="name" content="My Video">
-              <meta itemprop="description" content="This is a nice one &amp; it's short">
-              <meta itemprop="contentURL" content="http://example.com/userfiles/media/my_video.mp4">
-              <meta itemprop="thumbnailUrl" content="http://example.com/userfiles/media/my_video.mp4">
-              <meta itemprop="uploadDate" content="2023-01-25T17:47:09+00:00">
-              <video class="video_video" class="" controls="controls" preload="auto" width="512" height="288" poster="my_video.jpg">
-                <source src="my_video.mp4" type="video/mp4">
-                <source src="my_video.webm" type="video/webm">
-                <a href="my_video.mp4"><img src="my_video.jpg" alt="Download my_video.mp4 video" title="Download my_video.mp4 video" class="video_video"></a>
-              </video>
-            </div>
+                <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+                  <meta itemprop="name" content="My Video">
+                  <meta itemprop="description" content="This is a nice one &amp; it's short">
+                  <meta itemprop="contentURL" content="http://example.com/userfiles/media/my_video.mp4">
+                  <meta itemprop="thumbnailUrl" content="http://example.com/userfiles/media/my_video.mp4">
+                  <meta itemprop="uploadDate" content="2023-01-25T17:47:09+00:00">
+                  <video class="video_video" class="" controls="controls" preload="auto" width="512" height="288" poster="my_video.jpg">
+                    <source src="my_video.mp4" type="video/mp4">
+                    <source src="my_video.webm" type="video/webm">
+                    <a href="my_video.mp4"><img src="my_video.jpg" alt="Download my_video.mp4 video" title="Download my_video.mp4 video" class="video_video"></a>
+                  </video>
+                </div>
 
-            HTML,
-            $response->output()
+                HTML
+            ),
+            $response
         );
     }
 
@@ -111,22 +112,23 @@ class VideoControllerTest extends TestCase
         $response = $subject->defaultAction();
 
         $this->assertEquals(
-            <<<'HTML'
+            new Response(<<<'HTML'
 
-            <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-              <meta itemprop="name" content="My Video">
-              <meta itemprop="description" content="This is a nice one &amp; it's short">
-              <meta itemprop="contentURL" content="http://example.com/userfiles/media/my_video.mp4">
-              <meta itemprop="uploadDate" content="2023-01-25T17:47:09+00:00">
-              <video class="video_video" class="" controls="controls" preload="auto" width="512" height="288">
-                <source src="my_video.mp4" type="video/mp4">
-                <source src="my_video.webm" type="video/webm">
-                <a href="my_video.mp4">Download my_video.mp4 video</a>
-              </video>
-            </div>
+                <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+                  <meta itemprop="name" content="My Video">
+                  <meta itemprop="description" content="This is a nice one &amp; it's short">
+                  <meta itemprop="contentURL" content="http://example.com/userfiles/media/my_video.mp4">
+                  <meta itemprop="uploadDate" content="2023-01-25T17:47:09+00:00">
+                  <video class="video_video" class="" controls="controls" preload="auto" width="512" height="288">
+                    <source src="my_video.mp4" type="video/mp4">
+                    <source src="my_video.webm" type="video/webm">
+                    <a href="my_video.mp4">Download my_video.mp4 video</a>
+                  </video>
+                </div>
 
-            HTML,
-            $response->output()
+                HTML
+            ),
+            $response
         );
     }
 
@@ -145,8 +147,8 @@ class VideoControllerTest extends TestCase
         $response = $subject->defaultAction();
 
         $this->assertEquals(
-            '<p class="xh_fail">Video &quot;no_video&quot; missing!</p>',
-            $response->output()
+            new Response('<p class="xh_fail">Video &quot;no_video&quot; missing!</p>'),
+            $response
         );
     }
 }

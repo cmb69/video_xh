@@ -32,5 +32,5 @@ function Video_view()
         $plugin_tx['video'],
         new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
     );
-    return $controller->defaultAction()->output();
+    return $controller->defaultAction()->process();
 }

@@ -26,17 +26,25 @@ class Response
     /** @var string */
     private $output;
 
+    /** @var string */
+    private $bjs;
+
     /**
      * @param string $output
+     * @param string $bjs
      */
-    public function __construct($output)
+    public function __construct($output, $bjs = "")
     {
         $this->output = $output;
+        $this->bjs = $bjs;
     }
 
     /** @return string */
-    public function output()
+    public function process()
     {
+        global $bjs;
+
+        $bjs .= $this->bjs;
         return $this->output;
     }
 }

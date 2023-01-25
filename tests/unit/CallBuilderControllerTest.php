@@ -37,7 +37,7 @@ class CallBuilderControllerTest extends TestCase
             $model
         );
         $response = $subject->defaultAction();
-        $this->assertEquals(
+        $expected = new Response(
             <<<'HTML'
 
             <h1>Video – Call Builder</h1>
@@ -95,7 +95,9 @@ class CallBuilderControllerTest extends TestCase
             </script>
 
             HTML,
-            $response->output()
+            '<script type="text/javascript" src="./video.min.js"></script>'
         );
+
+        $this->assertEquals($expected, $response);
     }
 }

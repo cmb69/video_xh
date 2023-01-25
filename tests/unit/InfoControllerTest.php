@@ -41,7 +41,7 @@ class InfoControllerTest extends TestCase
         $response = $subject->defaultAction();
 
         $this->assertEquals(
-            <<<'HTML'
+            new Response(<<<'HTML'
 
                 <h1>Video 2.0-dev</h1>
                 <div class="video_syscheck">
@@ -53,8 +53,9 @@ class InfoControllerTest extends TestCase
                   <p class="xh_success">Checking that './languages/' is writable … okay</p>
                 </div>
 
-                HTML,
-            $response->output()
+                HTML
+            ),
+            $response
         );
     }
 }
