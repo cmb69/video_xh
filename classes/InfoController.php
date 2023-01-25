@@ -29,14 +29,18 @@ class InfoController
     /** @var array<string> */
     private $lang;
 
+    /** @var SystemChecker */
+    private $systemChecker;
+
     /**
      * @param string $pluginFolder
      * @param array<string> $lang
      */
-    public function __construct($pluginFolder, array $lang)
+    public function __construct($pluginFolder, array $lang, SystemChecker $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
+        $this->systemChecker = $systemChecker;
     }
 
     /** @return void */
@@ -45,7 +49,7 @@ class InfoController
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('info', [
             "version" => Plugin::VERSION,
-            "checks" => (new SystemCheckService($this->pluginFolder, $this->lang))->getChecks(),
+            "checks" => (new SystemCheckService($this->pluginFolder, $this->lang, $this->systemChecker))->getChecks(),
         ]);
     }
 }
