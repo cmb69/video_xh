@@ -21,7 +21,7 @@
 
 namespace Video;
 
-class InfoController extends Controller
+class InfoController
 {
     /** @return void */
     public function defaultAction()

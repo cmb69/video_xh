@@ -21,8 +21,14 @@
 
 namespace Video;
 
-class VideoController extends Controller
+class VideoController
 {
+    /** @var array<string> */
+    private $lang;
+
+    /** @var Model */
+    private $model;
+
     /**
      * @var string
      */
@@ -34,12 +40,14 @@ class VideoController extends Controller
     private $options;
 
     /**
+     * @param array<string> $lang
      * @param string $name
      * @param string $options
      */
-    public function __construct($name, $options = '')
+    public function __construct(array $lang, Model $model, $name, $options = '')
     {
-        parent::__construct();
+        $this->lang = $lang;
+        $this->model = $model;
         $this->name = $name;
         $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }

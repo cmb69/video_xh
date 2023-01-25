@@ -23,8 +23,33 @@ namespace Video;
 
 use stdClass;
 
-class CallBuilderController extends Controller
+class CallBuilderController
 {
+    /** @var string */
+    private $pluginFolder;
+
+    /** @var array<string> */
+    private $config;
+
+    /** @var array<string> */
+    private $lang;
+
+    /** @var Model */
+    private $model;
+
+    /**
+     * @param string $pluginFolder
+     * @param array<string> $config
+     * @param array<string> $lang
+     */
+    public function __construct($pluginFolder, array $config, array $lang, Model $model)
+    {
+        $this->pluginFolder = $pluginFolder;
+        $this->config = $config;
+        $this->lang = $lang;
+        $this->model = $model;
+    }
+
     /**
      * @return void
      */

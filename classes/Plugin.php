@@ -50,7 +50,7 @@ class Plugin
     /** @return void */
     private function handleAdministration()
     {
-        global $o, $admin;
+        global $o, $admin, $pth, $plugin_cf, $plugin_tx;
 
         $o .= print_plugin_admin('on');
         switch ($admin) {
@@ -61,7 +61,13 @@ class Plugin
                 break;
             case 'plugin_main':
                 ob_start();
-                (new CallBuilderController)->defaultAction();
+                $controller = new CallBuilderController(
+                    "{$pth['folder']['plugins']}video/",
+                    $plugin_cf['video'],
+                    $plugin_tx['video'],
+                    new Model($pth['folder']['media'], $plugin_cf['video'])
+                );
+                $controller->defaultAction();
                 $o .= ob_get_clean();
                 break;
             default:

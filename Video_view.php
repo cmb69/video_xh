@@ -19,10 +19,20 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Video\Model;
+
 /** @return string */
 function Video_view()
 {
+    global $pth, $plugin_cf, $plugin_tx;
+
     ob_start();
-    (new Video\CallBuilderController)->defaultAction();
+    $controller = new Video\CallBuilderController(
+        "{$pth['folder']['plugins']}video/",
+        $plugin_cf['video'],
+        $plugin_tx['video'],
+        new Model($pth['folder']['media'], $plugin_cf['video'])
+    );
+    $controller->defaultAction();
     return (string) ob_get_clean();
 }

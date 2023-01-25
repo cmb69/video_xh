@@ -19,6 +19,8 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Video\Model;
+
 /**
  * @param string $name
  * @param string $options
@@ -26,8 +28,16 @@
  */
 function video($name, $options = '')
 {
+    global $pth, $plugin_cf, $plugin_tx;
+
     ob_start();
-    (new Video\VideoController($name, $options))->defaultAction();
+    $controller = new Video\VideoController(
+        $plugin_tx["video"],
+        new Model($pth['folder']['media'], $plugin_cf['video']),
+        $name,
+        $options
+    );
+    $controller->defaultAction();
     return (string) ob_get_clean();
 }
 
