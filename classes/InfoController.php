@@ -49,22 +49,14 @@ class InfoController
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('info', [
             "version" => Plugin::VERSION,
-            "checks" => $this->getChecks(),
+            "checks" => [
+                $this->checkPhpVersion('5.4.0'),
+                $this->checkXhVersion('1.7.0'),
+                $this->checkWritability("{$this->pluginFolder}css/"),
+                $this->checkWritability("{$this->pluginFolder}config"),
+                $this->checkWritability("{$this->pluginFolder}languages/")
+            ],
         ]);
-    }
-
-    /**
-     * @return object[]
-     */
-    private function getChecks()
-    {
-        return array(
-            $this->checkPhpVersion('5.4.0'),
-            $this->checkXhVersion('1.7.0'),
-            $this->checkWritability("{$this->pluginFolder}css/"),
-            $this->checkWritability("{$this->pluginFolder}config"),
-            $this->checkWritability("{$this->pluginFolder}languages/")
-        );
     }
 
     /**
