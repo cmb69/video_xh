@@ -55,10 +55,8 @@ class CallBuilderController
      */
     public function defaultAction()
     {
-        global $pth, $plugin_tx;
-
         $this->addScript("{$this->pluginFolder}video.min.js");
-        $view = new View("{$pth['folder']['plugins']}video/views/", $plugin_tx['video']);
+        $view = new View("{$this->pluginFolder}views/", $this->lang);
         $view->render('call-builder', [
             "videos" => $this->model->availableVideos(),
             "title" => $this->config['default_title'],

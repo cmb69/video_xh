@@ -55,7 +55,7 @@ class VideoController
     /** @return void */
     public function defaultAction()
     {
-        global $sl, $pth, $plugin_tx;
+        global $sl, $pth;
 
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
@@ -64,7 +64,7 @@ class VideoController
             foreach ($files as $url => $type) {
                 $sources[] = (object) ['url' => $url, 'type' => $type];
             }
-            $view = new View("{$pth['folder']['plugins']}video/views/", $plugin_tx['video']);
+            $view = new View("{$pth['folder']['plugins']}video/views/", $this->lang);
             $data = [
                 "className" => $this->options['class'],
                 "attributes" => new HtmlString($this->videoAttributes()),
