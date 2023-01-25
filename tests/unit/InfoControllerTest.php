@@ -32,26 +32,29 @@ class InfoControllerTest extends TestCase
         $systemCheckerStub->method('checkPhpVersion')->willReturn(true);
         $systemCheckerStub->method('checkXhVersion')->willReturn(true);
         $systemCheckerStub->method('checkWritability')->willReturn(true);
+
         $subject = new InfoController(
             "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             $systemCheckerStub
         );
-        $this->expectOutputString(
-            <<<HTML
+        $response = $subject->defaultAction();
 
-            <h1>Video 2.0-dev</h1>
-            <div class="video_syscheck">
-              <h2>System check</h2>
-              <p class="xh_success">Checking that PHP version ≥ 5.4.0 … okay</p>
-              <p class="xh_success">Checking that CMSimple_XH version ≥ 1.7.0 … okay</p>
-              <p class="xh_success">Checking that './css/' is writable … okay</p>
-              <p class="xh_success">Checking that './config' is writable … okay</p>
-              <p class="xh_success">Checking that './languages/' is writable … okay</p>
-            </div>
+        $this->assertEquals(
+            <<<'HTML'
 
-            HTML
+                <h1>Video 2.0-dev</h1>
+                <div class="video_syscheck">
+                  <h2>System check</h2>
+                  <p class="xh_success">Checking that PHP version ≥ 5.4.0 … okay</p>
+                  <p class="xh_success">Checking that CMSimple_XH version ≥ 1.7.0 … okay</p>
+                  <p class="xh_success">Checking that './css/' is writable … okay</p>
+                  <p class="xh_success">Checking that './config' is writable … okay</p>
+                  <p class="xh_success">Checking that './languages/' is writable … okay</p>
+                </div>
+
+                HTML,
+            $response->output()
         );
-        $subject->defaultAction();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2023 Christoph M. Becker
+ * Copyright 2023 Christoph M. Becker
  *
  * This file is part of Video_XH.
  *
@@ -19,26 +19,24 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Video\Model;
+namespace Video;
 
-/**
- * @param string $name
- * @param string $options
- * @return string
- */
-function video($name, $options = '')
+class Response
 {
-    global $pth, $sl, $plugin_cf, $plugin_tx;
+    /** @var string */
+    private $output;
 
-    $controller = new Video\VideoController(
-        "{$pth['folder']['plugins']}video/",
-        $plugin_tx["video"],
-        $sl,
-        new Model($pth['folder']['media'], $plugin_cf['video'], $sl),
-        $name,
-        $options
-    );
-    return $controller->defaultAction()->output();
+    /**
+     * @param string $output
+     */
+    public function __construct($output)
+    {
+        $this->output = $output;
+    }
+
+    /** @return string */
+    public function output()
+    {
+        return $this->output;
+    }
 }
-
-(new Video\Plugin)->run();

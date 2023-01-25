@@ -62,7 +62,7 @@ class VideoController
         $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }
 
-    /** @return void */
+    /** @return Response */
     public function defaultAction()
     {
         $files = $this->model->videoFiles($this->name);
@@ -90,9 +90,9 @@ class VideoController
             if ($poster) {
                 $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
             }
-            echo $view->render('video', $data);
+            return new Response($view->render('video', $data));
         } else {
-            echo XH_message('fail', $this->lang['error_missing'], $this->name);
+            return new Response(XH_message('fail', $this->lang['error_missing'], $this->name));
         }
     }
 
