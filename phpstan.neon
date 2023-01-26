@@ -4,10 +4,12 @@ parameters:
     - classes/
     - tests/
     - views/
+    - admin.php
     - index.php
     - Video_view.php
   bootstrapFiles:
     - phpstan.php
   scanFiles:
+    - ../../cmsimple/classes/PageDataRouter.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php

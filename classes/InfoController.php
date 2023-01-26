@@ -48,7 +48,7 @@ class InfoController
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('info', [
-            "version" => Plugin::VERSION,
+            "version" => VIDEO_VERSION,
             "checks" => [
                 $this->checkPhpVersion('5.4.0'),
                 $this->checkXhVersion('1.7.0'),

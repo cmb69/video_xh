@@ -20,6 +20,9 @@
  */
 
 use Video\Model;
+use Video\VideoController;
+
+const VIDEO_VERSION = '2.0-dev';
 
 /**
  * @param string $name
@@ -30,7 +33,7 @@ function video($name, $options = '')
 {
     global $pth, $sl, $plugin_cf, $plugin_tx;
 
-    $controller = new Video\VideoController(
+    $controller = new VideoController(
         "{$pth['folder']['plugins']}video/",
         $plugin_tx["video"],
         $sl,
@@ -40,5 +43,3 @@ function video($name, $options = '')
     );
     return $controller->defaultAction()->process();
 }
-
-(new Video\Plugin)->run();
