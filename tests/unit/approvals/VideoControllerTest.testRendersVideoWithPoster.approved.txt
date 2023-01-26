@@ -1,0 +1,18 @@
+Video\Response Object
+(
+    [output:Video\Response:private] => 
+<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+  <meta itemprop="name" content="My Video">
+  <meta itemprop="description" content="This is a nice one &amp; it's short">
+  <meta itemprop="contentURL" content="http://example.com/userfiles/media/my_video.mp4">
+  <meta itemprop="thumbnailUrl" content="http://example.com/userfiles/media/my_video.mp4">
+  <meta itemprop="uploadDate" content="2023-01-25T17:47:09+00:00">
+  <video class="video_video" class="" controls="controls" preload="auto" width="512" height="288" poster="my_video.jpg">
+    <source src="my_video.mp4" type="video/mp4">
+    <source src="my_video.webm" type="video/webm">
+    <a href="my_video.mp4"><img src="my_video.jpg" alt="Download my_video.mp4 video" title="Download my_video.mp4 video" class="video_video"></a>
+  </video>
+</div>
+
+    [bjs:Video\Response:private] => 
+)

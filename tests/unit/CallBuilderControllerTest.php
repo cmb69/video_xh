@@ -23,6 +23,7 @@ namespace Video;
 
 use function XH_includeVar;
 use PHPUnit\Framework\TestCase;
+use ApprovalTests\Approvals;
 
 class CallBuilderControllerTest extends TestCase
 {
@@ -36,68 +37,9 @@ class CallBuilderControllerTest extends TestCase
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             $model
         );
+
         $response = $subject->defaultAction();
-        $expected = new Response(
-            <<<'HTML'
 
-            <h1>Video – Call Builder</h1>
-            <script type="text/x-template" id="video_call_builder">
-              <form id="video_call_builder">
-                <p>
-                  <label for="video_name">Video</label>
-                  <select id="video_name">
-                  </select>
-                </p>
-                <p>
-                  <label for="video_title">Title</label>
-                  <input id="video_title" type="text" value="">
-                </p>
-                <p>
-                  <label for="video_description">Description</label>
-                  <textarea id="video_description"></textarea>
-                </p>
-                <p>
-                  <label for="video_preload">Preload</label>
-                  <select id="video_preload">
-                    <option value="auto" selected>Auto</option>
-                    <option value="metadata" >Metadata</option>
-                    <option value="none" >None</option>
-                  </select>
-                </p>
-                <p>
-                  <label for="video_autoplay">Autoplay</label>
-                  <input id="video_autoplay" type="checkbox" >
-                </p>
-                <p>
-                  <label for="video_loop">Loop</label>
-                  <input id="video_loop" type="checkbox" >
-                </p>
-                <p>
-                  <label for="video_controls">Controls</label>
-                  <input id="video_controls" type="checkbox" checked>
-                </p>
-                <p>
-                  <label for="video_width">Width</label>
-                  <input id="video_width" type="text" value="512">
-                </p>
-                <p>
-                  <label for="video_height">Height</label>
-                  <input id="video_height" type="text" value="288">
-                </p>
-                <p>
-                  <label for="video_class">CSS Class</label>
-                  <input id="video_class" type="text" value="video_video">
-                </p>
-                <p>
-                  <textarea id="video_call"></textarea>
-                </p>
-              </form>
-            </script>
-
-            HTML,
-            '<script type="text/javascript" src="./video.min.js"></script>'
-        );
-
-        $this->assertEquals($expected, $response);
+        Approvals::verifyString($response->representation());
     }
 }

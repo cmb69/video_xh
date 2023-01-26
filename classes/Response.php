@@ -47,4 +47,10 @@ class Response
         $bjs .= $this->bjs;
         return $this->output;
     }
+
+    /** @return string */
+    public function representation()
+    {
+        return print_r($this, true);
+    }
 }

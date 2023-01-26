@@ -1,0 +1,5 @@
+Video\Response Object
+(
+    [output:Video\Response:private] => <p class="xh_fail">Video &quot;no_video&quot; missing!</p>
+    [bjs:Video\Response:private] => 
+)
