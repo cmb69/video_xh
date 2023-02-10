@@ -2,7 +2,6 @@ parameters:
   level: 8
   paths:
     - classes/
-    - tests/
     - views/
     - admin.php
     - index.php
@@ -13,3 +12,5 @@ parameters:
     - ../../cmsimple/classes/PageDataRouter.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
+  excludePaths:
+    - vendor
