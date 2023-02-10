@@ -36,7 +36,7 @@
   </target>
 
   <target name="coverage" description="generates coverage report">
-    <exec command="phpunit --coverage-html tests/coverage" passthru="true" checkreturn="true"/>
+    <exec command="phpunit --coverage-html coverage" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="gen-help" description="builds help.htm from README.md">
