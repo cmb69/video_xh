@@ -32,25 +32,21 @@ class InfoController
     /** @var SystemCheckService */
     private $systemChecker;
 
-    /**
-     * @param string $pluginFolder
-     * @param array<string> $lang
-     */
-    public function __construct($pluginFolder, array $lang, SystemCheckService $systemChecker)
+    /** @param array<string> $lang */
+    public function __construct(string $pluginFolder, array $lang, SystemCheckService $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->systemChecker = $systemChecker;
     }
 
-    /** @return Response */
-    public function defaultAction()
+    public function defaultAction(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('info', [
             "version" => VIDEO_VERSION,
             "checks" => [
-                $this->checkPhpVersion('5.4.0'),
+                $this->checkPhpVersion('7.1.0'),
                 $this->checkXhVersion('1.7.0'),
                 $this->checkWritability("{$this->pluginFolder}css/"),
                 $this->checkWritability("{$this->pluginFolder}config"),
@@ -60,11 +56,8 @@ class InfoController
         return new Response($output);
     }
 
-    /**
-     * @param string $version
-     * @return array{class:string,label:string,stateLabel:string}
-     */
-    private function checkPhpVersion($version)
+    /** @return array{class:string,label:string,stateLabel:string} */
+    private function checkPhpVersion(string $version): array
     {
         $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
         return [
@@ -74,11 +67,8 @@ class InfoController
         ];
     }
 
-    /**
-     * @param string $version
-     * @return array{class:string,label:string,stateLabel:string}
-     */
-    private function checkXhVersion($version)
+    /** @return array{class:string,label:string,stateLabel:string} */
+    private function checkXhVersion(string $version): array
     {
         $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
         return [
@@ -88,11 +78,8 @@ class InfoController
         ];
     }
 
-    /**
-     * @param string $folder
-     * @return array{class:string,label:string,stateLabel:string}
-     */
-    private function checkWritability($folder)
+    /** @return array{class:string,label:string,stateLabel:string} */
+    private function checkWritability(string $folder): array
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
         return [

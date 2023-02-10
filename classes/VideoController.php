@@ -35,25 +35,21 @@ class VideoController
     /** @var Model */
     private $model;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
-    /**
-     * @var array<mixed>
-     */
+    /** @var array<mixed> */
     private $options;
 
-    /**
-     * @param string $pluginFolder
-     * @param array<string> $lang
-     * @param string $sl
-     * @param string $name
-     * @param string $options
-     */
-    public function __construct($pluginFolder, array $lang, $sl, Model $model, $name, $options = '')
-    {
+    /** @param array<string> $lang */
+    public function __construct(
+        string $pluginFolder,
+        array $lang,
+        string $sl,
+        Model $model,
+        string $name,
+        string $options = ''
+    ) {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->sl = $sl;
@@ -62,8 +58,7 @@ class VideoController
         $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }
 
-    /** @return Response */
-    public function defaultAction()
+    public function defaultAction(): Response
     {
         $files = $this->model->videoFiles($this->name);
         if (!empty($files)) {
@@ -96,10 +91,7 @@ class VideoController
         }
     }
 
-    /**
-     * @return string
-     */
-    private function videoAttributes()
+    private function videoAttributes(): string
     {
         $poster = $this->model->posterFile($this->name);
         $attributes = 'class=""'
@@ -113,11 +105,7 @@ class VideoController
         return $attributes;
     }
 
-    /**
-     * @param string $filename
-     * @return string
-     */
-    private function downloadLink($filename)
+    private function downloadLink(string $filename): string
     {
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);

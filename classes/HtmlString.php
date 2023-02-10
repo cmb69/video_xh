@@ -23,23 +23,15 @@ namespace Video;
 
 class HtmlString
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $value;
 
-    /**
-     * @param string $string
-     */
-    public function __construct($string)
+    public function __construct(string $string)
     {
         $this->value = (string) $string;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }

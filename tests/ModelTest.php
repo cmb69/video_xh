@@ -28,14 +28,10 @@ use org\bovigo\vfs\vfsStream;
 
 class ModelTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $mediaFolder;
 
-    /**
-     * @var Model
-     */
+    /** @var Model */
     private $subject;
 
     protected function setUp(): void
@@ -105,7 +101,7 @@ class ModelTest extends TestCase
     public function testNoPosterFile(): void
     {
         $actual = $this->subject->posterFile('foo');
-        $this->assertFalse($actual);
+        $this->assertNull($actual);
     }
 
     public function testSubtitleFile(): void
@@ -118,13 +114,11 @@ class ModelTest extends TestCase
     public function testNoSubtitleFile(): void
     {
         $actual = $this->subject->subtitleFile('foo');
-        $this->assertFalse($actual);
+        $this->assertNull($actual);
     }
 
-    /**
-     * @return array<array{string,array<string>}>
-     */
-    public function dataForGetOptions()
+    /** @return array<array{string,array<string>}> */
+    public function dataForGetOptions(): array
     {
         return array(
             array(
@@ -160,11 +154,10 @@ class ModelTest extends TestCase
     }
 
     /**
-     * @param string $query
      * @param array<string> $expected
      * @dataProvider dataForGetOptions
      */
-    public function testGetOptions($query, $expected): void
+    public function testGetOptions(string $query, array $expected): void
     {
         $actual = $this->subject->getOptions($query);
         $this->assertEquals($expected, $actual);

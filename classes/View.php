@@ -29,33 +29,21 @@ class View
     /** @var array<string> */
     private $lang;
 
-    /**
-     * @param string $templateFolder
-     * @param array<string> $lang
-     */
-    public function __construct($templateFolder, array $lang)
+    /** @param array<string> $lang */
+    public function __construct(string $templateFolder, array $lang)
     {
         $this->templateFolder = $templateFolder;
         $this->lang = $lang;
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    public function text($key)
+    /** @param scalar $args */
+    public function text(string $key, ...$args): string
     {
-        $args = func_get_args();
-        array_shift($args);
-        return $this->escape(vsprintf($this->lang[$key], $args));
+        return $this->escape(sprintf($this->lang[$key], ...$args));
     }
 
-    /**
-     * @param string $_template
-     * @param array<mixed> $_data
-     * @return string
-     */
-    public function render($_template, array $_data)
+    /** @param array<mixed> $_data */
+    public function render(string $_template, array $_data): string
     {
         extract($_data);
         ob_start();

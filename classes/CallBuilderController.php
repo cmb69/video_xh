@@ -38,11 +38,10 @@ class CallBuilderController
     private $model;
 
     /**
-     * @param string $pluginFolder
      * @param array<string> $config
      * @param array<string> $lang
      */
-    public function __construct($pluginFolder, array $config, array $lang, Model $model)
+    public function __construct(string $pluginFolder, array $config, array $lang, Model $model)
     {
         $this->pluginFolder = $pluginFolder;
         $this->config = $config;
@@ -50,10 +49,7 @@ class CallBuilderController
         $this->model = $model;
     }
 
-    /**
-     * @return Response
-     */
-    public function defaultAction()
+    public function defaultAction(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('call-builder', [
@@ -71,10 +67,8 @@ class CallBuilderController
         return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
     }
 
-    /**
-     * @return array<stdClass>
-     */
-    private function preloadOptions()
+    /** @return array<stdClass> */
+    private function preloadOptions(): array
     {
         $options = [];
         foreach (array('auto', 'metadata', 'none') as $id) {
@@ -85,11 +79,7 @@ class CallBuilderController
         return $options;
     }
 
-    /**
-     * @param string $filename
-     * @return string
-     */
-    private function renderScript($filename)
+    private function renderScript(string $filename): string
     {
         return sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
     }

@@ -23,36 +23,26 @@ namespace Video;
 
 class Model
 {
-    /**
-     * @var string
-     */
+    const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+
+    /** @var string */
     private $videoFolder;
 
-    /**
-     * @var array<string>
-     */
+    /** @var array<string> */
     private $config;
 
     /** @var string $sl */
     private $sl;
 
-    /**
-     * @param string $folder
-     * @param array<string> $config
-     * @param string $sl
-     */
-    public function __construct($folder, $config, $sl)
+    /** @param array<string> $config */
+    public function __construct(string $folder, array $config, string $sl)
     {
         $this->videoFolder = $folder;
         $this->config = $config;
         $this->sl = $sl;
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
-    public function normalizedUrl($url)
+    public function normalizedUrl(string $url): string
     {
         $parts = explode('/', $url);
         $i = 0;
@@ -72,26 +62,14 @@ class Model
         return implode('/', $parts);
     }
 
-    /**
-     * @return array<string>
-     */
-    private function types()
+    /** @return array<string> */
+    private function extensions(): array
     {
-        return array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+        return array_keys(self::TYPES);
     }
 
-    /**
-     * @return array<string>
-     */
-    private function extensions()
-    {
-        return array_keys($this->types());
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function availableVideos()
+    /** @return array<string> */
+    public function availableVideos(): array
     {
         $dirHandle = opendir($this->videoFolder);
         $videos = array();
@@ -114,15 +92,12 @@ class Model
         return $videos;
     }
 
-    /**
-     * @param string $name
-     * @return array<string>
-     */
-    public function videoFiles($name)
+    /** @return array<string> */
+    public function videoFiles(string $name): array
     {
         $dirname = $this->videoFolder;
         $files = array();
-        foreach (array_keys($this->types()) as $extension) {
+        foreach (array_keys(self::TYPES) as $extension) {
             $filename = $dirname . $name . '.' . $extension;
             if (file_exists($filename)) {
                 $files[$filename] = $extension;
@@ -131,21 +106,13 @@ class Model
         return $files;
     }
 
-    /**
-     * @param string $name
-     * @return string|false
-     */
-    public function posterFile($name)
+    public function posterFile(string $name): ?string
     {
         $filename = $this->videoFolder . $name . '.jpg';
-        return file_exists($filename) ? $filename : false;
+        return file_exists($filename) ? $filename : null;
     }
 
-    /**
-     * @param string $name
-     * @return string|false
-     */
-    public function subtitleFile($name)
+    public function subtitleFile(string $name): ?string
     {
         $dirname = $this->videoFolder;
         $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
@@ -155,23 +122,16 @@ class Model
                 return $filename;
             }
         }
-        return false;
+        return null;
     }
 
-    /**
-     * @param string $filename
-     * @return int
-     */
-    public function uploadDate($filename)
+    public function uploadDate(string $filename): int
     {
         return (int) filectime($filename);
     }
 
-    /**
-     * @param string $query
-     * @return array<mixed>
-     */
-    public function getOptions($query)
+    /** @return array<mixed> */
+    public function getOptions(string $query): array
     {
         $validOptions = array(
             'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
