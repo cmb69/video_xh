@@ -19,20 +19,11 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Video\Model;
-use Video\VideoController;
+use Video\Dic;
 
 const VIDEO_VERSION = '2.0-dev';
 
 function video(string $name, string $options = ''): string
 {
-    global $pth, $sl, $plugin_cf, $plugin_tx;
-
-    $controller = new VideoController(
-        "{$pth['folder']['plugins']}video/",
-        $plugin_tx["video"],
-        $sl,
-        new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
-    );
-    return $controller->defaultAction($name, $options)->process();
+    return Dic::makeVideoController()->defaultAction($name, $options)->process();
 }

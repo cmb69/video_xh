@@ -19,17 +19,9 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Video\Model;
+use Video\Dic;
 
 function Video_view(): string
 {
-    global $pth, $plugin_cf, $plugin_tx, $sl;
-
-    $controller = new Video\CallBuilderController(
-        "{$pth['folder']['plugins']}video/",
-        $plugin_cf['video'],
-        $plugin_tx['video'],
-        new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
-    );
-    return $controller->defaultAction()->process();
+    return Dic::makeCallBuilderController()->defaultAction()->process();
 }
