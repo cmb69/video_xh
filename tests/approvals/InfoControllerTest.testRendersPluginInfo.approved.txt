@@ -1,6 +1,6 @@
-Video\Response Object
+Video\Infra\Response Object
 (
-    [output:Video\Response:private] => 
+    [output:Video\Infra\Response:private] => 
 <h1>Video 2.0-dev</h1>
 <div class="video_syscheck">
   <h2>System check</h2>
@@ -11,5 +11,5 @@ Video\Response Object
   <p class="xh_success">Checking that './languages/' is writable … okay</p>
 </div>
 
-    [bjs:Video\Response:private] => 
+    [bjs:Video\Infra\Response:private] => 
 )

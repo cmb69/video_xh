@@ -21,7 +21,9 @@
 
 namespace Video;
 
+use Video\Infra\Response;
 use Video\Infra\VideoFinder;
+use Video\Infra\View;
 
 class CallBuilderController
 {

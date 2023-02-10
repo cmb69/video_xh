@@ -1,6 +1,6 @@
-Video\Response Object
+Video\Infra\Response Object
 (
-    [output:Video\Response:private] => 
+    [output:Video\Infra\Response:private] => 
 <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
   <meta itemprop="name" content="My Video">
   <meta itemprop="description" content="This is a nice one &amp; it's short">
@@ -13,5 +13,5 @@ Video\Response Object
   </video>
 </div>
 
-    [bjs:Video\Response:private] => 
+    [bjs:Video\Infra\Response:private] => 
 )

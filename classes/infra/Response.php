@@ -19,7 +19,7 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Video;
+namespace Video\Infra;
 
 class Response
 {

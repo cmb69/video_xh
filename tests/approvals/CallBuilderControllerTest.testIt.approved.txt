@@ -1,6 +1,6 @@
-Video\Response Object
+Video\Infra\Response Object
 (
-    [output:Video\Response:private] => 
+    [output:Video\Infra\Response:private] => 
 <h1>Video – Call Builder</h1>
 <script type="text/x-template" id="video_call_builder">
   <form id="video_call_builder">
@@ -55,5 +55,5 @@ Video\Response Object
   </form>
 </script>
 
-    [bjs:Video\Response:private] => <script type="text/javascript" src="./video.min.js"></script>
+    [bjs:Video\Infra\Response:private] => <script type="text/javascript" src="./video.min.js"></script>
 )

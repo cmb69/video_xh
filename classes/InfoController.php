@@ -21,6 +21,10 @@
 
 namespace Video;
 
+use Video\Infra\Response;
+use Video\Infra\SystemChecker;
+use Video\Infra\View;
+
 class InfoController
 {
     /** @var string $pluginFolder */
@@ -29,11 +33,11 @@ class InfoController
     /** @var array<string,string> */
     private $lang;
 
-    /** @var SystemCheckService */
+    /** @var SystemChecker */
     private $systemChecker;
 
     /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, array $lang, SystemCheckService $systemChecker)
+    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;

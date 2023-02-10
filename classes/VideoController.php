@@ -22,7 +22,9 @@
 namespace Video;
 
 use Video\Value\Video;
+use Video\Infra\Response;
 use Video\Infra\Url;
+use Video\Infra\View;
 use Video\Infra\VideoFinder;
 use Video\Logic\OptionParser;
 

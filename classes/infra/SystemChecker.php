@@ -19,9 +19,9 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Video;
+namespace Video\Infra;
 
-class SystemCheckService
+class SystemChecker
 {
     public function checkPhpVersion(string $version): bool
     {

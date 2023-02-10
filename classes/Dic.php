@@ -22,6 +22,7 @@
 namespace Video;
 
 use Video\Infra\VideoFinder;
+use Video\Infra\SystemChecker;
 use Video\Logic\OptionParser;
 
 class Dic
@@ -46,7 +47,7 @@ class Dic
         return new InfoController(
             "{$pth['folder']['plugins']}video/",
             $plugin_tx['video'],
-            new SystemCheckService()
+            new SystemChecker()
         );
     }
 

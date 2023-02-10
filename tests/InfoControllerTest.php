@@ -25,11 +25,13 @@ use function XH_includeVar;
 use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
 
+use Video\Infra\SystemChecker;
+
 class InfoControllerTest extends TestCase
 {
     public function testRendersPluginInfo(): void
     {
-        $systemCheckerStub = $this->createStub(SystemCheckService::class);
+        $systemCheckerStub = $this->createStub(SystemChecker::class);
         $systemCheckerStub->method('checkPhpVersion')->willReturn(true);
         $systemCheckerStub->method('checkXhVersion')->willReturn(true);
         $systemCheckerStub->method('checkWritability')->willReturn(true);
