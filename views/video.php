@@ -1,18 +1,17 @@
 <?php
 
 use Video\View;
-use Video\HtmlString;
 
 /**
  * @var View $this
  * @var string $className
- * @var HtmlString $attributes
+ * @var string $attributes
  * @var list<array{url:string,type:string}> $sources
  * @var string $track
  * @var string $langCode
  * @var string $contentUrl
  * @var string $filename
- * @var HtmlString $downloadLink
+ * @var string $downloadLink
  * @var string $title
  * @var string $description
  * @var string $uploadDate
@@ -21,20 +20,20 @@ use Video\HtmlString;
 ?>
 
 <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
-  <meta itemprop="name" content="<?=$this->escape($title)?>">
-  <meta itemprop="description" content="<?=$this->escape($description)?>">
-  <meta itemprop="contentURL" content="<?=$this->escape($contentUrl)?>">
+  <meta itemprop="name" content="<?=$this->esc($title)?>">
+  <meta itemprop="description" content="<?=$this->esc($description)?>">
+  <meta itemprop="contentURL" content="<?=$this->esc($contentUrl)?>">
 <?php if (isset($thumbnailUrl)):?>
-  <meta itemprop="thumbnailUrl" content="<?=$this->escape($thumbnailUrl)?>">
+  <meta itemprop="thumbnailUrl" content="<?=$this->esc($thumbnailUrl)?>">
 <?php endif?>
-  <meta itemprop="uploadDate" content="<?=$this->escape($uploadDate)?>">
-  <video class="<?=$this->escape($className)?>" <?=$this->escape($attributes)?>>
+  <meta itemprop="uploadDate" content="<?=$this->esc($uploadDate)?>">
+  <video class="<?=$this->esc($className)?>" <?=$this->raw($attributes)?>>
 <?php foreach ($sources as $source):?>
-    <source src="<?=$this->escape($source['url'])?>" type="video/<?=$this->escape($source['type'])?>">
+    <source src="<?=$this->esc($source['url'])?>" type="video/<?=$this->esc($source['type'])?>">
 <?php endforeach?>
 <?php if ($track):?>
-    <track src="<?=$this->escape($track)?>" srclang="<?=$this->escape($langCode)?>" label="<?=$this->text('subtitle_label')?>">
+    <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>">
 <?php endif?>
-    <a href="<?=$this->escape($filename)?>"><?=$this->escape($downloadLink)?></a>
+    <a href="<?=$this->esc($filename)?>"><?=$this->raw($downloadLink)?></a>
   </video>
 </div>

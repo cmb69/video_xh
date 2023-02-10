@@ -39,7 +39,7 @@ class View
     /** @param scalar $args */
     public function text(string $key, ...$args): string
     {
-        return $this->escape(sprintf($this->lang[$key], ...$args));
+        return $this->esc(sprintf($this->lang[$key], ...$args));
     }
 
     /** @param array<string,mixed> $_data */
@@ -51,16 +51,15 @@ class View
         return (string) ob_get_clean();
     }
 
-    /**
-     * @param scalar|HtmlString $value
-     * @return string|HtmlString
-     */
-    public function escape($value)
+    /** @param scalar $value */
+    public function esc($value): string
     {
-        if ($value instanceof HtmlString) {
-            return $value;
-        } else {
-            return XH_hsc((string) $value);
-        }
+        return XH_hsc((string) $value);
+    }
+
+    /** @param scalar $value */
+    public function raw($value): string
+    {
+        return (string) $value;
     }
 }

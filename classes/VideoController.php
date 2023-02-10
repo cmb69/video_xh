@@ -70,13 +70,13 @@ class VideoController
             $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [
                 "className" => $this->options['class'],
-                "attributes" => new HtmlString($this->videoAttributes()),
+                "attributes" => $this->videoAttributes(),
                 "sources" => $sources,
                 "track" => $this->model->subtitleFile($this->name),
                 "langCode" => $this->sl,
                 "contentUrl" => $this->model->normalizedUrl(CMSIMPLE_URL . $filename),
                 "filename" => $filename,
-                "downloadLink" => new HtmlString($this->downloadLink($filename)),
+                "downloadLink" => $this->downloadLink($filename),
                 "title" => $this->options['title'],
                 "description" => $this->options['description'],
                 "uploadDate" => date('c', $this->model->uploadDate($filename)),
