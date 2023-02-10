@@ -27,10 +27,16 @@ use ApprovalTests\Approvals;
 
 class VideoControllerTest extends TestCase
 {
-    public function testRendersVideoWithPoster(): void
+    /** @var VideoController */
+    private $sut;
+
+    /** @var Model&MockObject */
+    private $model;
+
+    public function setUp(): void
     {
-        $model = $this->createStub(Model::class);
-        $model->method('getOptions')->willReturn([
+        $this->model = $this->createStub(Model::class);
+        $this->model->method('getOptions')->willReturn([
             'title' => "My Video",
             'description' => "This is a nice one & it's short",
             'preload' => "auto",
@@ -41,75 +47,40 @@ class VideoControllerTest extends TestCase
             'height' => "288",
             'class' => "video_video",
         ]);
-        $model->method('videoFiles')->willReturn([
-            'my_video.mp4' => "mp4",
-            'my_video.webm' => "webm",
-        ]);
-        $model->method('posterFile')->willReturn("my_video.jpg");
-        $model->method('uploadDate')->willReturn(1674668829);
-        $model->method('normalizedUrl')->willReturn("http://example.com/userfiles/media/my_video.mp4");
-        $subject = new VideoController(
+        $this->model->method('uploadDate')->willReturn(1674668829);
+        $this->model->method('normalizedUrl')->willReturn("http://example.com/userfiles/media/my_video.mp4");
+        $this->sut = new VideoController(
             "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             "en",
-            $model,
-            "my_video",
-            ""
+            $this->model
         );
+    }
 
-        $response = $subject->defaultAction();
-
+    public function testRendersVideoWithPoster(): void
+    {
+        $this->model->method('videoFiles')->willReturn([
+            'my_video.mp4' => "mp4",
+            'my_video.webm' => "webm",
+        ]);
+        $this->model->method('posterFile')->willReturn("my_video.jpg");
+        $response = $this->sut->defaultAction("my_video", "");
         Approvals::verifyString($response->representation());
     }
 
     public function testRendersVideoWithoutPoster(): void
     {
-        $model = $this->createStub(Model::class);
-        $model->method('getOptions')->willReturn([
-            'title' => "My Video",
-            'description' => "This is a nice one & it's short",
-            'preload' => "auto",
-            'autoplay' => "0",
-            'loop' => "0",
-            'controls' => "1",
-            'width' => "512",
-            'height' => "288",
-            'class' => "video_video",
-        ]);
-        $model->method('videoFiles')->willReturn([
+        $this->model->method('videoFiles')->willReturn([
             'my_video.mp4' => "mp4",
             'my_video.webm' => "webm",
         ]);
-        $model->method('uploadDate')->willReturn(1674668829);
-        $model->method('normalizedUrl')->willReturn("http://example.com/userfiles/media/my_video.mp4");
-        $subject = new VideoController(
-            "./",
-            XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            "en",
-            $model,
-            "my_video",
-            ""
-        );
-
-        $response = $subject->defaultAction();
-
+        $response = $this->sut->defaultAction("my_video", "");
         Approvals::verifyString($response->representation());
     }
 
     public function testReportsMissingVideo(): void
     {
-        $model = $this->createStub(Model::class);
-        $subject = new VideoController(
-            "./",
-            XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            "en",
-            $model,
-            "no_video",
-            ""
-        );
-
-        $response = $subject->defaultAction();
-
+        $response = $this->sut->defaultAction("no_video", "");
         Approvals::verifyString($response->representation());
     }
 }

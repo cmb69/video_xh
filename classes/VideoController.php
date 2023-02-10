@@ -35,32 +35,23 @@ class VideoController
     /** @var Model */
     private $model;
 
-    /** @var string */
-    private $name;
-
-    /** @var array<string,string|true> */
-    private $options;
-
     /** @param array<string,string> $lang */
     public function __construct(
         string $pluginFolder,
         array $lang,
         string $sl,
-        Model $model,
-        string $name,
-        string $options = ''
+        Model $model
     ) {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->sl = $sl;
         $this->model = $model;
-        $this->name = $name;
-        $this->options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
     }
 
-    public function defaultAction(): Response
+    public function defaultAction(string $name, string $options = ''): Response
     {
-        $files = $this->model->videoFiles($this->name);
+        $options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
+        $files = $this->model->videoFiles($name);
         if (!empty($files)) {
             $filename = key($files);
             $sources = [];
@@ -69,49 +60,51 @@ class VideoController
             }
             $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [
-                "className" => $this->options['class'],
-                "attributes" => $this->videoAttributes(),
+                "className" => $options['class'],
+                "attributes" => $this->videoAttributes($name, $options),
                 "sources" => $sources,
-                "track" => $this->model->subtitleFile($this->name),
+                "track" => $this->model->subtitleFile($name),
                 "langCode" => $this->sl,
                 "contentUrl" => $this->model->normalizedUrl(CMSIMPLE_URL . $filename),
                 "filename" => $filename,
-                "downloadLink" => $this->downloadLink($filename),
-                "title" => $this->options['title'],
-                "description" => $this->options['description'],
+                "downloadLink" => $this->downloadLink($name, $options, $filename),
+                "title" => $options['title'],
+                "description" => $options['description'],
                 "uploadDate" => date('c', $this->model->uploadDate($filename)),
             ];
-            $poster = $this->model->posterFile($this->name);
+            $poster = $this->model->posterFile($name);
             if ($poster) {
                 $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
             }
             return new Response($view->render('video', $data));
         } else {
-            return new Response(XH_message('fail', $this->lang['error_missing'], $this->name));
+            return new Response(XH_message('fail', $this->lang['error_missing'], $name));
         }
     }
 
-    private function videoAttributes(): string
+    /** @param array<string,string|true> $options */
+    private function videoAttributes(string $name, array $options): string
     {
-        $poster = $this->model->posterFile($this->name);
+        $poster = $this->model->posterFile($name);
         $attributes = 'class=""'
-            . (!empty($this->options['controls']) ? ' controls="controls"' : '')
-            . (!empty($this->options['autoplay']) ? ' autoplay="autoplay"' : '')
-            . (!empty($this->options['loop']) ? ' loop="loop"' : '')
-            . ' preload="' . $this->options['preload'] . '"'
-            . ' width="' . $this->options['width'] . '"'
-            . ' height="' . $this->options['height'] . '"'
+            . (!empty($options['controls']) ? ' controls="controls"' : '')
+            . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
+            . (!empty($options['loop']) ? ' loop="loop"' : '')
+            . ' preload="' . $options['preload'] . '"'
+            . ' width="' . $options['width'] . '"'
+            . ' height="' . $options['height'] . '"'
             . ($poster ? ' poster="' . $poster . '"' : '');
         return $attributes;
     }
 
-    private function downloadLink(string $filename): string
+    /** @param array<string,string|true> $options */
+    private function downloadLink(string $name, array $options, string $filename): string
     {
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);
-        $poster = $this->model->posterFile($this->name);
+        $poster = $this->model->posterFile($name);
         if ($poster) {
-            $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$this->options['class']}\">";
+            $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$options['class']}\">";
         } else {
             $link = $download;
         }

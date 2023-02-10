@@ -32,9 +32,7 @@ function video(string $name, string $options = ''): string
         "{$pth['folder']['plugins']}video/",
         $plugin_tx["video"],
         $sl,
-        new Model($pth['folder']['media'], $plugin_cf['video'], $sl),
-        $name,
-        $options
+        new Model($pth['folder']['media'], $plugin_cf['video'], $sl)
     );
-    return $controller->defaultAction()->process();
+    return $controller->defaultAction($name, $options)->process();
 }
