@@ -12,5 +12,3 @@ parameters:
     - ../../cmsimple/classes/PageDataRouter.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
-  excludePaths:
-    - vendor
