@@ -21,17 +21,21 @@
 
 namespace Video;
 
+use Video\Infra\VideoFinder;
+use Video\Logic\OptionParser;
+
 class Dic
 {
     public static function makeVideoController(): VideoController
     {
-        global $pth, $sl, $plugin_tx;
+        global $pth, $sl, $plugin_cf, $plugin_tx;
 
         return new VideoController(
             "{$pth['folder']['plugins']}video/",
             $plugin_tx["video"],
             $sl,
-            self::makeModel()
+            new OptionParser($plugin_cf['video']),
+            self::makeVideoFinder()
         );
     }
 
@@ -54,14 +58,14 @@ class Dic
             "{$pth['folder']['plugins']}video/",
             $plugin_cf['video'],
             $plugin_tx['video'],
-            self::makeModel()
+            self::makeVideoFinder()
         );
     }
 
-    private static function makeModel(): Model
+    private static function makeVideoFinder(): VideoFinder
     {
-        global $pth, $plugin_cf, $sl;
+        global $pth, $sl;
 
-        return new Model($pth['folder']['media'], $plugin_cf['video'], $sl);
+        return new VideoFinder($pth['folder']['media'], $sl);
     }
 }

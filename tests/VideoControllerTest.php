@@ -25,18 +25,25 @@ use function XH_includeVar;
 use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
 
+use Video\Value\Video;
+use Video\Infra\VideoFinder;
+use Video\Logic\OptionParser;
+
 class VideoControllerTest extends TestCase
 {
     /** @var VideoController */
     private $sut;
 
-    /** @var Model&MockObject */
-    private $model;
+    /** @var OptionParser&MockObject */
+    private $optionParser;
+
+    /** @var VideoFinder&MockObject */
+    private $videoFinder;
 
     public function setUp(): void
     {
-        $this->model = $this->createStub(Model::class);
-        $this->model->method('getOptions')->willReturn([
+        $this->optionParser = $this->createStub(OptionParser::class);
+        $this->optionParser->method('parse')->willReturn([
             'title' => "My Video",
             'description' => "This is a nice one & it's short",
             'preload' => "auto",
@@ -47,33 +54,42 @@ class VideoControllerTest extends TestCase
             'height' => "288",
             'class' => "video_video",
         ]);
-        $this->model->method('uploadDate')->willReturn(1674668829);
-        $this->model->method('normalizedUrl')->willReturn("http://example.com/userfiles/media/my_video.mp4");
+        $this->videoFinder = $this->createStub(VideoFinder::class);
         $this->sut = new VideoController(
             "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             "en",
-            $this->model
+            $this->optionParser,
+            $this->videoFinder
         );
     }
 
     public function testRendersVideoWithPoster(): void
     {
-        $this->model->method('videoFiles')->willReturn([
-            'my_video.mp4' => "mp4",
-            'my_video.webm' => "webm",
-        ]);
-        $this->model->method('posterFile')->willReturn("my_video.jpg");
+        $this->videoFinder->method('find')->willReturn(new Video(
+            [
+                './userfiles/media/my_video.mp4' => "mp4",
+                './userfiles/media/my_video.webm' => "webm",
+            ],
+            "./userfiles/media/my_video.jpg",
+            null,
+            1674668829
+        ));
         $response = $this->sut->defaultAction("my_video", "");
         Approvals::verifyString($response->representation());
     }
 
     public function testRendersVideoWithoutPoster(): void
     {
-        $this->model->method('videoFiles')->willReturn([
-            'my_video.mp4' => "mp4",
-            'my_video.webm' => "webm",
-        ]);
+        $this->videoFinder->method('find')->willReturn(new Video(
+            [
+                './userfiles/media/my_video.mp4' => "mp4",
+                './userfiles/media/my_video.webm' => "webm",
+            ],
+            null,
+            null,
+            1674668829
+        ));
         $response = $this->sut->defaultAction("my_video", "");
         Approvals::verifyString($response->representation());
     }

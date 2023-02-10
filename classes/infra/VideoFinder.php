@@ -19,53 +19,24 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Video;
+namespace Video\Infra;
 
-class Model
+use Video\Value\Video;
+
+class VideoFinder
 {
     const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
 
     /** @var string */
     private $videoFolder;
 
-    /** @var array<string,string> */
-    private $config;
-
     /** @var string $sl */
     private $sl;
 
-    /** @param array<string,string> $config */
-    public function __construct(string $folder, array $config, string $sl)
+    public function __construct(string $folder, string $sl)
     {
         $this->videoFolder = $folder;
-        $this->config = $config;
         $this->sl = $sl;
-    }
-
-    public function normalizedUrl(string $url): string
-    {
-        $parts = explode('/', $url);
-        $i = 0;
-        while ($i < count($parts)) {
-            switch ($parts[$i]) {
-                case '.':
-                    array_splice($parts, $i, 1);
-                    break;
-                case '..':
-                    array_splice($parts, $i - 1, 2);
-                    $i--;
-                    break;
-                default:
-                    $i++;
-            }
-        }
-        return implode('/', $parts);
-    }
-
-    /** @return list<string> */
-    private function extensions(): array
-    {
-        return array_keys(self::TYPES);
     }
 
     /** @return array<string> */
@@ -81,7 +52,7 @@ class Model
                 }
                 $basename = $pathinfo['basename'];
                 $extension = $pathinfo['extension'];
-                if (in_array($extension, $this->extensions())) {
+                if (in_array($extension, array_keys(self::TYPES))) {
                     $name = substr($basename, 0, -(strlen($extension) + 1));
                     $videos[] = $name;
                 }
@@ -92,8 +63,22 @@ class Model
         return $videos;
     }
 
+    public function find(string $name): ?Video
+    {
+        $sources = $this->videoFiles($name);
+        if (empty($sources)) {
+            return null;
+        }
+        return new Video(
+            $sources,
+            $this->posterFile($name),
+            $this->subtitleFile($name),
+            $this->uploadDate(key($sources))
+        );
+    }
+
     /** @return array<string,string> */
-    public function videoFiles(string $name): array
+    private function videoFiles(string $name): array
     {
         $dirname = $this->videoFolder;
         $files = array();
@@ -106,13 +91,13 @@ class Model
         return $files;
     }
 
-    public function posterFile(string $name): ?string
+    private function posterFile(string $name): ?string
     {
         $filename = $this->videoFolder . $name . '.jpg';
         return file_exists($filename) ? $filename : null;
     }
 
-    public function subtitleFile(string $name): ?string
+    private function subtitleFile(string $name): ?string
     {
         $dirname = $this->videoFolder;
         $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
@@ -125,28 +110,8 @@ class Model
         return null;
     }
 
-    public function uploadDate(string $filename): int
+    private function uploadDate(string $filename): int
     {
         return (int) filectime($filename);
-    }
-
-    /** @return array<string,string|true> */
-    public function getOptions(string $query): array
-    {
-        $validOptions = array(
-            'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
-            'title', 'width'
-        );
-        parse_str($query, $options);
-        $res = array();
-        foreach ($validOptions as $key) {
-            if (isset($options[$key])) {
-                assert(is_string($options[$key])); // @todo actually handle this
-                $res[$key] = ($options[$key] === '') ? true : $options[$key];
-            } else {
-                $res[$key] = $this->config["default_$key"];
-            }
-        }
-        return $res;
     }
 }

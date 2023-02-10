@@ -21,6 +21,11 @@
 
 namespace Video;
 
+use Video\Value\Video;
+use Video\Infra\Url;
+use Video\Infra\VideoFinder;
+use Video\Logic\OptionParser;
+
 class VideoController
 {
     /** @var string */
@@ -32,49 +37,54 @@ class VideoController
     /** @var string */
     private $sl;
 
-    /** @var Model */
-    private $model;
+    /** @var OptionParser */
+    private $optionParser;
+
+    /** @var VideoFinder */
+    private $videoFinder;
 
     /** @param array<string,string> $lang */
     public function __construct(
         string $pluginFolder,
         array $lang,
         string $sl,
-        Model $model
+        OptionParser $optionParser,
+        VideoFinder $videoFinder
     ) {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->sl = $sl;
-        $this->model = $model;
+        $this->optionParser = $optionParser;
+        $this->videoFinder = $videoFinder;
     }
 
     public function defaultAction(string $name, string $options = ''): Response
     {
-        $options = $this->model->getOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
-        $files = $this->model->videoFiles($name);
-        if (!empty($files)) {
-            $filename = key($files);
+        $options = $this->optionParser->parse(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
+        $video = $this->videoFinder->find($name);
+        if ($video !== null) {
+            $filename = $video->filename();
             $sources = [];
-            foreach ($files as $url => $type) {
+            foreach ($video->sources() as $url => $type) {
                 $sources[] = ['url' => $url, 'type' => $type];
             }
             $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [
                 "className" => $options['class'],
-                "attributes" => $this->videoAttributes($name, $options),
+                "attributes" => $this->videoAttributes($video, $options),
                 "sources" => $sources,
-                "track" => $this->model->subtitleFile($name),
+                "track" => $video->subtitle(),
                 "langCode" => $this->sl,
-                "contentUrl" => $this->model->normalizedUrl(CMSIMPLE_URL . $filename),
+                "contentUrl" => new Url($filename),
                 "filename" => $filename,
-                "downloadLink" => $this->downloadLink($name, $options, $filename),
+                "downloadLink" => $this->downloadLink($video, $options, $filename),
                 "title" => $options['title'],
                 "description" => $options['description'],
-                "uploadDate" => date('c', $this->model->uploadDate($filename)),
+                "uploadDate" => date('c', $video->date()),
             ];
-            $poster = $this->model->posterFile($name);
+            $poster = $video->poster();
             if ($poster) {
-                $data["thumbnailUrl"] = $this->model->normalizedUrl(CMSIMPLE_URL . $poster);
+                $data["thumbnailUrl"] = new Url($poster);
             }
             return new Response($view->render('video', $data));
         } else {
@@ -83,9 +93,9 @@ class VideoController
     }
 
     /** @param array<string,string|true> $options */
-    private function videoAttributes(string $name, array $options): string
+    private function videoAttributes(Video $video, array $options): string
     {
-        $poster = $this->model->posterFile($name);
+        $poster = $video->poster();
         $attributes = 'class=""'
             . (!empty($options['controls']) ? ' controls="controls"' : '')
             . (!empty($options['autoplay']) ? ' autoplay="autoplay"' : '')
@@ -98,11 +108,11 @@ class VideoController
     }
 
     /** @param array<string,string|true> $options */
-    private function downloadLink(string $name, array $options, string $filename): string
+    private function downloadLink(Video $video, array $options, string $filename): string
     {
         $basename = basename($filename);
         $download = sprintf($this->lang['label_download'], $basename);
-        $poster = $this->model->posterFile($name);
+        $poster = $video->poster();
         if ($poster) {
             $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$options['class']}\">";
         } else {

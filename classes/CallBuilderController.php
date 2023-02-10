@@ -21,6 +21,8 @@
 
 namespace Video;
 
+use Video\Infra\VideoFinder;
+
 class CallBuilderController
 {
     /** @var string */
@@ -32,26 +34,26 @@ class CallBuilderController
     /** @var array<string,string> */
     private $lang;
 
-    /** @var Model */
-    private $model;
+    /** @var VideoFinder */
+    private $videoFinder;
 
     /**
      * @param array<string,string> $config
      * @param array<string,string> $lang
      */
-    public function __construct(string $pluginFolder, array $config, array $lang, Model $model)
+    public function __construct(string $pluginFolder, array $config, array $lang, VideoFinder $videoFinder)
     {
         $this->pluginFolder = $pluginFolder;
         $this->config = $config;
         $this->lang = $lang;
-        $this->model = $model;
+        $this->videoFinder = $videoFinder;
     }
 
     public function defaultAction(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('call-builder', [
-            "videos" => $this->model->availableVideos(),
+            "videos" => $this->videoFinder->availableVideos(),
             "title" => $this->config['default_title'],
             "description" => $this->config['default_description'],
             "preloadOptions" => $this->preloadOptions(),

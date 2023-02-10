@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2023 Christoph M. Becker
+ * Copyright 2012-2023 Christoph M. Becker
  *
  * This file is part of Video_XH.
  *
@@ -19,29 +19,17 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Video;
+namespace Video\Infra;
 
-use function XH_includeVar;
 use PHPUnit\Framework\TestCase;
-use ApprovalTests\Approvals;
 
-use Video\Infra\VideoFinder;
-
-class CallBuilderControllerTest extends TestCase
+class UrlTest extends TestCase
 {
-    public function testIt(): void
+    public function testUrlIsNormalized(): void
     {
-        $videoFinder = $this->createStub(VideoFinder::class);
-        $videoFinder->method('availableVideos')->willReturn([]);
-        $subject = new CallBuilderController(
-            "./",
-            XH_includeVar("./config/config.php", "plugin_cf")['video'],
-            XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            $videoFinder
-        );
-
-        $response = $subject->defaultAction();
-
-        Approvals::verifyString($response->representation());
+        $url = 'foo/./../bar/./baz/index.html';
+        $expected = 'http://example.com/bar/baz/index.html';
+        $actual = new Url($url);
+        $this->assertEquals($expected, $actual);
     }
 }
