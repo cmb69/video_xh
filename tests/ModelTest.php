@@ -28,14 +28,10 @@ use org\bovigo\vfs\vfsStream;
 
 class ModelTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $mediaFolder;
 
-    /**
-     * @var Model
-     */
+    /** @var Model */
     private $subject;
 
     protected function setUp(): void
@@ -121,9 +117,7 @@ class ModelTest extends TestCase
         $this->assertNull($actual);
     }
 
-    /**
-     * @return array<array{string,array<string>}>
-     */
+    /** @return array<array{string,array<string>}> */
     public function dataForGetOptions(): array
     {
         return array(

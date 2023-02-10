@@ -35,19 +35,13 @@ class VideoController
     /** @var Model */
     private $model;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
-    /**
-     * @var array<mixed>
-     */
+    /** @var array<mixed> */
     private $options;
 
-    /**
-     * @param array<string> $lang
-     */
+    /** @param array<string> $lang */
     public function __construct(
         string $pluginFolder,
         array $lang,

@@ -23,22 +23,16 @@ namespace Video;
 
 class Model
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $videoFolder;
 
-    /**
-     * @var array<string>
-     */
+    /** @var array<string> */
     private $config;
 
     /** @var string $sl */
     private $sl;
 
-    /**
-     * @param array<string> $config
-     */
+    /** @param array<string> $config */
     public function __construct(string $folder, array $config, string $sl)
     {
         $this->videoFolder = $folder;
@@ -66,25 +60,19 @@ class Model
         return implode('/', $parts);
     }
 
-    /**
-     * @return array<string>
-     */
+    /** @return array<string> */
     private function types(): array
     {
         return array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
     }
 
-    /**
-     * @return array<string>
-     */
+    /** @return array<string> */
     private function extensions(): array
     {
         return array_keys($this->types());
     }
 
-    /**
-     * @return array<string>
-     */
+    /** @return array<string> */
     public function availableVideos(): array
     {
         $dirHandle = opendir($this->videoFolder);
@@ -108,9 +96,7 @@ class Model
         return $videos;
     }
 
-    /**
-     * @return array<string>
-     */
+    /** @return array<string> */
     public function videoFiles(string $name): array
     {
         $dirname = $this->videoFolder;
@@ -148,9 +134,7 @@ class Model
         return (int) filectime($filename);
     }
 
-    /**
-     * @return array<mixed>
-     */
+    /** @return array<mixed> */
     public function getOptions(string $query): array
     {
         $validOptions = array(

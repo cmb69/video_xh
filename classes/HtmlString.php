@@ -23,9 +23,7 @@ namespace Video;
 
 class HtmlString
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $value;
 
     public function __construct(string $string)

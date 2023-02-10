@@ -32,9 +32,7 @@ class InfoController
     /** @var SystemCheckService */
     private $systemChecker;
 
-    /**
-     * @param array<string> $lang
-     */
+    /** @param array<string> $lang */
     public function __construct(string $pluginFolder, array $lang, SystemCheckService $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
@@ -58,9 +56,7 @@ class InfoController
         return new Response($output);
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkPhpVersion(string $version): array
     {
         $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
@@ -71,9 +67,7 @@ class InfoController
         ];
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkXhVersion(string $version): array
     {
         $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
@@ -84,9 +78,7 @@ class InfoController
         ];
     }
 
-    /**
-     * @return array{class:string,label:string,stateLabel:string}
-     */
+    /** @return array{class:string,label:string,stateLabel:string} */
     private function checkWritability(string $folder): array
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';

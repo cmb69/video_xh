@@ -67,9 +67,7 @@ class CallBuilderController
         return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
     }
 
-    /**
-     * @return array<stdClass>
-     */
+    /** @return array<stdClass> */
     private function preloadOptions(): array
     {
         $options = [];
