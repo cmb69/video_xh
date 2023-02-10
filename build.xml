@@ -31,7 +31,7 @@
     <exec executable="phpstan" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="unit-tests" description="runs all unit tests">
+  <target name="test" description="runs all developer tests">
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
