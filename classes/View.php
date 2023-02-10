@@ -41,13 +41,12 @@ class View
 
     /**
      * @param string $key
+     * @param scalar $args
      * @return string
      */
-    public function text($key)
+    public function text($key, ...$args)
     {
-        $args = func_get_args();
-        array_shift($args);
-        return $this->escape(vsprintf($this->lang[$key], $args));
+        return $this->escape(sprintf($this->lang[$key], ...$args));
     }
 
     /**
