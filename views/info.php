@@ -5,7 +5,7 @@ use Video\View;
 /**
  * @var View $this
  * @var string $version
- * @var array<array{class:string,label:string,stateLabel:string}> $checks
+ * @var list<array{class:string,label:string,stateLabel:string}> $checks
  */
 ?>
 

@@ -28,13 +28,13 @@ class Model
     /** @var string */
     private $videoFolder;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $config;
 
     /** @var string $sl */
     private $sl;
 
-    /** @param array<string> $config */
+    /** @param array<string,string> $config */
     public function __construct(string $folder, array $config, string $sl)
     {
         $this->videoFolder = $folder;
@@ -62,7 +62,7 @@ class Model
         return implode('/', $parts);
     }
 
-    /** @return array<string> */
+    /** @return list<string> */
     private function extensions(): array
     {
         return array_keys(self::TYPES);
@@ -92,7 +92,7 @@ class Model
         return $videos;
     }
 
-    /** @return array<string> */
+    /** @return array<string,string> */
     public function videoFiles(string $name): array
     {
         $dirname = $this->videoFolder;
@@ -130,7 +130,7 @@ class Model
         return (int) filectime($filename);
     }
 
-    /** @return array<mixed> */
+    /** @return array<string,string|true> */
     public function getOptions(string $query): array
     {
         $validOptions = array(
@@ -141,6 +141,7 @@ class Model
         $res = array();
         foreach ($validOptions as $key) {
             if (isset($options[$key])) {
+                assert(is_string($options[$key])); // @todo actually handle this
                 $res[$key] = ($options[$key] === '') ? true : $options[$key];
             } else {
                 $res[$key] = $this->config["default_$key"];

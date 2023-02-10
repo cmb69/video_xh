@@ -4,10 +4,10 @@ use Video\View;
 
 /**
  * @var View $this
- * @var array<string> $videos
+ * @var list<string> $videos
  * @var string $title
  * @var string $description
- * @var array<stdClass> $preloadOptions
+ * @var list<array{id:string,label:string,selected:string}> $preloadOptions
  * @var string $autoplay
  * @var string $loop
  * @var string $controls
@@ -40,7 +40,7 @@ use Video\View;
       <label for="video_preload"><?=$this->text('label_preload')?></label>
       <select id="video_preload">
 <?php foreach ($preloadOptions as $option):?>
-        <option value="<?=$this->escape($option->id)?>" <?=$this->escape($option->selected)?>><?=$this->escape($option->label)?></option>
+        <option value="<?=$this->escape($option['id'])?>" <?=$this->escape($option['selected'])?>><?=$this->escape($option['label'])?></option>
 <?php endforeach?>
       </select>
     </p>

@@ -7,7 +7,7 @@ use Video\HtmlString;
  * @var View $this
  * @var string $className
  * @var HtmlString $attributes
- * @var array<stdClass> $sources
+ * @var list<array{url:string,type:string}> $sources
  * @var string $track
  * @var string $langCode
  * @var string $contentUrl
@@ -30,7 +30,7 @@ use Video\HtmlString;
   <meta itemprop="uploadDate" content="<?=$this->escape($uploadDate)?>">
   <video class="<?=$this->escape($className)?>" <?=$this->escape($attributes)?>>
 <?php foreach ($sources as $source):?>
-    <source src="<?=$this->escape($source->url)?>" type="video/<?=$this->escape($source->type)?>">
+    <source src="<?=$this->escape($source['url'])?>" type="video/<?=$this->escape($source['type'])?>">
 <?php endforeach?>
 <?php if ($track):?>
     <track src="<?=$this->escape($track)?>" srclang="<?=$this->escape($langCode)?>" label="<?=$this->text('subtitle_label')?>">

@@ -21,25 +21,23 @@
 
 namespace Video;
 
-use stdClass;
-
 class CallBuilderController
 {
     /** @var string */
     private $pluginFolder;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $config;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $lang;
 
     /** @var Model */
     private $model;
 
     /**
-     * @param array<string> $config
-     * @param array<string> $lang
+     * @param array<string,string> $config
+     * @param array<string,string> $lang
      */
     public function __construct(string $pluginFolder, array $config, array $lang, Model $model)
     {
@@ -67,14 +65,14 @@ class CallBuilderController
         return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
     }
 
-    /** @return array<stdClass> */
+    /** @return list<array{id:string,label:string,selected:string}> */
     private function preloadOptions(): array
     {
         $options = [];
         foreach (array('auto', 'metadata', 'none') as $id) {
             $label = $this->lang["preload_{$id}"];
             $selected = $id === $this->config['default_preload'] ? 'selected' : '';
-            $options[] = (object) compact('id', 'label', 'selected');
+            $options[] = compact('id', 'label', 'selected');
         }
         return $options;
     }
