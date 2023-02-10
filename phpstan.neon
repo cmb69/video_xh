@@ -5,7 +5,7 @@ parameters:
     - views/
     - admin.php
     - index.php
-    - Video_view.php
+    - video_view.php
   bootstrapFiles:
     - phpstan.php
   scanFiles:

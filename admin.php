@@ -33,7 +33,7 @@ use Video\Dic;
 XH_registerStandardPluginMenuItems(true);
 
 if ($plugin_cf['video']['show_tab']) {
-    $pd_router->add_tab('Video', "{$pth['folder']['plugins']}video/Video_view.php");
+    $pd_router->add_tab('Video', "{$pth['folder']['plugins']}video/video_view.php");
 }
 
 if (XH_wantsPluginAdministration('video')) {

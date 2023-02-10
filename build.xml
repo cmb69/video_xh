@@ -9,7 +9,7 @@
 
   <target name="mess" description="detects code flaws">
     <exec executable="phpmd" passthru="true" checkreturn="true">
-      <arg value="classes,admin.php,index.php,Video_view.php,tests"/>
+      <arg value="classes,admin.php,index.php,video_view.php,tests"/>
       <arg value="text"/>
       <arg value="codesize,unusedcode"/>
     </exec>
@@ -23,7 +23,7 @@
       <arg file="tests"/>
       <arg file="admin.php"/>
       <arg file="index.php"/>
-      <arg file="Video_view.php"/>
+      <arg file="video_view.php"/>
     </exec>
   </target>
 
