@@ -21,7 +21,7 @@ videos in search results.
 
 ## Requirements
 
-Video_XH requires CMSimple_XH ≥ 1.7.0 and PHP ≥ 5.4.0.
+Video_XH requires CMSimple_XH ≥ 1.7.0 and PHP ≥ 7.1.0.
 
 ## Download
 

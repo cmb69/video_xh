@@ -23,7 +23,7 @@ und in Suchergebnissen anzeigen können.
 
 ## Voraussetzungen
 
-Video_XH benötigt CMSimple_XH ≥ 1.7.0 und PHP ≥ 5.4.0.
+Video_XH benötigt CMSimple_XH ≥ 1.7.0 und PHP ≥ 7.1.0.
 
 ## Download
 

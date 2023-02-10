@@ -50,7 +50,7 @@ class InfoController
         $output = $view->render('info', [
             "version" => VIDEO_VERSION,
             "checks" => [
-                $this->checkPhpVersion('5.4.0'),
+                $this->checkPhpVersion('7.1.0'),
                 $this->checkXhVersion('1.7.0'),
                 $this->checkWritability("{$this->pluginFolder}css/"),
                 $this->checkWritability("{$this->pluginFolder}config"),
