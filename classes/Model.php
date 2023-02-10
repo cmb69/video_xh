@@ -23,6 +23,8 @@ namespace Video;
 
 class Model
 {
+    const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+
     /** @var string */
     private $videoFolder;
 
@@ -61,15 +63,9 @@ class Model
     }
 
     /** @return array<string> */
-    private function types(): array
-    {
-        return array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
-    }
-
-    /** @return array<string> */
     private function extensions(): array
     {
-        return array_keys($this->types());
+        return array_keys(self::TYPES);
     }
 
     /** @return array<string> */
@@ -101,7 +97,7 @@ class Model
     {
         $dirname = $this->videoFolder;
         $files = array();
-        foreach (array_keys($this->types()) as $extension) {
+        foreach (array_keys(self::TYPES) as $extension) {
             $filename = $dirname . $name . '.' . $extension;
             if (file_exists($filename)) {
                 $files[$filename] = $extension;
