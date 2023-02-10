@@ -26,7 +26,7 @@ class VideoController
     /** @var string */
     private $pluginFolder;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $lang;
 
     /** @var string */
@@ -38,10 +38,10 @@ class VideoController
     /** @var string */
     private $name;
 
-    /** @var array<mixed> */
+    /** @var array<string,string|true> */
     private $options;
 
-    /** @param array<string> $lang */
+    /** @param array<string,string> $lang */
     public function __construct(
         string $pluginFolder,
         array $lang,

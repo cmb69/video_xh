@@ -26,10 +26,10 @@ class View
     /** @var string */
     private $templateFolder;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $lang;
 
-    /** @param array<string> $lang */
+    /** @param array<string,string> $lang */
     public function __construct(string $templateFolder, array $lang)
     {
         $this->templateFolder = $templateFolder;
@@ -42,7 +42,7 @@ class View
         return $this->escape(sprintf($this->lang[$key], ...$args));
     }
 
-    /** @param array<mixed> $_data */
+    /** @param array<string,mixed> $_data */
     public function render(string $_template, array $_data): string
     {
         extract($_data);

@@ -7,7 +7,7 @@ use Video\HtmlString;
  * @var View $this
  * @var string $className
  * @var HtmlString $attributes
- * @var array<array{url:string,type:string}> $sources
+ * @var list<array{url:string,type:string}> $sources
  * @var string $track
  * @var string $langCode
  * @var string $contentUrl

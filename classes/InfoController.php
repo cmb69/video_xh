@@ -26,13 +26,13 @@ class InfoController
     /** @var string $pluginFolder */
     private $pluginFolder;
 
-    /** @var array<string> */
+    /** @var array<string,string> */
     private $lang;
 
     /** @var SystemCheckService */
     private $systemChecker;
 
-    /** @param array<string> $lang */
+    /** @param array<string,string> $lang */
     public function __construct(string $pluginFolder, array $lang, SystemCheckService $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
