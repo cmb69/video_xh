@@ -9,7 +9,7 @@
 
   <target name="mess" description="detects code flaws">
     <exec executable="phpmd" passthru="true" checkreturn="true">
-      <arg value="classes,admin.php,index.php,Video_view.php,tests/unit"/>
+      <arg value="classes,admin.php,index.php,Video_view.php,tests"/>
       <arg value="text"/>
       <arg value="codesize,unusedcode"/>
     </exec>
@@ -20,7 +20,7 @@
       <arg value="--standard=PSR2"/>
       <arg line="--runtime-set ignore_warnings_on_exit true"/>
       <arg file="classes"/>
-      <arg file="tests/unit"/>
+      <arg file="tests"/>
       <arg file="admin.php"/>
       <arg file="index.php"/>
       <arg file="Video_view.php"/>
@@ -31,12 +31,12 @@
     <exec executable="phpstan" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="unit-tests" description="runs all unit tests">
+  <target name="test" description="runs all developer tests">
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="coverage" description="generates coverage report">
-    <exec command="phpunit --coverage-html tests/coverage" passthru="true" checkreturn="true"/>
+    <exec command="phpunit --coverage-html coverage" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="gen-help" description="builds help.htm from README.md">
