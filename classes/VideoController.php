@@ -65,7 +65,7 @@ class VideoController
             $filename = key($files);
             $sources = [];
             foreach ($files as $url => $type) {
-                $sources[] = (object) ['url' => $url, 'type' => $type];
+                $sources[] = ['url' => $url, 'type' => $type];
             }
             $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [

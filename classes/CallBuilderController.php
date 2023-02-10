@@ -21,8 +21,6 @@
 
 namespace Video;
 
-use stdClass;
-
 class CallBuilderController
 {
     /** @var string */
@@ -67,14 +65,14 @@ class CallBuilderController
         return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
     }
 
-    /** @return array<stdClass> */
+    /** @return array<array{id:string,label:string,selected:string}> */
     private function preloadOptions(): array
     {
         $options = [];
         foreach (array('auto', 'metadata', 'none') as $id) {
             $label = $this->lang["preload_{$id}"];
             $selected = $id === $this->config['default_preload'] ? 'selected' : '';
-            $options[] = (object) compact('id', 'label', 'selected');
+            $options[] = compact('id', 'label', 'selected');
         }
         return $options;
     }
