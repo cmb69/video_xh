@@ -21,8 +21,7 @@
 
 use Video\Model;
 
-/** @return string */
-function Video_view()
+function Video_view(): string
 {
     global $pth, $plugin_cf, $plugin_tx, $sl;
 

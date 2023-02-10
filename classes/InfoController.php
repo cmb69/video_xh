@@ -33,18 +33,16 @@ class InfoController
     private $systemChecker;
 
     /**
-     * @param string $pluginFolder
      * @param array<string> $lang
      */
-    public function __construct($pluginFolder, array $lang, SystemCheckService $systemChecker)
+    public function __construct(string $pluginFolder, array $lang, SystemCheckService $systemChecker)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->systemChecker = $systemChecker;
     }
 
-    /** @return Response */
-    public function defaultAction()
+    public function defaultAction(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('info', [
@@ -61,10 +59,9 @@ class InfoController
     }
 
     /**
-     * @param string $version
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkPhpVersion($version)
+    private function checkPhpVersion(string $version): array
     {
         $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
         return [
@@ -75,10 +72,9 @@ class InfoController
     }
 
     /**
-     * @param string $version
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkXhVersion($version)
+    private function checkXhVersion(string $version): array
     {
         $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
         return [
@@ -89,10 +85,9 @@ class InfoController
     }
 
     /**
-     * @param string $folder
      * @return array{class:string,label:string,stateLabel:string}
      */
-    private function checkWritability($folder)
+    private function checkWritability(string $folder): array
     {
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
         return [

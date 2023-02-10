@@ -37,22 +37,16 @@ class Model
     private $sl;
 
     /**
-     * @param string $folder
      * @param array<string> $config
-     * @param string $sl
      */
-    public function __construct($folder, $config, $sl)
+    public function __construct(string $folder, array $config, string $sl)
     {
         $this->videoFolder = $folder;
         $this->config = $config;
         $this->sl = $sl;
     }
 
-    /**
-     * @param string $url
-     * @return string
-     */
-    public function normalizedUrl($url)
+    public function normalizedUrl(string $url): string
     {
         $parts = explode('/', $url);
         $i = 0;
@@ -75,7 +69,7 @@ class Model
     /**
      * @return array<string>
      */
-    private function types()
+    private function types(): array
     {
         return array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
     }
@@ -83,7 +77,7 @@ class Model
     /**
      * @return array<string>
      */
-    private function extensions()
+    private function extensions(): array
     {
         return array_keys($this->types());
     }
@@ -91,7 +85,7 @@ class Model
     /**
      * @return array<string>
      */
-    public function availableVideos()
+    public function availableVideos(): array
     {
         $dirHandle = opendir($this->videoFolder);
         $videos = array();
@@ -115,10 +109,9 @@ class Model
     }
 
     /**
-     * @param string $name
      * @return array<string>
      */
-    public function videoFiles($name)
+    public function videoFiles(string $name): array
     {
         $dirname = $this->videoFolder;
         $files = array();
@@ -132,20 +125,18 @@ class Model
     }
 
     /**
-     * @param string $name
      * @return string|false
      */
-    public function posterFile($name)
+    public function posterFile(string $name)
     {
         $filename = $this->videoFolder . $name . '.jpg';
         return file_exists($filename) ? $filename : false;
     }
 
     /**
-     * @param string $name
      * @return string|false
      */
-    public function subtitleFile($name)
+    public function subtitleFile(string $name)
     {
         $dirname = $this->videoFolder;
         $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
@@ -158,20 +149,15 @@ class Model
         return false;
     }
 
-    /**
-     * @param string $filename
-     * @return int
-     */
-    public function uploadDate($filename)
+    public function uploadDate(string $filename): int
     {
         return (int) filectime($filename);
     }
 
     /**
-     * @param string $query
      * @return array<mixed>
      */
-    public function getOptions($query)
+    public function getOptions(string $query): array
     {
         $validOptions = array(
             'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',

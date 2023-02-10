@@ -29,18 +29,13 @@ class Response
     /** @var string */
     private $bjs;
 
-    /**
-     * @param string $output
-     * @param string $bjs
-     */
-    public function __construct($output, $bjs = "")
+    public function __construct(string $output, string $bjs = "")
     {
         $this->output = $output;
         $this->bjs = $bjs;
     }
 
-    /** @return string */
-    public function process()
+    public function process(): string
     {
         global $bjs;
 
@@ -48,8 +43,7 @@ class Response
         return $this->output;
     }
 
-    /** @return string */
-    public function representation()
+    public function representation(): string
     {
         return print_r($this, true);
     }

@@ -23,29 +23,17 @@ namespace Video;
 
 class SystemCheckService
 {
-    /**
-     * @param string $version
-     * @return bool
-     */
-    public function checkPhpVersion($version)
+    public function checkPhpVersion(string $version): bool
     {
         return version_compare(PHP_VERSION, $version, 'ge');
     }
 
-    /**
-     * @param string $version
-     * @return bool
-     */
-    public function checkXhVersion($version)
+    public function checkXhVersion(string $version): bool
     {
         return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
     }
 
-    /**
-     * @param string $folder
-     * @return bool
-     */
-    public function checkWritability($folder)
+    public function checkWritability(string $folder): bool
     {
         return is_writable($folder);
     }

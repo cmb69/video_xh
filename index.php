@@ -24,12 +24,7 @@ use Video\VideoController;
 
 const VIDEO_VERSION = '2.0-dev';
 
-/**
- * @param string $name
- * @param string $options
- * @return string
- */
-function video($name, $options = '')
+function video(string $name, string $options = ''): string
 {
     global $pth, $sl, $plugin_cf, $plugin_tx;
 
