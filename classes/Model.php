@@ -124,19 +124,13 @@ class Model
         return $files;
     }
 
-    /**
-     * @return string|false
-     */
-    public function posterFile(string $name)
+    public function posterFile(string $name): ?string
     {
         $filename = $this->videoFolder . $name . '.jpg';
-        return file_exists($filename) ? $filename : false;
+        return file_exists($filename) ? $filename : null;
     }
 
-    /**
-     * @return string|false
-     */
-    public function subtitleFile(string $name)
+    public function subtitleFile(string $name): ?string
     {
         $dirname = $this->videoFolder;
         $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
@@ -146,7 +140,7 @@ class Model
                 return $filename;
             }
         }
-        return false;
+        return null;
     }
 
     public function uploadDate(string $filename): int

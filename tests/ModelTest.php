@@ -105,7 +105,7 @@ class ModelTest extends TestCase
     public function testNoPosterFile(): void
     {
         $actual = $this->subject->posterFile('foo');
-        $this->assertFalse($actual);
+        $this->assertNull($actual);
     }
 
     public function testSubtitleFile(): void
@@ -118,7 +118,7 @@ class ModelTest extends TestCase
     public function testNoSubtitleFile(): void
     {
         $actual = $this->subject->subtitleFile('foo');
-        $this->assertFalse($actual);
+        $this->assertNull($actual);
     }
 
     /**
