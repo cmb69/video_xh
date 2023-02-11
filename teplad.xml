@@ -45,11 +45,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Video_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021.01.23</date_update>
+  <date_update>2023.02.11</date_update>
   <!-- version of Plugin -->
-  <version>1.1</version>
+  <version>2.0</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2016.12.23</date_version>
+  <date_version>2023.02.11</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -62,19 +62,19 @@
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/video_xh/releases/1.1</download_url>
+    <download_url>https://github.com/cmb69/video_xh/releases/2.0</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
-    <coder_url>https://3-magi.net</coder_url>
+    <coder_url>https://3-magi.net/</coder_url>
     <!-- URL where find a demo -->
     <!-- If there no Demo-Website, enter this follows! - <demo_url></demo_url> -->
     <demo_url></demo_url>
   </url>
   <!-- compatibility with versions of XH, i.e. 1.6, 1.6.7 - 1.7.2, ≥ 1.7, ... -->
-  <compatibility>≥ 1.5.4</compatibility>
+  <compatibility>≥ 1.7.0</compatibility>
   <!-- minimum version of PHP that is required, i.e. 5.3, 5.6, 7, ≥ 5.6, ... -->
   <!-- If there no specification, e.g. for templates, enter this follows! - <php_ver></php_ver> -->
-  <php_ver>≥ 5.0.0</php_ver>
+  <php_ver>≥ 7.1.0</php_ver>
   <!-- the License for the Plugin, GPLv3, AGPL, LGPL, GPLv2 ... -->
   <license>GPLv3</license>
   <!-- Description in English is mandatory -->
@@ -82,17 +82,23 @@
     <!-- description of the plugin, ca. 200 characters, you can use <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i>. -->
     <description lang="en">
       Video_XH facilitates presenting videos on a CMSimple_XH site. It uses the
-      HTML5 video element wherever possible, and provides a fallback to Flash video.
-      The supported video formats depend on the browser resp. the Flash player. For
-      the best user experience, JavaScript should be enabled in the browser of the visitor.
+      HTML5 video element wherever possible, and provides a a download link as
+      fallback otherwise. The supported video formats depend on the browser.
+
+      For each video additional <a href="https://schema.org/">schema.org</a>
+      compliant markup will be generated, so search engines can index and show the
+      videos in search results.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
       Video_XH ermöglicht die Präsentation von Videos auf einer
-      CMSimple_XH-Website. Es verwendet wo immer möglich das HTML5 Video-Element, und
-      nutzt andernfalls den Flash-Player. Die unterstützten Video-Formate hängen vom
-      Browser bzw. dem Flash-Player ab. Für das beste Nutzungserlebnis sollte
-      JavaScript im Browser des Besuchers aktiviert sein.
+      CMSimple_XH-Website. Es verwendet wo immer möglich das HTML5 Video-Element,
+      und bietet andernfalls einen Downloadlink als Fallback. Die unterstützten
+      Video-Formate hängen vom Browser ab.
+
+      Für jedes Video wird zusätzliches [schema.org](https://schema.org/)
+      konformes Markup generiert, so dass Suchmaschinen die Videos indexieren
+      und in Suchergebnissen anzeigen können.
    </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->

@@ -3,6 +3,7 @@
 Video_XH facilitates presenting videos on a CMSimple_XH site. It uses the
 HTML5 video element wherever possible, and provides a a download link as
 fallback otherwise. The supported video formats depend on the browser.
+
 For each video additional <a href="https://schema.org/">schema.org</a>
 compliant markup will be generated, so search engines can index and show the
 videos in search results.

@@ -21,7 +21,7 @@
 
 use Video\Dic;
 
-const VIDEO_VERSION = '2.0-dev';
+const VIDEO_VERSION = "2.0";
 
 /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
 function video(string $name, string $options = ''): string
