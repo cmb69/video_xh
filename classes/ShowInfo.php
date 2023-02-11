@@ -25,7 +25,7 @@ use Video\Infra\Response;
 use Video\Infra\SystemChecker;
 use Video\Infra\View;
 
-class InfoController
+class ShowInfo
 {
     /** @var string $pluginFolder */
     private $pluginFolder;
@@ -44,7 +44,7 @@ class InfoController
         $this->systemChecker = $systemChecker;
     }
 
-    public function defaultAction(): Response
+    public function __invoke(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('info', [

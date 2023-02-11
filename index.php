@@ -25,5 +25,5 @@ const VIDEO_VERSION = '2.0-dev';
 
 function video(string $name, string $options = ''): string
 {
-    return Dic::makeVideoController()->defaultAction($name, $options)->process();
+    return Dic::makeShowVideo()($name, $options)->fire();
 }

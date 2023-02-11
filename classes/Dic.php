@@ -27,11 +27,11 @@ use Video\Logic\OptionParser;
 
 class Dic
 {
-    public static function makeVideoController(): VideoController
+    public static function makeShowVideo(): ShowVideo
     {
         global $pth, $sl, $plugin_cf, $plugin_tx;
 
-        return new VideoController(
+        return new ShowVideo(
             "{$pth['folder']['plugins']}video/",
             $plugin_tx["video"],
             $sl,
@@ -40,22 +40,22 @@ class Dic
         );
     }
 
-    public static function makeInfoController(): InfoController
+    public static function makeShowInfo(): ShowInfo
     {
         global $pth, $plugin_tx;
 
-        return new InfoController(
+        return new ShowInfo(
             "{$pth['folder']['plugins']}video/",
             $plugin_tx['video'],
             new SystemChecker()
         );
     }
 
-    public static function makeCallBuilderController(): CallBuilderController
+    public static function makeShowCallBuilder(): ShowCallBuilder
     {
         global $pth, $plugin_cf, $plugin_tx;
 
-        return new CallBuilderController(
+        return new ShowCallBuilder(
             "{$pth['folder']['plugins']}video/",
             $plugin_cf['video'],
             $plugin_tx['video'],

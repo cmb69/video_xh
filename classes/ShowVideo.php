@@ -28,7 +28,7 @@ use Video\Infra\View;
 use Video\Infra\VideoFinder;
 use Video\Logic\OptionParser;
 
-class VideoController
+class ShowVideo
 {
     /** @var string */
     private $pluginFolder;
@@ -60,7 +60,7 @@ class VideoController
         $this->videoFinder = $videoFinder;
     }
 
-    public function defaultAction(string $name, string $options = ''): Response
+    public function __invoke(string $name, string $options = ''): Response
     {
         $options = $this->optionParser->parse(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
         $video = $this->videoFinder->find($name);

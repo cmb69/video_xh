@@ -29,9 +29,9 @@ use Video\Value\Video;
 use Video\Infra\VideoFinder;
 use Video\Logic\OptionParser;
 
-class VideoControllerTest extends TestCase
+class ShowVideoTest extends TestCase
 {
-    /** @var VideoController */
+    /** @var ShowVideo */
     private $sut;
 
     /** @var OptionParser&MockObject */
@@ -55,7 +55,7 @@ class VideoControllerTest extends TestCase
             'class' => "video_video",
         ]);
         $this->videoFinder = $this->createStub(VideoFinder::class);
-        $this->sut = new VideoController(
+        $this->sut = new ShowVideo(
             "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             "en",
@@ -75,7 +75,7 @@ class VideoControllerTest extends TestCase
             null,
             1674668829
         ));
-        $response = $this->sut->defaultAction("my_video", "");
+        $response = ($this->sut)("my_video", "");
         Approvals::verifyHtml($response->output());
         $this->assertEquals("", $response->bjs());
     }
@@ -91,14 +91,14 @@ class VideoControllerTest extends TestCase
             null,
             1674668829
         ));
-        $response = $this->sut->defaultAction("my_video", "");
+        $response = ($this->sut)("my_video", "");
         Approvals::verifyHtml($response->output());
         $this->assertEquals("", $response->bjs());
     }
 
     public function testReportsMissingVideo(): void
     {
-        $response = $this->sut->defaultAction("no_video", "");
+        $response = ($this->sut)("no_video", "");
         Approvals::verifyHtml($response->output());
         $this->assertEquals("", $response->bjs());
     }

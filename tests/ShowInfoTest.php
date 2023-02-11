@@ -25,23 +25,24 @@ use function XH_includeVar;
 use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
 
-use Video\Infra\VideoFinder;
+use Video\Infra\SystemChecker;
 
-class CallBuilderControllerTest extends TestCase
+class ShowInfoTest extends TestCase
 {
-    public function testDefaultActionRendersCallBuilder(): void
+    public function testRendersPluginInfo(): void
     {
-        $videoFinder = $this->createStub(VideoFinder::class);
-        $videoFinder->method('availableVideos')->willReturn([]);
-        $subject = new CallBuilderController(
+        $systemCheckerStub = $this->createStub(SystemChecker::class);
+        $systemCheckerStub->method('checkPhpVersion')->willReturn(true);
+        $systemCheckerStub->method('checkXhVersion')->willReturn(true);
+        $systemCheckerStub->method('checkWritability')->willReturn(true);
+
+        $subject = new ShowInfo(
             "./",
-            XH_includeVar("./config/config.php", "plugin_cf")['video'],
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            $videoFinder
+            $systemCheckerStub
         );
-
-        $response = $subject->defaultAction();
-
-        Approvals::verifyHtml($response->output() . "\n" . $response->bjs());
+        $response = $subject();
+        Approvals::verifyHtml($response->output());
+        $this->assertEquals("", $response->bjs());
     }
 }

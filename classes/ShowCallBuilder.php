@@ -25,7 +25,7 @@ use Video\Infra\Response;
 use Video\Infra\VideoFinder;
 use Video\Infra\View;
 
-class CallBuilderController
+class ShowCallBuilder
 {
     /** @var string */
     private $pluginFolder;
@@ -51,7 +51,7 @@ class CallBuilderController
         $this->videoFinder = $videoFinder;
     }
 
-    public function defaultAction(): Response
+    public function __invoke(): Response
     {
         $view = new View("{$this->pluginFolder}views/", $this->lang);
         $output = $view->render('call-builder', [

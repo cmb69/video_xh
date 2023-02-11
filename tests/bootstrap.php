@@ -10,9 +10,9 @@ require_once './classes/infra/VideoFinder.php';
 require_once './classes/infra/View.php';
 require_once './classes/logic/OptionParser.php';
 
-require_once './classes/CallBuilderController.php';
-require_once './classes/InfoController.php';
-require_once './classes/VideoController.php';
+require_once './classes/ShowCallBuilder.php';
+require_once './classes/ShowInfo.php';
+require_once './classes/ShowVideo.php';
 
 const CMSIMPLE_URL = "http://example.com/index.php";
 const VIDEO_VERSION = "2.0-dev";

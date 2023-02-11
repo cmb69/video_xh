@@ -35,7 +35,7 @@ class Response
         $this->bjs = $bjs;
     }
 
-    public function process(): string
+    public function fire(): string
     {
         global $bjs;
 
