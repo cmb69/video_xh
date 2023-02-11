@@ -1,10 +1,7 @@
 <?php
 
-$plugin_tx['video']['alt_logo']="Filmrolle";
 $plugin_tx['video']['error_missing']="Video \"%s\" fehlt!";
-$plugin_tx['video']['player_play']="Wiedergabe";
 $plugin_tx['video']['label_autoplay']="Auto-Wiedergabe";
-$plugin_tx['video']['label_call']="Plugin-Aufruf";
 $plugin_tx['video']['label_class']="CSS-Klasse";
 $plugin_tx['video']['label_controls']="Steuerelemente";
 $plugin_tx['video']['label_description']="Beschreibung";
@@ -19,9 +16,6 @@ $plugin_tx['video']['menu_main']="Aufruf-Assistent";
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadaten";
 $plugin_tx['video']['preload_none']="Nichts";
-$plugin_tx['video']['resize_full']="Voll";
-$plugin_tx['video']['resize_no']="Nein";
-$plugin_tx['video']['resize_shrink']="Verkleinern";
 $plugin_tx['video']['subtitle_label']="Deutsch";
 $plugin_tx['video']['syscheck_fail']="Fehler";
 $plugin_tx['video']['syscheck_message']="Prüfe, dass %1\$s … %2\$s";

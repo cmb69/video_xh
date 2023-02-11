@@ -1,9 +1,7 @@
 <?php
 
-$plugin_tx['video']['alt_logo']="Film reel";
 $plugin_tx['video']['error_missing']="Video \"%s\" missing!";
 $plugin_tx['video']['label_autoplay']="Autoplay";
-$plugin_tx['video']['label_call']="Plugin Call";
 $plugin_tx['video']['label_class']="CSS Class";
 $plugin_tx['video']['label_controls']="Controls";
 $plugin_tx['video']['label_description']="Description";
@@ -18,9 +16,6 @@ $plugin_tx['video']['menu_main']="Call Builder";
 $plugin_tx['video']['preload_auto']="Auto";
 $plugin_tx['video']['preload_metadata']="Metadata";
 $plugin_tx['video']['preload_none']="None";
-$plugin_tx['video']['resize_full']="Full";
-$plugin_tx['video']['resize_no']="No";
-$plugin_tx['video']['resize_shrink']="Shrink";
 $plugin_tx['video']['subtitle_label']="English";
 $plugin_tx['video']['syscheck_fail']="failure";
 $plugin_tx['video']['syscheck_message']="Checking that %1\$s … %2\$s";

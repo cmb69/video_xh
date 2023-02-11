@@ -6,7 +6,6 @@ $plugin_tx['video']['label_preload']="Predčítanie";
 $plugin_tx['video']['label_autoplay']="Autoplay";
 $plugin_tx['video']['label_loop']="Slučka";
 $plugin_tx['video']['label_controls']="Ovládanie";
-$plugin_tx['video']['label_call']="Výzva pre plugin";
 $plugin_tx['video']['label_width']="Šírka";
 $plugin_tx['video']['label_height']="Výška";
 $plugin_tx['video']['preload_auto']="Auto";
