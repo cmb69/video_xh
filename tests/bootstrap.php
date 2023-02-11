@@ -14,5 +14,5 @@ require_once './classes/CallBuilderController.php';
 require_once './classes/InfoController.php';
 require_once './classes/VideoController.php';
 
-const CMSIMPLE_URL = "http://example.com/";
+const CMSIMPLE_URL = "http://example.com/index.php";
 const VIDEO_VERSION = "2.0-dev";

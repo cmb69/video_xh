@@ -33,7 +33,8 @@ class Url
 
     public function __toString(): string
     {
-        $parts = explode('/', CMSIMPLE_URL . $this->filename);
+        $base = preg_replace('/index\.php$/', "", CMSIMPLE_URL);
+        $parts = explode('/', $base . $this->filename);
         $i = 0;
         while ($i < count($parts)) {
             switch ($parts[$i]) {

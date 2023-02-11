@@ -29,7 +29,7 @@ class UrlTest extends TestCase
     {
         $url = 'foo/./../bar/./baz/index.html';
         $expected = 'http://example.com/bar/baz/index.html';
-        $actual = new Url($url);
+        $actual = (string) new Url($url);
         $this->assertEquals($expected, $actual);
     }
 }
