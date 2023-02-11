@@ -25,6 +25,7 @@ use Video\Dic;
 /**
  * @var array<array<string>> $pth
  * @var array<array<string>> $plugin_cf
+ * @var array<array<string>> $plugin_tx
  * @var string $admin
  * @var PageDataRouter $pd_router
  * @var string $o
@@ -33,7 +34,10 @@ use Video\Dic;
 XH_registerStandardPluginMenuItems(true);
 
 if ($plugin_cf['video']['show_tab']) {
-    $pd_router->add_tab('Video', "{$pth['folder']['plugins']}video/video_view.php");
+    $pd_router->add_tab(
+        $plugin_tx['video']['label_pdtab'],
+        "{$pth['folder']['plugins']}video/video_view.php"
+    );
 }
 
 if (XH_wantsPluginAdministration('video')) {

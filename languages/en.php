@@ -9,6 +9,7 @@ $plugin_tx['video']['label_download']="Download %s video";
 $plugin_tx['video']['label_height']="Height";
 $plugin_tx['video']['label_loop']="Loop";
 $plugin_tx['video']['label_name']="Video";
+$plugin_tx['video']['label_pdtab']="Video";
 $plugin_tx['video']['label_preload']="Preload";
 $plugin_tx['video']['label_title']="Title";
 $plugin_tx['video']['label_width']="Width";
