@@ -15,4 +15,4 @@ require_once './classes/ShowInfo.php';
 require_once './classes/ShowVideo.php';
 
 const CMSIMPLE_URL = "http://example.com/index.php";
-const VIDEO_VERSION = "2.0";
+const VIDEO_VERSION = "2.1-dev";
