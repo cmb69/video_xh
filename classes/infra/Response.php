@@ -47,4 +47,14 @@ class Response
     {
         return print_r($this, true);
     }
+
+    public function output(): string
+    {
+        return $this->output;
+    }
+
+    public function bjs(): string
+    {
+        return $this->bjs;
+    }
 }

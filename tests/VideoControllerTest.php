@@ -76,7 +76,8 @@ class VideoControllerTest extends TestCase
             1674668829
         ));
         $response = $this->sut->defaultAction("my_video", "");
-        Approvals::verifyString($response->representation());
+        Approvals::verifyHtml($response->output());
+        $this->assertEquals("", $response->bjs());
     }
 
     public function testRendersVideoWithoutPoster(): void
@@ -91,12 +92,14 @@ class VideoControllerTest extends TestCase
             1674668829
         ));
         $response = $this->sut->defaultAction("my_video", "");
-        Approvals::verifyString($response->representation());
+        Approvals::verifyHtml($response->output());
+        $this->assertEquals("", $response->bjs());
     }
 
     public function testReportsMissingVideo(): void
     {
         $response = $this->sut->defaultAction("no_video", "");
-        Approvals::verifyString($response->representation());
+        Approvals::verifyHtml($response->output());
+        $this->assertEquals("", $response->bjs());
     }
 }

@@ -1,5 +1,0 @@
-Video\Infra\Response Object
-(
-    [output:Video\Infra\Response:private] => <p class="xh_fail">Video &quot;no_video&quot; missing!</p>
-    [bjs:Video\Infra\Response:private] => 
-)

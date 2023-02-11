@@ -29,7 +29,7 @@ use Video\Infra\VideoFinder;
 
 class CallBuilderControllerTest extends TestCase
 {
-    public function testIt(): void
+    public function testDefaultActionRendersCallBuilder(): void
     {
         $videoFinder = $this->createStub(VideoFinder::class);
         $videoFinder->method('availableVideos')->willReturn([]);
@@ -42,6 +42,6 @@ class CallBuilderControllerTest extends TestCase
 
         $response = $subject->defaultAction();
 
-        Approvals::verifyString($response->representation());
+        Approvals::verifyHtml($response->output() . "\n" . $response->bjs());
     }
 }

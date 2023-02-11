@@ -42,6 +42,7 @@ class InfoControllerTest extends TestCase
             $systemCheckerStub
         );
         $response = $subject->defaultAction();
-        Approvals::verifyString($response->representation());
+        Approvals::verifyHtml($response->output());
+        $this->assertEquals("", $response->bjs());
     }
 }
