@@ -43,11 +43,6 @@ class Response
         return $this->output;
     }
 
-    public function representation(): string
-    {
-        return print_r($this, true);
-    }
-
     public function output(): string
     {
         return $this->output;
