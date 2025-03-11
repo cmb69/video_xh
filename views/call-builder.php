@@ -18,7 +18,7 @@ use Video\Infra\View;
 ?>
 
 <h1>Video – <?=$this->text('menu_main')?></h1>
-<script type="text/x-template" id="video_call_builder">
+<template id="video_call_builder">
   <form id="video_call_builder">
     <p>
       <label for="video_name"><?=$this->text('label_name')?></label>
@@ -72,4 +72,4 @@ use Video\Infra\View;
       <textarea id="video_call"></textarea>
     </p>
   </form>
-</script>
+</template>
