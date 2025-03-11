@@ -23,9 +23,9 @@ use Video\Infra\View;
     <p>
       <label for="video_name"><?=$this->text('label_name')?></label>
       <select id="video_name">
-<?php foreach ($videos as $video):?>
+<?foreach ($videos as $video):?>
         <option><?=$this->esc($video)?></option>
-<?php endforeach?>
+<?endforeach?>
       </select>
     </p>
     <p>
@@ -39,9 +39,9 @@ use Video\Infra\View;
     <p>
       <label for="video_preload"><?=$this->text('label_preload')?></label>
       <select id="video_preload">
-<?php foreach ($preloadOptions as $option):?>
+<?foreach ($preloadOptions as $option):?>
         <option value="<?=$this->esc($option['id'])?>" <?=$this->esc($option['selected'])?>><?=$this->esc($option['label'])?></option>
-<?php endforeach?>
+<?endforeach?>
       </select>
     </p>
     <p>

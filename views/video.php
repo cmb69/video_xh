@@ -23,17 +23,17 @@ use Video\Infra\View;
   <meta itemprop="name" content="<?=$this->esc($title)?>">
   <meta itemprop="description" content="<?=$this->esc($description)?>">
   <meta itemprop="contentURL" content="<?=$this->esc($contentUrl)?>">
-<?php if (isset($thumbnailUrl)):?>
+<?if (isset($thumbnailUrl)):?>
   <meta itemprop="thumbnailUrl" content="<?=$this->esc($thumbnailUrl)?>">
-<?php endif?>
+<?endif?>
   <meta itemprop="uploadDate" content="<?=$this->esc($uploadDate)?>">
   <video class="<?=$this->esc($className)?>" <?=$this->raw($attributes)?>>
-<?php foreach ($sources as $source):?>
+<?foreach ($sources as $source):?>
     <source src="<?=$this->esc($source['url'])?>" type="video/<?=$this->esc($source['type'])?>">
-<?php endforeach?>
-<?php if ($track):?>
+<?endforeach?>
+<?if ($track):?>
     <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>">
-<?php endif?>
+<?endif?>
     <a href="<?=$this->esc($filename)?>"><?=$this->raw($downloadLink)?></a>
   </video>
 </div>
