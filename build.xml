@@ -7,14 +7,6 @@
     <echo>${help}</echo>
   </target>
 
-  <target name="mess" description="detects code flaws">
-    <exec executable="phpmd" passthru="true" checkreturn="true">
-      <arg value="classes,admin.php,index.php,video_view.php,tests"/>
-      <arg value="text"/>
-      <arg value="codesize,unusedcode"/>
-    </exec>
-  </target>
-
   <target name="sniff" description="checks adherence to the coding standards">
     <exec executable="phpcs" passthru="true" checkreturn="true">
       <arg value="--standard=PSR2"/>

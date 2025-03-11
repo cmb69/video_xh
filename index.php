@@ -23,7 +23,6 @@ use Video\Dic;
 
 const VIDEO_VERSION = "2.1-dev";
 
-/** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
 function video(string $name, string $options = ''): string
 {
     return Dic::makeShowVideo()($name, $options)->fire();
