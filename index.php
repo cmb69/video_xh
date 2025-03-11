@@ -25,5 +25,5 @@ const VIDEO_VERSION = "2.1-dev";
 
 function video(string $name, string $options = ''): string
 {
-    return Dic::makeShowVideo()($name, $options)->fire();
+    return Dic::makeShowVideo()($name, $options)();
 }

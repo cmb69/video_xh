@@ -21,8 +21,8 @@
 
 namespace Video;
 
+use Plib\Response;
 use Video\Value\Video;
-use Video\Infra\Response;
 use Video\Infra\Url;
 use Video\Infra\View;
 use Video\Infra\VideoFinder;
@@ -88,9 +88,9 @@ class ShowVideo
             if ($poster) {
                 $data["thumbnailUrl"] = new Url($poster);
             }
-            return new Response($view->render('video', $data));
+            return Response::create($view->render('video', $data));
         } else {
-            return new Response(XH_message('fail', $this->lang['error_missing'], $name));
+            return Response::create(XH_message('fail', $this->lang['error_missing'], $name));
         }
     }
 

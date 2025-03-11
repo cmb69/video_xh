@@ -21,7 +21,7 @@
 
 namespace Video;
 
-use Video\Infra\Response;
+use Plib\Response;
 use Video\Infra\VideoFinder;
 use Video\Infra\View;
 
@@ -67,7 +67,7 @@ class ShowCallBuilder
             "className" => $this->config['default_class'],
             "script" => "{$this->pluginFolder}video.min.js",
         ]);
-        return new Response($output);
+        return Response::create($output);
     }
 
     /** @return list<array{id:string,label:string,selected:string}> */

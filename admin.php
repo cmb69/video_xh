@@ -44,10 +44,10 @@ if (XH_wantsPluginAdministration('video')) {
     $o .= print_plugin_admin('on');
     switch ($admin) {
         case '':
-            $o .= Dic::makeShowInfo()()->fire();
+            $o .= Dic::makeShowInfo()()();
             break;
         case 'plugin_main':
-            $o .= Dic::makeShowCallBuilder()()->fire();
+            $o .= Dic::makeShowCallBuilder()()();
             break;
         default:
             $o .= plugin_admin_common();

@@ -21,8 +21,8 @@
 
 namespace Video;
 
+use Plib\Response;
 use Plib\SystemChecker;
-use Video\Infra\Response;
 use Video\Infra\View;
 
 class ShowInfo
@@ -58,7 +58,7 @@ class ShowInfo
                 $this->checkWritability("{$this->pluginFolder}languages/")
             ],
         ]);
-        return new Response($output);
+        return Response::create($output);
     }
 
     /** @return array{class:string,label:string,stateLabel:string} */

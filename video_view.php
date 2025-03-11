@@ -23,5 +23,5 @@ use Video\Dic;
 
 function video_view(): string
 {
-    return Dic::makeShowCallBuilder()()->fire();
+    return Dic::makeShowCallBuilder()()();
 }
