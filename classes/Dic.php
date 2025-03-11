@@ -30,10 +30,9 @@ class Dic
 {
     public static function makeShowVideo(): ShowVideo
     {
-        global $sl, $plugin_cf;
+        global $plugin_cf;
 
         return new ShowVideo(
-            $sl,
             new OptionParser($plugin_cf['video']),
             self::makeVideoFinder(),
             self::view()

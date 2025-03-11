@@ -21,6 +21,7 @@
 
 namespace Video;
 
+use Plib\Request;
 use Plib\Response;
 use Plib\View;
 use Video\Value\Video;
@@ -30,9 +31,6 @@ use Video\Logic\OptionParser;
 
 class ShowVideo
 {
-    /** @var string */
-    private $sl;
-
     /** @var OptionParser */
     private $optionParser;
 
@@ -43,18 +41,16 @@ class ShowVideo
     private $view;
 
     public function __construct(
-        string $sl,
         OptionParser $optionParser,
         VideoFinder $videoFinder,
         View $view
     ) {
-        $this->sl = $sl;
         $this->optionParser = $optionParser;
         $this->videoFinder = $videoFinder;
         $this->view = $view;
     }
 
-    public function __invoke(string $name, string $options = ''): Response
+    public function __invoke(Request $request, string $name, string $options = ''): Response
     {
         $options = $this->optionParser->parse(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
         $video = $this->videoFinder->find($name);
@@ -69,7 +65,7 @@ class ShowVideo
                 "attributes" => $this->videoAttributes($video, $options),
                 "sources" => $sources,
                 "track" => $video->subtitle(),
-                "langCode" => $this->sl,
+                "langCode" => $request->language(),
                 "contentUrl" => new Url($filename),
                 "filename" => $filename,
                 "downloadLink" => $this->downloadLink($video, $options, $filename),

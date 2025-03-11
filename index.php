@@ -19,11 +19,12 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Plib\Request;
 use Video\Dic;
 
 const VIDEO_VERSION = "2.1-dev";
 
 function video(string $name, string $options = ''): string
 {
-    return Dic::makeShowVideo()($name, $options)();
+    return Dic::makeShowVideo()(Request::current(), $name, $options)();
 }

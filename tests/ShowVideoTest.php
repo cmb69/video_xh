@@ -24,6 +24,7 @@ namespace Video;
 use function XH_includeVar;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
+use Plib\FakeRequest;
 use Plib\View;
 use Video\Value\Video;
 use Video\Infra\VideoFinder;
@@ -56,7 +57,6 @@ class ShowVideoTest extends TestCase
         ]);
         $this->videoFinder = $this->createStub(VideoFinder::class);
         $this->sut = new ShowVideo(
-            "en",
             $this->optionParser,
             $this->videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
@@ -74,7 +74,7 @@ class ShowVideoTest extends TestCase
             null,
             1674668829
         ));
-        $response = ($this->sut)("my_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", "");
         Approvals::verifyHtml($response->output());
     }
 
@@ -89,13 +89,13 @@ class ShowVideoTest extends TestCase
             null,
             1674668829
         ));
-        $response = ($this->sut)("my_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", "");
         Approvals::verifyHtml($response->output());
     }
 
     public function testReportsMissingVideo(): void
     {
-        $response = ($this->sut)("no_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "no_video", "");
         Approvals::verifyHtml($response->output());
     }
 }
