@@ -35,7 +35,6 @@ class ShowCallBuilderTest extends TestCase
         $subject = new ShowCallBuilder(
             "./",
             XH_includeVar("./config/config.php", "plugin_cf")['video'],
-            XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             $videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );

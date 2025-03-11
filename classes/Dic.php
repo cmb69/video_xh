@@ -30,10 +30,9 @@ class Dic
 {
     public static function makeShowVideo(): ShowVideo
     {
-        global $sl, $plugin_cf, $plugin_tx;
+        global $sl, $plugin_cf;
 
         return new ShowVideo(
-            $plugin_tx["video"],
             $sl,
             new OptionParser($plugin_cf['video']),
             self::makeVideoFinder(),
@@ -43,11 +42,10 @@ class Dic
 
     public static function makeShowInfo(): ShowInfo
     {
-        global $pth, $plugin_tx;
+        global $pth;
 
         return new ShowInfo(
             "{$pth['folder']['plugins']}video/",
-            $plugin_tx['video'],
             new SystemChecker(),
             self::view()
         );
@@ -55,12 +53,11 @@ class Dic
 
     public static function makeShowCallBuilder(): ShowCallBuilder
     {
-        global $pth, $plugin_cf, $plugin_tx;
+        global $pth, $plugin_cf;
 
         return new ShowCallBuilder(
             "{$pth['folder']['plugins']}video/",
             $plugin_cf['video'],
-            $plugin_tx['video'],
             self::makeVideoFinder(),
             self::view()
         );

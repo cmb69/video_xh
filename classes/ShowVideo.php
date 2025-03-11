@@ -30,9 +30,6 @@ use Video\Logic\OptionParser;
 
 class ShowVideo
 {
-    /** @var array<string,string> */
-    private $lang;
-
     /** @var string */
     private $sl;
 
@@ -45,15 +42,12 @@ class ShowVideo
     /** @var View */
     private $view;
 
-    /** @param array<string,string> $lang */
     public function __construct(
-        array $lang,
         string $sl,
         OptionParser $optionParser,
         VideoFinder $videoFinder,
         View $view
     ) {
-        $this->lang = $lang;
         $this->sl = $sl;
         $this->optionParser = $optionParser;
         $this->videoFinder = $videoFinder;
@@ -89,7 +83,7 @@ class ShowVideo
             }
             return Response::create($this->view->render('video', $data));
         } else {
-            return Response::create(XH_message('fail', $this->lang['error_missing'], $name));
+            return Response::create($this->view->message('fail', 'error_missing', $name));
         }
     }
 
@@ -112,7 +106,7 @@ class ShowVideo
     private function downloadLink(Video $video, array $options, string $filename): string
     {
         $basename = basename($filename);
-        $download = sprintf($this->lang['label_download'], $basename);
+        $download = $this->view->text('label_download', $basename);
         $poster = $video->poster();
         if ($poster) {
             $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$options['class']}\">";

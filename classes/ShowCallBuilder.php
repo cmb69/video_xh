@@ -33,24 +33,17 @@ class ShowCallBuilder
     /** @var array<string,string> */
     private $config;
 
-    /** @var array<string,string> */
-    private $lang;
-
     /** @var VideoFinder */
     private $videoFinder;
 
     /** @var View */
     private $view;
 
-    /**
-     * @param array<string,string> $config
-     * @param array<string,string> $lang
-     */
-    public function __construct(string $pluginFolder, array $config, array $lang, VideoFinder $videoFinder, View $view)
+    /** @param array<string,string> $config */
+    public function __construct(string $pluginFolder, array $config, VideoFinder $videoFinder, View $view)
     {
         $this->pluginFolder = $pluginFolder;
         $this->config = $config;
-        $this->lang = $lang;
         $this->videoFinder = $videoFinder;
         $this->view = $view;
     }
@@ -78,7 +71,7 @@ class ShowCallBuilder
     {
         $options = [];
         foreach (array('auto', 'metadata', 'none') as $id) {
-            $label = $this->lang["preload_{$id}"];
+            $label = $this->view->plain("preload_{$id}");
             $selected = $id === $this->config['default_preload'] ? 'selected' : '';
             $options[] = compact('id', 'label', 'selected');
         }

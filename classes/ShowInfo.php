@@ -30,20 +30,15 @@ class ShowInfo
     /** @var string $pluginFolder */
     private $pluginFolder;
 
-    /** @var array<string,string> */
-    private $lang;
-
     /** @var SystemChecker */
     private $systemChecker;
 
     /** @var View */
     private $view;
 
-    /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker, View $view)
+    public function __construct(string $pluginFolder, SystemChecker $systemChecker, View $view)
     {
         $this->pluginFolder = $pluginFolder;
-        $this->lang = $lang;
         $this->systemChecker = $systemChecker;
         $this->view = $view;
     }
@@ -70,8 +65,8 @@ class ShowInfo
         $state = $this->systemChecker->checkVersion(PHP_VERSION, $version) ? 'success' : 'fail';
         return [
             'class' => "xh_$state",
-            'label' => sprintf($this->lang['syscheck_phpversion'], $version),
-            'stateLabel' => $this->lang["syscheck_$state"],
+            'label' => $this->view->plain('syscheck_phpversion', $version),
+            'stateLabel' => $this->view->plain("syscheck_$state"),
         ];
     }
 
@@ -81,8 +76,8 @@ class ShowInfo
         $state = $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? 'success' : 'fail';
         return [
             'class' => "xh_$state",
-            'label' => sprintf($this->lang['syscheck_xhversion'], $version),
-            'stateLabel' => $this->lang["syscheck_$state"],
+            'label' => $this->view->plain('syscheck_xhversion', $version),
+            'stateLabel' => $this->view->plain("syscheck_$state"),
         ];
     }
 
@@ -92,8 +87,8 @@ class ShowInfo
         $state = $this->systemChecker->checkPlugin("plib", $version) ? 'success' : 'fail';
         return [
             'class' => "xh_$state",
-            'label' => sprintf($this->lang['syscheck_plibversion'], $version),
-            'stateLabel' => $this->lang["syscheck_$state"],
+            'label' => $this->view->plain('syscheck_plibversion', $version),
+            'stateLabel' => $this->view->plain("syscheck_$state"),
         ];
     }
 
@@ -103,8 +98,8 @@ class ShowInfo
         $state = $this->systemChecker->checkWritability($folder) ? 'success' : 'warning';
         return [
             'class' => "xh_$state",
-            'label' => sprintf($this->lang['syscheck_writable'], $folder),
-            'stateLabel' => $this->lang["syscheck_$state"],
+            'label' => $this->view->plain('syscheck_writable', $folder),
+            'stateLabel' => $this->view->plain("syscheck_$state"),
         ];
     }
 }

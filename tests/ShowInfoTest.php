@@ -32,7 +32,6 @@ class ShowInfoTest extends TestCase
     {
         $subject = new ShowInfo(
             "./",
-            XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             new FakeSystemChecker(true),
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
