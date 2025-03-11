@@ -53,7 +53,7 @@ class ShowVideo
     public function __invoke(Request $request, string $name, string $options = ''): Response
     {
         $options = $this->optionParser->parse(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
-        $video = $this->videoFinder->find($name);
+        $video = $this->videoFinder->find($name, $request->language());
         if ($video !== null) {
             $filename = $video->filename();
             $sources = [];

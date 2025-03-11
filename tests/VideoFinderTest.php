@@ -39,7 +39,7 @@ class VideoFinderTest extends TestCase
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $this->mediaFolder = vfsStream::url('test') . '/userfiles/media/';
-        $this->subject = new VideoFinder($this->mediaFolder, "en");
+        $this->subject = new VideoFinder($this->mediaFolder);
         mkdir($this->mediaFolder, 0777, true);
         touch($this->mediaFolder . 'movie.avi');
         touch($this->mediaFolder . 'movie.jpg');
@@ -62,7 +62,7 @@ class VideoFinderTest extends TestCase
             "{$this->mediaFolder}movie.webm" => "webm",
             "{$this->mediaFolder}movie.mp4" => "mp4"
         ];
-        $video = $this->subject->find("movie");
+        $video = $this->subject->find("movie", "en");
         $this->assertEquals($sources, $video->sources());
         $this->assertEquals("{$this->mediaFolder}movie.jpg", $video->poster());
         $this->assertEquals("{$this->mediaFolder}movie.vtt", $video->subtitle());
@@ -70,7 +70,7 @@ class VideoFinderTest extends TestCase
 
     public function testFindsNoVideo(): void
     {
-        $video = $this->subject->find("does_not_exist");
+        $video = $this->subject->find("does_not_exist", "en");
         $this->assertNull($video);
     }
 
@@ -81,7 +81,7 @@ class VideoFinderTest extends TestCase
             "{$this->mediaFolder}movie.mp4" => "mp4"
         ];
         unlink($this->mediaFolder . 'movie.jpg');
-        $video = $this->subject->find("movie");
+        $video = $this->subject->find("movie", "en");
         $this->assertEquals($sources, $video->sources());
         $this->assertNull($video->poster());
         $this->assertEquals("{$this->mediaFolder}movie.vtt", $video->subtitle());
@@ -94,7 +94,7 @@ class VideoFinderTest extends TestCase
             "{$this->mediaFolder}movie.mp4" => "mp4"
         ];
         unlink($this->mediaFolder . 'movie.vtt');
-        $video = $this->subject->find("movie");
+        $video = $this->subject->find("movie", "en");
         $this->assertEquals($sources, $video->sources());
         $this->assertEquals("{$this->mediaFolder}movie.jpg", $video->poster());
         $this->assertNull($video->subtitle());

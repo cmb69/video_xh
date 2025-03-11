@@ -64,9 +64,9 @@ class Dic
 
     private static function makeVideoFinder(): VideoFinder
     {
-        global $pth, $sl;
+        global $pth;
 
-        return new VideoFinder($pth['folder']['media'], $sl);
+        return new VideoFinder($pth['folder']['media']);
     }
 
     private static function view(): View

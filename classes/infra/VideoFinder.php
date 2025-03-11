@@ -30,13 +30,9 @@ class VideoFinder
     /** @var string */
     private $videoFolder;
 
-    /** @var string $sl */
-    private $sl;
-
-    public function __construct(string $folder, string $sl)
+    public function __construct(string $folder)
     {
         $this->videoFolder = $folder;
-        $this->sl = $sl;
     }
 
     /** @return array<string> */
@@ -63,7 +59,7 @@ class VideoFinder
         return $videos;
     }
 
-    public function find(string $name): ?Video
+    public function find(string $name, string $language): ?Video
     {
         $sources = $this->videoFiles($name);
         if (empty($sources)) {
@@ -72,7 +68,7 @@ class VideoFinder
         return new Video(
             $sources,
             $this->posterFile($name),
-            $this->subtitleFile($name),
+            $this->subtitleFile($name, $language),
             $this->uploadDate(key($sources))
         );
     }
@@ -97,10 +93,10 @@ class VideoFinder
         return file_exists($filename) ? $filename : null;
     }
 
-    private function subtitleFile(string $name): ?string
+    private function subtitleFile(string $name, string $language): ?string
     {
         $dirname = $this->videoFolder;
-        $suffixes = array("_{$this->sl}.vtt", "_{$this->sl}.srt", '.vtt', '.srt');
+        $suffixes = array("_{$language}.vtt", "_{$language}.srt", '.vtt', '.srt');
         foreach ($suffixes as $suffix) {
             $filename = $dirname . $name . $suffix;
             if (file_exists($filename)) {
