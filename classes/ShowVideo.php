@@ -31,8 +31,8 @@ use Video\Logic\OptionParser;
 
 class ShowVideo
 {
-    /** @var OptionParser */
-    private $optionParser;
+    /** @var array<string,string> */
+    private $conf;
 
     /** @var VideoFinder */
     private $videoFinder;
@@ -40,19 +40,20 @@ class ShowVideo
     /** @var View */
     private $view;
 
+    /** @param array<string,string> $conf */
     public function __construct(
-        OptionParser $optionParser,
+        array $conf,
         VideoFinder $videoFinder,
         View $view
     ) {
-        $this->optionParser = $optionParser;
+        $this->conf = $conf;
         $this->videoFinder = $videoFinder;
         $this->view = $view;
     }
 
     public function __invoke(Request $request, string $name, string $options = ''): Response
     {
-        $options = $this->optionParser->parse(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
+        $options = $this->parseOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
         $video = $this->videoFinder->find($name, $request->language());
         if ($video !== null) {
             $filename = $video->filename();
@@ -81,6 +82,26 @@ class ShowVideo
         } else {
             return Response::create($this->view->message('fail', 'error_missing', $name));
         }
+    }
+
+    /** @return array<string,string|true> */
+    private function parseOptions(string $query): array
+    {
+        $validOptions = [
+            'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
+            'title', 'width'
+        ];
+        parse_str($query, $options);
+        $res = array();
+        foreach ($validOptions as $key) {
+            if (isset($options[$key])) {
+                assert(is_string($options[$key])); // @todo actually handle this
+                $res[$key] = ($options[$key] === '') ? true : $options[$key];
+            } else {
+                $res[$key] = $this->conf["default_$key"];
+            }
+        }
+        return $res;
     }
 
     /** @param array<string,string|true> $options */

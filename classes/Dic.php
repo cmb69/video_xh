@@ -33,7 +33,7 @@ class Dic
         global $plugin_cf;
 
         return new ShowVideo(
-            new OptionParser($plugin_cf['video']),
+            $plugin_cf['video'],
             self::makeVideoFinder(),
             self::view()
         );

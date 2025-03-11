@@ -44,7 +44,7 @@ class ShowVideoTest extends TestCase
     {
         $this->videoFinder = $this->createStub(VideoFinder::class);
         $this->sut = new ShowVideo(
-            new OptionParser(XH_includeVar("./config/config.php", "plugin_cf")['video']),
+            XH_includeVar("./config/config.php", "plugin_cf")['video'],
             $this->videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
