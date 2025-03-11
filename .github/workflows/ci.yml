@@ -21,6 +21,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: cmsimplexh/plugins/video
+      - name: Checkout Plib_XH
+        uses: actions/checkout@v4
+        with:
+          repository: cmb69/plib_xh
+          path: cmsimplexh/plugins/plib
       - name: Cache tools
         id: cache-tools
         uses: actions/cache@v4
