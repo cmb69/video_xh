@@ -21,10 +21,9 @@
 
 namespace Video;
 
-use function XH_includeVar;
-use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
-
+use PHPUnit\Framework\TestCase;
+use Plib\View;
 use Video\Infra\VideoFinder;
 
 class ShowCallBuilderTest extends TestCase
@@ -37,7 +36,8 @@ class ShowCallBuilderTest extends TestCase
             "./",
             XH_includeVar("./config/config.php", "plugin_cf")['video'],
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            $videoFinder
+            $videoFinder,
+            new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
 
         $response = $subject();

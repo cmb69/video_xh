@@ -22,9 +22,9 @@
 namespace Video;
 
 use function XH_includeVar;
-use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
-
+use PHPUnit\Framework\TestCase;
+use Plib\View;
 use Video\Value\Video;
 use Video\Infra\VideoFinder;
 use Video\Logic\OptionParser;
@@ -56,11 +56,11 @@ class ShowVideoTest extends TestCase
         ]);
         $this->videoFinder = $this->createStub(VideoFinder::class);
         $this->sut = new ShowVideo(
-            "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
             "en",
             $this->optionParser,
-            $this->videoFinder
+            $this->videoFinder,
+            new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
     }
 

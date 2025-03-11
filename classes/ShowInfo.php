@@ -36,18 +36,21 @@ class ShowInfo
     /** @var SystemChecker */
     private $systemChecker;
 
+    /** @var View */
+    private $view;
+
     /** @param array<string,string> $lang */
-    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker)
+    public function __construct(string $pluginFolder, array $lang, SystemChecker $systemChecker, View $view)
     {
         $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->systemChecker = $systemChecker;
+        $this->view = $view;
     }
 
     public function __invoke(): Response
     {
-        $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $output = $view->render('info', [
+        $output = $this->view->render('info', [
             "version" => VIDEO_VERSION,
             "checks" => [
                 $this->checkPhpVersion('7.1.0'),

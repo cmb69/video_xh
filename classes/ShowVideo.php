@@ -30,9 +30,6 @@ use Video\Logic\OptionParser;
 
 class ShowVideo
 {
-    /** @var string */
-    private $pluginFolder;
-
     /** @var array<string,string> */
     private $lang;
 
@@ -45,19 +42,22 @@ class ShowVideo
     /** @var VideoFinder */
     private $videoFinder;
 
+    /** @var View */
+    private $view;
+
     /** @param array<string,string> $lang */
     public function __construct(
-        string $pluginFolder,
         array $lang,
         string $sl,
         OptionParser $optionParser,
-        VideoFinder $videoFinder
+        VideoFinder $videoFinder,
+        View $view
     ) {
-        $this->pluginFolder = $pluginFolder;
         $this->lang = $lang;
         $this->sl = $sl;
         $this->optionParser = $optionParser;
         $this->videoFinder = $videoFinder;
+        $this->view = $view;
     }
 
     public function __invoke(string $name, string $options = ''): Response
@@ -70,7 +70,6 @@ class ShowVideo
             foreach ($video->sources() as $url => $type) {
                 $sources[] = ['url' => $url, 'type' => $type];
             }
-            $view = new View("{$this->pluginFolder}views/", $this->lang);
             $data = [
                 "className" => $options['class'],
                 "attributes" => $this->videoAttributes($video, $options),
@@ -88,7 +87,7 @@ class ShowVideo
             if ($poster) {
                 $data["thumbnailUrl"] = new Url($poster);
             }
-            return Response::create($view->render('video', $data));
+            return Response::create($this->view->render('video', $data));
         } else {
             return Response::create(XH_message('fail', $this->lang['error_missing'], $name));
         }

@@ -39,22 +39,25 @@ class ShowCallBuilder
     /** @var VideoFinder */
     private $videoFinder;
 
+    /** @var View */
+    private $view;
+
     /**
      * @param array<string,string> $config
      * @param array<string,string> $lang
      */
-    public function __construct(string $pluginFolder, array $config, array $lang, VideoFinder $videoFinder)
+    public function __construct(string $pluginFolder, array $config, array $lang, VideoFinder $videoFinder, View $view)
     {
         $this->pluginFolder = $pluginFolder;
         $this->config = $config;
         $this->lang = $lang;
         $this->videoFinder = $videoFinder;
+        $this->view = $view;
     }
 
     public function __invoke(): Response
     {
-        $view = new View("{$this->pluginFolder}views/", $this->lang);
-        $output = $view->render('call-builder', [
+        $output = $this->view->render('call-builder', [
             "videos" => $this->videoFinder->availableVideos(),
             "title" => $this->config['default_title'],
             "description" => $this->config['default_description'],
