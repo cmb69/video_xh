@@ -17,9 +17,9 @@ jobs:
           curl -fsSL -o CMSimple_XH-1.7.5.zip https://github.com/cmsimple-xh/cmsimple-xh/releases/download/1.7.5/CMSimple_XH-1.7.5.zip
           unzip -q CMSimple_XH-1.7.5.zip
       - name: Checkout Video
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          path: 'cmsimplexh/plugins/video'
+          path: cmsimplexh/plugins/video
       - name: composer install
         run: cd cmsimplexh/plugins/video && composer install
       - name: phing sniff
