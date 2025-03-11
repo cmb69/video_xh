@@ -3,3 +3,4 @@ vendor
 /.phpunit.cache/test-results
 /.phpunit.result.cache
 /composer.lock
+/tools
