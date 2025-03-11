@@ -32,32 +32,19 @@ use Video\Logic\OptionParser;
 
 class ShowVideoTest extends TestCase
 {
+    private const OPTIONS = "title=My%20Video&description=This%20is%20a%20nice%20one%20%26%20it%27s%20short";
+
     /** @var ShowVideo */
     private $sut;
-
-    /** @var OptionParser&MockObject */
-    private $optionParser;
 
     /** @var VideoFinder&MockObject */
     private $videoFinder;
 
     public function setUp(): void
     {
-        $this->optionParser = $this->createStub(OptionParser::class);
-        $this->optionParser->method('parse')->willReturn([
-            'title' => "My Video",
-            'description' => "This is a nice one & it's short",
-            'preload' => "auto",
-            'autoplay' => "0",
-            'loop' => "0",
-            'controls' => "1",
-            'width' => "512",
-            'height' => "288",
-            'class' => "video_video",
-        ]);
         $this->videoFinder = $this->createStub(VideoFinder::class);
         $this->sut = new ShowVideo(
-            $this->optionParser,
+            new OptionParser(XH_includeVar("./config/config.php", "plugin_cf")['video']),
             $this->videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
@@ -74,7 +61,7 @@ class ShowVideoTest extends TestCase
             null,
             1674668829
         ));
-        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", self::OPTIONS);
         Approvals::verifyHtml($response->output());
     }
 
@@ -89,13 +76,13 @@ class ShowVideoTest extends TestCase
             null,
             1674668829
         ));
-        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "my_video", self::OPTIONS);
         Approvals::verifyHtml($response->output());
     }
 
     public function testReportsMissingVideo(): void
     {
-        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "no_video", "");
+        $response = ($this->sut)(new FakeRequest(["language" => "en"]), "no_video", self::OPTIONS);
         Approvals::verifyHtml($response->output());
     }
 }
