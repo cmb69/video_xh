@@ -25,7 +25,7 @@ use Video\Value\Video;
 
 class VideoFinder
 {
-    const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+    private const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
 
     /** @var string */
     private $videoFolder;
