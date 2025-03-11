@@ -22,9 +22,9 @@
 namespace Video;
 
 use Plib\Response;
+use Plib\View;
 use Video\Value\Video;
 use Video\Infra\Url;
-use Video\Infra\View;
 use Video\Infra\VideoFinder;
 use Video\Logic\OptionParser;
 

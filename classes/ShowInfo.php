@@ -23,7 +23,7 @@ namespace Video;
 
 use Plib\Response;
 use Plib\SystemChecker;
-use Video\Infra\View;
+use Plib\View;
 
 class ShowInfo
 {

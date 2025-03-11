@@ -1,6 +1,6 @@
 <?php
 
-use Video\Infra\View;
+use Plib\View;
 
 /**
  * @var View $this

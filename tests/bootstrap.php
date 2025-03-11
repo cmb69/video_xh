@@ -4,12 +4,12 @@ require_once '../../cmsimple/functions.php';
 
 require_once '../plib/classes/Response.php';
 require_once '../plib/classes/SystemChecker.php';
+require_once '../plib//classes/View.php';
 require_once '../plib/classes/FakeSystemChecker.php';
 
 require_once './classes/value/Video.php';
 require_once './classes/infra/Url.php';
 require_once './classes/infra/VideoFinder.php';
-require_once './classes/infra/View.php';
 require_once './classes/logic/OptionParser.php';
 
 require_once './classes/ShowCallBuilder.php';

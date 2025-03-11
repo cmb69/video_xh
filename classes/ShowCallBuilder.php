@@ -22,8 +22,8 @@
 namespace Video;
 
 use Plib\Response;
+use Plib\View;
 use Video\Infra\VideoFinder;
-use Video\Infra\View;
 
 class ShowCallBuilder
 {
