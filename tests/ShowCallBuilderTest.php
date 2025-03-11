@@ -42,6 +42,6 @@ class ShowCallBuilderTest extends TestCase
 
         $response = $subject();
 
-        Approvals::verifyHtml($response->output() . "\n" . $response->bjs());
+        Approvals::verifyHtml($response->output());
     }
 }

@@ -43,6 +43,5 @@ class ShowInfoTest extends TestCase
         );
         $response = $subject();
         Approvals::verifyHtml($response->output());
-        $this->assertEquals("", $response->bjs());
     }
 }

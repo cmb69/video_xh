@@ -65,8 +65,9 @@ class ShowCallBuilder
             "width" => $this->config['default_width'],
             "height" => $this->config['default_height'],
             "className" => $this->config['default_class'],
+            "script" => "{$this->pluginFolder}video.min.js",
         ]);
-        return new Response($output, $this->renderScript("{$this->pluginFolder}video.min.js"));
+        return new Response($output);
     }
 
     /** @return list<array{id:string,label:string,selected:string}> */
@@ -79,10 +80,5 @@ class ShowCallBuilder
             $options[] = compact('id', 'label', 'selected');
         }
         return $options;
-    }
-
-    private function renderScript(string $filename): string
-    {
-        return sprintf('<script type="text/javascript" src="%s"></script>', XH_hsc($filename));
     }
 }

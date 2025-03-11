@@ -26,30 +26,18 @@ class Response
     /** @var string */
     private $output;
 
-    /** @var string */
-    private $bjs;
-
-    public function __construct(string $output, string $bjs = "")
+    public function __construct(string $output)
     {
         $this->output = $output;
-        $this->bjs = $bjs;
     }
 
     public function fire(): string
     {
-        global $bjs;
-
-        $bjs .= $this->bjs;
         return $this->output;
     }
 
     public function output(): string
     {
         return $this->output;
-    }
-
-    public function bjs(): string
-    {
-        return $this->bjs;
     }
 }

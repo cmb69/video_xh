@@ -14,9 +14,11 @@ use Video\Infra\View;
  * @var string $width
  * @var string $height
  * @var string $className
+ * @var string $script
  */
 ?>
 
+<script type="module" src="<?=$this->esc($script)?>"></script>
 <h1>Video – <?=$this->text('menu_main')?></h1>
 <template id="video_call_builder">
   <form id="video_call_builder">

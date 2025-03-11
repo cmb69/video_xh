@@ -77,7 +77,6 @@ class ShowVideoTest extends TestCase
         ));
         $response = ($this->sut)("my_video", "");
         Approvals::verifyHtml($response->output());
-        $this->assertEquals("", $response->bjs());
     }
 
     public function testRendersVideoWithoutPoster(): void
@@ -93,13 +92,11 @@ class ShowVideoTest extends TestCase
         ));
         $response = ($this->sut)("my_video", "");
         Approvals::verifyHtml($response->output());
-        $this->assertEquals("", $response->bjs());
     }
 
     public function testReportsMissingVideo(): void
     {
         $response = ($this->sut)("no_video", "");
         Approvals::verifyHtml($response->output());
-        $this->assertEquals("", $response->bjs());
     }
 }
