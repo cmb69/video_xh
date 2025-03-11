@@ -21,6 +21,7 @@ $plugin_tx['video']['subtitle_label']="English";
 $plugin_tx['video']['syscheck_fail']="failure";
 $plugin_tx['video']['syscheck_message']="Checking that %1\$s … %2\$s";
 $plugin_tx['video']['syscheck_phpversion']="PHP version ≥ %s";
+$plugin_tx['video']['syscheck_plibversion']="Plib_XH version ≥ %s";
 $plugin_tx['video']['syscheck_success']="okay";
 $plugin_tx['video']['syscheck_title']="System check";
 $plugin_tx['video']['syscheck_warning']="warning";

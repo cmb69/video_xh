@@ -21,25 +21,18 @@
 
 namespace Video;
 
-use function XH_includeVar;
-use PHPUnit\Framework\TestCase;
 use ApprovalTests\Approvals;
-
-use Video\Infra\SystemChecker;
+use PHPUnit\Framework\TestCase;
+use Plib\FakeSystemChecker;
 
 class ShowInfoTest extends TestCase
 {
     public function testRendersPluginInfo(): void
     {
-        $systemCheckerStub = $this->createStub(SystemChecker::class);
-        $systemCheckerStub->method('checkPhpVersion')->willReturn(true);
-        $systemCheckerStub->method('checkXhVersion')->willReturn(true);
-        $systemCheckerStub->method('checkWritability')->willReturn(true);
-
         $subject = new ShowInfo(
             "./",
             XH_includeVar("./languages/en.php", "plugin_tx")['video'],
-            $systemCheckerStub
+            new FakeSystemChecker(true)
         );
         $response = $subject();
         Approvals::verifyHtml($response->output());

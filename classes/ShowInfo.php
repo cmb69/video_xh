@@ -21,8 +21,8 @@
 
 namespace Video;
 
+use Plib\SystemChecker;
 use Video\Infra\Response;
-use Video\Infra\SystemChecker;
 use Video\Infra\View;
 
 class ShowInfo
@@ -52,6 +52,7 @@ class ShowInfo
             "checks" => [
                 $this->checkPhpVersion('7.1.0'),
                 $this->checkXhVersion('1.7.0'),
+                $this->checkPlibVersion('1.1.0'),
                 $this->checkWritability("{$this->pluginFolder}css/"),
                 $this->checkWritability("{$this->pluginFolder}config"),
                 $this->checkWritability("{$this->pluginFolder}languages/")
@@ -63,7 +64,7 @@ class ShowInfo
     /** @return array{class:string,label:string,stateLabel:string} */
     private function checkPhpVersion(string $version): array
     {
-        $state = $this->systemChecker->checkPhpVersion($version) ? 'success' : 'fail';
+        $state = $this->systemChecker->checkVersion(PHP_VERSION, $version) ? 'success' : 'fail';
         return [
             'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_phpversion'], $version),
@@ -74,10 +75,21 @@ class ShowInfo
     /** @return array{class:string,label:string,stateLabel:string} */
     private function checkXhVersion(string $version): array
     {
-        $state = $this->systemChecker->checkXhVersion($version) ? 'success' : 'fail';
+        $state = $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") ? 'success' : 'fail';
         return [
             'class' => "xh_$state",
             'label' => sprintf($this->lang['syscheck_xhversion'], $version),
+            'stateLabel' => $this->lang["syscheck_$state"],
+        ];
+    }
+
+    /** @return array{class:string,label:string,stateLabel:string} */
+    private function checkPlibVersion(string $version)
+    {
+        $state = $this->systemChecker->checkPlugin("plib", $version) ? 'success' : 'fail';
+        return [
+            'class' => "xh_$state",
+            'label' => sprintf($this->lang['syscheck_plibversion'], $version),
             'stateLabel' => $this->lang["syscheck_$state"],
         ];
     }
