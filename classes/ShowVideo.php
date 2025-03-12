@@ -25,9 +25,7 @@ use Plib\Request;
 use Plib\Response;
 use Plib\View;
 use Video\Value\Video;
-use Video\Infra\Url;
 use Video\Infra\VideoFinder;
-use Video\Logic\OptionParser;
 
 class ShowVideo
 {
@@ -67,7 +65,7 @@ class ShowVideo
                 "sources" => $sources,
                 "track" => $video->subtitle(),
                 "langCode" => $request->language(),
-                "contentUrl" => new Url($filename),
+                "contentUrl" => $request->url()->path($filename)->absolute(),
                 "filename" => $filename,
                 "downloadLink" => $this->downloadLink($video, $options, $filename),
                 "title" => $options['title'],
@@ -76,7 +74,7 @@ class ShowVideo
             ];
             $poster = $video->poster();
             if ($poster) {
-                $data["thumbnailUrl"] = new Url($poster);
+                $data["thumbnailUrl"] = $request->url()->path($poster)->absolute();
             }
             return Response::create($this->view->render('video', $data));
         } else {

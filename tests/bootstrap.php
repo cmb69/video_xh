@@ -11,7 +11,6 @@ require_once '../plib/classes/FakeRequest.php';
 require_once '../plib/classes/FakeSystemChecker.php';
 
 require_once './classes/value/Video.php';
-require_once './classes/infra/Url.php';
 require_once './classes/infra/VideoFinder.php';
 
 require_once './classes/Dic.php';
