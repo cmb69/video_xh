@@ -23,8 +23,7 @@ namespace Video;
 
 use Plib\SystemChecker;
 use Plib\View;
-use Video\Infra\VideoFinder;
-use Video\Logic\OptionParser;
+use Video\Model\VideoFinder;
 
 class Dic
 {

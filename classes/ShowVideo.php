@@ -24,8 +24,8 @@ namespace Video;
 use Plib\Request;
 use Plib\Response;
 use Plib\View;
-use Video\Value\Video;
-use Video\Infra\VideoFinder;
+use Video\Model\Video;
+use Video\Model\VideoFinder;
 
 class ShowVideo
 {

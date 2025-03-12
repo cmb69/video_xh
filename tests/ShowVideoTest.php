@@ -26,9 +26,8 @@ use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeRequest;
 use Plib\View;
-use Video\Value\Video;
-use Video\Infra\VideoFinder;
-use Video\Logic\OptionParser;
+use Video\Model\Video;
+use Video\Model\VideoFinder;
 
 class ShowVideoTest extends TestCase
 {

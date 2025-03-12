@@ -19,7 +19,7 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Video\Infra;
+namespace Video\Model;
 
 use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;

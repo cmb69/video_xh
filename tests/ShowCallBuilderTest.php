@@ -24,7 +24,7 @@ namespace Video;
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use Plib\View;
-use Video\Infra\VideoFinder;
+use Video\Model\VideoFinder;
 
 class ShowCallBuilderTest extends TestCase
 {

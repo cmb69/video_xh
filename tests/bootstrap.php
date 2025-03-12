@@ -10,9 +10,8 @@ require_once '../plib/classes/View.php';
 require_once '../plib/classes/FakeRequest.php';
 require_once '../plib/classes/FakeSystemChecker.php';
 
-require_once './classes/value/Video.php';
-require_once './classes/infra/VideoFinder.php';
-
+require_once './classes/model/Video.php';
+require_once './classes/model/VideoFinder.php';
 require_once './classes/Dic.php';
 require_once './classes/ShowCallBuilder.php';
 require_once './classes/ShowInfo.php';
