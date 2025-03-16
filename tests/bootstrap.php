@@ -19,4 +19,4 @@ require_once './classes/ShowVideo.php';
 
 const CMSIMPLE_URL = "http://example.com/index.php";
 const CMSIMPLE_XH_VERSION = "CMSimple_XH 1.8";
-const VIDEO_VERSION = "2.2-dev";
+const VIDEO_VERSION = "2.2";
