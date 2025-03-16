@@ -15,11 +15,14 @@ use Plib\View;
  * @var string $height
  * @var string $className
  * @var string $script
+ * @var bool $show_title
  */
 ?>
 
 <script type="module" src="<?=$this->esc($script)?>"></script>
+<?if ($show_title):?>
 <h1>Video – <?=$this->text('menu_main')?></h1>
+<?endif?>
 <template id="video_call_builder">
   <form id="video_call_builder">
     <p>

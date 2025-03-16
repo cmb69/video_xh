@@ -48,7 +48,7 @@ class ShowCallBuilder
         $this->view = $view;
     }
 
-    public function __invoke(): Response
+    public function __invoke(bool $showTitle): Response
     {
         $output = $this->view->render('call-builder', [
             "videos" => $this->videoFinder->availableVideos(),
@@ -62,8 +62,13 @@ class ShowCallBuilder
             "height" => $this->config['default_height'],
             "className" => $this->config['default_class'],
             "script" => "{$this->pluginFolder}video.min.js",
+            "show_title" => $showTitle,
         ]);
-        return Response::create($output);
+        $response =  Response::create($output);
+        if ($showTitle) {
+            $response = $response->withTitle($this->view->esc("Video – ") . $this->view->text('menu_main'));
+        }
+        return $response;
     }
 
     /** @return list<array{id:string,label:string,selected:string}> */

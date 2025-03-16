@@ -47,7 +47,7 @@ if (XH_wantsPluginAdministration('video')) {
             $o .= Dic::makeShowInfo()()();
             break;
         case 'plugin_main':
-            $o .= Dic::makeShowCallBuilder()()();
+            $o .= Dic::makeShowCallBuilder()(true)();
             break;
         default:
             $o .= plugin_admin_common();

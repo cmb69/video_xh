@@ -56,7 +56,7 @@ class ShowInfo
                 $this->checkWritability("{$this->pluginFolder}languages/")
             ],
         ]);
-        return Response::create($output);
+        return Response::create($output)->withTitle($this->view->esc("Video " . VIDEO_VERSION));
     }
 
     /** @return array{class:string,label:string,stateLabel:string} */

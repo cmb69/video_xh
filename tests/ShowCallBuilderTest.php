@@ -38,9 +38,8 @@ class ShowCallBuilderTest extends TestCase
             $videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
-
-        $response = $subject();
-
+        $response = $subject(true);
+        $this->assertSame("Video – Call Builder", $response->title());
         Approvals::verifyHtml($response->output());
     }
 }
