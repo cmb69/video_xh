@@ -1,0 +1,9 @@
+@@ -8,7 +8,7 @@
+     public $parameters;
+     public $fileExtensions;
+ 
+-    public function __construct(string $diffProgram, array $fileExtensions, string $parameters = null)
++    public function __construct(string $diffProgram, array $fileExtensions, ?string $parameters = null)
+     {
+         $this->diffProgram = self::resolveWindowsPath($diffProgram);
+         $this->parameters = $parameters ?? GenericDiffReporter::$STANDARD_ARGUMENTS;

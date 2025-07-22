@@ -1,0 +1,24 @@
+@@ -10,12 +10,12 @@
+ 
+ class Approvals
+ {
+-    public static function verifyString($received, Reporter $reporter = null)
++    public static function verifyString($received, ?Reporter $reporter = null)
+     {
+         self::verifyStringWithFileExtension($received, 'txt', $reporter);
+     }
+ 
+-    public static function verifyStringWithFileExtension($received, $extensionWithoutDot, Reporter $reporter = null)
++    public static function verifyStringWithFileExtension($received, $extensionWithoutDot, ?Reporter $reporter = null)
+     {
+         self::verify(new TextWriter($received, $extensionWithoutDot), new PHPUnitNamer(), $reporter);
+     }
+@@ -28,7 +28,7 @@
+     /**
+      * Perform the approval test by comparing the contents of one file to another
+      */
+-    public static function verify(Writer $writer, Namer $namer, Reporter $reporter = null)
++    public static function verify(Writer $writer, Namer $namer, ?Reporter $reporter = null)
+     {
+         self::satisfyPHPUnitRequirementForAssert();
+         if ($reporter == null) {

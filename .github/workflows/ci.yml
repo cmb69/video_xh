@@ -16,6 +16,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{matrix.php}}
+          ini-file: development
           ini-values: short_open_tag=1
           tools: composer,phive
       - name: Checkout CMSimple_XH
@@ -44,6 +45,11 @@ jobs:
         run: cd cmsimplexh/plugins/video && phive --no-progress install --copy --trust-gpg-keys 0F9684B8B16B7AB0,31C7E470E2138192,51C67305FFC2E5C0,6DA3ACC4991FFAE5,9093F8B32E4815AA,97B02DD8E5071466,A978220305CD5C32,CF1A108D0E7AE720,D5F0CB76E2DD74F8
       - name: composer install
         run: cd cmsimplexh/plugins/video && composer install
+      - name: Patch Approvals
+        run: |
+          cd cmsimplexh/plugins/fotorama
+          patch vendor/approvals/approval-tests/src/Reporters/DiffInfo.php .github/DiffInfo.php.patch
+          patch vendor/approvals/approval-tests/src/Approvals.php .github/Approvals.php.patch
       - name: phing sniff
         run: cd cmsimplexh/plugins/video && PATH=tools:vendor/bin:$PATH phing sniff
       - name: phing stan
