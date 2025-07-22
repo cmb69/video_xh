@@ -49,7 +49,9 @@ class VideoFinderTest extends TestCase
         touch($this->mediaFolder . 'movie');
         file_put_contents($this->mediaFolder . "new.ini", <<<EOT
             [movie.webm]
+            codecs=vp8,opus
             [movie.mp4]
+            codecs=avc1.4d0029,mp4a.40.2
             EOT);
         touch($this->mediaFolder . "new.jpg");
         touch($this->mediaFolder . "new.vtt");
@@ -65,8 +67,8 @@ class VideoFinderTest extends TestCase
     public function testFindsVideoFromIni(): void
     {
         $sources = [
-            "{$this->mediaFolder}./movie.webm" => "webm",
-            "{$this->mediaFolder}./movie.mp4" => "mp4"
+            "{$this->mediaFolder}./movie.webm" => "webm; codecs=vp8,opus",
+            "{$this->mediaFolder}./movie.mp4" => "mp4; codecs=avc1.4d0029,mp4a.40.2"
         ];
         $video = $this->subject->find("new", "en");
         $this->assertEquals($sources, $video->sources());

@@ -87,8 +87,13 @@ class VideoFinder
             return [];
         }
         $res = [];
-        foreach (array_keys($ini) as $section) {
-            $res[$this->videoFolder . dirname($name) . "/" . $section] = pathinfo($section, PATHINFO_EXTENSION);
+        foreach ($ini as $section => $contents) {
+            $key = $this->videoFolder . dirname($name) . "/" . $section;
+            $type = pathinfo($section, PATHINFO_EXTENSION);
+            if (isset($contents["codecs"])) {
+                $type .= "; codecs=" . $contents["codecs"];
+            }
+            $res[$key] = $type;
         }
         return $res;
     }
