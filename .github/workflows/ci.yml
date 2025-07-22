@@ -47,7 +47,7 @@ jobs:
         run: cd cmsimplexh/plugins/video && composer install
       - name: Patch Approvals
         run: |
-          cd cmsimplexh/plugins/fotorama
+          cd cmsimplexh/plugins/video
           patch vendor/approvals/approval-tests/src/Reporters/DiffInfo.php .github/DiffInfo.php.patch
           patch vendor/approvals/approval-tests/src/Approvals.php .github/Approvals.php.patch
       - name: phing sniff
