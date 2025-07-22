@@ -21,6 +21,11 @@
 
 namespace Video\Model;
 
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
+
 class VideoFinder
 {
     private const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
@@ -36,23 +41,27 @@ class VideoFinder
     /** @return array<string> */
     public function availableVideos(): array
     {
-        $dirHandle = opendir($this->videoFolder);
-        $videos = array();
-        if ($dirHandle) {
-            while (($file = readdir($dirHandle)) !== false) {
-                $pathinfo = pathinfo($file);
-                if (!isset($pathinfo['extension'])) {
-                    continue;
-                }
-                $basename = $pathinfo['basename'];
-                $extension = $pathinfo['extension'];
-                if ($extension === "ini" || in_array($extension, array_keys(self::TYPES))) {
-                    $name = substr($basename, 0, -(strlen($extension) + 1));
-                    $videos[] = $name;
+        $videos = [];
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $this->videoFolder,
+                FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS
+            ),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+        $it->rewind();
+        while ($it->valid()) {
+            assert(is_string($it->key()));
+            assert($it->current() instanceof SplFileInfo);
+            if ($it->current()->isFile()) {
+                $extension = $it->current()->getExtension();
+                if ($extension === "ini" || in_array($extension, array_keys(self::TYPES), true)) {
+                    $videos[] = substr(substr($it->key(), strlen($this->videoFolder)), 0, -(strlen($extension) + 1));
                 }
             }
+            $it->next();
         }
-        sort($videos);
+        natcasesort($videos);
         $videos = array_values(array_unique($videos));
         return $videos;
     }
