@@ -46,20 +46,24 @@ class VideoFinder
                 }
                 $basename = $pathinfo['basename'];
                 $extension = $pathinfo['extension'];
-                if (in_array($extension, array_keys(self::TYPES))) {
+                if ($extension === "ini" || in_array($extension, array_keys(self::TYPES))) {
                     $name = substr($basename, 0, -(strlen($extension) + 1));
                     $videos[] = $name;
                 }
             }
         }
         sort($videos);
-        $videos = array_unique($videos);
+        $videos = array_values(array_unique($videos));
         return $videos;
     }
 
     public function find(string $name, string $language): ?Video
     {
-        $sources = $this->videoFiles($name);
+        if ($this->hasIni($name)) {
+            $sources = $this->findFromIni($name);
+        } else {
+            $sources = $this->videoFiles($name);
+        }
         if (empty($sources)) {
             return null;
         }
@@ -69,6 +73,24 @@ class VideoFinder
             $this->subtitleFile($name, $language),
             $this->uploadDate(key($sources))
         );
+    }
+
+    private function hasIni(string $name): bool
+    {
+        return is_file($this->videoFolder . $name . ".ini");
+    }
+
+    /** @return array<string,string> */
+    private function findFromIni(string $name): array
+    {
+        if (($ini = parse_ini_file($this->videoFolder . $name . ".ini", true, INI_SCANNER_RAW)) === false) {
+            return [];
+        }
+        $res = [];
+        foreach (array_keys($ini) as $section) {
+            $res[$this->videoFolder . dirname($name) . "/" . $section] = pathinfo($section, PATHINFO_EXTENSION);
+        }
+        return $res;
     }
 
     /** @return array<string,string> */
