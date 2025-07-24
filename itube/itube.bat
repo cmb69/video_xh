@@ -24,12 +24,22 @@ title itube %filename%
 echo [32mprocessing %filename%[0m
 if not exist "%folder%" md "%folder%"
 type nul > "%inifile%"
+call :set_deint || ( pause & exit /b 1 )
 call :set_size_and_scale 720 || ( pause & exit /b 1 )
+call :set_vfilter || ( pause & exit /b 1 )
 call :set_bitrate || ( pause & exit /b 1 )
 call :encode_mp4 || ( pause & exit /b 1 )
 call :encode_webm || ( pause & exit /b 1 )
 echo [32mfinished processing %filename%[0m
 pause
+goto :eof
+
+:set_deint
+    setlocal
+    for /f "delims=," %%i in (
+        '%ffprobe% -v error -select_streams v:0 -show_entries stream^=field_order -of csv^=p^=0 %infile%'
+    ) do if %%i neq progressive set deint=yadif
+    endlocal & set deint=%deint%
 goto :eof
 
 :set_size_and_scale
@@ -54,12 +64,20 @@ goto :eof
     endlocal & set "size=%size%" & set scale=%scale%
 goto :eof
 
+:set_vfilter
+    setlocal
+    set vfilter=%deint%
+    if "%vfilter%" neq "" set vfilter=%vfilter%,
+    set vfilter=%vfilter%scale=%scale%,setsar=1
+    endlocal & set vfilter=%vfilter%
+goto :eof
+
 :set_bitrate
     setlocal
     set out=%folder%\%basename%.mp4
     echo [36mdetermining %size%p video bitrate ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
-        -vf scale=%scale%,setsar=1 -pix_fmt yuv420p^
+        -vf %vfilter% -pix_fmt yuv420p^
         -c:v libx264 -preset slow -tune film -profile main -crf %crf%^
         -an -sn^
         -f mp4 "%out%" || exit /b 1
@@ -75,7 +93,7 @@ goto :eof
     set /a bufsize=%bitrate% * 2
     echo [36manalyzing %size%p MP4 video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
-        -vf scale=%scale%,setsar=1 -pix_fmt yuv420p^
+        -vf %vfilter% -pix_fmt yuv420p^
         -c:v libx264 -preset slow -tune film -profile main -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -an -sn^
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
@@ -102,13 +120,13 @@ goto :eof
     set /a bufsize=%bitrate% * 2
     echo [36manalyzing %size%p WebM video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
-        -vf scale=%scale%,setsar=1 -pix_fmt yuv420p^
+        -vf %vfilter% -pix_fmt yuv420p^
         -c:v libvpx -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -an -sn^
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
     echo [36mencoding %size%p WebM video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
-        -vf scale=%scale%,setsar=1 -pix_fmt yuv420p^
+        -vf %vfilter% -pix_fmt yuv420p^
         -c:v libvpx -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -c:a libopus -b:a 96k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -f webm "%out%" || exit /b 1

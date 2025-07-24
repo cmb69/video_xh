@@ -16,7 +16,7 @@ dropping support for that container format.  Looking at the details of what
 codecs are actually supported, shows a considerable complexity, and you may not
 want to learn all that.  So just keep your original (possibly post-processed)
 videos, and re-encode them from time to time with newer versions of ITube to
-cater to an ever evolving Web. 
+cater to an ever evolving Web.
 
 ## Requirements
 
