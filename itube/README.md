@@ -1,0 +1,133 @@
+# ITube
+
+ITube is a script for processing video files so they can be easily used by
+[Video_XH](https://github.com/cmb69/video_xh).
+The script is meant for offline processing, since direct integration of its
+features into Video_XH is practically impossible.
+
+Of course, there is no *need* to use ITube for processing your videos; it is
+merely meant as a convenient way to prepare suitable videos for the Web,
+similar to what is done by YouTube, Vimeo etc. when you upload videos to those
+platforms.  The main problem solved by ITube is to create a suitable set of
+video files which can be played on different browsers and in different
+environments.  E.g. some years ago, it was mandatory to have Ogg video files
+for some browsers, but nowadays browsers are in the process of completely
+dropping support for that container format.  Looking at the details of what
+codecs are actually supported, shows a considerable complexity, and you may not
+want to learn all that.  So just keep your original (possibly post-processed)
+videos, and re-encode them from time to time with newer versions of ITube to
+cater to an ever evolving Web.
+
+## Requirements
+
+The script runs only under Windows operating systems (or emulation layers, such
+as [WineHQ](https://www.winehq.org/)), and requires [ffmpeg](https://ffmpeg.org/).
+
+## Download
+
+The [lastest release](https://github.com/cmb69/video_xh/releases/latest)
+is available for download on Github.
+
+## Installation
+
+* Extract the ZIP archive somewhere on your computer.
+* If you have [ffmpeg](https://ffmpeg.org/) already installed, make sure it is
+  in the `PATH`.  Otherwise [download ffmpeg](https://www.gyan.dev/ffmpeg/builds/);
+  the essential build is usually sufficient unless you have some uncommon videos
+  to process.  Then put `ffmpeg.exe` and `ffprobe.exe` in the `PATH`, or the
+  folder where you extracted the ITube ZIP archive (i.e. right besides `itube.bat`).
+* If you prefer working with drag&drop, consider to create a link to `itube.bat`
+  on your desktop.
+
+## Settings
+
+At the top of `itube.bat` is a configuration section which allows you to tune some
+of the parameters, but the defaults are supposed to be good, so usually no
+configuration is necessary.
+
+## Usage
+
+`itube.bat` is a command line script, so you can use it from the command line,
+if you are comfortable working this way, e.g.
+
+    itube C:\my_video.mp4
+
+Otherwise you can just drag & drop the video file to be converted on `itube.bat`
+(or a link to that file), which will then start the conversion.
+
+Either way, the script creates a subfolder with the basename of the video file
+(e.g. for the example above, `C:\my_video\`), and all created files (including
+some temporary files) are placed right inside this folder.  The script is
+showing its progress in a command window; you can watch it, or just take a break
+since the video transcoding process takes a long time.  If you close the window,
+transcoding will quit.
+
+After the conversion is finished, you may want to manually inspect some of the
+created files (i.e. play or view them); if you're contempt with their quality,
+upload the whole folder to your webspace into the `userfiles/media` folder of
+CMSimple_XH.  Then use Video_XH to show the video on your website.
+
+### Input Videos
+
+While ITube will convert almost any video that you pass it, a couple of notes:
+
+* Use meaningful (but not overly long) video filenames; that might be good for
+  SEO, and also for users downloading the videos.
+
+* Avoid special characters (like spaces and punctuation) in the video filenames;
+  while that might work fine for ITube, it can cause portability issues, and is
+  also somewhat confusing.
+
+* Provide properly post-processed input videos to ITube.  The script does no
+  post-processing on itself (except for quick and dirty deinterlacing, if needed,
+  and the necessary downscaling), so depending on your input video, you should
+  do this by other means (there are plenty of solutions available elsewhere,
+  commercial and free).  It is strongly suggested that you keep the (post-processed)
+  input videos, so you can re-encode them with newer versions of ITube later.
+
+* Provide videos with a contempary resolution to ITube.  While the script accepts
+  even 240p videos, you do not want to present such small videos to all of your
+  visitors – some may not be able to watch bigger videos due to limited bandwidth
+  or device power, but most usually are.  So use HD videos as input, or at least
+  full PAL/NTSC SD content.  If you still have some smaller videos you consider
+  worthwhile to show on your Website, consider to apply some sophisticated
+  upscaling algorithms in the post-processing step (commercial and free solutions
+  are available elsewhere).
+
+* Usually you should not alter the framerate of the videos; either of 24fps,
+  25fps, 30fps, 50fps and 60fps are fine; even smaller fps values may be okay.
+  While there are a couple of ways to change the framerate during post-processing,
+  the results are not unlikely to yield bad results when re-encoded with ITube.
+
+* ITube only takes into account the main video and audio streams of the input
+  videos and ignores other streams, because 1 video and 1 audio stream is the
+  least common denominator regarding browser support.  If ITube picks up undesired
+  streams, you need to re-mux the videos upfront.
+
+## Troubleshooting
+
+Report bugs and ask for support either on
+[Github](https://github.com/cmb69/video_xh/issues)
+or in the [CMSimple_XH Forum](https://cmsimpleforum.com/).
+
+## License
+
+ITube is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
+or (at your option) any later version.
+
+ITube is distributed in the hope that it will be useful,
+but without any warranty; without even the implied warranty of merchantibility
+or fitness for a particular purpose.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ITube. If not, see https://www.gnu.org/licenses/.
+
+Copyright © Christoph M. Becker
+
+## Credits
+
+ITube is powered by [ffmpeg](https://ffmpeg.org/).
+Many thanks for releasing this powerful multimedia framework as OpenSource software!

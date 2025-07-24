@@ -71,12 +71,10 @@ Das Aussehen von Video_XH kann unter `Stylesheet` angepasst werden.
 Da Video_XH keinen Upload anbietet, müssen Sie Ihre Video-Dateien in den
 eingestellten Order per FTP, Filebrowser oder
 [Uploader_XH](https://github.com/cmb69/uploader_xh) hoch laden.
-Es werden die folgenden Video-Formate unterstützt: MP4 (AVC
-Baseline@L3.0/AAC), WebM (VP8/Vorbis) und OGG (Theora/Vorbis).
-Sie können Ihre Videos mit [XMedia Recode](https://www.xmedia-recode.de/)
-(verwenden Sie das `HTML 5` Profil) leicht in diese Formate konvertieren.
-Um alle bedeutenden Browser zu unterstützen sollten Sie eine
-`*.mp4` *und* eine `*.webm`/`*.ogv` Version hoch laden.
+Es werden die folgenden Video-Formate unterstützt: MP4, WebM und OGG.
+Die einfachste Möglichkeit einen geeigneten Satz von Videos zu erstellen, der
+eine große Anzahl an Browsern unterstützt, ist die Verwendung des
+[ITube](https://github.com/cmb69/video_xh/itube) Dienstprogramms.
 Zusätzlich können Sie ein so genanntes Poster in den gleichen Ordner hoch laden,
 also ein Bild im JPEG-Format (`*.jpg`), das angezeigt wird bevor das Video abspielt.
 

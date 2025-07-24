@@ -45,7 +45,7 @@ class VideoFinder
         $it = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
                 $this->videoFolder,
-                FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS
+                FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS | FilesystemIterator::FOLLOW_SYMLINKS
             ),
             RecursiveIteratorIterator::SELF_FIRST
         );
