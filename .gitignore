@@ -1,6 +1,8 @@
 /coverage
-vendor
+/vendor
 /.phpunit.cache/test-results
 /.phpunit.result.cache
 /composer.lock
+/itube/ffmpeg.exe
+/itube/ffprobe.exe
 /tools
