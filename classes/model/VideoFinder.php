@@ -98,7 +98,7 @@ class VideoFinder
         $res = [];
         foreach ($ini as $section => $contents) {
             $key = $this->videoFolder . dirname($name) . "/" . $section;
-            $type = pathinfo($section, PATHINFO_EXTENSION);
+            $type = self::TYPES[pathinfo($section, PATHINFO_EXTENSION)];
             if (isset($contents["codecs"])) {
                 $type .= "; codecs=" . $contents["codecs"];
             }
@@ -115,7 +115,7 @@ class VideoFinder
         foreach (array_keys(self::TYPES) as $extension) {
             $filename = $dirname . $name . '.' . $extension;
             if (file_exists($filename)) {
-                $files[$filename] = $extension;
+                $files[$filename] = self::TYPES[$extension];
             }
         }
         return $files;
