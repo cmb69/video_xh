@@ -24,9 +24,9 @@ title itube %filename%
 echo [32mprocessing %filename%[0m
 if not exist "%folder%" md "%folder%"
 type nul > "%inifile%"
-call :set_deint || ( pause & exit /b 1 )
-call :set_size_and_scale 720 || ( pause & exit /b 1 )
-call :set_vfilter || ( pause & exit /b 1 )
+call :set_deint
+call :set_size_and_scale 720
+call :set_vfilter
 call :set_bitrate || ( pause & exit /b 1 )
 call :encode_mp4 || ( pause & exit /b 1 )
 call :encode_webm || ( pause & exit /b 1 )
