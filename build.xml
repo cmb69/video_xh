@@ -73,6 +73,7 @@
         <exclude name=".github/**"/>
         <exclude name=".phive/**"/>
         <exclude name="help/template.htm"/>
+        <exclude name="itube/**"/>
         <exclude name="tests/**"/>
         <exclude name="README*.md"/>
         <exclude name="build.xml"/>
@@ -109,6 +110,22 @@
     <delete dir="patchee" quiet="true"/>
     <delete dir="current" quiet="true"/>
     <delete dir="dist" quiet="true"/>
+  </target>
+
+  <target name="build-itube" description="builds a distributable ITube ZIP archive">
+    <exec executable="git" checkreturn="true">
+      <arg line="archive -o export.zip HEAD"/>
+    </exec>
+    <unzip file="export.zip" todir="export"/>
+    <delete file="export.zip"/>
+    <move todir="dist">
+      <fileset dir="export">
+        <include name="itube/**"/>
+      </fileset>
+    </move>
+    <delete dir="export"/>
+    <zip destfile="ITube-2.3-dev.zip" basedir="dist" prefix=""/>
+    <delete dir="dist"/>
   </target>
 
 </project>
