@@ -67,6 +67,43 @@ created files (i.e. play or view them); if you're contempt with their quality,
 upload the whole folder to your webspace into the `userfiles/media` folder of
 CMSimple_XH.  Then use Video_XH to show the video on your website.
 
+### Input Videos
+
+While ITube will convert almost any video that you pass it, a couple of notes:
+
+* Use meaningful (but not overly long) video filenames; that might be good for
+  SEO, and also for users downloading the videos.
+
+* Avoid special characters (like spaces and punctuation) in the video filenames;
+  while that might work fine for ITube, it can cause portability issues, and is
+  also somewhat confusing.
+
+* Provide properly post-processed input videos to ITube.  The script does no
+  post-processing on itself (except for quick and dirty deinterlacing, if needed,
+  and the necessary downscaling), so depending on your input video, you should
+  do this by other means (there are plenty of solutions available elsewhere,
+  commercial and free).  It is strongly suggested that you keep the (post-processed)
+  input videos, so you can re-encode them with newer versions of ITube later.
+
+* Provide videos with a contempary resolution to ITube.  While the script accepts
+  even 240p videos, you do not want to present such small videos to all of your
+  visitors – some may not be able to watch bigger videos due to limited bandwidth
+  or device power, but most usually are.  So use HD videos as input, or at least
+  full PAL/NTSC SD content.  If you still have some smaller videos you consider
+  worthwhile to show on your Website, consider to apply some sophisticated
+  upscaling algorithms in the post-processing step (commercial and free solutions
+  are available elsewhere).
+
+* Usually you should not alter the framerate of the videos; either of 24fps,
+  25fps, 30fps, 50fps and 60fps are fine; even smaller fps values may be okay.
+  While there are a couple of ways to change the framerate during post-processing,
+  the results are not unlikely to yield bad results when re-encoded with ITube.
+
+* ITube only takes into account the main video and audio streams of the input
+  videos and ignores other streams, because 1 video and 1 audio stream is the
+  least common denominator regarding browser support.  If ITube picks up undesired
+  streams, you need to re-mux the videos upfront.
+
 ## Troubleshooting
 
 Report bugs and ask for support either on
