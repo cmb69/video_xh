@@ -25,7 +25,15 @@ echo [32mprocessing %filename%[0m
 if not exist "%folder%" md "%folder%"
 type nul > "%inifile%"
 call :set_deint
-call :set_size_and_scale 720
+call :set_size_and_scale 720 && goto :size_set
+call :set_size_and_scale 480 && goto :size_set
+call :set_size_and_scale 360 && goto :size_set
+call :set_size_and_scale 240 || (
+    echo [31mvideos smaller than 240p are not supported[0m
+    pause
+    exit /b 1
+)
+:size_set
 call :set_vfilter
 call :set_bitrate || ( pause & exit /b 1 )
 call :encode_mp4 || ( pause & exit /b 1 )
@@ -45,7 +53,10 @@ goto :eof
 :set_size_and_scale
     setlocal
     set size=%1
+    set width[1080]=1920
     set width[720]=1280
+    set width[480]=854
+    set width[360]=640
     set width[240]=426
     for /f "tokens=1-3 delims=," %%i in (
         '%ffprobe% -v error -select_streams v:0 -show_entries stream^=width^,height^,sample_aspect_ratio -of csv^=p^=0 %infile%'
@@ -55,6 +66,7 @@ goto :eof
         set sar=%%k
     )
     if %sar% neq N/A for /f "tokens=1-2 delims=:" %%i in ("%sar%") do set /a width=!width! * %%i / %%j
+    if %width% lss !width[%size%]! if %height% lss %size% exit /b 1
     set /a wide=%width% * 9 / 16 / %height%
     if %wide%==0 (
         set scale=-2:%size%
