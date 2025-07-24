@@ -37,12 +37,14 @@ goto :eof
     set size=%1
     set width[720]=1280
     set width[240]=426
-    for /f "tokens=1-2 delims=," %%i in (
-        '%ffprobe% -v error -select_streams v:0 -show_entries stream^=width^,height -of csv^=p^=0 %infile%'
+    for /f "tokens=1-3 delims=," %%i in (
+        '%ffprobe% -v error -select_streams v:0 -show_entries stream^=width^,height^,sample_aspect_ratio -of csv^=p^=0 %infile%'
     ) do (
         set width=%%i
         set height=%%j
+        set sar=%%k
     )
+    if %sar% neq N/A for /f "tokens=1-2 delims=:" %%i in ("%sar%") do set /a width=!width! * %%i / %%j
     set /a wide=%width% * 9 / 16 / %height%
     if %wide%==0 (
         set scale=-2:%size%
