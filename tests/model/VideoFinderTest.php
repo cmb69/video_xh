@@ -47,31 +47,13 @@ class VideoFinderTest extends TestCase
         touch($this->mediaFolder . 'movie.vtt');
         touch($this->mediaFolder . 'movie.webm');
         touch($this->mediaFolder . 'movie');
-        file_put_contents($this->mediaFolder . "new.ini", <<<EOT
-            [movie.webm]
-            [movie.mp4]
-            EOT);
-        touch($this->mediaFolder . "new.jpg");
-        touch($this->mediaFolder . "new.vtt");
     }
 
     public function testAvailableVideos(): void
     {
-        $expected = ["movie", "new"];
+        $expected = array('movie');
         $actual = $this->subject->availableVideos();
         $this->assertEquals($expected, $actual);
-    }
-
-    public function testFindsVideoFromIni(): void
-    {
-        $sources = [
-            "{$this->mediaFolder}./movie.webm" => "webm",
-            "{$this->mediaFolder}./movie.mp4" => "mp4"
-        ];
-        $video = $this->subject->find("new", "en");
-        $this->assertEquals($sources, $video->sources());
-        $this->assertEquals("{$this->mediaFolder}new.jpg", $video->poster());
-        $this->assertEquals("{$this->mediaFolder}new.vtt", $video->subtitle());
     }
 
     public function testFindsVideo(): void

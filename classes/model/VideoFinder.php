@@ -62,17 +62,13 @@ class VideoFinder
             $it->next();
         }
         natcasesort($videos);
-        $videos = array_values(array_unique($videos));
+        $videos = array_unique($videos);
         return $videos;
     }
 
     public function find(string $name, string $language): ?Video
     {
-        if ($this->hasIni($name)) {
-            $sources = $this->findFromIni($name);
-        } else {
-            $sources = $this->videoFiles($name);
-        }
+        $sources = $this->videoFiles($name);
         if (empty($sources)) {
             return null;
         }
@@ -82,24 +78,6 @@ class VideoFinder
             $this->subtitleFile($name, $language),
             $this->uploadDate(key($sources))
         );
-    }
-
-    private function hasIni(string $name): bool
-    {
-        return is_file($this->videoFolder . $name . ".ini");
-    }
-
-    /** @return array<string,string> */
-    private function findFromIni(string $name): array
-    {
-        if (($ini = parse_ini_file($this->videoFolder . $name . ".ini", true, INI_SCANNER_RAW)) === false) {
-            return [];
-        }
-        $res = [];
-        foreach (array_keys($ini) as $section) {
-            $res[$this->videoFolder . dirname($name) . "/" . $section] = pathinfo($section, PATHINFO_EXTENSION);
-        }
-        return $res;
     }
 
     /** @return array<string,string> */
