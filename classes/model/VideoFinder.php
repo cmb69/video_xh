@@ -55,7 +55,7 @@ class VideoFinder
             assert($it->current() instanceof SplFileInfo);
             if ($it->current()->isFile()) {
                 $extension = $it->current()->getExtension();
-                if ($extension === "ini" || in_array($extension, array_keys(self::TYPES), true)) {
+                if (in_array($extension, array_keys(self::TYPES), true)) {
                     $videos[] = substr(substr($it->key(), strlen($this->videoFolder)), 0, -(strlen($extension) + 1));
                 }
             }

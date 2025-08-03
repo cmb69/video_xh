@@ -16,14 +16,12 @@ if not exist %ffprobe% echo [31mcannot find ffprobe[0m
 set infile=%1
 set folder=%~dpn1
 set basename=%~n1
-set inifile=%folder%\%basename%.ini
 set filename=%~nx1
 
 title itube %filename%
 
 echo [32mprocessing %filename%[0m
 if not exist "%folder%" md "%folder%"
-type nul > "%inifile%"
 call :set_deint
 call :set_size_and_scale 720 && goto :size_set
 call :set_size_and_scale 480 && goto :size_set
@@ -100,7 +98,7 @@ goto :eof
 
 :encode_mp4
     setlocal
-    set out=%folder%\%basename%_%size%p.mp4
+    set out=%folder%\%basename%.mp4
     set logfile=%folder%\%basename%
     set /a bufsize=%bitrate% * 2
     echo [36manalyzing %size%p MP4 video ...[0m
@@ -116,18 +114,12 @@ goto :eof
         -c:a aac -b:a 128k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -movflags +faststart -f mp4 "%out%" || exit /b 1
     del "%logfile%*.log*"
-    call :set_level "%out%"
-    (
-        echo [%basename%_%size%p.mp4]
-        echo codecs=avc1.4d00%level%,mp4a.40.2
-        echo:
-    ) >> "%inifile%"
     endlocal
 goto :eof
 
 :encode_webm
     setlocal
-    set out=%folder%\%basename%_%size%p.webm
+    set out=%folder%\%basename%.webm
     set logfile=%folder%\%basename%
     set /a bufsize=%bitrate% * 2
     echo [36manalyzing %size%p WebM video ...[0m
@@ -143,23 +135,5 @@ goto :eof
         -c:a libopus -b:a 96k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -f webm "%out%" || exit /b 1
     del "%logfile%*.log"
-    (
-        echo [%basename%_%size%p.webm]
-        echo codecs=vp8,opus
-        echo:
-    ) >> "%inifile%"
     endlocal
-goto :eof
-
-:set_level
-    setlocal
-    set file=%1
-    for /f "delims=," %%i in (
-        '%ffprobe% -v error -select_streams v:0 -show_entries stream^=level -of csv^=p^=0 %file%'
-    ) do set level=%%i
-    set digits=0123456789abcdef
-    set /a high=%level% / 16
-    set /a low=%level% %% 16
-    set hex=!digits:~%high%,1!!digits:~%low%,1!
-    endlocal & set level=%hex%
 goto :eof
