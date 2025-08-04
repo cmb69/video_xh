@@ -9,6 +9,9 @@ set crf=23
 set ffmpeg=%~dp0ffmpeg.exe
 if not exist %ffmpeg% for /f %%i in ('where ffmpeg') do set ffmpeg=%%i
 if not exist %ffmpeg% echo [31mcannot find ffmpeg[0m
+set ffplay=%~dp0ffplay.exe
+if not exist %ffplay% for /f %%i in ('where ffplay') do set ffplay=%%i
+if not exist %ffplay% echo [31mcannot find ffplay[0m
 set ffprobe=%~dp0ffprobe.exe
 if not exist %ffprobe% for /f %%i in ('where ffprobe') do set ffprobe=%%i
 if not exist %ffprobe% echo [31mcannot find ffprobe[0m
@@ -33,6 +36,7 @@ call :set_size_and_scale 240 || (
 )
 :size_set
 call :set_vfilter
+call :play_video
 call :set_bitrate || ( pause & exit /b 1 )
 call :encode_mp4 || ( pause & exit /b 1 )
 call :encode_webm || ( pause & exit /b 1 )
@@ -85,6 +89,19 @@ goto :eof
     if "%vfilter%" neq "" set vfilter=%vfilter%,
     set vfilter=%vfilter%scale=%scale%,setsar=1
     endlocal & set vfilter=%vfilter%
+goto :eof
+
+:play_video
+    setlocal
+    set out=%folder%\%basename%.jpg
+    echo [36mplaying video ...[0m
+:play_again
+    %ffplay% -hide_banner -loglevel error -stats -vf %vfilter% %infile%
+    set /p "pos=[33mscreenshot at: [0m"
+    if "%pos%" equ "" goto :play_again
+    echo [36mtaking screenshot at %pos% ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -ss %pos% -i %infile% -vf %vfilter% -frames:v 1 %out%
+    endlocal
 goto :eof
 
 :set_bitrate

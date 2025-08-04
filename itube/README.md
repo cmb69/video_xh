@@ -34,7 +34,7 @@ is available for download on Github.
 * If you have [ffmpeg](https://ffmpeg.org/) already installed, make sure it is
   in the `PATH`.  Otherwise [download ffmpeg](https://www.gyan.dev/ffmpeg/builds/);
   the essential build is usually sufficient unless you have some uncommon videos
-  to process.  Then put `ffmpeg.exe` and `ffprobe.exe` in the `PATH`, or the
+  to process.  Then put `ffmpeg.exe`, `ffplay.exe` and `ffprobe.exe` in the `PATH`, or the
   folder where you extracted the ITube ZIP archive (i.e. right besides `itube.bat`).
 * If you prefer working with drag&drop, consider to create a link to `itube.bat`
   on your desktop.
@@ -57,10 +57,27 @@ Otherwise you can just drag & drop the video file to be converted on `itube.bat`
 
 Either way, the script creates a subfolder with the basename of the video file
 (e.g. for the example above, `C:\my_video\`), and all created files (including
-some temporary files) are placed right inside this folder.  The script is
-showing its progress in a command window; you can watch it, or just take a break
-since the video transcoding process takes a long time.  If you close the window,
-transcoding will quit.
+some temporary files) are placed right inside this folder.  After the script
+has determined some basic parameters, the video is played, so you can check
+whether everything is okay.  Use the following keys to control playback:
+
+| key               | function                         |
+|-------------------|----------------------------------|
+| q/ESC             | quit                             |
+| p/SPACE           | pause                            |
+| left/right        | seek backward/forward 10 seconds |
+| down/up           | seek backward/forward 1 minute   |
+| page down/page up | seek backward/forward 10 minutes |
+
+After quitting, the script asks for the time where the screenshot (used as video
+poster) should be taken.  You can find the time where you quit the video at the
+left of the line above.  Enter this value and press `ENTER`, and the screenshot
+is taken.  If you want to play the video again, because you didn't quit at the
+desired time, just press `ENTER`.
+Afterwards the script continues with the actual video encoding.
+The script is showing its progress in a command window; you can watch it, or
+just take a break since the video encoding process takes a long time.
+If you close the window, processing will quit.
 
 After the conversion is finished, you may want to manually inspect some of the
 created files (i.e. play or view them); if you're contempt with their quality,
