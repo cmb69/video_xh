@@ -93,7 +93,7 @@ goto :eof
     echo [36mdetermining %size%p video bitrate ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
-        -c:v libx264 -preset slow -tune film -profile main -crf %crf%^
+        -c:v libx264 -preset slow -tune film -profile high -crf %crf%^
         -an -sn^
         -f mp4 "%out%" || exit /b 1
     for /f %%i in ('%ffprobe% -v error -show_entries format^=bit_rate -of csv^=p^=0 "%out%"') do set bitrate=%%i
@@ -109,13 +109,13 @@ goto :eof
     echo [36manalyzing %size%p MP4 video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
-        -c:v libx264 -preset slow -tune film -profile main -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -an -sn^
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
     echo [36mencoding %size%p MP4 video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
-        -c:v libx264 -preset slow -tune film -profile main -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -c:a aac -b:a 128k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -movflags +faststart -f mp4 "%out%" || exit /b 1
     del "%logfile%*.log*"
