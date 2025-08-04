@@ -47,7 +47,7 @@ goto :eof
     setlocal
     for /f "delims=," %%i in (
         '%ffprobe% -v error -select_streams v:0 -show_entries stream^=field_order -of csv^=p^=0 %infile%'
-    ) do if %%i neq progressive set deint=yadif
+    ) do if %%i neq progressive set deint=yadif=1
     endlocal & set deint=%deint%
 goto :eof
 
@@ -114,7 +114,7 @@ goto :eof
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
     echo [36mencoding %size%p MP4 video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
-        -vf scale=%scale%,setsar=1 -pix_fmt yuv420p^
+        -vf %vfilter% -pix_fmt yuv420p^
         -c:v libx264 -preset slow -tune film -profile main -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -c:a aac -b:a 128k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -movflags +faststart -f mp4 "%out%" || exit /b 1
