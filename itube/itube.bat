@@ -36,6 +36,9 @@ call :set_vfilter
 call :set_bitrate || ( pause & exit /b 1 )
 call :encode_mp4 || ( pause & exit /b 1 )
 call :encode_webm || ( pause & exit /b 1 )
+call :set_size_and_scale 144 || ( pause & exit /b 1 )
+call :set_vfilter
+call :encode_3gp || ( pause & exit /b 1 )
 echo [32mfinished processing %filename%[0m
 pause
 goto :eof
@@ -56,6 +59,8 @@ goto :eof
     set width[480]=854
     set width[360]=640
     set width[240]=426
+    set width[144]=256
+    rem for some reason this very line is necessary to prevent a script failure
     for /f "tokens=1-3 delims=," %%i in (
         '%ffprobe% -v error -select_streams v:0 -show_entries stream^=width^,height^,sample_aspect_ratio -of csv^=p^=0 %infile%'
     ) do (
@@ -135,5 +140,35 @@ goto :eof
         -c:a libopus -b:a 96k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -f webm "%out%" || exit /b 1
     del "%logfile%*.log"
+    endlocal
+goto :eof
+
+:encode_3gp
+    setlocal
+    set out=%folder%\%basename%.3gp
+    set logfile=%folder%\%basename%
+    set vfilter=%vfilter%,fps=0.5*source_fps
+    echo [36mdetermining 3GP video bitrate ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter% -pix_fmt yuv420p^
+        -c:v libx264 -preset slow -tune film -profile baseline -crf %crf%^
+        -an -sn^
+        "%out%" || exit /b 1
+    for /f %%i in ('%ffprobe% -v error -show_entries format^=bit_rate -of csv^=p^=0 "%out%"') do set bitrate=%%i
+    del "%out%"
+    set /a bufsize=%bitrate% * 2
+    echo [36manalyzing 3GP video ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter% -pix_fmt yuv420p^
+        -c:v libx264 -preset slow -tune film -profile baseline -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -an -sn^
+        -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
+    echo [36mencoding 3GP video ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter% -pix_fmt yuv420p^
+        -c:v libx264 -preset slow -tune film -profile baseline -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -c:a aac -b:a 48k -ac 1 -ar 24000 -sn^
+        -pass 2 -passlogfile "%logfile%" -movflags +faststart "%out%" || exit /b 1
+    del "%logfile%*.log*"
     endlocal
 goto :eof

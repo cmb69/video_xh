@@ -28,7 +28,7 @@ use SplFileInfo;
 
 class VideoFinder
 {
-    private const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg');
+    private const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg', '3gp' => '3gpp');
 
     /** @var string */
     private $videoFolder;
