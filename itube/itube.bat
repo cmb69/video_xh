@@ -125,13 +125,13 @@ goto :eof
     echo [36manalyzing %size%p WebM video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
-        -c:v libvpx -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -c:v libvpx-vp9 -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -an -sn^
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
     echo [36mencoding %size%p WebM video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
-        -c:v libvpx -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -c:v libvpx-vp9 -row-mt 1 -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
         -c:a libopus -b:a 96k -ac 2 -sn^
         -pass 2 -passlogfile "%logfile%" -f webm "%out%" || exit /b 1
     del "%logfile%*.log"
