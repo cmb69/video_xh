@@ -28,7 +28,13 @@
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
+  <target name="js" description="checks JavaScript">
+    <exec executable="jshint" passthru="true" checkreturn="true">
+      <arg line="video.min.js"/>
+    </exec>
+  </target>
+
+  <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
