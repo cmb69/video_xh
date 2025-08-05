@@ -19,6 +19,7 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Plib\Request;
 use XH\PageDataRouter;
 use Video\Dic;
 
@@ -47,7 +48,7 @@ if (XH_wantsPluginAdministration('video')) {
             $o .= Dic::makeShowInfo()()();
             break;
         case 'plugin_main':
-            $o .= Dic::makeShowCallBuilder()(true)();
+            $o .= Dic::makeShowCallBuilder()(true, Request::current())();
             break;
         default:
             $o .= plugin_admin_common();

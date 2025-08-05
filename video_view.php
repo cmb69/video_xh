@@ -19,9 +19,10 @@
  * along with Video_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Plib\Request;
 use Video\Dic;
 
 function video_view(): string
 {
-    return Dic::makeShowCallBuilder()(false)();
+    return Dic::makeShowCallBuilder()(false, Request::current())();
 }

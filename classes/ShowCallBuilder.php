@@ -21,6 +21,7 @@
 
 namespace Video;
 
+use Plib\Request;
 use Plib\Response;
 use Plib\View;
 use Video\Model\VideoFinder;
@@ -48,7 +49,7 @@ class ShowCallBuilder
         $this->view = $view;
     }
 
-    public function __invoke(bool $showTitle): Response
+    public function __invoke(bool $showTitle, Request $request): Response
     {
         $output = $this->view->render('call-builder', [
             "videos" => $this->videoFinder->availableVideos(),
@@ -61,7 +62,7 @@ class ShowCallBuilder
             "width" => $this->config['default_width'],
             "height" => $this->config['default_height'],
             "className" => $this->config['default_class'],
-            "script" => "{$this->pluginFolder}video.min.js",
+            "script" => $this->script($request),
             "show_title" => $showTitle,
         ]);
         $response =  Response::create($output);
@@ -81,5 +82,11 @@ class ShowCallBuilder
             $options[] = compact('id', 'label', 'selected');
         }
         return $options;
+    }
+
+    private function script(Request $request): string
+    {
+        $filename = $this->pluginFolder . "video.min.js";
+        return $request->url()->path($filename)->with("v", VIDEO_VERSION)->relative();
     }
 }

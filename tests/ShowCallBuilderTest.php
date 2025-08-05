@@ -23,6 +23,7 @@ namespace Video;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
+use Plib\FakeRequest;
 use Plib\View;
 use Video\Model\VideoFinder;
 
@@ -38,7 +39,7 @@ class ShowCallBuilderTest extends TestCase
             $videoFinder,
             new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")['video'])
         );
-        $response = $subject(true);
+        $response = $subject(true, new FakeRequest());
         $this->assertSame("Video – Call Builder", $response->title());
         Approvals::verifyHtml($response->output());
     }
