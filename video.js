@@ -39,13 +39,11 @@ function initCallBuilder() {
 
     /** @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} element */
     function initFormElement(element) {
-        if (element.id !== "video_call") {
-            element.onchange = buildPluginCall;
-        } else if (element instanceof HTMLTextAreaElement) {
-            element.onclick = function () {
-                element.select();
-            };
+        if (element instanceof HTMLTextAreaElement && element.id === "video_call") {
+            element.onclick = element.select.bind(element);
             element.onchange = parsePluginCall;
+        } else {
+            element.onchange = buildPluginCall;
         }
     }
 
@@ -61,9 +59,10 @@ function initCallBuilder() {
         /** @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} element */
         function buildOption(element) {
             if (element instanceof HTMLInputElement && element.type === "checkbox") {
-                opts.push(element.id.substring(6) + "=" + (element.checked ? "1" : "0"));
+                opts.push(element.id.substring("video_".length) + "=" + (element.checked ? "1" : "0"));
             } else if (["video_name", "video_call"].indexOf(element.id) === -1) {
-                opts.push(element.id.substring(6) + '=' + encodeURIComponent(element.value).replace("'", "%27"));
+                opts.push(element.id.substring("video_".length) + '=' +
+                        encodeURIComponent(element.value).replace("'", "%27"));
             }
         }
     }
