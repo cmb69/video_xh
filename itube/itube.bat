@@ -110,7 +110,7 @@ goto :eof
     set /p "pos=[33mscreenshot at: [0m"
     if "%pos%" equ "" goto :play_again
     echo [36mtaking screenshot at %pos% ...[0m
-    %ffmpeg% -y -hide_banner -loglevel error -stats -ss %pos% -i %infile% -vf %vfilter% -frames:v 1 %out%
+    %ffmpeg% -y -hide_banner -loglevel error -stats -ss %pos% -i %infile% -vf %vfilter% -frames:v 1 "%out%"
     endlocal
 goto :eof
 
@@ -250,11 +250,11 @@ goto :eof
     pushd %folder%
     set params=-y -hide_banner -loglevel error -stats
     set streams=-1
-    for %%i in (%basename%.m4a) do (
+    for %%i in ("%basename%.m4a") do (
         set params=!params! -i %%i
     )
-    for %%i in (%basename%.*p.m4v) do (
-        set params=!params! -i %%i
+    for %%i in ("%basename%.*p.m4v") do (
+        set params=!params! -i "%%i"
         set /a streams=!streams! + 1
     )
     set streammap=a:0,agroup:audio
@@ -262,10 +262,10 @@ goto :eof
     set /a streams=%streams% + 1
     for /l %%i in (0, 1, %streams%) do set params=!params! -map %%i
     set params=%params% -c copy -f hls -hls_time 6 -hls_playlist_type vod
-    set params=%params% -hls_segment_filename %basename%.%%v/%%04d.ts
-    set params=%params% -strftime_mkdir 1 -master_pl_name %basename%.m3u8
+    set params=%params% -hls_segment_filename "%basename%.%%v/%%04d.ts"
+    set params=%params% -strftime_mkdir 1 -master_pl_name "%basename%.m3u8"
     set params=%params% -var_stream_map "%streammap%"
-    set params=%params% %basename%.%%v.m3u8
+    set params=%params% "%basename%.%%v.m3u8"
     echo [36mcreating HLS manifests and fragments ...[0m
     %ffmpeg% %params% || exit /b 1
     del %basename%.*p.m4v %basename%.m4a
