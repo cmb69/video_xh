@@ -32,6 +32,9 @@
     <exec executable="jshint" passthru="true" checkreturn="true">
       <arg line="video.min.js"/>
     </exec>
+    <exec executable="tsc" passthru="true" checkreturn="true">
+      <arg line="--checkJS --noEmit --noImplicitAny --lib es5,dom video.min.js"/>
+    </exec>
   </target>
 
   <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
