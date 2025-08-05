@@ -24,14 +24,14 @@ if (document.getElementById("video_call_builder")) {
 }
 
 function initCallBuilder() {
-    var /** @type {HTMLScriptElement} */
-        template = document.querySelector("script#video_call_builder");
+    var /** @type {HTMLScriptElement} */ template,
+        /** @type {HTMLFormElement} */ form,
+        /** @type {NodeListOf<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>} */ elements,
+        /** @type {HTMLTextAreaElement} */ call;
+    template = document.querySelector("script#video_call_builder");
     template.insertAdjacentHTML("beforebegin", template.text);
-
-    var /** @type {HTMLFormElement} */
-        form = document.querySelector("form#video_call_builder");
-    var /** @type {NodeListOf<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>} */
-        elements = form.querySelectorAll("input,textarea,select");
+    form = document.querySelector("form#video_call_builder");
+    elements = form.querySelectorAll("input,textarea,select");
     elements.forEach(function (element) {
         if (element.id !== "video_call") {
             element.onchange = buildPluginCall;
@@ -42,14 +42,14 @@ function initCallBuilder() {
             element.onchange = parsePluginCall;
         }
     });
-
+    call = form.querySelector("textarea#video_call");
     buildPluginCall();
 
     function buildPluginCall() {
-        var /** @type Array<string> */
-            opts = [];
-        var /** @type {NodeListOf<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>} */
-            elements = form.querySelectorAll("input,textarea,select");
+        var /** @type {string[]} */ opts,
+            /** @type {HTMLSelectElement} */ name;
+        opts = [];
+        elements = form.querySelectorAll("input,textarea,select");
         elements.forEach(function (element) {
             if (element instanceof HTMLInputElement && element.type === "checkbox") {
                 opts.push(element.id.substring(6) + "=" + (element.checked ? "1" : "0"));
@@ -57,31 +57,31 @@ function initCallBuilder() {
                 opts.push(element.id.substring(6) + '=' + encodeURIComponent(element.value).replace("'", "%27"));
             }
         });
-        var /** @type {HTMLTextAreaElement} */
-            call = form.querySelector("textarea#video_call");
-        var /** @type {HTMLSelectElement} */
-            name = form.querySelector("select#video_name");
+        name = form.querySelector("select#video_name");
         call.value = "{{{video('" + name.value + "','" + opts.join("&") + "')}}}";
     }
 
     function parsePluginCall() {
-        var /** @type {HTMLTextAreaElement} */
-            call = form.querySelector("textarea#video_call");
-        var text = call.value;
-        var matches = text.match(/'([^'])*'/g);
+        var /** @type {string} */ text,
+            /** @type {RegExpMatchArray} */ matches,
+            /** @type {string} */ name,
+            /** @type {HTMLSelectElement} */ select,
+            /** @type {string[]} */ options,
+            /** @type {string[]} */ pair,
+            /** @type {HTMLInputElement} */ element;
+        text = call.value;
+        matches = text.match(/'([^'])*'/g);
         if (matches && matches.length === 2) {
             form.reset();
             call.value = text;
-            var name = matches[0].substring(1, matches[0].length - 1);
-            var /** @type {HTMLSelectElement} */
-                select = document.querySelector("select#video_name");
+            name = matches[0].substring(1, matches[0].length - 1);
+            select = document.querySelector("select#video_name");
             select.value = name;
-            var options = matches[1].substring(1, matches[1].length - 1).split("&");
+            options = matches[1].substring(1, matches[1].length - 1).split("&");
             options.forEach(function (option) {
-                var pair = option.split("=");
+                pair = option.split("=");
                 if (pair.length === 2) {
-                    var /** @type {HTMLInputElement} */
-                        element = document.querySelector("#video_" + pair[0]);
+                    element = document.querySelector("#video_" + pair[0]);
                     if (element) {
                         if (element.type === "checkbox") {
                             element.checked = pair[1] === "0" ? false : !!pair[1];
