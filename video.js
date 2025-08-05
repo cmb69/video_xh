@@ -28,37 +28,44 @@ function initCallBuilder() {
         /** @type {HTMLFormElement} */ form,
         /** @type {NodeListOf<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>} */ elements,
         /** @type {HTMLTextAreaElement} */ call;
+
     template = document.querySelector("script#video_call_builder");
     template.insertAdjacentHTML("beforebegin", template.text);
     form = document.querySelector("form#video_call_builder");
     elements = form.querySelectorAll("input,textarea,select");
-    elements.forEach(function (element) {
+    elements.forEach(initFormElement);
+    call = form.querySelector("textarea#video_call");
+    buildPluginCall();
+
+    /** @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} element */
+    function initFormElement(element) {
         if (element.id !== "video_call") {
             element.onchange = buildPluginCall;
         } else if (element instanceof HTMLTextAreaElement) {
-            element.onclick = function selectContent() {
+            element.onclick = function () {
                 element.select();
             };
             element.onchange = parsePluginCall;
         }
-    });
-    call = form.querySelector("textarea#video_call");
-    buildPluginCall();
+    }
 
     function buildPluginCall() {
         var /** @type {string[]} */ opts,
             /** @type {HTMLSelectElement} */ name;
+
         opts = [];
-        elements = form.querySelectorAll("input,textarea,select");
-        elements.forEach(function (element) {
+        elements.forEach(buildOption);
+        name = form.querySelector("select#video_name");
+        call.value = "{{{video('" + name.value + "','" + opts.join("&") + "')}}}";
+
+        /** @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} element */
+        function buildOption(element) {
             if (element instanceof HTMLInputElement && element.type === "checkbox") {
                 opts.push(element.id.substring(6) + "=" + (element.checked ? "1" : "0"));
             } else if (["video_name", "video_call"].indexOf(element.id) === -1) {
                 opts.push(element.id.substring(6) + '=' + encodeURIComponent(element.value).replace("'", "%27"));
             }
-        });
-        name = form.querySelector("select#video_name");
-        call.value = "{{{video('" + name.value + "','" + opts.join("&") + "')}}}";
+        }
     }
 
     function parsePluginCall() {
@@ -66,9 +73,8 @@ function initCallBuilder() {
             /** @type {RegExpMatchArray} */ matches,
             /** @type {string} */ name,
             /** @type {HTMLSelectElement} */ select,
-            /** @type {string[]} */ options,
-            /** @type {string[]} */ pair,
-            /** @type {HTMLInputElement} */ element;
+            /** @type {string[]} */ options;
+
         text = call.value;
         matches = text.match(/'([^'])*'/g);
         if (matches && matches.length === 2) {
@@ -78,7 +84,15 @@ function initCallBuilder() {
             select = document.querySelector("select#video_name");
             select.value = name;
             options = matches[1].substring(1, matches[1].length - 1).split("&");
-            options.forEach(function (option) {
+            options.forEach(parseOption);
+            buildPluginCall();
+        }
+
+        /** @param {string} option */
+        function parseOption(option) {
+                var /** @type {string[]} */ pair,
+                    /** @type {HTMLInputElement} */ element;
+
                 pair = option.split("=");
                 if (pair.length === 2) {
                     element = document.querySelector("#video_" + pair[0]);
@@ -90,8 +104,6 @@ function initCallBuilder() {
                         }
                     }
                 }
-            });
-            buildPluginCall();
-        }
+            }
     }
 }
