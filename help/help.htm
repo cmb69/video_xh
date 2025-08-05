@@ -96,11 +96,13 @@ language file available), or customize them according to your needs.</p>
 <p>As Video_XH provides no such possibility, you have to upload your
 video files to the configured video folder via FTP, a file browser or <a
 href="https://github.com/cmb69/uploader_xh">Uploader_XH</a>. Supported
-video container formats are MP4, WebM, OGG and 3GP. The simplest way to
-get a suitable set of videos which support a wide range of browsers is
-to use the <a href="https://github.com/cmb69/video_xh/itube">ITube</a>
-utility. Additionally you might want to upload a so-called poster to the
-same folder, i.e. an image, that will be displayed before the video is
+video formats are <a
+href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming">HLS</a>, MP4,
+WebM, OGG and 3GP. The simplest way to get a suitable set of videos
+which support a wide range of browsers is to use the <a
+href="https://github.com/cmb69/video_xh/itube">ITube</a> utility.
+Additionally you might want to upload a so-called poster to the same
+folder, i.e. an image, that will be displayed before the video is
 started, in JPEG format (<code>*.jpg</code>).</p>
 <p>To display a video on a CMSimple_XH page insert the following plugin
 call in the content:</p>
@@ -164,7 +166,8 @@ probably can configure your Apache Webserver with the following lines in
 <pre><code>AddType video/webm .webm
 AddType video/mp4 .mp4
 AddType video/ogg .ogv
-AddType video/3gpp .3gp</code></pre>
+AddType video/3gpp .3gp
+AddType application/vnd.apple.mpegurl .m3u8</code></pre>
 <p>If you use a Webserver other than Apache, or that configuration does
 not work, ask your hosting provider or server admin to do the necessary
 configuration.</p>

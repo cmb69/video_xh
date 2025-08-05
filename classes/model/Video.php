@@ -47,6 +47,11 @@ class Video
     public function filename(): string
     {
         assert(!empty($this->sources));
+        foreach ($this->sources as $filename => $type) {
+            if (!strncmp($type, "video/", 6)) {
+                return $filename;
+            }
+        }
         return key($this->sources);
     }
 

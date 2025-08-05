@@ -43,6 +43,16 @@ call :encode_webm || ( pause & exit /b 1 )
 call :set_size_and_scale 144 || ( pause & exit /b 1 )
 call :set_vfilter
 call :encode_3gp || ( pause & exit /b 1 )
+
+call :set_gop
+for %%i in ( 720 480 360 240 ) do call :set_size_and_scale %%i && (
+    call :set_vfilter
+    call :set_bitrate || ( pause & exit /b 1 )
+    call :encode_hls_video || ( pause & exit /b 1 )
+)
+call :encode_hls_audio || ( pause & exit /b 1 )
+call :create_hls_manifest
+
 echo [32mfinished processing %filename%[0m
 pause
 goto :eof
@@ -106,7 +116,7 @@ goto :eof
 
 :set_bitrate
     setlocal
-    set out=%folder%\%basename%.mp4
+    set out=%folder%\%basename%.tmp.mp4
     echo [36mdetermining %size%p video bitrate ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
@@ -187,5 +197,78 @@ goto :eof
         -c:a aac -b:a 48k -ac 1 -ar 24000 -sn^
         -pass 2 -passlogfile "%logfile%" -movflags +faststart "%out%" || exit /b 1
     del "%logfile%*.log*"
+    endlocal
+goto :eof
+
+:set_gop
+    setlocal
+    for /f "delims=/, tokens=1-3" %%i in (
+        'ffprobe -v error -select_streams v:0 -show_entries "stream=field_order,r_frame_rate" -of "csv=p=0" %infile%'
+    ) do (
+        if "%%i" equ "progressive" ( set mult=1 ) else ( set mult=2 )
+        set /a gop=2 * %%j * 1001 / %%k / 1000 * !mult!
+    )
+
+    endlocal & set gop=%gop%
+goto :eof
+
+:encode_hls_video
+    setlocal
+    set out=%folder%\%basename%.%size%p.m4v
+    set logfile=%folder%\%basename%
+    set /a bufsize=%bitrate% * 2
+    echo [36manalyzing %size%p HLS video ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter% -pix_fmt yuv420p^
+        -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -g %gop% -sc_threshold 0 -an -sn^
+        -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
+    echo [36mencoding %size%p HLS video ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter% -pix_fmt yuv420p^
+        -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
+        -g %gop% -sc_threshold 0 -an -sn^
+        -pass 2 -passlogfile "%logfile%" "%out%" || exit /b 1
+    del "%logfile%*.log*"
+    endlocal
+goto :eof
+
+:encode_hls_audio
+    setlocal
+    set out=%folder%\%basename%.m4a
+    set logfile=%folder%\%basename%
+    echo [36mencoding %size%p HLS audio ...[0m
+    %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
+        -vf %vfilter%^
+        -c:a aac -b:a 128k -ac 2 -vn -sn^
+        "%out%" || exit /b 1
+    endlocal
+goto :eof
+
+:create_hls_manifest
+    setlocal
+    pushd %folder%
+    set params=-y -hide_banner -loglevel error -stats
+    set streams=-1
+    for %%i in (%basename%.m4a) do (
+        set params=!params! -i %%i
+    )
+    for %%i in (%basename%.*p.m4v) do (
+        set params=!params! -i %%i
+        set /a streams=!streams! + 1
+    )
+    set streammap=a:0,agroup:audio
+    for /l %%i in (0, 1, %streams%) do set streammap=!streammap! v:%%i,agroup:audio
+    set /a streams=%streams% + 1
+    for /l %%i in (0, 1, %streams%) do set params=!params! -map %%i
+    set params=%params% -c copy -f hls -hls_time 6 -hls_playlist_type vod
+    set params=%params% -hls_segment_filename %basename%.%%v/%%04d.ts
+    set params=%params% -strftime_mkdir 1 -master_pl_name %basename%.m3u8
+    set params=%params% -var_stream_map "%streammap%"
+    set params=%params% %basename%.%%v.m3u8
+    echo [36mcreating HLS manifests and fragments ...[0m
+    %ffmpeg% %params% || exit /b 1
+    del %basename%.*p.m4v %basename%.m4a
+    popd
     endlocal
 goto :eof

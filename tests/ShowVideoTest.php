@@ -53,8 +53,8 @@ class ShowVideoTest extends TestCase
     {
         $this->videoFinder->method('find')->willReturn(new Video(
             [
-                './userfiles/media/my_video.mp4' => "mp4",
-                './userfiles/media/my_video.webm' => "webm",
+                './userfiles/media/my_video.mp4' => "video/mp4",
+                './userfiles/media/my_video.webm' => "video/webm",
             ],
             "./userfiles/media/my_video.jpg",
             null,
@@ -68,8 +68,8 @@ class ShowVideoTest extends TestCase
     {
         $this->videoFinder->method('find')->willReturn(new Video(
             [
-                './userfiles/media/my_video.mp4' => "mp4",
-                './userfiles/media/my_video.webm' => "webm",
+                './userfiles/media/my_video.mp4' => "video/mp4",
+                './userfiles/media/my_video.webm' => "video/webm",
             ],
             null,
             null,

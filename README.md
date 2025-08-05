@@ -69,7 +69,8 @@ The look of Video_XH can be customized under `Stylesheet`.
 As Video_XH provides no such possibility, you have to upload your video
 files to the configured video folder via FTP, a file browser or
 [Uploader_XH](https://github.com/cmb69/uploader_xh).
-Supported video container formats are MP4, WebM, OGG and 3GP.
+Supported video formats are [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming),
+MP4, WebM, OGG and 3GP.
 The simplest way to get a suitable set of videos which support a wide range of
 browsers is to use the [ITube](https://github.com/cmb69/video_xh/itube) utility.
 Additionally you might want to upload a so-called
@@ -155,6 +156,7 @@ with the following lines in `.htaccess`:
     AddType video/mp4 .mp4
     AddType video/ogg .ogv
     AddType video/3gpp .3gp
+    AddType application/vnd.apple.mpegurl .m3u8
 
 If you use a Webserver other than Apache, or that configuration does not work,
 ask your hosting provider or server admin to do the necessary configuration.

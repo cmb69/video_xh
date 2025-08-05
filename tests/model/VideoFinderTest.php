@@ -59,8 +59,8 @@ class VideoFinderTest extends TestCase
     public function testFindsVideo(): void
     {
         $sources = [
-            "{$this->mediaFolder}movie.webm" => "webm",
-            "{$this->mediaFolder}movie.mp4" => "mp4"
+            "{$this->mediaFolder}movie.webm" => "video/webm",
+            "{$this->mediaFolder}movie.mp4" => "video/mp4"
         ];
         $video = $this->subject->find("movie", "en");
         $this->assertEquals($sources, $video->sources());
@@ -77,8 +77,8 @@ class VideoFinderTest extends TestCase
     public function testFindsVideoWithoutPoster(): void
     {
         $sources = [
-            "{$this->mediaFolder}movie.webm" => "webm",
-            "{$this->mediaFolder}movie.mp4" => "mp4"
+            "{$this->mediaFolder}movie.webm" => "video/webm",
+            "{$this->mediaFolder}movie.mp4" => "video/mp4"
         ];
         unlink($this->mediaFolder . 'movie.jpg');
         $video = $this->subject->find("movie", "en");
@@ -90,8 +90,8 @@ class VideoFinderTest extends TestCase
     public function testFindsVideoWithoutSubtitle(): void
     {
         $sources = [
-            "{$this->mediaFolder}movie.webm" => "webm",
-            "{$this->mediaFolder}movie.mp4" => "mp4"
+            "{$this->mediaFolder}movie.webm" => "video/webm",
+            "{$this->mediaFolder}movie.mp4" => "video/mp4"
         ];
         unlink($this->mediaFolder . 'movie.vtt');
         $video = $this->subject->find("movie", "en");

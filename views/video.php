@@ -29,7 +29,7 @@ use Plib\View;
   <meta itemprop="uploadDate" content="<?=$this->esc($uploadDate)?>">
   <video class="<?=$this->esc($className)?>" <?=$this->raw($attributes)?>>
 <?foreach ($sources as $source):?>
-    <source src="<?=$this->esc($source['url'])?>" type="video/<?=$this->esc($source['type'])?>">
+    <source src="<?=$this->esc($source['url'])?>" type="<?=$this->esc($source['type'])?>">
 <?endforeach?>
 <?if ($track):?>
     <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>">

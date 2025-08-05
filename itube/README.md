@@ -81,8 +81,9 @@ If you close the window, processing will quit.
 
 After the conversion is finished, you may want to manually inspect some of the
 created files (i.e. play or view them); if you're contempt with their quality,
-upload the whole folder to your webspace into the `userfiles/media` folder of
-CMSimple_XH.  Then use Video_XH to show the video on your website.
+upload the whole folder (including the subfolders) to your webspace into the
+`userfiles/media` folder of CMSimple_XH.  Then use Video_XH to show the video
+on your website.
 
 ### Input Videos
 

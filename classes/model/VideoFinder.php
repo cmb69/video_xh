@@ -28,7 +28,13 @@ use SplFileInfo;
 
 class VideoFinder
 {
-    private const TYPES = array('webm' => 'webm', 'mp4' => 'mp4', 'ogv' => 'ogg', '3gp' => '3gpp');
+    private const TYPES = [
+        "m3u8" => "application/vnd.apple.mpegurl",
+        "webm" => "video/webm",
+        "mp4" => "video/mp4",
+        "ogv" => "video/ogg",
+        "3gp" => "video/3gpp"
+    ];
 
     /** @var string */
     private $videoFolder;
@@ -56,7 +62,10 @@ class VideoFinder
             if ($it->current()->isFile()) {
                 $extension = $it->current()->getExtension();
                 if (in_array($extension, array_keys(self::TYPES), true)) {
-                    $videos[] = substr(substr($it->key(), strlen($this->videoFolder)), 0, -(strlen($extension) + 1));
+                    $video = substr(substr($it->key(), strlen($this->videoFolder)), 0, -(strlen($extension) + 1));
+                    if (!preg_match('/\.\d+$/', $video)) {
+                        $videos[] = $video;
+                    }
                 }
             }
             $it->next();
