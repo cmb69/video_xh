@@ -2,6 +2,8 @@
 
 <project name="Video" default="help">
 
+  <property name="dir" value="${project.basedir}"/>
+
   <target name="help" description="lists available targets">
     <exec executable="phing" outputProperty="help">
       <arg value="-l"/>
@@ -30,10 +32,10 @@
 
   <target name="js" description="checks JavaScript">
     <exec executable="jshint" passthru="true" checkreturn="true">
-      <arg line="video.min.js"/>
+      <arg line="video.js"/>
     </exec>
     <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--checkJS --noEmit --noImplicitAny --lib es5,dom video.min.js"/>
+      <arg line="--checkJS --noEmit --noImplicitAny --lib es5,dom video.js"/>
     </exec>
   </target>
 
@@ -42,6 +44,12 @@
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
       <arg line="--coverage-html coverage"/>
+    </exec>
+  </target>
+
+  <target name="minify" description="minifies JS">
+    <exec executable="uglifyjs" passthru="true" checkreturn="true">
+      <arg line="${dir}/video.js --module --mangle --compress -o ${dir}/video.min.js"/>
     </exec>
   </target>
 
@@ -60,13 +68,9 @@
     </exec>
     <unzip file="export.zip" todir="export"/>
     <delete file="export.zip"/>
-    <exec executable="uglifyjs" checkreturn="true">
-      <arg file="export/video.min.js"/>
-      <arg value="--compress"/>
-      <arg value="--mangle"/>
-      <arg value="--output"/>
-      <arg file="export/video.min.js"/>
-    </exec>
+    <phingcall target="minify">
+      <property name="dir" value="export/"/>
+    </phingcall>
     <move todir="dist">
       <fileset dir="export">
         <include name="views/*.php"/>

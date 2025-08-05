@@ -87,6 +87,9 @@ class ShowCallBuilder
     private function script(Request $request): string
     {
         $filename = $this->pluginFolder . "video.min.js";
+        if (!is_file($filename)) {
+            $filename = $this->pluginFolder . "video.js";
+        }
         return $request->url()->path($filename)->with("v", VIDEO_VERSION)->relative();
     }
 }
