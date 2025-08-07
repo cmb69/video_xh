@@ -9,6 +9,10 @@ Für jedes Video wird zusätzliches [schema.org](https://schema.org/)
 konformes Markup generiert, so dass Suchmaschinen die Videos indexieren
 und in Suchergebnissen anzeigen können.
 
+Zur einfachen Konvertierung der Videos in für Video_XH geeignete Videos kann das
+[ITube](https://github.com/cmb69/video_xh/blob/dev/itube/README_de.md)
+Dienstprogramm verwendet werden.
+
 - [Voraussetzungen](#voraussetzungen)
 - [Download](#download)
 - [Installation](#installation)

@@ -85,9 +85,12 @@
       HTML5 video element wherever possible, and provides a a download link as
       fallback otherwise. The supported video formats depend on the browser.
 
-      For each video additional <a href="https://schema.org/">schema.org</a>
+      For each video additional schema.org
       compliant markup will be generated, so search engines can index and show the
       videos in search results.
+
+      For easy conversion of your videos to suitable Video_XH videos, you can use the
+      ITube utility (https://github.com/cmb69/video_xh/blob/dev/itube/README.md).
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
@@ -96,9 +99,12 @@
       und bietet andernfalls einen Downloadlink als Fallback. Die unterstützten
       Video-Formate hängen vom Browser ab.
 
-      Für jedes Video wird zusätzliches [schema.org](https://schema.org/)
+      Für jedes Video wird zusätzliches schema.org
       konformes Markup generiert, so dass Suchmaschinen die Videos indexieren
       und in Suchergebnissen anzeigen können.
+
+      Zur einfachen Konvertierung der Videos in für Video_XH geeignete Videos kann das
+      ITube Dienstprogramm (https://github.com/cmb69/video_xh/blob/dev/itube/README_de.md) verwendet werden.
    </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->

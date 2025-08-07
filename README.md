@@ -8,6 +8,9 @@ For each video additional <a href="https://schema.org/">schema.org</a>
 compliant markup will be generated, so search engines can index and show the
 videos in search results.
 
+For easy conversion of your videos to suitable Video_XH videos, you can use the
+[ITube](https://github.com/cmb69/video_xh/blob/dev/itube/README.md) utility.
+
 - [Requirements](#requirements)
 - [Download](#download)
 - [Installation](#installation)
