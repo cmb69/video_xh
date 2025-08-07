@@ -22,23 +22,23 @@
  */
 #video_call_builder {
     padding: 1em 0;
-}
-#video_call_builder p {
-    margin: 0.4em 0;
-}
-#video_call_builder label {
-    display: inline-block;
-    vertical-align: top;
-    width: 19%;
-}
-#video_call_builder select,
-#video_call_builder input[type=text],
-#video_call_builder textarea {
-    display: inline-block;
-    vertical-align: top;
-    width: 79%;
-}
-#video_call_builder #video_call {
-    width: 99%;
-    height: 5em;
+    p {
+        margin: 0.4em 0;
+    }
+    label {
+        display: inline-block;
+        vertical-align: top;
+        width: 19%;
+    }
+    select,
+    input[type="text"],
+    textarea {
+        display: inline-block;
+        vertical-align: top;
+        width: 79%;
+    }
+    #video_call {
+        width: 99%;
+        height: 5em;
+    }
 }

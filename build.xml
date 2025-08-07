@@ -47,6 +47,15 @@
     </exec>
   </target>
 
+  <target name="postcss" description="patches CSS for older browsers">
+    <exec executable="postcss" passthru="true" checkreturn="true">
+      <arg line="${dir}/css -u postcss-preset-env --no-map -r"/>
+    </exec>
+    <exec executable="prettier" passthru="true" checkreturn="true">
+      <arg line="--tab-width 4 ${dir}/css --write"/>
+    </exec>
+  </target>
+
   <target name="minify" description="minifies JS">
     <exec executable="uglifyjs" passthru="true" checkreturn="true">
       <arg line="${dir}/video.js --module --mangle --compress -o ${dir}/video.min.js"/>
@@ -68,6 +77,9 @@
     </exec>
     <unzip file="export.zip" todir="export"/>
     <delete file="export.zip"/>
+    <phingcall target="postcss">
+      <property name="dir" value="export/"/>
+    </phingcall>
     <phingcall target="minify">
       <property name="dir" value="export/"/>
     </phingcall>
