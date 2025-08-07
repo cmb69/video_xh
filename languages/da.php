@@ -7,6 +7,4 @@
  * License.
  */
 
-$plugin_tx['video']['subtitle_label']="dansk";
-
-?>
+$plugin_tx['video']['subtitle_label'] = "dansk";

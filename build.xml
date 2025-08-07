@@ -20,6 +20,9 @@
       <arg file="index.php"/>
       <arg file="video_view.php"/>
     </exec>
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg line="--standard=PSR12 --runtime-set ignore_warnings_on_exit true --exclude=Generic.Files.LineLength config/ languages"/>
+    </exec>
   </target>
 
   <target name="stan" description="runs static analyzer">
