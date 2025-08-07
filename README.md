@@ -76,9 +76,12 @@ Supported video formats are [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Stream
 MP4, WebM, OGG and 3GP.
 The simplest way to get a suitable set of videos which support a wide range of
 browsers is to use the [ITube](https://github.com/cmb69/video_xh/itube) utility.
+
 Additionally you might want to upload a so-called
 poster to the same folder, i.e. an image, that will be displayed before the
-video is started, in JPEG format (`*.jpg`).
+video is started, in JPEG format (`*.jpg`) with the same basename as the video.
+Note that search engines may not index your videos unless a poster image is
+available.
 
 To display a video on a CMSimple_XH page insert the following plugin call in
 the content:

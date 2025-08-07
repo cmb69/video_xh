@@ -80,8 +80,12 @@ Es werden die folgenden Video-Formate unterstützt:
 Die einfachste Möglichkeit einen geeigneten Satz von Videos zu erstellen, der
 eine große Anzahl an Browsern unterstützt, ist die Verwendung des
 [ITube](https://github.com/cmb69/video_xh/itube) Dienstprogramms.
+
 Zusätzlich können Sie ein so genanntes Poster in den gleichen Ordner hoch laden,
-also ein Bild im JPEG-Format (`*.jpg`), das angezeigt wird bevor das Video abspielt.
+also ein Bild im JPEG-Format (`*.jpg`) mit demselben Basisnamen wie das Video,
+das angezeigt wird bevor das Video abspielt.
+Es ist zu beachten, dass Suchmaschinen die Videos möglicherweise nicht indexieren,
+falls kein Posterbild verfügbar ist.
 
 Um ein Video auf einer CMSimple_XH-Seite anzuzeigen, fügen Sie dort den
 folgenden Plugin-Aufruf ein:
