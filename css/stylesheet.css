@@ -2,8 +2,11 @@
  * Videos
  */
 .video_video {
+    /* uncomment to have responsive videos
     width: 100%;
-    height: auto;
+    height: auto; */
+    /* uncomment and adapt percentage for responsive vertical videos
+    width: 40%; */
 }
 
 /*
