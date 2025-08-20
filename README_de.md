@@ -11,7 +11,8 @@ und in Suchergebnissen anzeigen können.
 
 Zur einfachen Konvertierung der Videos in für Video_XH geeignete Videos kann das
 [ITube](https://github.com/cmb69/video_xh/blob/dev/itube/README_de.md)
-Dienstprogramm verwendet werden.
+Dienstprogramm verwendet werden, das es ebenfalls ermöglicht aus Bilder eine
+Diashow mit Musikuntermalung zu erstellen.
 
 - [Voraussetzungen](#voraussetzungen)
 - [Download](#download)

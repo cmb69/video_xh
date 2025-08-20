@@ -90,7 +90,8 @@
       videos in search results.
 
       For easy conversion of your videos to suitable Video_XH videos, you can use the
-      ITube utility (https://github.com/cmb69/video_xh/blob/dev/itube/README.md).
+      ITube utility (https://github.com/cmb69/video_xh/blob/dev/itube/README.md),
+      which also allows creating a slideshow of images with some background music.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
@@ -104,7 +105,8 @@
       und in Suchergebnissen anzeigen können.
 
       Zur einfachen Konvertierung der Videos in für Video_XH geeignete Videos kann das
-      ITube Dienstprogramm (https://github.com/cmb69/video_xh/blob/dev/itube/README_de.md) verwendet werden.
+      ITube Dienstprogramm (https://github.com/cmb69/video_xh/blob/dev/itube/README_de.md) verwendet werden,
+      das es ebenfalls ermöglicht aus Bilder eine Diashow mit Musikuntermalung zu erstellen.
    </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <!-- The use of this language is limited by the website where the repository is hosted. -->

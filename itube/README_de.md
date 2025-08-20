@@ -20,6 +20,9 @@ alles vielleicht nicht genau verstehen. Daher ist es empfehlenswert die original
 Zeit mit neueren Versionen von ITube erneut zu konvertieren, um ein sich immer
 weiterentwickelndes Web zu bedienen.
 
+Es ist zu beachten, dass das Erzeugen von Diashows mit Musikuntermalung
+ebenfalls unterstützt wird.
+
 ## Voraussetzungen
 
 Das Skript läuft unter Windows-Betriebsystemen (oder Emulationsschichten wie
@@ -40,8 +43,8 @@ kann von Github herunter geladen werden.
   ungewöhnliche Videoformate verarbeitet werden. Dann müssen `ffmpeg.exe`,
   `ffplay.exe` und `ffprobe.exe` in den `PATH`, oder den Ordner, in den das ITube
   ZIP-Archiv entpackt wurde (d.h. direkt neben `itube.bat`), verschoben werden.
-* Soll mit Drag & Drop gearbeitet werden, ist es sinnvoll eine Verknüpfung zu
-  `itube.bat` auf dem Desktop zu erstellen.
+* Soll mit Drag & Drop gearbeitet werden, ist es sinnvoll Verknüpfungen zu
+  `itube.bat` und `slideshow.bat` auf dem Desktop zu erstellen.
 
 ## Einstellungen
 
@@ -136,6 +139,37 @@ Hinweise:
   gemeinsame Nenner bezüglich der Browserunterstützung ist. Wenn ITube ungewünschte
   Ströme auswählt, sind die Video vor der Bearbeitung zu re-muxen.
 
+### Diashows
+
+Aus einer Reihe von Bildern kann eine Video-Diashow mit Musikuntermalung erstellt
+werden.
+
+Dazu wird ein Ordner mit Bildern im JPEG-Format (`*.jpg`) und eine Audiodatei
+(`audio.mp3`, `audio.wav` oder ein anderes `audio.*`) benötigt. Die Abspieldauer
+der Audiodatei bestimmt die Abspieldauer des Videos, und jedes Bild wird für den
+entsprechenden Bruchteil dieser Zeit angezeigt werden. Gibt es beispielsweise
+12 Bilder und die Audio-Abspieldauer ist 1 Minute, wird jedes Bild für 5 Sekunden
+angezeigt werden.
+
+Dann muss `slideshow.bat` aufgerufen werden, entweder von der Kommandozeile,
+wenn man mit dieser Arbeitsweise vertraut ist, z.B.
+
+    slideshow C:\meine_diashow
+
+Oder die zu verarbeitende Video-Datei wird per Drag & Drop auf `slideshow.bat`
+(oder eine Verknüfung zu dieser Datei) gezogen, was die Erstellung des
+Diashow-Videos auslöst.
+
+Das Skript ermittelt die geeignetsten Video-Dimensionen, so dass die Bilder
+möglichst wenig mit Rändern aufgefüllt werden müssen (etwas Rahmen ist nötig,
+wenn Bilder im Hoch- und Querformat gemischt vorliegen). Danach wird das Video,
+das die Diashow enthält, erzeugt, und als verlustfreies MKV gespeichert (z.B.
+für das obige Beispiel die Datei `C:\meine_diashow\meine_diashow.mkv`).
+Das erzeugte Video kann dann angeschaut werden (es ist zu beachten, dass nicht
+alle Wiedergabeprogramme in der Lage sind, diese Datei zu spielen; im Zweifel
+sollte es der [VLC](https://www.videolan.org/) können). Ist das Video zufrieden
+stellend, kann es [mit `itube.bat` konvertiert werden](#verwendung).
+
 ## Problembehebung
 
 Programmfehler können auf [Github](https://github.com/cmb69/video_xh/issues)
@@ -164,3 +198,8 @@ Copyright © Christoph M. Becker
 ITube nutzt [ffmpeg](https://ffmpeg.org/).
 Vielen Dank für die Veröffentlichung dieses mächtigen Multimedia-Frameworks als
 Open-Source-Software!
+
+Vielen Dank an die Community im [CMSimple_XH-Forum](https://www.cmsimpleforum.com/)
+für Tipps, Vorschläge und das Testen.
+Besonders möchte ich *manu* danken, der ein Slideshow-Video vorgestellt hat, das
+Auslöser für die Entwicklung von `slideshow.bat` war.

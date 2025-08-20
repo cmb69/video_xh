@@ -18,6 +18,8 @@ want to learn all that.  So just keep your original (possibly post-processed)
 videos, and re-encode them from time to time with newer versions of ITube to
 cater to an ever evolving Web.
 
+Note that creating image slideshows with background music is also supported.
+
 ## Requirements
 
 The script runs only under Windows operating systems (or emulation layers, such
@@ -36,8 +38,8 @@ is available for download on Github.
   the essential build is usually sufficient unless you have some uncommon videos
   to process.  Then put `ffmpeg.exe`, `ffplay.exe` and `ffprobe.exe` in the `PATH`, or the
   folder where you extracted the ITube ZIP archive (i.e. right besides `itube.bat`).
-* If you prefer working with drag&drop, consider to create a link to `itube.bat`
-  on your desktop.
+* If you prefer working with drag&drop, consider to create links to `itube.bat`
+  and `slideshow.bat` on your desktop.
 
 ## Settings
 
@@ -122,6 +124,34 @@ While ITube will convert almost any video that you pass it, a couple of notes:
   least common denominator regarding browser support.  If ITube picks up undesired
   streams, you need to re-mux the videos upfront.
 
+### Image Slideshows
+
+If you have still images, you can create slideshows with background music as video.
+
+To do so, you need a folder with the images in JPEG format (`*.jpg`) and an audio
+file (`audio.mp3`, `audio.wav`, or some other `audio.*`).  The duration of the
+audio file determines the duration of the video file, and every image will be
+shown for the respective fraction of that duration.  For instance, if there are
+12 images and the audio duration is 1 minute, each image will be shown for 5
+seconds.
+
+Then you need to invoke `slideshow.bat`, either from the command line,
+if you are comfortable working this way, e.g.
+
+    slideshow C:\my_slideshow
+
+Or you can just drag & drop the folder which contains the images and the audio
+file on `slideshow.bat` (or a link to that file), which will then start the
+creation of the slideshow video.
+
+The script determines the most suitable video dimensions, so that the images need
+minimal padding (some padding is needed if landscape and portrait images are mixed).
+Afterwards the video containing the slideshow is created, and stored as lossless
+MKV (e.g. for the example above it would be `C:\my_slideshow\my_slideshow.mkv`).
+You can watch the created video (note that not all players may be able to play
+the file; if in doubt, try [VLC](https://www.videolan.org/)).  If you are
+satisfied with the video, you can [convert it with `itube.bat`](#usage).
+
 ## Troubleshooting
 
 Report bugs and ask for support either on
@@ -149,3 +179,8 @@ Copyright © Christoph M. Becker
 
 ITube is powered by [ffmpeg](https://ffmpeg.org/).
 Many thanks for releasing this powerful multimedia framework as OpenSource software!
+
+Many thanks to the community at the [CMSimple_XH-Forum](https://www.cmsimpleforum.com/)
+for tips, suggestions and testing.
+Particularly I want to thank *manu* for presenting a slideshow video which triggered
+the development of `slideshow.bat`.
