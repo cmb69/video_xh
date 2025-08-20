@@ -83,14 +83,30 @@ goto :eof
         set sar=%%k
     )
     if %sar% neq N/A for /f "tokens=1-2 delims=:" %%i in ("%sar%") do set /a width=!width! * %%i / %%j
-    if %width% lss !width[%size%]! if %height% lss %size% exit /b 1
-    set /a wide=%width% * 9 / 16 / %height%
-    if %wide%==0 (
-        set scale=-2:%size%
+    if %height% leq %width% (
+        set format=
     ) else (
-        set scale=!width[%size%]!:-2
+        set width=%height%
+        set height=%width%
+        set format=v
     )
-    endlocal & set "size=%size%" & set scale=%scale%
+    if %width% lss !width[%size%]! if %height% lss %size% exit /b 1
+    if %format% equ v if %size% gtr 480 exit /b 1
+    set /a wide=%width% * 9 / 16 / %height%
+    if "%format%" equ "" (
+        if %wide%==0 (
+            set scale=-2:%size%
+        ) else (
+            set scale=!width[%size%]!:-2
+        )
+    ) else (
+        if %wide%==0 (
+            set scale=%size%:-2
+        ) else (
+            set scale=-2:!width[%size%]!
+        )
+    )
+    endlocal & set "size=%size%%format%" & set scale=%scale%
 goto :eof
 
 :set_vfilter
