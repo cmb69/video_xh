@@ -11,8 +11,8 @@ use Plib\View;
  * @var string $langCode
  * @var string $subtitles_enabled
  * @var string $contentUrl
- * @var string $filename
- * @var string $downloadLink
+ * @var array<string,string> $filenames
+ * @var string $basename
  * @var string $title
  * @var string $description
  * @var string $uploadDate
@@ -20,7 +20,7 @@ use Plib\View;
  */
 ?>
 
-<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject" class="<?=$this->esc($className)?>">
   <meta itemprop="name" content="<?=$this->esc($title)?>">
   <meta itemprop="description" content="<?=$this->esc($description)?>">
   <meta itemprop="contentURL" content="<?=$this->esc($contentUrl)?>">
@@ -35,6 +35,14 @@ use Plib\View;
 <?if ($track):?>
     <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>" <?=$this->esc($subtitles_enabled)?>>
 <?endif?>
-    <a href="<?=$this->esc($filename)?>"><?=$this->raw($downloadLink)?></a>
+<?if (isset($thumbnailUrl)):?>
+    <img src="<?=$this->esc($thumbnailUrl)?>" alt="<?=$this->esc($title)?>">
+<?endif?>
+    <p><?=$this->text("label_download", $basename)?></p>
+    <ul>
+<?foreach ($filenames as $filename => $basename):?>
+      <li><a href="<?=$this->esc($filename)?>"><?=$this->esc($basename)?></a></li>
+<?endforeach?>
+    </ul>
   </video>
 </div>

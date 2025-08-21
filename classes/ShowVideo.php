@@ -54,7 +54,10 @@ class ShowVideo
         $options = $this->parseOptions(html_entity_decode($options, ENT_QUOTES, 'UTF-8'));
         $video = $this->videoFinder->find($name, $request->language());
         if ($video !== null) {
-            $filename = $video->filename();
+            $filenames = $video->filenames();
+            assert(!empty($filenames));
+            $filename = key($filenames);
+            $basename = pathinfo($filename, PATHINFO_FILENAME);
             $sources = [];
             foreach ($video->sources() as $url => $type) {
                 $sources[] = ['url' => $url, 'type' => $type];
@@ -67,8 +70,8 @@ class ShowVideo
                 "langCode" => $request->language(),
                 "subtitles_enabled" => $options['subtitles'] ? "default" : "",
                 "contentUrl" => $request->url()->path($filename)->absolute(),
-                "filename" => $filename,
-                "downloadLink" => $this->downloadLink($video, $options, $filename),
+                "filenames" => $filenames,
+                "basename" => $basename,
                 "title" => $options['title'],
                 "description" => $options['description'],
                 "uploadDate" => date('c', $video->date()),
@@ -118,19 +121,5 @@ class ShowVideo
             . ' height="' . $options['height'] . '"'
             . ($poster ? ' poster="' . $poster . '"' : '');
         return $attributes;
-    }
-
-    /** @param array<string,string|true> $options */
-    private function downloadLink(Video $video, array $options, string $filename): string
-    {
-        $basename = basename($filename);
-        $download = $this->view->text('label_download', $basename);
-        $poster = $video->poster();
-        if ($poster) {
-            $link = "<img src=\"$poster\" alt=\"$download\" title=\"$download\" class=\"{$options['class']}\">";
-        } else {
-            $link = $download;
-        }
-        return $link;
     }
 }

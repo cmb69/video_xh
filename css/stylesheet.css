@@ -7,6 +7,16 @@
     height: auto; */
     /* uncomment and adapt percentage for responsive vertical videos
     width: 40%; */
+    img {
+        float: right;
+        display: block;
+        width: 50%;
+    }
+    ul::after {
+        content: "";
+        display: block; 
+        clear: both; 
+    }
 }
 
 /*

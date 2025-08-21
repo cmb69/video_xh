@@ -44,15 +44,16 @@ class Video
         $this->date = $date;
     }
 
-    public function filename(): string
+    /** @return array<string,string> */
+    public function filenames(): array
     {
-        assert(!empty($this->sources));
+        $res = [];
         foreach ($this->sources as $filename => $type) {
             if (!strncmp($type, "video/", 6)) {
-                return $filename;
+                $res[$filename] = basename($filename);
             }
         }
-        return key($this->sources);
+        return $res;
     }
 
     /** @return array<string,string> */
