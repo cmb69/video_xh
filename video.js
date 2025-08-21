@@ -37,40 +37,31 @@ function initCallBuilder() {
     var elements = /** @type {NodeListOf<FormControl>} */ (
         form.querySelectorAll("input,textarea,select")
     );
-    elements.forEach(initFormElement);
-    var call = /** @type {HTMLTextAreaElement} */ (form.querySelector("textarea#video_call"));
-    buildPluginCall();
-
-    /** @param {FormControl} element */
-    function initFormElement(element) {
+    elements.forEach(function (element) {
         if (element instanceof HTMLTextAreaElement && element.id === "video_call") {
             element.onclick = element.select.bind(element);
             element.onchange = parsePluginCall;
         } else {
             element.onchange = buildPluginCall;
         }
-    }
+    });
+    var call = /** @type {HTMLTextAreaElement} */ (form.querySelector("textarea#video_call"));
+    buildPluginCall();
 
     function buildPluginCall() {
         var /** @type {string[]} */ opts = [];
-        elements.forEach(buildOption);
+        elements.forEach(function (element) {
+            var /** @type string */ value;
+            if (element instanceof HTMLInputElement && element.type === "checkbox") {
+                value = element.checked ? "1" : "0";
+                opts.push(element.id.substring("video_".length) + "=" + value);
+            } else if (["video_name", "video_call"].indexOf(element.id) === -1) {
+                value = encodeURIComponent(element.value).replace("'", "%27");
+                opts.push(element.id.substring("video_".length) + "=" + value);
+            }
+        });
         var name = /** @type {HTMLSelectElement} */ (form.querySelector("select#video_name"));
         call.value = "{{{video('" + name.value + "','" + opts.join("&") + "')}}}";
-
-        /** @param {FormControl} element */
-        function buildOption(element) {
-            if (element instanceof HTMLInputElement && element.type === "checkbox") {
-                opts.push(
-                    element.id.substring("video_".length) + "=" + (element.checked ? "1" : "0")
-                );
-            } else if (["video_name", "video_call"].indexOf(element.id) === -1) {
-                opts.push(
-                    element.id.substring("video_".length) +
-                        "=" +
-                        encodeURIComponent(element.value).replace("'", "%27")
-                );
-            }
-        }
     }
 
     function parsePluginCall() {
@@ -85,25 +76,22 @@ function initCallBuilder() {
             );
             select.value = name;
             var options = matches[1].substring(1, matches[1].length - 1).split("&");
-            options.forEach(parseOption);
-            buildPluginCall();
-        }
-
-        /** @param {string} option */
-        function parseOption(option) {
-            var pair = option.split("=");
-            if (pair.length === 2) {
-                var element = /** @type {FormControl} */ (
-                    document.querySelector("#video_" + pair[0])
-                );
-                if (element) {
-                    if (element instanceof HTMLInputElement && element.type === "checkbox") {
-                        element.checked = pair[1] === "0" ? false : !!pair[1];
-                    } else {
-                        element.value = decodeURIComponent(pair[1]);
+            options.forEach(function (option) {
+                var pair = option.split("=");
+                if (pair.length === 2) {
+                    var element = /** @type {FormControl} */ (
+                        document.querySelector("#video_" + pair[0])
+                    );
+                    if (element) {
+                        if (element instanceof HTMLInputElement && element.type === "checkbox") {
+                            element.checked = pair[1] === "0" ? false : !!pair[1];
+                        } else {
+                            element.value = decodeURIComponent(pair[1]);
+                        }
                     }
                 }
-            }
+            });
+            buildPluginCall();
         }
     }
 }
