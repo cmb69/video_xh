@@ -59,6 +59,7 @@ class ShowCallBuilder
             "autoplay" => $this->config['default_autoplay'] ? 'checked' : '',
             "loop" => $this->config['default_loop'] ? 'checked' : '',
             "controls" => $this->config['default_controls'] ? 'checked' : '',
+            "subtitles" => $this->config["default_subtitles"] ? "checked" : "",
             "width" => $this->config['default_width'],
             "height" => $this->config['default_height'],
             "className" => $this->config['default_class'],

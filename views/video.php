@@ -9,6 +9,7 @@ use Plib\View;
  * @var list<array{url:string,type:string}> $sources
  * @var string $track
  * @var string $langCode
+ * @var string $subtitles_enabled
  * @var string $contentUrl
  * @var string $filename
  * @var string $downloadLink
@@ -32,7 +33,7 @@ use Plib\View;
     <source src="<?=$this->esc($source['url'])?>" type="<?=$this->esc($source['type'])?>">
 <?endforeach?>
 <?if ($track):?>
-    <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>">
+    <track src="<?=$this->esc($track)?>" srclang="<?=$this->esc($langCode)?>" label="<?=$this->text('subtitle_label')?>" <?=$this->esc($subtitles_enabled)?>>
 <?endif?>
     <a href="<?=$this->esc($filename)?>"><?=$this->raw($downloadLink)?></a>
   </video>

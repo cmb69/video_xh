@@ -11,6 +11,7 @@ use Plib\View;
  * @var string $autoplay
  * @var string $loop
  * @var string $controls
+ * @var string $subtitles
  * @var string $width
  * @var string $height
  * @var string $className
@@ -60,6 +61,10 @@ use Plib\View;
     <p>
       <label for="video_controls"><?=$this->text('label_controls')?></label>
       <input id="video_controls" type="checkbox" <?=$this->esc($controls)?>>
+    </p>
+    <p>
+      <label for="video_subtitles"><?=$this->text('label_subtitles')?></label>
+      <input id="video_subtitles" type="checkbox" <?=$this->esc($subtitles)?>>
     </p>
     <p>
       <label for="video_width"><?=$this->text('label_width')?></label>

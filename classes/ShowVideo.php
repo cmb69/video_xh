@@ -65,6 +65,7 @@ class ShowVideo
                 "sources" => $sources,
                 "track" => $video->subtitle(),
                 "langCode" => $request->language(),
+                "subtitles_enabled" => $options['subtitles'] ? "default" : "",
                 "contentUrl" => $request->url()->path($filename)->absolute(),
                 "filename" => $filename,
                 "downloadLink" => $this->downloadLink($video, $options, $filename),
@@ -87,7 +88,7 @@ class ShowVideo
     {
         $validOptions = [
             'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
-            'title', 'width'
+            'subtitles', 'title', 'width'
         ];
         $booleanOptions = ["autoplay", "controls", "preload"];
         parse_str($query, $options);
