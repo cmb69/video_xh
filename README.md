@@ -214,6 +214,7 @@ for contributing the *tube* and *tube2* skins
 (for the old video player which has now been superseded)
 and informing me about Video.js 4,
 and *Ulrich* and *Holger* who inspired the subtitle support.
+Also many thanks to *lck* and *olape* for providing early feedback on Video_XH 2.
 
 And last but not least many thanks to [Peter Harteg](http://www.harteg.dk/),
 the “father” of CMSimple, and all developers of [CMSimple_XH](https://www.cmsimple-xh.org/)

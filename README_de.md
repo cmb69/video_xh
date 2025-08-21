@@ -224,6 +224,7 @@ Besonders möchte ich *bca* danken, da er der erste Beta-Tester war,
 die Skins *tube* und *tube2* beigesteuert hat
 und mich über Video.js 4 informiert hat,
 sowie *Ulrich* und *Holger*, die die Unterstützung von Untertiteln angeregt haben.
+Auch an *lck* und *olape* vielen Dank für das schnelle Feedback zu Video_XH 2.
 
 Und zu guter letzt vielen Dank an [Peter Harteg](http://www.harteg.dk/),
 den „Vater“ von CMSimple, und allen Entwicklern von
