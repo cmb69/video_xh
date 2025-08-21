@@ -25,23 +25,32 @@
  */
 #video_call_builder {
     padding: 1em 0;
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5em;
     p {
-        margin: 0.4em 0;
+        display: table-row;
+    }
+    p.video_call {
+        display: table-caption;
+        caption-side: bottom;
     }
     label {
-        display: inline-block;
+        display: table-cell;
         vertical-align: top;
-        width: 19%;
     }
     select,
     input[type="text"],
     textarea {
-        display: inline-block;
+        display: table-cell;
         vertical-align: top;
-        width: 79%;
+    }
+    input[type="text"],
+    textarea {
+        width: 100%;
     }
     #video_call {
-        width: 99%;
         height: 5em;
     }
 }

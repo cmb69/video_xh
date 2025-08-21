@@ -23,7 +23,7 @@ use Plib\View;
 <?if ($show_title):?>
 <h1>Video – <?=$this->text('menu_main')?></h1>
 <?endif?>
-<script type="text/x-template" id="video_call_builder">
+<script type="text/x-template" id="video_call_builder_template">
   <form id="video_call_builder">
     <p>
       <label for="video_name"><?=$this->text('label_name')?></label>
@@ -73,7 +73,7 @@ use Plib\View;
       <label for="video_class"><?=$this->text('label_class')?></label>
       <input id="video_class" type="text" value="<?=$this->esc($className)?>">
     </p>
-    <p>
+    <p class="video_call">
       <textarea id="video_call"></textarea>
     </p>
   </form>

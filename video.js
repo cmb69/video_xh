@@ -24,13 +24,13 @@
  * @typedef {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} FormControl
  */
 
-if (document.getElementById("video_call_builder")) {
+if (document.getElementById("video_call_builder_template")) {
     initCallBuilder();
 }
 
 function initCallBuilder() {
     var template = /** @type {HTMLScriptElement} */ (
-        document.querySelector("script#video_call_builder")
+        document.querySelector("script#video_call_builder_template")
     );
     template.insertAdjacentHTML("beforebegin", template.text);
     var form = /** @type {HTMLFormElement} */ (document.querySelector("form#video_call_builder"));
