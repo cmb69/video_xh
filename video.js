@@ -48,8 +48,7 @@ function initCallBuilder() {
     }
 
     function buildPluginCall() {
-        var /** @type {string[]} */ opts,
-            /** @type {HTMLSelectElement} */ name;
+        var /** @type {string[]} */ opts, /** @type {HTMLSelectElement} */ name;
 
         opts = [];
         elements.forEach(buildOption);
@@ -59,10 +58,15 @@ function initCallBuilder() {
         /** @param {HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement} element */
         function buildOption(element) {
             if (element instanceof HTMLInputElement && element.type === "checkbox") {
-                opts.push(element.id.substring("video_".length) + "=" + (element.checked ? "1" : "0"));
+                opts.push(
+                    element.id.substring("video_".length) + "=" + (element.checked ? "1" : "0")
+                );
             } else if (["video_name", "video_call"].indexOf(element.id) === -1) {
-                opts.push(element.id.substring("video_".length) + '=' +
-                        encodeURIComponent(element.value).replace("'", "%27"));
+                opts.push(
+                    element.id.substring("video_".length) +
+                        "=" +
+                        encodeURIComponent(element.value).replace("'", "%27")
+                );
             }
         }
     }
@@ -89,20 +93,19 @@ function initCallBuilder() {
 
         /** @param {string} option */
         function parseOption(option) {
-                var /** @type {string[]} */ pair,
-                    /** @type {HTMLInputElement} */ element;
+            var /** @type {string[]} */ pair, /** @type {HTMLInputElement} */ element;
 
-                pair = option.split("=");
-                if (pair.length === 2) {
-                    element = document.querySelector("#video_" + pair[0]);
-                    if (element) {
-                        if (element.type === "checkbox") {
-                            element.checked = pair[1] === "0" ? false : !!pair[1];
-                        } else {
-                            element.value = decodeURIComponent(pair[1]);
-                        }
+            pair = option.split("=");
+            if (pair.length === 2) {
+                element = document.querySelector("#video_" + pair[0]);
+                if (element) {
+                    if (element.type === "checkbox") {
+                        element.checked = pair[1] === "0" ? false : !!pair[1];
+                    } else {
+                        element.value = decodeURIComponent(pair[1]);
                     }
                 }
             }
+        }
     }
 }

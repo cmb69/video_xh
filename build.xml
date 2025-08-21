@@ -34,6 +34,9 @@
   </target>
 
   <target name="js" description="checks JavaScript">
+    <exec executable="prettier" passthru="true" checkreturn="true">
+      <arg line="--write --print-width 100 --tab-width 4 --trailing-comma none video.js"/>
+    </exec>
     <exec executable="jshint" passthru="true" checkreturn="true">
       <arg line="video.js"/>
     </exec>
