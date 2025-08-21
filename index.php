@@ -22,7 +22,7 @@
 use Plib\Request;
 use Video\Dic;
 
-const VIDEO_VERSION = "2.4-dev";
+const VIDEO_VERSION = "2.4";
 
 function video(string $name, string $options = ''): string
 {
