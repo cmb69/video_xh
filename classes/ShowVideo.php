@@ -89,12 +89,14 @@ class ShowVideo
             'autoplay', 'class', 'controls', 'description', 'height', 'loop', 'preload',
             'title', 'width'
         ];
+        $booleanOptions = ["autoplay", "controls", "preload"];
         parse_str($query, $options);
         $res = array();
         foreach ($validOptions as $key) {
-            if (isset($options[$key])) {
-                assert(is_string($options[$key])); // @todo actually handle this
-                $res[$key] = ($options[$key] === '') ? true : $options[$key];
+            if (isset($options[$key]) && is_string($options[$key])) {
+                $res[$key] = $options[$key] === '' && in_array($key, $booleanOptions, true)
+                    ? true
+                    : $options[$key];
             } else {
                 $res[$key] = $this->conf["default_$key"];
             }
