@@ -11,10 +11,10 @@ if not exist %ffmpeg% for /f %%i in ('where ffmpeg') do set ffmpeg=%%i
 if not exist %ffmpeg% echo [31mcannot find ffmpeg[0m
 set ffplay=%~dp0ffplay.exe
 if not exist %ffplay% for /f %%i in ('where ffplay') do set ffplay=%%i
-if not exist %ffplay% echo [31mcannot find ffplay[0m
+if not exist %ffplay% echo [31mcannot find ffplay[0m
 set ffprobe=%~dp0ffprobe.exe
 if not exist %ffprobe% for /f %%i in ('where ffprobe') do set ffprobe=%%i
-if not exist %ffprobe% echo [31mcannot find ffprobe[0m
+if not exist %ffprobe% echo [31mcannot find ffprobe[0m
 
 set infile=%1
 set folder=%~dpn1

@@ -8,14 +8,14 @@ if not exist %ffmpeg% for /f %%i in ('where ffmpeg') do set ffmpeg=%%i
 if not exist %ffmpeg% echo [31mcannot find ffmpeg[0m
 set ffprobe=%~dp0ffprobe.exe
 if not exist %ffprobe% for /f %%i in ('where ffprobe') do set ffprobe=%%i
-if not exist %ffprobe% echo [31mcannot find ffprobe[0m
+if not exist %ffprobe% echo [31mcannot find ffprobe[0m
 
 set name=%~n1
 
 chcp 65001
 
 title slideshow
-echo [32mprocessing %~n1[0m
+echo [32mprocessing %~n1[0m
 pushd %1
 
 for %%i in (audio.*) do if not defined audio set audio=%%i
