@@ -91,7 +91,7 @@ goto :eof
         set format=v
     )
     if %width% lss !width[%size%]! if %height% lss %size% exit /b 1
-    if %format% equ v if %size% gtr 480 exit /b 1
+    if "%format%" equ "v" if %size% gtr 480 exit /b 1
     set /a wide=%width% * 9 / 16 / %height%
     if "%format%" equ "" (
         if %wide%==0 (
