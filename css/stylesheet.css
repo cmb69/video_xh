@@ -7,6 +7,7 @@
     height: auto; */
     /* uncomment and adapt percentage for responsive vertical videos
     width: 40%; */
+    --dummy: dummy;
     img {
         float: right;
         display: block;
@@ -23,7 +24,10 @@
  * Plugin info
  */
 article.video_info {
-    section.video_syscheck {}
+    --dummy: dummy;
+    section.video_syscheck {
+        --dummy: dummy;
+    }
 }
 
 /*
