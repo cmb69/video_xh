@@ -79,8 +79,8 @@ for %%i in (*.jpg) do (
 
 echo [36mencode lossless video ...[0m
 %ffmpeg% -y -hide_banner -loglevel error -stats -f concat -safe 0 -i playlist.tmp.txt -i %audio%^
-    -vf "scale=%width%:%height%:force_original_aspect_ratio=decrease:eval=frame,pad=%width%:%height%:-1:-1:color=black" -r 24^
-    -c:v libvpx-vp9 -lossless 1 -c:a copy "%name%.mkv"
+    -vf "scale=%width%:%height%:force_original_aspect_ratio=decrease:eval=frame,pad=%width%:%height%:-1:-1:color=black,scale=out_range=tv"^
+    -c:v libvpx-vp9 -lossless 1 -fps_mode cfr -r 24 -c:a copy "%name%.mkv"
 
 del playlist.tmp.txt
 
