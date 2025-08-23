@@ -237,13 +237,13 @@ goto :eof
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
         -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
-        -g %gop% -sc_threshold 0 -an -sn^
+        -g %gop% -sc_threshold 0 -fps_mode cfr -an -sn^
         -pass 1 -passlogfile "%logfile%" -f null nul || exit /b 1
     echo [36mencoding %size%p HLS video ...[0m
     %ffmpeg% -y -hide_banner -loglevel error -stats -i %infile%^
         -vf %vfilter% -pix_fmt yuv420p^
         -c:v libx264 -preset slow -tune film -profile high -b:v %bitrate% -maxrate %bitrate% -bufsize %bufsize%^
-        -g %gop% -sc_threshold 0 -an -sn^
+        -g %gop% -sc_threshold 0 -fps_mode cfr -an -sn^
         -pass 2 -passlogfile "%logfile%" "%out%" || exit /b 1
     del "%logfile%*.log*"
     endlocal
